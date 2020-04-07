@@ -1,0 +1,690 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C701C6C524372EA10079B395 /* InputInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701C6C424372EA10079B395 /* InputInfoViewController.swift */; };
+		C701C6C7243761E60079B395 /* InputInfoChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701C6C6243761E60079B395 /* InputInfoChildViewController.swift */; };
+		C701C6C9243765A00079B395 /* UIFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701C6C8243765A00079B395 /* UIFunctions.swift */; };
+		C701C6CB2437884D0079B395 /* EnumValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701C6CA2437884D0079B395 /* EnumValue.swift */; };
+		C70F4930241091F80058A61A /* LandmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70F492F241091F80058A61A /* LandmarkViewController.swift */; };
+		C70F4932241092140058A61A /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70F4931241092140058A61A /* LocationListViewController.swift */; };
+		C712AC4E24012258009BB29F /* WritePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C712AC4D24012258009BB29F /* WritePostViewController.swift */; };
+		C718B3CF2420A6A00017EC60 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C718B3CD2420A6A00017EC60 /* Model.xcdatamodeld */; };
+		C71BAEA023F39D0400D82351 /* SearchPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71BAE9F23F39D0400D82351 /* SearchPostViewController.swift */; };
+		C71BAEA223F39DB700D82351 /* DibsCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71BAEA123F39DB700D82351 /* DibsCourseViewController.swift */; };
+		C71BAEA623F3A3C200D82351 /* Pods_PerfectDay_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5376E469755B03439F9304C /* Pods_PerfectDay_iOS.framework */; };
+		C71BAEA723F3A3C200D82351 /* Pods_PerfectDay_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C5376E469755B03439F9304C /* Pods_PerfectDay_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C71BAEAB23F3AC7B00D82351 /* LocationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71BAEAA23F3AC7B00D82351 /* LocationInfo.swift */; };
+		C7391269240621F400954617 /* AcceptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7391268240621F400954617 /* AcceptViewController.swift */; };
+		C739126C2406376900954617 /* AcceptContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C739126B2406376900954617 /* AcceptContentViewController.swift */; };
+		C739126E240638C000954617 /* ContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C739126D240638C000954617 /* ContentData.swift */; };
+		C748813823FA472100E8C926 /* FilterLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C748813723FA472100E8C926 /* FilterLocationViewController.swift */; };
+		C74D96CC23E7B1E9000E26C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74D96CB23E7B1E9000E26C3 /* AppDelegate.swift */; };
+		C74D96CE23E7B1E9000E26C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74D96CD23E7B1E9000E26C3 /* SceneDelegate.swift */; };
+		C74D96D023E7B1E9000E26C3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74D96CF23E7B1E9000E26C3 /* MainViewController.swift */; };
+		C74D96D323E7B1E9000E26C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C74D96D123E7B1E9000E26C3 /* Main.storyboard */; };
+		C74D96D523E7B1ED000E26C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C74D96D423E7B1ED000E26C3 /* Assets.xcassets */; };
+		C74D96D823E7B1ED000E26C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C74D96D623E7B1ED000E26C3 /* LaunchScreen.storyboard */; };
+		C74F972F23E953E300E75058 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F972E23E953E300E75058 /* JoinViewController.swift */; };
+		C74F973223E9769800E75058 /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F973123E9769800E75058 /* FindViewController.swift */; };
+		C75760CB23F64964000BC016 /* DibsNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75760CA23F64964000BC016 /* DibsNavigationViewController.swift */; };
+		C758EADB23F0FF4900033E29 /* BoardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C758EADA23F0FF4900033E29 /* BoardListViewController.swift */; };
+		C76626C9241726BB002B3DD6 /* FilterPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */; };
+		C76B37EC23EA6F2900B05A45 /* ShowInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76B37EB23EA6F2900B05A45 /* ShowInfoViewController.swift */; };
+		C76B37EF23EAC27000B05A45 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76B37EE23EAC27000B05A45 /* HomeViewController.swift */; };
+		C76ED01A24037607003E21F1 /* ShowPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76ED01924037607003E21F1 /* ShowPostViewController.swift */; };
+		C76ED01C2403D1F2003E21F1 /* SetUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76ED01B2403D1F2003E21F1 /* SetUserInfoViewController.swift */; };
+		C76ED01E2403D227003E21F1 /* SetLikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76ED01D2403D227003E21F1 /* SetLikeViewController.swift */; };
+		C7707F9823F290C5007BCCD3 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7707F9723F290C5007BCCD3 /* SearchResultViewController.swift */; };
+		C7707F9A23F29126007BCCD3 /* SearchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7707F9923F29126007BCCD3 /* SearchLocationViewController.swift */; };
+		C7707F9C23F2917D007BCCD3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7707F9B23F2917D007BCCD3 /* SearchViewController.swift */; };
+		C7B0D2A92417E71700BF1467 /* WriteReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B0D2A82417E71700BF1467 /* WriteReviewViewController.swift */; };
+		C7C1FE6D23EC14060022C957 /* SearchSetLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C1FE6C23EC14060022C957 /* SearchSetLocationViewController.swift */; };
+		C7C6811B23F131A10016412B /* PostListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C6811A23F131A10016412B /* PostListViewController.swift */; };
+		C7CD9D8523F1451100D26F62 /* DibsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CD9D8423F1451100D26F62 /* DibsViewController.swift */; };
+		C7CD9D8923F1471400D26F62 /* DibsLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CD9D8823F1471400D26F62 /* DibsLocationViewController.swift */; };
+		C7CD9D8D23F1553B00D26F62 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CD9D8C23F1553B00D26F62 /* MyPageViewController.swift */; };
+		C7CD9D8F23F1554800D26F62 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CD9D8E23F1554800D26F62 /* SettingViewController.swift */; };
+		C7CE240E23ED00C10010C8E9 /* LocationResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CE240D23ED00C10010C8E9 /* LocationResultViewController.swift */; };
+		C7CE241023ED28A60010C8E9 /* SetLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CE240F23ED28A60010C8E9 /* SetLocationViewController.swift */; };
+		C7D8263A2415E0F4005A9D5A /* LocationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D826392415E0F4005A9D5A /* LocationInfoViewController.swift */; };
+		C7D8263C241629C0005A9D5A /* PlannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8263B241629C0005A9D5A /* PlannerViewController.swift */; };
+		C7D8263E24162A09005A9D5A /* CourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8263D24162A09005A9D5A /* CourseViewController.swift */; };
+		C7EFBFCB23E907130034966C /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7EFBFCA23E907130034966C /* Login.storyboard */; };
+		C7EFBFCD23E911D90034966C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFBFCC23E911D90034966C /* LoginViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C71BAEA823F3A3C200D82351 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C71BAEA723F3A3C200D82351 /* Pods_PerfectDay_iOS.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		78B04F192252AF9B0FDF3B97 /* Pods-PerfectDay-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerfectDay-iOS.debug.xcconfig"; path = "Target Support Files/Pods-PerfectDay-iOS/Pods-PerfectDay-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		9620F56059629C3B503AA830 /* Pods-PerfectDay-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerfectDay-iOS.release.xcconfig"; path = "Target Support Files/Pods-PerfectDay-iOS/Pods-PerfectDay-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		C5376E469755B03439F9304C /* Pods_PerfectDay_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PerfectDay_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C701C6C424372EA10079B395 /* InputInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputInfoViewController.swift; sourceTree = "<group>"; };
+		C701C6C6243761E60079B395 /* InputInfoChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputInfoChildViewController.swift; sourceTree = "<group>"; };
+		C701C6C8243765A00079B395 /* UIFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFunctions.swift; sourceTree = "<group>"; };
+		C701C6CA2437884D0079B395 /* EnumValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumValue.swift; sourceTree = "<group>"; };
+		C70F492F241091F80058A61A /* LandmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkViewController.swift; sourceTree = "<group>"; };
+		C70F4931241092140058A61A /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
+		C712AC4D24012258009BB29F /* WritePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritePostViewController.swift; sourceTree = "<group>"; };
+		C718B3CE2420A6A00017EC60 /* UserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserModel.xcdatamodel; sourceTree = "<group>"; };
+		C71BAE9F23F39D0400D82351 /* SearchPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPostViewController.swift; sourceTree = "<group>"; };
+		C71BAEA123F39DB700D82351 /* DibsCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DibsCourseViewController.swift; sourceTree = "<group>"; };
+		C71BAEAA23F3AC7B00D82351 /* LocationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfo.swift; sourceTree = "<group>"; };
+		C7391268240621F400954617 /* AcceptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptViewController.swift; sourceTree = "<group>"; };
+		C739126B2406376900954617 /* AcceptContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptContentViewController.swift; sourceTree = "<group>"; };
+		C739126D240638C000954617 /* ContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentData.swift; sourceTree = "<group>"; };
+		C748813723FA472100E8C926 /* FilterLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterLocationViewController.swift; sourceTree = "<group>"; };
+		C74D96C823E7B1E9000E26C3 /* PerfectDay-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PerfectDay-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C74D96CB23E7B1E9000E26C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C74D96CD23E7B1E9000E26C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C74D96CF23E7B1E9000E26C3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		C74D96D223E7B1E9000E26C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C74D96D423E7B1ED000E26C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C74D96D723E7B1ED000E26C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C74D96D923E7B1ED000E26C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C74F972E23E953E300E75058 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
+		C74F973123E9769800E75058 /* FindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
+		C75760CA23F64964000BC016 /* DibsNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DibsNavigationViewController.swift; sourceTree = "<group>"; };
+		C758EADA23F0FF4900033E29 /* BoardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListViewController.swift; sourceTree = "<group>"; };
+		C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPostViewController.swift; sourceTree = "<group>"; };
+		C76B37EB23EA6F2900B05A45 /* ShowInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowInfoViewController.swift; sourceTree = "<group>"; };
+		C76B37EE23EAC27000B05A45 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		C76ED01924037607003E21F1 /* ShowPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPostViewController.swift; sourceTree = "<group>"; };
+		C76ED01B2403D1F2003E21F1 /* SetUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUserInfoViewController.swift; sourceTree = "<group>"; };
+		C76ED01D2403D227003E21F1 /* SetLikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLikeViewController.swift; sourceTree = "<group>"; };
+		C7707F9723F290C5007BCCD3 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		C7707F9923F29126007BCCD3 /* SearchLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationViewController.swift; sourceTree = "<group>"; };
+		C7707F9B23F2917D007BCCD3 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		C7B0D2A82417E71700BF1467 /* WriteReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewController.swift; sourceTree = "<group>"; };
+		C7B4B9F923F4F8930066B66A /* PerfectDay-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "PerfectDay-iOS.entitlements"; sourceTree = "<group>"; };
+		C7C1FE6C23EC14060022C957 /* SearchSetLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSetLocationViewController.swift; sourceTree = "<group>"; };
+		C7C6811A23F131A10016412B /* PostListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListViewController.swift; sourceTree = "<group>"; };
+		C7CD9D8423F1451100D26F62 /* DibsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DibsViewController.swift; sourceTree = "<group>"; };
+		C7CD9D8823F1471400D26F62 /* DibsLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DibsLocationViewController.swift; sourceTree = "<group>"; };
+		C7CD9D8C23F1553B00D26F62 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		C7CD9D8E23F1554800D26F62 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		C7CE240D23ED00C10010C8E9 /* LocationResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationResultViewController.swift; sourceTree = "<group>"; };
+		C7CE240F23ED28A60010C8E9 /* SetLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLocationViewController.swift; sourceTree = "<group>"; };
+		C7D826392415E0F4005A9D5A /* LocationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfoViewController.swift; sourceTree = "<group>"; };
+		C7D8263B241629C0005A9D5A /* PlannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerViewController.swift; sourceTree = "<group>"; };
+		C7D8263D24162A09005A9D5A /* CourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseViewController.swift; sourceTree = "<group>"; };
+		C7EFBFCA23E907130034966C /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		C7EFBFCC23E911D90034966C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C74D96C523E7B1E9000E26C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C71BAEA623F3A3C200D82351 /* Pods_PerfectDay_iOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		304E35F3FAB2E9185521E945 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C5376E469755B03439F9304C /* Pods_PerfectDay_iOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		45534354CA8B8C06CF3F2917 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				78B04F192252AF9B0FDF3B97 /* Pods-PerfectDay-iOS.debug.xcconfig */,
+				9620F56059629C3B503AA830 /* Pods-PerfectDay-iOS.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		C70F492D24108C360058A61A /* SetLocationView */ = {
+			isa = PBXGroup;
+			children = (
+				C7CE240D23ED00C10010C8E9 /* LocationResultViewController.swift */,
+				C7CE240F23ED28A60010C8E9 /* SetLocationViewController.swift */,
+				C71BAEAA23F3AC7B00D82351 /* LocationInfo.swift */,
+				C7C1FE6C23EC14060022C957 /* SearchSetLocationViewController.swift */,
+			);
+			path = SetLocationView;
+			sourceTree = "<group>";
+		};
+		C70F492E2410904A0058A61A /* LocationView */ = {
+			isa = PBXGroup;
+			children = (
+				C70F492F241091F80058A61A /* LandmarkViewController.swift */,
+				C70F4931241092140058A61A /* LocationListViewController.swift */,
+				C7D826392415E0F4005A9D5A /* LocationInfoViewController.swift */,
+				C7B0D2A82417E71700BF1467 /* WriteReviewViewController.swift */,
+				C7D8263B241629C0005A9D5A /* PlannerViewController.swift */,
+				C7D8263D24162A09005A9D5A /* CourseViewController.swift */,
+			);
+			path = LocationView;
+			sourceTree = "<group>";
+		};
+		C74D96BF23E7B1E9000E26C3 = {
+			isa = PBXGroup;
+			children = (
+				C74D96CA23E7B1E9000E26C3 /* PerfectDay-iOS */,
+				C74D96C923E7B1E9000E26C3 /* Products */,
+				45534354CA8B8C06CF3F2917 /* Pods */,
+				304E35F3FAB2E9185521E945 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		C74D96C923E7B1E9000E26C3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C74D96C823E7B1E9000E26C3 /* PerfectDay-iOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C74D96CA23E7B1E9000E26C3 /* PerfectDay-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				C7B4B9F923F4F8930066B66A /* PerfectDay-iOS.entitlements */,
+				C7707F9623F29083007BCCD3 /* SearchView */,
+				C7CD9D8B23F1552700D26F62 /* MypageView */,
+				C7CD9D8323F143F100D26F62 /* DibsView */,
+				C758EAD923F0FF2C00033E29 /* BoardView */,
+				C76B37ED23EAC1D300B05A45 /* MainView */,
+				C74F973023E973F300E75058 /* LoginView */,
+				C74D96CD23E7B1E9000E26C3 /* SceneDelegate.swift */,
+				C701C6C8243765A00079B395 /* UIFunctions.swift */,
+				C701C6CA2437884D0079B395 /* EnumValue.swift */,
+				C74D96CB23E7B1E9000E26C3 /* AppDelegate.swift */,
+				C74D96D123E7B1E9000E26C3 /* Main.storyboard */,
+				C74D96D423E7B1ED000E26C3 /* Assets.xcassets */,
+				C74D96D623E7B1ED000E26C3 /* LaunchScreen.storyboard */,
+				C718B3CD2420A6A00017EC60 /* Model.xcdatamodeld */,
+				C74D96D923E7B1ED000E26C3 /* Info.plist */,
+			);
+			path = "PerfectDay-iOS";
+			sourceTree = "<group>";
+		};
+		C74F973023E973F300E75058 /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				C7EFBFCA23E907130034966C /* Login.storyboard */,
+				C74F972E23E953E300E75058 /* JoinViewController.swift */,
+				C739126D240638C000954617 /* ContentData.swift */,
+				C74F973123E9769800E75058 /* FindViewController.swift */,
+				C739126B2406376900954617 /* AcceptContentViewController.swift */,
+				C7391268240621F400954617 /* AcceptViewController.swift */,
+				C701C6C424372EA10079B395 /* InputInfoViewController.swift */,
+				C701C6C6243761E60079B395 /* InputInfoChildViewController.swift */,
+				C76B37EB23EA6F2900B05A45 /* ShowInfoViewController.swift */,
+				C7EFBFCC23E911D90034966C /* LoginViewController.swift */,
+				C74D96CF23E7B1E9000E26C3 /* MainViewController.swift */,
+			);
+			path = LoginView;
+			sourceTree = "<group>";
+		};
+		C758EAD923F0FF2C00033E29 /* BoardView */ = {
+			isa = PBXGroup;
+			children = (
+				C758EADA23F0FF4900033E29 /* BoardListViewController.swift */,
+				C7C6811A23F131A10016412B /* PostListViewController.swift */,
+				C76ED01924037607003E21F1 /* ShowPostViewController.swift */,
+				C712AC4D24012258009BB29F /* WritePostViewController.swift */,
+			);
+			path = BoardView;
+			sourceTree = "<group>";
+		};
+		C76B37ED23EAC1D300B05A45 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				C76B37EE23EAC27000B05A45 /* HomeViewController.swift */,
+				C70F492E2410904A0058A61A /* LocationView */,
+				C70F492D24108C360058A61A /* SetLocationView */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		C7707F9623F29083007BCCD3 /* SearchView */ = {
+			isa = PBXGroup;
+			children = (
+				C7707F9723F290C5007BCCD3 /* SearchResultViewController.swift */,
+				C7707F9923F29126007BCCD3 /* SearchLocationViewController.swift */,
+				C71BAE9F23F39D0400D82351 /* SearchPostViewController.swift */,
+				C7707F9B23F2917D007BCCD3 /* SearchViewController.swift */,
+				C748813723FA472100E8C926 /* FilterLocationViewController.swift */,
+				C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */,
+			);
+			path = SearchView;
+			sourceTree = "<group>";
+		};
+		C7CD9D8323F143F100D26F62 /* DibsView */ = {
+			isa = PBXGroup;
+			children = (
+				C7CD9D8423F1451100D26F62 /* DibsViewController.swift */,
+				C75760CA23F64964000BC016 /* DibsNavigationViewController.swift */,
+				C71BAEA123F39DB700D82351 /* DibsCourseViewController.swift */,
+				C7CD9D8823F1471400D26F62 /* DibsLocationViewController.swift */,
+			);
+			path = DibsView;
+			sourceTree = "<group>";
+		};
+		C7CD9D8B23F1552700D26F62 /* MypageView */ = {
+			isa = PBXGroup;
+			children = (
+				C7CD9D8C23F1553B00D26F62 /* MyPageViewController.swift */,
+				C7CD9D8E23F1554800D26F62 /* SettingViewController.swift */,
+				C76ED01B2403D1F2003E21F1 /* SetUserInfoViewController.swift */,
+				C76ED01D2403D227003E21F1 /* SetLikeViewController.swift */,
+			);
+			path = MypageView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C74D96C723E7B1E9000E26C3 /* PerfectDay-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C74D96DC23E7B1ED000E26C3 /* Build configuration list for PBXNativeTarget "PerfectDay-iOS" */;
+			buildPhases = (
+				BB803A8CB6FD725330E073DF /* [CP] Check Pods Manifest.lock */,
+				C74D96C423E7B1E9000E26C3 /* Sources */,
+				C74D96C523E7B1E9000E26C3 /* Frameworks */,
+				C74D96C623E7B1E9000E26C3 /* Resources */,
+				7B4C0D517259AEF5A5F28E6A /* [CP] Embed Pods Frameworks */,
+				C71BAEA823F3A3C200D82351 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PerfectDay-iOS";
+			packageProductDependencies = (
+			);
+			productName = "PerfectDay-iOS";
+			productReference = C74D96C823E7B1E9000E26C3 /* PerfectDay-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C74D96C023E7B1E9000E26C3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "문종식";
+				TargetAttributes = {
+					C74D96C723E7B1E9000E26C3 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+				};
+			};
+			buildConfigurationList = C74D96C323E7B1E9000E26C3 /* Build configuration list for PBXProject "PerfectDay-iOS" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C74D96BF23E7B1E9000E26C3;
+			packageReferences = (
+			);
+			productRefGroup = C74D96C923E7B1E9000E26C3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C74D96C723E7B1E9000E26C3 /* PerfectDay-iOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C74D96C623E7B1E9000E26C3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7EFBFCB23E907130034966C /* Login.storyboard in Resources */,
+				C74D96D823E7B1ED000E26C3 /* LaunchScreen.storyboard in Resources */,
+				C74D96D523E7B1ED000E26C3 /* Assets.xcassets in Resources */,
+				C74D96D323E7B1E9000E26C3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7B4C0D517259AEF5A5F28E6A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PerfectDay-iOS/Pods-PerfectDay-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PerfectDay-iOS/Pods-PerfectDay-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PerfectDay-iOS/Pods-PerfectDay-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB803A8CB6FD725330E073DF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PerfectDay-iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C74D96C423E7B1E9000E26C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C748813823FA472100E8C926 /* FilterLocationViewController.swift in Sources */,
+				C739126E240638C000954617 /* ContentData.swift in Sources */,
+				C7CE241023ED28A60010C8E9 /* SetLocationViewController.swift in Sources */,
+				C7391269240621F400954617 /* AcceptViewController.swift in Sources */,
+				C7EFBFCD23E911D90034966C /* LoginViewController.swift in Sources */,
+				C74D96D023E7B1E9000E26C3 /* MainViewController.swift in Sources */,
+				C701C6C9243765A00079B395 /* UIFunctions.swift in Sources */,
+				C712AC4E24012258009BB29F /* WritePostViewController.swift in Sources */,
+				C74D96CC23E7B1E9000E26C3 /* AppDelegate.swift in Sources */,
+				C76B37EF23EAC27000B05A45 /* HomeViewController.swift in Sources */,
+				C7D8263C241629C0005A9D5A /* PlannerViewController.swift in Sources */,
+				C7D8263A2415E0F4005A9D5A /* LocationInfoViewController.swift in Sources */,
+				C7CD9D8F23F1554800D26F62 /* SettingViewController.swift in Sources */,
+				C75760CB23F64964000BC016 /* DibsNavigationViewController.swift in Sources */,
+				C7C6811B23F131A10016412B /* PostListViewController.swift in Sources */,
+				C7B0D2A92417E71700BF1467 /* WriteReviewViewController.swift in Sources */,
+				C70F4932241092140058A61A /* LocationListViewController.swift in Sources */,
+				C7CD9D8523F1451100D26F62 /* DibsViewController.swift in Sources */,
+				C7D8263E24162A09005A9D5A /* CourseViewController.swift in Sources */,
+				C7CD9D8D23F1553B00D26F62 /* MyPageViewController.swift in Sources */,
+				C701C6CB2437884D0079B395 /* EnumValue.swift in Sources */,
+				C7CE240E23ED00C10010C8E9 /* LocationResultViewController.swift in Sources */,
+				C7707F9C23F2917D007BCCD3 /* SearchViewController.swift in Sources */,
+				C701C6C524372EA10079B395 /* InputInfoViewController.swift in Sources */,
+				C74F972F23E953E300E75058 /* JoinViewController.swift in Sources */,
+				C76ED01A24037607003E21F1 /* ShowPostViewController.swift in Sources */,
+				C76ED01C2403D1F2003E21F1 /* SetUserInfoViewController.swift in Sources */,
+				C76B37EC23EA6F2900B05A45 /* ShowInfoViewController.swift in Sources */,
+				C76626C9241726BB002B3DD6 /* FilterPostViewController.swift in Sources */,
+				C7707F9823F290C5007BCCD3 /* SearchResultViewController.swift in Sources */,
+				C701C6C7243761E60079B395 /* InputInfoChildViewController.swift in Sources */,
+				C7707F9A23F29126007BCCD3 /* SearchLocationViewController.swift in Sources */,
+				C71BAEAB23F3AC7B00D82351 /* LocationInfo.swift in Sources */,
+				C74D96CE23E7B1E9000E26C3 /* SceneDelegate.swift in Sources */,
+				C718B3CF2420A6A00017EC60 /* Model.xcdatamodeld in Sources */,
+				C70F4930241091F80058A61A /* LandmarkViewController.swift in Sources */,
+				C7CD9D8923F1471400D26F62 /* DibsLocationViewController.swift in Sources */,
+				C739126C2406376900954617 /* AcceptContentViewController.swift in Sources */,
+				C74F973223E9769800E75058 /* FindViewController.swift in Sources */,
+				C7C1FE6D23EC14060022C957 /* SearchSetLocationViewController.swift in Sources */,
+				C76ED01E2403D227003E21F1 /* SetLikeViewController.swift in Sources */,
+				C758EADB23F0FF4900033E29 /* BoardListViewController.swift in Sources */,
+				C71BAEA023F39D0400D82351 /* SearchPostViewController.swift in Sources */,
+				C71BAEA223F39DB700D82351 /* DibsCourseViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C74D96D123E7B1E9000E26C3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C74D96D223E7B1E9000E26C3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C74D96D623E7B1ED000E26C3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C74D96D723E7B1ED000E26C3 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C74D96DA23E7B1ED000E26C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C74D96DB23E7B1ED000E26C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C74D96DD23E7B1ED000E26C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 78B04F192252AF9B0FDF3B97 /* Pods-PerfectDay-iOS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "PerfectDay-iOS/PerfectDay-iOS.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z629PZ4XVL;
+				INFOPLIST_FILE = "PerfectDay-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Project.PerfectDay-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		C74D96DE23E7B1ED000E26C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9620F56059629C3B503AA830 /* Pods-PerfectDay-iOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "PerfectDay-iOS/PerfectDay-iOS.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z629PZ4XVL;
+				INFOPLIST_FILE = "PerfectDay-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Project.PerfectDay-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C74D96C323E7B1E9000E26C3 /* Build configuration list for PBXProject "PerfectDay-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C74D96DA23E7B1ED000E26C3 /* Debug */,
+				C74D96DB23E7B1ED000E26C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C74D96DC23E7B1ED000E26C3 /* Build configuration list for PBXNativeTarget "PerfectDay-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C74D96DD23E7B1ED000E26C3 /* Debug */,
+				C74D96DE23E7B1ED000E26C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C718B3CD2420A6A00017EC60 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C718B3CE2420A6A00017EC60 /* UserModel.xcdatamodel */,
+			);
+			currentVersion = C718B3CE2420A6A00017EC60 /* UserModel.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = C74D96C023E7B1E9000E26C3 /* Project object */;
+}
