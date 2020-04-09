@@ -17,7 +17,7 @@ public func makeUILabel(_ text: String) -> UILabel {
 
 public func makeUITextField(_ placeholder: String) -> UITextField {
     let uiTextField = UITextField()
-    uiTextField.placeholder = " " + placeholder
+    uiTextField.placeholder = placeholder
     uiTextField.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     uiTextField.layer.borderWidth = 1.0
     uiTextField.layer.cornerRadius = 5
@@ -93,3 +93,10 @@ extension UIScrollView {
     }
 }
 
+extension UITextField {
+  func addLeftPadding() {
+    let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.height))
+    self.leftView = paddingView
+    self.leftViewMode = ViewMode.always
+  }
+}

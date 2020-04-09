@@ -1,8 +1,8 @@
 //
-//  InputInfoChildViewController.swift
+//  FindEmailViewController.swift
 //  PerfectDay-iOS
 //
-//  Created by 문종식 on 2020/04/03.
+//  Created by 문종식 on 2020/04/07.
 //  Copyright © 2020 문종식. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import UIKit
 import XLPagerTabStrip
 import MaterialDesignWidgets
 
-class InputInfoChildViewController: UIViewController, IndicatorInfoProvider {
+class FindEmailViewController: UIViewController, IndicatorInfoProvider {
     
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
     let svMain = UIStackView()
@@ -18,10 +18,6 @@ class InputInfoChildViewController: UIViewController, IndicatorInfoProvider {
     //Name
     let lblName = makeUILabel("이름")
     let tfName = makeUITextField("홍길동")
-    
-    //Email
-    let lblEmail = makeUILabel("이메일")
-    let tfEmail = makeUITextField("perfectday@naver.com")
     
     //Birth
     let lblBirth = makeUILabel("생년월일")
@@ -34,7 +30,7 @@ class InputInfoChildViewController: UIViewController, IndicatorInfoProvider {
     let svGender = UIStackView()
     var valueGender = Gender.M
     
-    var itemInfo: IndicatorInfo = "View"
+    var itemInfo: IndicatorInfo = "Email"
     init(itemInfo: IndicatorInfo) {
         self.itemInfo = itemInfo
         super.init(nibName: nil, bundle: nil)
@@ -54,6 +50,10 @@ class InputInfoChildViewController: UIViewController, IndicatorInfoProvider {
     func setUI(){
         svMain.axis = .vertical
         svMain.spacing = 5
+        
+        tfName.addLeftPadding()
+        tfBirth.addLeftPadding()
+        tfName.addTarget(self, action: #selector(FieldDidChange), for: .editingChanged)
         tfBirth.addTarget(self, action: #selector(selectBirth), for: .editingDidBegin)
 
         btnGenderM.setCornerBorder(color: themeColor, cornerRadius: 15.0, borderWidth: 1.0)
@@ -72,10 +72,6 @@ class InputInfoChildViewController: UIViewController, IndicatorInfoProvider {
         
         svMain.addArrangedSubview(lblName)
         svMain.addArrangedSubview(tfName)
-        svMain.addArrangedSubview(makeUILabel(" "))
-        
-        svMain.addArrangedSubview(lblEmail)
-        svMain.addArrangedSubview(tfEmail)
         svMain.addArrangedSubview(makeUILabel(" "))
         
         svMain.addArrangedSubview(lblBirth)
@@ -112,9 +108,9 @@ class InputInfoChildViewController: UIViewController, IndicatorInfoProvider {
         alertController.view.addSubview(datePicker)
         let selectAction = UIAlertAction(title: "선택", style: UIAlertAction.Style.default, handler: { _ in
             let formatter = DateFormatter()
-            formatter.dateFormat = " yyyy-MM-dd"
+            formatter.dateFormat = "yyyy-MM-dd"
             self.tfBirth.text = formatter.string(from: datePicker.date)
-//            self.checkField()
+            self.FieldDidChange()
         })
         let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
         alertController.addAction(selectAction)
@@ -130,7 +126,7 @@ class InputInfoChildViewController: UIViewController, IndicatorInfoProvider {
             btnGenderF.backgroundColor = .white
             valueGender = Gender.M
         }
-        print(valueGender)
+//        print(valueGender)
     }
     @objc func selectFemale(){
         if valueGender != Gender.F {
@@ -140,6 +136,16 @@ class InputInfoChildViewController: UIViewController, IndicatorInfoProvider {
             btnGenderM.backgroundColor = .white
             valueGender = Gender.F
         }
-        print(valueGender)
+//        print(valueGender)
+    }
+    
+    @objc func FieldDidChange() {
+        if (tfName.text!.count * tfBirth.text!.count) != 0 { // tfName.text != "" && tfBirth.text != "" {
+            (parent?.parent as! FindBackViewController).btnFind.isEnabled = true
+            (parent?.parent as! FindBackViewController).btnFind.backgroundColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
+        } else {
+            (parent?.parent as! FindBackViewController).btnFind.isEnabled = false
+            (parent?.parent as! FindBackViewController).btnFind.backgroundColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+        }
     }
 }

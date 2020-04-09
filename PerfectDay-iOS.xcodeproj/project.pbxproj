@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C701C6C524372EA10079B395 /* InputInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701C6C424372EA10079B395 /* InputInfoViewController.swift */; };
-		C701C6C7243761E60079B395 /* InputInfoChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701C6C6243761E60079B395 /* InputInfoChildViewController.swift */; };
+		C701C6C524372EA10079B395 /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701C6C424372EA10079B395 /* FindViewController.swift */; };
+		C701C6C7243761E60079B395 /* FindPWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701C6C6243761E60079B395 /* FindPWViewController.swift */; };
 		C701C6C9243765A00079B395 /* UIFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701C6C8243765A00079B395 /* UIFunctions.swift */; };
 		C701C6CB2437884D0079B395 /* EnumValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701C6CA2437884D0079B395 /* EnumValue.swift */; };
 		C70F4930241091F80058A61A /* LandmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70F492F241091F80058A61A /* LandmarkViewController.swift */; };
 		C70F4932241092140058A61A /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70F4931241092140058A61A /* LocationListViewController.swift */; };
 		C712AC4E24012258009BB29F /* WritePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C712AC4D24012258009BB29F /* WritePostViewController.swift */; };
-		C718B3CF2420A6A00017EC60 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C718B3CD2420A6A00017EC60 /* Model.xcdatamodeld */; };
+		C718B3CF2420A6A00017EC60 /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C718B3CD2420A6A00017EC60 /* Data.xcdatamodeld */; };
+		C718CE5A243CAF6800F544BF /* FindEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718CE59243CAF6800F544BF /* FindEmailViewController.swift */; };
 		C71BAEA023F39D0400D82351 /* SearchPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71BAE9F23F39D0400D82351 /* SearchPostViewController.swift */; };
 		C71BAEA223F39DB700D82351 /* DibsCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71BAEA123F39DB700D82351 /* DibsCourseViewController.swift */; };
 		C71BAEA623F3A3C200D82351 /* Pods_PerfectDay_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5376E469755B03439F9304C /* Pods_PerfectDay_iOS.framework */; };
@@ -31,7 +32,7 @@
 		C74D96D523E7B1ED000E26C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C74D96D423E7B1ED000E26C3 /* Assets.xcassets */; };
 		C74D96D823E7B1ED000E26C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C74D96D623E7B1ED000E26C3 /* LaunchScreen.storyboard */; };
 		C74F972F23E953E300E75058 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F972E23E953E300E75058 /* JoinViewController.swift */; };
-		C74F973223E9769800E75058 /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F973123E9769800E75058 /* FindViewController.swift */; };
+		C74F973223E9769800E75058 /* FindViewController_temp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F973123E9769800E75058 /* FindViewController_temp.swift */; };
 		C75760CB23F64964000BC016 /* DibsNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75760CA23F64964000BC016 /* DibsNavigationViewController.swift */; };
 		C758EADB23F0FF4900033E29 /* BoardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C758EADA23F0FF4900033E29 /* BoardListViewController.swift */; };
 		C76626C9241726BB002B3DD6 /* FilterPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */; };
@@ -43,6 +44,7 @@
 		C7707F9823F290C5007BCCD3 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7707F9723F290C5007BCCD3 /* SearchResultViewController.swift */; };
 		C7707F9A23F29126007BCCD3 /* SearchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7707F9923F29126007BCCD3 /* SearchLocationViewController.swift */; };
 		C7707F9C23F2917D007BCCD3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7707F9B23F2917D007BCCD3 /* SearchViewController.swift */; };
+		C7824799243CB65A003D690F /* FindBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7824798243CB65A003D690F /* FindBackViewController.swift */; };
 		C7B0D2A92417E71700BF1467 /* WriteReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B0D2A82417E71700BF1467 /* WriteReviewViewController.swift */; };
 		C7C1FE6D23EC14060022C957 /* SearchSetLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C1FE6C23EC14060022C957 /* SearchSetLocationViewController.swift */; };
 		C7C6811B23F131A10016412B /* PostListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C6811A23F131A10016412B /* PostListViewController.swift */; };
@@ -77,14 +79,15 @@
 		78B04F192252AF9B0FDF3B97 /* Pods-PerfectDay-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerfectDay-iOS.debug.xcconfig"; path = "Target Support Files/Pods-PerfectDay-iOS/Pods-PerfectDay-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		9620F56059629C3B503AA830 /* Pods-PerfectDay-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerfectDay-iOS.release.xcconfig"; path = "Target Support Files/Pods-PerfectDay-iOS/Pods-PerfectDay-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		C5376E469755B03439F9304C /* Pods_PerfectDay_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PerfectDay_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C701C6C424372EA10079B395 /* InputInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputInfoViewController.swift; sourceTree = "<group>"; };
-		C701C6C6243761E60079B395 /* InputInfoChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputInfoChildViewController.swift; sourceTree = "<group>"; };
+		C701C6C424372EA10079B395 /* FindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
+		C701C6C6243761E60079B395 /* FindPWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPWViewController.swift; sourceTree = "<group>"; };
 		C701C6C8243765A00079B395 /* UIFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFunctions.swift; sourceTree = "<group>"; };
 		C701C6CA2437884D0079B395 /* EnumValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumValue.swift; sourceTree = "<group>"; };
 		C70F492F241091F80058A61A /* LandmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkViewController.swift; sourceTree = "<group>"; };
 		C70F4931241092140058A61A /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 		C712AC4D24012258009BB29F /* WritePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritePostViewController.swift; sourceTree = "<group>"; };
 		C718B3CE2420A6A00017EC60 /* UserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserModel.xcdatamodel; sourceTree = "<group>"; };
+		C718CE59243CAF6800F544BF /* FindEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindEmailViewController.swift; sourceTree = "<group>"; };
 		C71BAE9F23F39D0400D82351 /* SearchPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPostViewController.swift; sourceTree = "<group>"; };
 		C71BAEA123F39DB700D82351 /* DibsCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DibsCourseViewController.swift; sourceTree = "<group>"; };
 		C71BAEAA23F3AC7B00D82351 /* LocationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfo.swift; sourceTree = "<group>"; };
@@ -101,7 +104,7 @@
 		C74D96D723E7B1ED000E26C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C74D96D923E7B1ED000E26C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C74F972E23E953E300E75058 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
-		C74F973123E9769800E75058 /* FindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
+		C74F973123E9769800E75058 /* FindViewController_temp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController_temp.swift; sourceTree = "<group>"; };
 		C75760CA23F64964000BC016 /* DibsNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DibsNavigationViewController.swift; sourceTree = "<group>"; };
 		C758EADA23F0FF4900033E29 /* BoardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListViewController.swift; sourceTree = "<group>"; };
 		C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPostViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +116,7 @@
 		C7707F9723F290C5007BCCD3 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		C7707F9923F29126007BCCD3 /* SearchLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationViewController.swift; sourceTree = "<group>"; };
 		C7707F9B23F2917D007BCCD3 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		C7824798243CB65A003D690F /* FindBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindBackViewController.swift; sourceTree = "<group>"; };
 		C7B0D2A82417E71700BF1467 /* WriteReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewController.swift; sourceTree = "<group>"; };
 		C7B4B9F923F4F8930066B66A /* PerfectDay-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "PerfectDay-iOS.entitlements"; sourceTree = "<group>"; };
 		C7C1FE6C23EC14060022C957 /* SearchSetLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSetLocationViewController.swift; sourceTree = "<group>"; };
@@ -215,10 +219,11 @@
 				C701C6C8243765A00079B395 /* UIFunctions.swift */,
 				C701C6CA2437884D0079B395 /* EnumValue.swift */,
 				C74D96CB23E7B1E9000E26C3 /* AppDelegate.swift */,
+				C74F973123E9769800E75058 /* FindViewController_temp.swift */,
 				C74D96D123E7B1E9000E26C3 /* Main.storyboard */,
 				C74D96D423E7B1ED000E26C3 /* Assets.xcassets */,
 				C74D96D623E7B1ED000E26C3 /* LaunchScreen.storyboard */,
-				C718B3CD2420A6A00017EC60 /* Model.xcdatamodeld */,
+				C718B3CD2420A6A00017EC60 /* Data.xcdatamodeld */,
 				C74D96D923E7B1ED000E26C3 /* Info.plist */,
 			);
 			path = "PerfectDay-iOS";
@@ -228,13 +233,14 @@
 			isa = PBXGroup;
 			children = (
 				C7EFBFCA23E907130034966C /* Login.storyboard */,
-				C74F972E23E953E300E75058 /* JoinViewController.swift */,
 				C739126D240638C000954617 /* ContentData.swift */,
-				C74F973123E9769800E75058 /* FindViewController.swift */,
 				C739126B2406376900954617 /* AcceptContentViewController.swift */,
 				C7391268240621F400954617 /* AcceptViewController.swift */,
-				C701C6C424372EA10079B395 /* InputInfoViewController.swift */,
-				C701C6C6243761E60079B395 /* InputInfoChildViewController.swift */,
+				C74F972E23E953E300E75058 /* JoinViewController.swift */,
+				C701C6C424372EA10079B395 /* FindViewController.swift */,
+				C7824798243CB65A003D690F /* FindBackViewController.swift */,
+				C701C6C6243761E60079B395 /* FindPWViewController.swift */,
+				C718CE59243CAF6800F544BF /* FindEmailViewController.swift */,
 				C76B37EB23EA6F2900B05A45 /* ShowInfoViewController.swift */,
 				C7EFBFCC23E911D90034966C /* LoginViewController.swift */,
 				C74D96CF23E7B1E9000E26C3 /* MainViewController.swift */,
@@ -431,6 +437,7 @@
 				C76B37EF23EAC27000B05A45 /* HomeViewController.swift in Sources */,
 				C7D8263C241629C0005A9D5A /* PlannerViewController.swift in Sources */,
 				C7D8263A2415E0F4005A9D5A /* LocationInfoViewController.swift in Sources */,
+				C7824799243CB65A003D690F /* FindBackViewController.swift in Sources */,
 				C7CD9D8F23F1554800D26F62 /* SettingViewController.swift in Sources */,
 				C75760CB23F64964000BC016 /* DibsNavigationViewController.swift in Sources */,
 				C7C6811B23F131A10016412B /* PostListViewController.swift in Sources */,
@@ -442,22 +449,23 @@
 				C701C6CB2437884D0079B395 /* EnumValue.swift in Sources */,
 				C7CE240E23ED00C10010C8E9 /* LocationResultViewController.swift in Sources */,
 				C7707F9C23F2917D007BCCD3 /* SearchViewController.swift in Sources */,
-				C701C6C524372EA10079B395 /* InputInfoViewController.swift in Sources */,
+				C701C6C524372EA10079B395 /* FindViewController.swift in Sources */,
 				C74F972F23E953E300E75058 /* JoinViewController.swift in Sources */,
+				C718CE5A243CAF6800F544BF /* FindEmailViewController.swift in Sources */,
 				C76ED01A24037607003E21F1 /* ShowPostViewController.swift in Sources */,
 				C76ED01C2403D1F2003E21F1 /* SetUserInfoViewController.swift in Sources */,
 				C76B37EC23EA6F2900B05A45 /* ShowInfoViewController.swift in Sources */,
 				C76626C9241726BB002B3DD6 /* FilterPostViewController.swift in Sources */,
 				C7707F9823F290C5007BCCD3 /* SearchResultViewController.swift in Sources */,
-				C701C6C7243761E60079B395 /* InputInfoChildViewController.swift in Sources */,
+				C701C6C7243761E60079B395 /* FindPWViewController.swift in Sources */,
 				C7707F9A23F29126007BCCD3 /* SearchLocationViewController.swift in Sources */,
 				C71BAEAB23F3AC7B00D82351 /* LocationInfo.swift in Sources */,
 				C74D96CE23E7B1E9000E26C3 /* SceneDelegate.swift in Sources */,
-				C718B3CF2420A6A00017EC60 /* Model.xcdatamodeld in Sources */,
+				C718B3CF2420A6A00017EC60 /* Data.xcdatamodeld in Sources */,
 				C70F4930241091F80058A61A /* LandmarkViewController.swift in Sources */,
 				C7CD9D8923F1471400D26F62 /* DibsLocationViewController.swift in Sources */,
 				C739126C2406376900954617 /* AcceptContentViewController.swift in Sources */,
-				C74F973223E9769800E75058 /* FindViewController.swift in Sources */,
+				C74F973223E9769800E75058 /* FindViewController_temp.swift in Sources */,
 				C7C1FE6D23EC14060022C957 /* SearchSetLocationViewController.swift in Sources */,
 				C76ED01E2403D227003E21F1 /* SetLikeViewController.swift in Sources */,
 				C758EADB23F0FF4900033E29 /* BoardListViewController.swift in Sources */,
@@ -674,13 +682,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		C718B3CD2420A6A00017EC60 /* Model.xcdatamodeld */ = {
+		C718B3CD2420A6A00017EC60 /* Data.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				C718B3CE2420A6A00017EC60 /* UserModel.xcdatamodel */,
 			);
 			currentVersion = C718B3CE2420A6A00017EC60 /* UserModel.xcdatamodel */;
-			path = Model.xcdatamodeld;
+			path = Data.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

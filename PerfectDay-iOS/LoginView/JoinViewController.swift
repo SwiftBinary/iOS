@@ -6,6 +6,24 @@
 //  Copyright © 2020 문종식. All rights reserved.
 //
 
+//{
+//"userType": "002",
+//  "userRealName": "홍길동",
+//  "userName": "testName",
+//  "userEmail": "ydh@naver.com",
+//  "userPw": "1234",
+//  "userGender": "002",
+//  "birthDt": "19950417",
+//  "userAvgBudget": "002",
+//  "loginType": "001",
+//  "eatPref": "1110110000",
+//  "drinkPref": "0110000000",
+//  "playPref": "0101000000",
+//  "watchPref": "1011110000",
+//  "walkPref": "1111000000",
+//  "setting": "100"
+//}
+
 import UIKit
 
 class JoinViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDataSource {
@@ -15,7 +33,6 @@ class JoinViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDat
     
     // Temp Outlet
     @IBOutlet var fieldEmail: UITextField!
-    
     
     // Email
     @IBOutlet var fieldDomain: UITextField!
@@ -28,9 +45,17 @@ class JoinViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDat
     
     @IBOutlet var btnJoin: UIButton!
     
+    var acceptList = [true,true,false]
     let domainList = ["직접입력","naver.com","hanmail.net","daum.net","gmail.com"]
     var domain = "직접입력"
     var checkPv = false
+    
+    var userRealName = ""
+    var userName = ""
+    var userEmail = ""
+    var userPw = ""
+    var userGender = ""
+    var birthDt = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()

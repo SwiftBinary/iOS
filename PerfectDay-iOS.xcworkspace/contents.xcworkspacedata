@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/moonjs/PerfectDay/PerfectDay-iOS/PerfectDay-iOS/User+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/moonjs/PerfectDay/PerfectDay-iOS/PerfectDay-iOS/User+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:PerfectDay-iOS.xcodeproj">
    </FileRef>
    <FileRef

@@ -16,6 +16,7 @@ class AcceptViewController: UIViewController {
     @IBOutlet var btnMarketingAccept: UIButton!
     @IBOutlet var btnAccept: UIButton!
     var acceptAarry: Array<Bool> = [false, false, false, false, false]
+    // 전체, 개인 정보 활용, 위치 정보 활용, 마케팅 정보 수신 동의
     var checkImageOn = UIImage(named: "check_circle_on")
     var checkImageOff = UIImage(named: "check_circle_off")
     
@@ -23,6 +24,13 @@ class AcceptViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "joinIdentifier" {
+            let joinViewController = segue.destination as! JoinViewController
+            joinViewController.acceptList[2] = acceptAarry[3]
+        }
     }
     
     // ##################################################
@@ -48,6 +56,7 @@ class AcceptViewController: UIViewController {
             btnAllAccept.setImage(checkImageOff, for: .normal)
             btnAccept.isEnabled = false
         }
+        print(acceptAarry)
     }
     // 모두 동의 눌렀을 때
     @IBAction func allAccept(_ sender: UIButton) {

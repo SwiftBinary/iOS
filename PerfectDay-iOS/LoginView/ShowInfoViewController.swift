@@ -16,7 +16,7 @@ class ShowInfoViewController: UIViewController {
     @IBOutlet var tvInfo: UITextView!
     
     var userName: String = ""
-    var userId: String = ""
+    var userEmail: String = ""
     var userBirth: String = ""
     var userGender: String = ""
     var findEmail = true
@@ -34,11 +34,11 @@ class ShowInfoViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: false)
         btnBack.backgroundColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
         btnBack.layer.cornerRadius = 5
-        print(userName)
-        print(userId)
-        print(userBirth)
-        print(userGender)
-        findEmail ? findUserEmail(name: userName, birth: userBirth, gender: userGender) : findUserPw(name: userName, email: userId, birth: userBirth, gender: userGender)
+//        print(userName)
+//        print(userEmail)
+//        print(userBirth)
+//        print(userGender)
+        findEmail ? findUserEmail(name: userName, birth: userBirth, gender: userGender) : findUserPw(name: userName, email: userEmail, birth: userBirth, gender: userGender)
     }
     
     func findUserEmail(name: String, birth: String, gender: String){
@@ -60,9 +60,8 @@ class ShowInfoViewController: UIViewController {
         let httpHeaders: HTTPHeaders = ["json":convertedHeaderString]
         //        , encoder: JSONParameterEncoder.default
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
-//            self.resultString =
-            print("##")
+//            debugPrint(response)
+//            print("##")
             self.tvInfo.text = String(JSON(response.value!).rawString()!)
         }
     }
@@ -87,9 +86,8 @@ class ShowInfoViewController: UIViewController {
         let httpHeaders: HTTPHeaders = ["json":convertedHeaderString]
         //        , encoder: JSONParameterEncoder.default
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
-            //            self.resultString =
-            print("##")
+//            debugPrint(response)
+//            print("##")
             self.tvInfo.text = String(JSON(response.value!).rawString()!)
         }
     }
