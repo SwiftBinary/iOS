@@ -116,14 +116,7 @@ class LoginViewController: UIViewController {
     func networkFail(){
         alertControllerDefault(title: "로그인에 실패하였습니다.", message: "로그인 서버에 접속할 수 없습니다. 인터넷 연결을 확인해 주세요")
     }
-    func alertControllerDefault(title: String, message:String){
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        let acceptAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.default , handler: nil)
-        alertController.addAction(acceptAction)
-        present(alertController, animated: true, completion:{})
-    }
-    
-    
+
     /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -131,5 +124,11 @@ class LoginViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    @IBAction func tempLogin(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let goToVC = storyboard.instantiateViewController(withIdentifier: "mainView")
+        goToVC.modalPresentationStyle = .fullScreen
+        self.present(goToVC, animated: true, completion: nil)
+    }
 
 }

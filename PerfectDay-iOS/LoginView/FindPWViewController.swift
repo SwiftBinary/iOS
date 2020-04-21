@@ -67,6 +67,8 @@ class FindPWViewController: UIViewController, IndicatorInfoProvider {
         btnGenderF.setCornerBorder(color: themeColor, cornerRadius: 15.0, borderWidth: 1.0)
         btnGenderM.addTarget(self, action: #selector(selectMale), for: .touchUpInside)
         btnGenderF.addTarget(self, action: #selector(selectFemale), for: .touchUpInside)
+//        btnGenderM.maskEnabled = true
+//        btnGenderF.maskEnabled = false
         btnGenderM.rippleLayerColor = themeColor
         btnGenderF.rippleLayerColor = themeColor
         

@@ -25,6 +25,8 @@ public func makeUITextField(_ placeholder: String) -> UITextField {
     return uiTextField
 }
 
+
+
 // UIViewController 확장
 extension UIViewController
 {
@@ -59,6 +61,19 @@ extension UIViewController
         field.layer.borderWidth = 1.0
         field.layer.cornerRadius = 5
         field.attributedPlaceholder = NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)])
+    }
+    
+    func setViewBorder(_ view:UIView){
+        view.layer.borderWidth = 0.5
+        view.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        view.layer.cornerRadius = 5
+    }
+    
+    public func alertControllerDefault(title: String, message:String){
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        let acceptAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.default , handler: nil)
+        alertController.addAction(acceptAction)
+        present(alertController, animated: true, completion:{})
     }
 }
 

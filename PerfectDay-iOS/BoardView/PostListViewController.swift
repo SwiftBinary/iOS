@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import ImageSlideshow
 
 class PostListViewController: UIViewController {
 
+    let darkGray = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     var naviTitle: String = ""
     @IBOutlet var btnCreatePost: UIButton!
-    @IBOutlet var btnFilter: UIButton!
+    
+    
+    @IBOutlet var issBanner: ImageSlideshow!
+    let localSource = [BundleImageSource(imageString: "testBanner0"), BundleImageSource(imageString: "testBanner1"), BundleImageSource(imageString: "testBanner2"), BundleImageSource(imageString: "testBanner3")]
+    @IBOutlet var lblBannerIndex: UILabel!
     
     @IBOutlet var svPostList: UIStackView!
     
@@ -24,6 +30,7 @@ class PostListViewController: UIViewController {
         } else {
             tempFunc(n: 20)
         }
+        setBanner()
     }
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
@@ -31,6 +38,20 @@ class PostListViewController: UIViewController {
     
     func setUI() {
         
+    }
+    func setBanner(){
+        issBanner.slideshowInterval = 5.0
+        issBanner.contentScaleMode = UIViewContentMode.scaleAspectFill
+        issBanner.pageIndicator = nil
+        issBanner.activityIndicator = DefaultActivityIndicator()
+        issBanner.delegate = self
+        issBanner.setImageInputs(localSource)
+        
+        lblBannerIndex.text = "1/\(localSource.count)"
+        lblBannerIndex.layer.cornerRadius = 5.0
+        lblBannerIndex.layer.borderWidth = 1
+        lblBannerIndex.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        lblBannerIndex.layer.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     }
     
     func tempFunc(n: Int){
@@ -80,10 +101,12 @@ class PostListViewController: UIViewController {
         
     }
     
-    @IBAction func showFilter(_ sender: UIButton) {
+    
+    @IBAction func showFilter(_ sender: UIBarButtonItem) {
         let goToVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "postFilterView")
         self.present(goToVC, animated: true, completion: nil)
     }
+    
     /*
     // MARK: - Navigation
 
@@ -94,4 +117,11 @@ class PostListViewController: UIViewController {
     }
     */
 
+}
+
+extension PostListViewController: ImageSlideshowDelegate {
+    func imageSlideshow(_ imageSlideshow: ImageSlideshow, didChangeCurrentPageTo page: Int) {
+        lblBannerIndex.text = "\(page+1)/\(localSource.count)"
+//        print("current page:", page)
+    }
 }

@@ -68,8 +68,8 @@ class FindViewController_temp: UIViewController {
 
     // TextField 값 변화 감지
     func checkEditTextField(){
-        fieldName.addTarget(self, action: #selector(JoinViewController.FieldDidChange(_:)), for: UIControl.Event.editingChanged)
-        fieldEmail.addTarget(self, action: #selector(JoinViewController.FieldDidChange(_:)), for: UIControl.Event.editingChanged)
+//        fieldName.addTarget(self, action: #selector(JoinViewController.FieldDidChange(_:)), for: UIControl.Event.editingChanged)
+//        fieldEmail.addTarget(self, action: #selector(JoinViewController.FieldDidChange(_:)), for: UIControl.Event.editingChanged)
     }
     
     @objc func FieldDidChange(_ textField: UITextField) {

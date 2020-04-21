@@ -19,17 +19,25 @@ class AcceptViewController: UIViewController {
     // 전체, 개인 정보 활용, 위치 정보 활용, 마케팅 정보 수신 동의
     var checkImageOn = UIImage(named: "check_circle_on")
     var checkImageOff = UIImage(named: "check_circle_off")
+
+    @IBOutlet var bgAllAccept: UIView!
+    @IBOutlet var bgPersonAccept: UIView!
+    @IBOutlet var bgLocationAccept: UIView!
+    @IBOutlet var bgMarketingAccept: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setViewBorder(bgAllAccept)
+        setViewBorder(bgPersonAccept)
+        setViewBorder(bgLocationAccept)
+        setViewBorder(bgMarketingAccept)
         // Do any additional setup after loading the view.
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "joinIdentifier" {
             let joinViewController = segue.destination as! JoinViewController
-            joinViewController.acceptList[2] = acceptAarry[3]
+            joinViewController.marketingAccept = acceptAarry[3] ? "1" : "0"
         }
     }
     

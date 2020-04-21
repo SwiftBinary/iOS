@@ -1,14 +1,12 @@
 PODS:
   - Alamofire (5.0.5)
-  - AvailableHapticFeedback (1.0.2)
-  - CryptoSwift (1.3.0)
+  - CryptoSwift (1.3.1)
   - Hero (1.5.0)
+  - ImageSlideshow (1.8.3):
+    - ImageSlideshow/Core (= 1.8.3)
+  - ImageSlideshow/Core (1.8.3)
   - MaterialDesignWidgets (0.0.10)
-  - MultiSlider (1.10.8):
-    - AvailableHapticFeedback
-    - SweeterSwift
   - RSKPlaceholderTextView (6.0.3)
-  - SweeterSwift (1.1.3)
   - SwiftyJSON (4.3.0)
   - XLPagerTabStrip (9.0.0)
 
@@ -16,8 +14,8 @@ DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.3)
   - CryptoSwift (~> 1.0)
   - Hero
+  - ImageSlideshow (~> 1.8.3)
   - MaterialDesignWidgets
-  - MultiSlider
   - RSKPlaceholderTextView
   - SwiftyJSON (~> 4.0)
   - XLPagerTabStrip (~> 9.0)
@@ -25,28 +23,24 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
-    - AvailableHapticFeedback
     - CryptoSwift
     - Hero
+    - ImageSlideshow
     - MaterialDesignWidgets
-    - MultiSlider
     - RSKPlaceholderTextView
-    - SweeterSwift
     - SwiftyJSON
     - XLPagerTabStrip
 
 SPEC CHECKSUMS:
   Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
-  AvailableHapticFeedback: 9b21b9f6d3e4566015988b5de35b40abefe6c09a
-  CryptoSwift: 1283821600233bdbeb96d7b389c3288c3bf77211
+  CryptoSwift: f12f037f6d0fcd6d48c96db0071b653de64e6c4d
   Hero: b7385b75e7259da62f4f85462f59a5082d66b058
+  ImageSlideshow: 4694d7d699a1549582e7cc631fb392d8f91630f3
   MaterialDesignWidgets: 902d573fef47e2b1deb480b5134ee481781b722c
-  MultiSlider: a4fdcb3fb058a0af95720570b44d8683da5312c8
   RSKPlaceholderTextView: fc8c8932546298ec9d5e5572284aa42adb87b066
-  SweeterSwift: d909211f6833405628c8c7c6bf9f8f2e8a0e9df9
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
 
-PODFILE CHECKSUM: efbaea4860e5d50556e6d433947937699e6cdcb9
+PODFILE CHECKSUM: 3c79c83e608f1df593d560e7d067da34923ad420
 
 COCOAPODS: 1.9.0.beta.2

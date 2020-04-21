@@ -7,14 +7,8 @@
 //
 
 import UIKit
-import MultiSlider
 
 class FilterLocationViewController: UIViewController {
-
-    // Slider
-    @IBOutlet var slPrice: MultiSlider!
-    @IBOutlet var slTime: MultiSlider!
-    @IBOutlet var slDistance: MultiSlider!
     
     //Button
     @IBOutlet var btnDistance: UIButton!
@@ -33,9 +27,7 @@ class FilterLocationViewController: UIViewController {
     }
     
     func setUI(){
-        slPrice.valueLabelPosition = .top
-        slTime.valueLabelPosition = .top
-        slDistance.valueLabelPosition = .top
+        
     }
     func setBtn(){
         listBtn = [btnDistance,btnGPA,btnTimeLong,btnTimeShort,btnPriceHigh,btnPriceLow]

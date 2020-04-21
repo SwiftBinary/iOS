@@ -4,7 +4,7 @@ platform :ios, '11.0'
 target 'PerfectDay-iOS' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-pod 'MultiSlider'
+pod 'ImageSlideshow', '~> 1.8.3'
 pod 'RSKPlaceholderTextView'
 pod 'MaterialDesignWidgets'
 pod 'SwiftyJSON', '~> 4.0'
