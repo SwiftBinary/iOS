@@ -32,7 +32,6 @@
 		C74D96D523E7B1ED000E26C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C74D96D423E7B1ED000E26C3 /* Assets.xcassets */; };
 		C74D96D823E7B1ED000E26C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C74D96D623E7B1ED000E26C3 /* LaunchScreen.storyboard */; };
 		C74F972F23E953E300E75058 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F972E23E953E300E75058 /* JoinViewController.swift */; };
-		C74F973223E9769800E75058 /* FindViewController_temp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F973123E9769800E75058 /* FindViewController_temp.swift */; };
 		C75760CB23F64964000BC016 /* DibsNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75760CA23F64964000BC016 /* DibsNavigationViewController.swift */; };
 		C758EADB23F0FF4900033E29 /* BoardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C758EADA23F0FF4900033E29 /* BoardListViewController.swift */; };
 		C76626C9241726BB002B3DD6 /* FilterPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */; };
@@ -104,7 +103,6 @@
 		C74D96D723E7B1ED000E26C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C74D96D923E7B1ED000E26C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C74F972E23E953E300E75058 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
-		C74F973123E9769800E75058 /* FindViewController_temp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController_temp.swift; sourceTree = "<group>"; };
 		C75760CA23F64964000BC016 /* DibsNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DibsNavigationViewController.swift; sourceTree = "<group>"; };
 		C758EADA23F0FF4900033E29 /* BoardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListViewController.swift; sourceTree = "<group>"; };
 		C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPostViewController.swift; sourceTree = "<group>"; };
@@ -218,8 +216,6 @@
 				C74D96CD23E7B1E9000E26C3 /* SceneDelegate.swift */,
 				C701C6C8243765A00079B395 /* UIFunctions.swift */,
 				C701C6CA2437884D0079B395 /* EnumValue.swift */,
-				C74D96CB23E7B1E9000E26C3 /* AppDelegate.swift */,
-				C74F973123E9769800E75058 /* FindViewController_temp.swift */,
 				C74D96D123E7B1E9000E26C3 /* Main.storyboard */,
 				C74D96D423E7B1ED000E26C3 /* Assets.xcassets */,
 				C74D96D623E7B1ED000E26C3 /* LaunchScreen.storyboard */,
@@ -242,6 +238,7 @@
 				C701C6C6243761E60079B395 /* FindPWViewController.swift */,
 				C718CE59243CAF6800F544BF /* FindEmailViewController.swift */,
 				C76B37EB23EA6F2900B05A45 /* ShowInfoViewController.swift */,
+				C74D96CB23E7B1E9000E26C3 /* AppDelegate.swift */,
 				C7EFBFCC23E911D90034966C /* LoginViewController.swift */,
 				C74D96CF23E7B1E9000E26C3 /* MainViewController.swift */,
 			);
@@ -465,7 +462,6 @@
 				C70F4930241091F80058A61A /* LandmarkViewController.swift in Sources */,
 				C7CD9D8923F1471400D26F62 /* DibsLocationViewController.swift in Sources */,
 				C739126C2406376900954617 /* AcceptContentViewController.swift in Sources */,
-				C74F973223E9769800E75058 /* FindViewController_temp.swift in Sources */,
 				C7C1FE6D23EC14060022C957 /* SearchSetLocationViewController.swift in Sources */,
 				C76ED01E2403D227003E21F1 /* SetLikeViewController.swift in Sources */,
 				C758EADB23F0FF4900033E29 /* BoardListViewController.swift in Sources */,

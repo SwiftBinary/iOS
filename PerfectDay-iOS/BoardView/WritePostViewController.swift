@@ -9,12 +9,13 @@
 import UIKit
 import RSKPlaceholderTextView
 
-class WritePostViewController: UIViewController, UITextViewDelegate {
+class WritePostViewController: UIViewController, UITextFieldDelegate {
     
+    
+    @IBOutlet var tfTitle: UITextField!
     @IBOutlet var tvContentView: UIView!
     
     @IBOutlet var tfHashTag: UITextField! //
-    @IBOutlet var tfHashTag2: UITextField! //
     
     var naviTitle: String = ""
     override func viewDidLoad() {
@@ -25,8 +26,11 @@ class WritePostViewController: UIViewController, UITextViewDelegate {
     }
     
     func setUI(){
-        let content = RSKPlaceholderTextView(frame: CGRect(x: (self.view.frame.width*0.1)/2, y: 0, width: self.view.frame.width*0.9, height: tvContentView.frame.height*0.9))
-        content.placeholder = "내용을 입력하세요."
+        tfTitle.smartInsertDeleteType = UITextSmartInsertDeleteType.no
+        tfTitle.delegate = self
+        
+        let content = RSKPlaceholderTextView(frame: CGRect(x: (self.view.frame.width*0.04), y: 0, width: self.view.frame.width*0.96, height: tvContentView.frame.height*0.9))
+        content.placeholder = "내용을 입력하세요. (최대 1000자 까지 입력 가능)"
         tvContentView.addSubview(content)
     }
     
@@ -47,11 +51,16 @@ class WritePostViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func checkEdit(_ sender: UITextField) {
-        if tfHashTag.text == "" {
-            tfHashTag2.isHidden = false
-        } else {
-            tfHashTag2.isHidden = true
+        
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let rangeOfTextToReplace = Range(range, in: textView.text) else {
+            return false
         }
+        let substringToReplace = textView.text[rangeOfTextToReplace]
+        let count = textView.text.count - substringToReplace.count + text.count
+        return count <= 20
     }
     
     

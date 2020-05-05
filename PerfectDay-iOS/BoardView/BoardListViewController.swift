@@ -27,6 +27,8 @@ class BoardListViewController: UIViewController {
     @IBOutlet var uvAdvice: UIView!
     @IBOutlet var uvReview: UIView!
     
+    var segueTag = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setBanner()
@@ -58,20 +60,23 @@ class BoardListViewController: UIViewController {
     
     func setGotoPostList() {
         let uvList = [uvNotice,uvShareCourse,uvHot,uvFree,uvSomething,uvAdvice,uvReview]
-        for view in uvList{
-            view?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToPostList)))
+//        var tapGesture = UITapGestureRecognizer(target: view, action: #selector(goToPostList(_:)))
+        for (index, view) in uvList.enumerated(){
+            view?.tag = index
+            view?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToPostList(_:))))
         }
     }
-    @objc func goToPostList() {
+    @objc func goToPostList(_ sender: UITapGestureRecognizer) {
+        segueTag = sender.view!.tag
+//        print("#########")
+//        print(segueTag)
+//        print("#########")
         let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "postListView")
         self.navigationController?.pushViewController(goToVC!, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let plViewController = segue.destination as! PostListViewController
-        print("##########")
-        print(sender)
-        print("##########")
         // segue.indentifier -> 스토리보드 화살표(노드) segue Indentifier 명
 //        if segue.identifier == "notice" {
 //            plViewController.naviTitle = "공지사항"

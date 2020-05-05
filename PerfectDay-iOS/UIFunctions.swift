@@ -25,6 +25,10 @@ public func makeUITextField(_ placeholder: String) -> UITextField {
     return uiTextField
 }
 
+extension UITextView
+{
+    
+}
 
 
 // UIViewController 확장

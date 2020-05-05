@@ -4,7 +4,7 @@
 ## Material Design Widgets - Lightweight
 This framework give you full flexibility to apply any material design widget you would like to use in your app! Please see below steps if you only need to use one or two of the entire package widgets. 
 
-[![Generic badge](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/iOS-11.0+-blue.svg)](https://shields.io/)  [![Generic badge](https://img.shields.io/badge/Version-0.1.0-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/pod-0.1.0-lightgrey.svg)](https://shields.io/) [
+[![Generic badge](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/iOS-11.0+-blue.svg)](https://shields.io/)  [![Generic badge](https://img.shields.io/badge/Version-0.1.0-orange.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/pod-1.8.4-lightgrey.svg)](https://shields.io/) [
 ![Generic badge](https://img.shields.io/badge/platform-ios-green.svg)](https://shields.io/) 
 
 <img src="gif/overview.gif" alt="overview" width="250"/>
@@ -24,9 +24,9 @@ You may download **MaterialDesignWidgetsDemo** to see how its used in your app.
 ## Usage
 
 ### Buttons
-Files  needed:
-1. RippleLayer.swift
-2. MaterialButton.swift
+> Required Files:
+> - **RippleLayer.swift**
+> - **MaterialButton.swift**
 
 #### Normal Button
 ```swift
@@ -41,8 +41,8 @@ let btnLoading = MaterialButton(text: "Loading Button", cornerRadius: 15.0)
 loadingBtn.addTarget(self, action: #selector(tapLoadingButton(sender:)), for: .touchUpInside)
 
 @objc func tapLoadingButton(sender: MaterialButton) {
-	sender.isLoading = !sender.isLoading
-	sender.isLoading ? sender.showLoader(userInteraction: true) : sender.hideLoader()
+    sender.isLoading = !sender.isLoading
+    sender.isLoading ? sender.showLoader(userInteraction: true) : sender.hideLoader()
 }
 ```
 <img src="gif/loadingButton.gif" alt="loadingButton" width="350"/>
@@ -62,19 +62,11 @@ let btnV = MaterialVerticalButton(icon: img, title: "Fill", foregroundColor: .bl
 <img src="gif/verticalButton.gif" alt="verticalButton" width="350"/>
 
 ### Segmented Control
-Files  needed:
-1. MaterialSegmentedControl.swift
-```swift
-var segments = [UIButton]() // Segments are in the Button form.
-for i in 0..<3 {
-	let button = MaterialButton(text: "Segment \(i)", textColor: .gray, bgColor: .clear, cornerRadius: 18.0)
-	segments.append(button)
-}
-```
+>  Required File - **MaterialSegmentedControl.swift**
+
 #### Filled
 ```swift
-let sgFilled = MaterialSegmentedControl(segments: segments, selectorStyle: .fill, textColor: .black, selectorTextColor: .white, selectorColor: .black)
-
+let sgFilled = MaterialSegmentedControl(selectorStyle: .fill, fgColor: .black, selectedFgColor: .white, selectorColor: .black, bgColor: .lightGray)
 // Below is styling, you can write your own.
 sgFilled.backgroundColor = .lightGray
 sgFilled.setCornerBorder(cornerRadius: 18.0)
@@ -84,22 +76,49 @@ sgFilled.setCornerBorder(cornerRadius: 18.0)
 
 #### Outline
 ```swift
-let sgOutline = MaterialSegmentedControl(segments: segments, selectorStyle: .line, textColor: .black, selectorTextColor: .white, selectorColor: .black)
+let sgOutline = MaterialSegmentedControl(selectorStyle: .outline, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
 ```
 
 <img src="gif/segmentOutline.gif" alt="segmentOutline" width="350"/>
 
-#### Line
+#### Line Text
 ```swift
-let sgLine = MaterialSegmentedControl(selectorStyle: .line, textColor: .black, selectorTextColor: .black, selectorColor: .black, bgColor: .white)
+let sgLine = MaterialSegmentedControl(selectorStyle: .line, fgColor: .black, selectedFgColor: .black, selectorColor: .black, bgColor: .white)
 ```
 
-<img src="gif/segmentLine.gif" alt="segmentLine" width="350"/>
+<img src="gif/segmentLineText.gif" alt="segmentLineText" width="350"/>
+
+#### Line Icon
+```swift
+let sgLineIcon = MaterialSegmentedControl(selectorStyle: .line, fgColor: .black, selectedFgColor: .black, selectorColor: .gray, bgColor: .white)
+```
+
+<img src="gif/segmentLineIcon.gif" alt="segmentLineIcon" width="350"/>
+
+#### Append Normal Segment
+```swift
+for i in 0..<3 {
+    segCtrl.appendSegment(text: "Segment \(i)", textColor: .gray, bgColor: .clear, cornerRadius: radius)
+}
+```
+
+#### Append Icon Segment
+```swift
+let icons = [yourImage1, yourImage2, yourImage3]
+for i in 0..<3 {
+    sgLineIcon.appendIconSegment(icon: icons[i], preserveIconColor: true, rippleColor: .clear, cornerRadius: 0.0)
+}
+```
+
+#### Add Value Change Listener
+```swift
+segCtrl.addTarget(self, action: #selector(yourSegmentedControlValueChangeMethod), for: .valueChanged)
+```
 
 ### TextField
-Files  needed:
-1. RippleLayer.swift
-2. MaterialTextField.swift
+> Required files:
+> - **RippleLayer.swift**
+> - **MaterialTextField.swift**
 ```swift
 let textField = MaterialTextField(hint: "TextField", textColor: .black, bgColor: .white)
 ```
@@ -107,8 +126,7 @@ let textField = MaterialTextField(hint: "TextField", textColor: .black, bgColor:
 <img src="gif/textField.gif" alt="textField" width="350"/>
 
 ### Loading Indicator
-Files  needed:
-1. MaterialLoadingIndicator.swift
+> Required file - **MaterialLoadingIndicator.swift**
 ```swift
 let indicatorBlack = MaterialLoadingIndicator(radius: 15.0, color: .black)
 indicatorBlack.startAnimating()
