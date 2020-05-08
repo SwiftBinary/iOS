@@ -7,10 +7,17 @@
 //
 
 import UIKit
+import SwiftyJSON
+import Alamofire
+import MobileCoreServices
 import RSKPlaceholderTextView
 
-class WritePostViewController: UIViewController, UITextFieldDelegate {
+class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextViewDelegate {
     
+
+    let developIP = "http://203.252.161.96:8080"
+    let OperationIP = "http://203.252.161.219:8080"
+    let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
     
     @IBOutlet var tfTitle: UITextField!
     @IBOutlet var tvContentView: UIView!
@@ -18,6 +25,15 @@ class WritePostViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var tfHashTag: UITextField! //
     
     var naviTitle: String = ""
+    @IBOutlet var imgView: UIImageView!
+    let imagePicker: UIImagePickerController! = UIImagePickerController()
+    var captureImage: UIImage!
+    @IBOutlet var svUploadImage: UIStackView!
+    @IBOutlet var svUploadImage2: UIStackView!
+    
+    var uploadPost = false
+    @IBOutlet var btnUploadPost: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "게시글 작성하기"
@@ -31,7 +47,9 @@ class WritePostViewController: UIViewController, UITextFieldDelegate {
         
         let content = RSKPlaceholderTextView(frame: CGRect(x: (self.view.frame.width*0.04), y: 0, width: self.view.frame.width*0.96, height: tvContentView.frame.height*0.9))
         content.placeholder = "내용을 입력하세요. (최대 1000자 까지 입력 가능)"
+        content.delegate = self
         tvContentView.addSubview(content)
+        
     }
     
     @IBAction func gotoBack(_ sender: UIBarButtonItem) {
@@ -49,9 +67,43 @@ class WritePostViewController: UIViewController, UITextFieldDelegate {
     @IBAction func tfFocusing(_ sender: UITextField) {
         tfHashTag.becomeFirstResponder()
     }
-    
     @IBAction func checkEdit(_ sender: UITextField) {
+        checkEditText()
+    }
+    func textViewDidChange(_ textView: UITextView) {
+        checkEditText()
+    }
+    func checkEditText() {
+        if !(tfTitle.text!.isEmpty || (tvContentView.subviews[0] as! RSKPlaceholderTextView).isEmpty) {
+            btnUploadPost.isEnabled = true
+            btnUploadPost.backgroundColor = themeColor
+        } else {
+            btnUploadPost.isEnabled = false
+            btnUploadPost.backgroundColor = .lightGray
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let mediaType = info[UIImagePickerController.InfoKey.mediaType] as! NSString
         
+        if mediaType.isEqual(to: kUTTypeImage as NSString as String) {
+            captureImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+//            UIImageWriteToSavedPhotosAlbum(captureImage, self, nil, nil)
+            imgView.image = captureImage
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+    @IBAction func loadImage(_ sender: UIButton) {
+        if (UIImagePickerController.isSourceTypeAvailable(.photoLibrary)){
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.mediaTypes = [kUTTypeImage as String]
+            imagePicker.allowsEditing = true
+            
+            present(imagePicker, animated: true, completion: nil)
+        } else {
+            alertControllerDefault(title: "업로드 실패", message: "앨범에 접근할 수 없습니다.\n권한을 확인해주세요.")
+        }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -63,7 +115,31 @@ class WritePostViewController: UIViewController, UITextFieldDelegate {
         return count <= 20
     }
     
-    
+    @IBAction func uploadPost(_ sender: UIButton) {
+        let postTitle = tfTitle.text!
+        let postContent = (tvContentView.subviews[0] as! RSKPlaceholderTextView).text!
+        let url = OperationIP + "/board/insertBoardInfo.do"
+        let jsonHeader = JSON(["userSn":"U200207_1581067560549"])
+        let parameter = JSON([
+                "boardSn": "1",
+            "category": 4,
+                "title": "test",
+                "content": "test",
+                "hashTag": "iii",
+
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let httpHeaders: HTTPHeaders = ["json":convertedHeaderString]
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            debugPrint(response)
+            if response.value != nil {
+                let reponseJSON = JSON(response.value!)
+            }
+        }
+    }
     /*
     // MARK: - Navigation
 

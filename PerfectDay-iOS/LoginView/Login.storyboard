@@ -801,6 +801,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
+                                    <action selector="completeJoin:" destination="sHE-6M-hR5" eventType="touchUpInside" id="Nos-1u-lH3"/>
                                     <action selector="tempJoin:" destination="sHE-6M-hR5" eventType="touchUpInside" id="C5D-BQ-jPZ"/>
                                 </connections>
                             </button>

@@ -61,7 +61,6 @@ class LoginViewController: UIViewController {
         let userId = tfEmail.text!
         let userPw = tfPassword.text! == "0000" ? "0000".sha256() : tfPassword.text!
         if checkId(userId: userId, userPw: userPw) {
-            let developIP = "http://203.252.130.194:8080"
             let url = developIP + "/user/loginUser.do"
             let jsonHeader = JSON(["userSn":"_","deviceOS":"IOS"])
             let parameter = JSON([
@@ -125,10 +124,45 @@ class LoginViewController: UIViewController {
     }
     */
     @IBAction func tempLogin(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let goToVC = storyboard.instantiateViewController(withIdentifier: "mainView")
-        goToVC.modalPresentationStyle = .fullScreen
-        self.present(goToVC, animated: true, completion: nil)
+        let userId = "hogafol284@windmails.net"
+        let userPw = "0000".sha256()
+        if checkId(userId: userId, userPw: userPw) {
+            let url = OperationIP + "/user/loginUser.do"
+            let jsonHeader = JSON(["userSn":"_","deviceOS":"IOS"])
+            let parameter = JSON([
+                "userEmail":userId,
+                "userPw":userPw,
+                "loginType":"001",
+            ])
+            
+            let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+            let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+            let httpHeaders: HTTPHeaders = ["json":convertedHeaderString]
+            
+            AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+                debugPrint(response)
+                if response.value != nil {
+                    let reponseJSON = JSON(response.value!)
+                    // result값 - 1:성공, 2:실패
+                    let loginResult = Int(reponseJSON["result"].stringValue)
+                    switch loginResult {
+                    case 1:
+                        self.loginSuccess()
+                    case 2:
+                        self.loginFail()
+                    case -1:
+                        self.networkFail()
+                    default: break
+                    }
+                }
+            }
+        } else {
+            alertControllerDefault(title: "아이디 및 비밀번호를\n입력해주세요.", message: "")
+        }
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let goToVC = storyboard.instantiateViewController(withIdentifier: "mainView")
+//        goToVC.modalPresentationStyle = .fullScreen
+//        self.present(goToVC, animated: true, completion: nil)
     }
 
 }

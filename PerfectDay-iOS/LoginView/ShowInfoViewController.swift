@@ -11,7 +11,7 @@ import SwiftyJSON
 import Alamofire
 
 class ShowInfoViewController: UIViewController {
-
+    
     @IBOutlet var btnBack: UIButton!
     @IBOutlet var tvInfo: UITextView!
     
@@ -42,7 +42,6 @@ class ShowInfoViewController: UIViewController {
     }
     
     func findUserEmail(name: String, birth: String, gender: String){
-        let developIP = "http://203.252.130.194:8080"
         let url = developIP + "/user/findUserEmail.do"
         let jsonHeader = JSON([
             "userSn":"_",
@@ -55,6 +54,7 @@ class ShowInfoViewController: UIViewController {
         ])
         let convertedParameterString = jsonParameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        print("###Debug###")
         print(convertedParameterString)
         print(String(jsonParameter.rawString()!))
         let httpHeaders: HTTPHeaders = ["json":convertedHeaderString]
@@ -67,8 +67,7 @@ class ShowInfoViewController: UIViewController {
     }
     
     func findUserPw(name: String, email: String, birth: String, gender: String){
-        let developIP = "http://203.252.130.194:8080"
-        let url = developIP + "/user/resetUserPassword.do"
+        let url = OperationIP + "/user/resetUserPassword.do"
         let jsonHeader = JSON([
             "userSn":"_",
             "deviceOS":"IOS"

@@ -31,6 +31,11 @@ class SettingViewController: UITableViewController {
         self.tabBarController?.tabBar.isHidden = true
     }
     
+    @IBAction func logout(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
     /*
     // MARK: - Navigation
 

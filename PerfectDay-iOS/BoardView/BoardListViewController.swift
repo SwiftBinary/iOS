@@ -70,7 +70,7 @@ class BoardListViewController: UIViewController {
         segueTag = sender.view!.tag
 //        print("#########")
 //        print(segueTag)
-//        print("#########")
+//        print("#########") 
         let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "postListView")
         self.navigationController?.pushViewController(goToVC!, animated: true)
     }

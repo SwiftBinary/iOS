@@ -31,6 +31,9 @@ import Alamofire
 
 class JoinViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    let developIP = "http://203.252.161.96:8080"
+    let operationIP = "http://203.252.161.219:8080"
+    
     // View
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var stackView: UIStackView!
@@ -69,7 +72,7 @@ class JoinViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     var userName = ""
     var userEmail = ""
     var userPw = ""
-    var userGender = "000" // 나중에 고쳐!
+    var userGender = "001" // 나중에 고쳐!
     var userBirth = ""
     
     var possibleEmail = false
@@ -231,19 +234,7 @@ class JoinViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         
         let selectAction = UIAlertAction(title: "선택", style: .default, handler: { _ in
             self.fieldDomain.text = self.checkPv ? self.domain : ""
-            //            if self.checkPv{
-            //                self.fieldDomain.text = self.domain
-            //            } else {
-            //                self.fieldDomain.text = ""
-            //                self.fieldDomain.placeholder = self.domainList[0]
-            //            }
-            
             self.fieldDomain.isEnabled = self.fieldDomain.text!.isEmpty
-            //            if self.fieldDomain.text!.isEmpty {
-            //                self.fieldDomain.isEnabled = true
-            //            } else {
-            //                self.fieldDomain.isEnabled = false
-            //            }
         })
         let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
         
@@ -299,8 +290,7 @@ class JoinViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     @IBAction func retrieveNickName(_ sender: UIButton) {
         let userNickName = fieldNickName.text
-        let developIP = "http://203.252.130.194:8080"
-        let url = developIP + "/user/retrieveUserName.do"
+        let url = operationIP + "/user/retrieveUserName.do"
         let jsonHeader = JSON(["userSn":"_","deviceOS":"IOS"])
         let parameter = JSON([
             "userName":userNickName,
@@ -328,8 +318,7 @@ class JoinViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     @IBAction func completeJoin(_ sender: UIButton) {
         let retrieveUserEmail  = fieldEmail.text! + "@" + fieldDomain.text!
-        let developIP = "http://203.252.130.194:8080"
-        let url = developIP + "/user/retrieveUserEmail.do"
+        let url = operationIP + "/user/retrieveUserEmail.do"
         let jsonHeader = JSON(["userSn":"_","deviceOS":"IOS"])
         let parameter = JSON([
             "userName":retrieveUserEmail,
@@ -355,8 +344,7 @@ class JoinViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     func requestJoin() {
-        let developIP = "http://203.252.130.194:8080"
-        let url = developIP + "/user/insertUserInfo.do"
+        let url = operationIP + "/user/insertUserInfo.do"
         let jsonHeader = JSON(["userSn":"_","deviceOS":"IOS"])
         let parameter = JSON([
             "userType" : "002",

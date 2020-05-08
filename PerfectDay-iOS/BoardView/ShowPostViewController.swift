@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftyJSON
+import Alamofire
 
 class ShowPostViewController: UIViewController {
     
@@ -15,6 +17,7 @@ class ShowPostViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         // Do any additional setup after loading the view.
+        requestPost()
     }
     
     func setUI(){
@@ -22,6 +25,31 @@ class ShowPostViewController: UIViewController {
         let navigationVCList = self.navigationController!.viewControllers
         let navigationTitle = navigationVCList[1].navigationItem.title
         self.navigationItem.title = navigationTitle
+    }
+    func requestPost(){
+        let url = developIP + "/board/selectBoardListInfo.do"
+        let jsonHeader = JSON(["userSn":"U200207_1581067560549"])
+        let parameter = JSON([
+                "category": 4,
+                "filterInfo": "1m",
+                "sortInfo": "viewCnt",
+                "offset": 0,
+                "limit": 20
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let httpHeaders: HTTPHeaders = ["json":convertedHeaderString]
+        
+        print(convertedHeaderString)
+        print(convertedParameterString)
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            debugPrint(response)
+            if response.value != nil {
+                let reponseJSON = JSON(response.value!)
+            }
+        }
     }
 
     /*

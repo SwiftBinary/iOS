@@ -14,6 +14,7 @@ class FindEmailViewController: UIViewController, IndicatorInfoProvider {
     
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
     let svMain = UIStackView()
+
     
     //Name
     let lblName = makeUILabel("이름")
