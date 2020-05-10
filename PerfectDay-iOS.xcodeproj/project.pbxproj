@@ -43,6 +43,10 @@
 		C7707F9823F290C5007BCCD3 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7707F9723F290C5007BCCD3 /* SearchResultViewController.swift */; };
 		C7707F9A23F29126007BCCD3 /* SearchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7707F9923F29126007BCCD3 /* SearchLocationViewController.swift */; };
 		C7707F9C23F2917D007BCCD3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7707F9B23F2917D007BCCD3 /* SearchViewController.swift */; };
+		C77D1A432467E90E0015A449 /* MyPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C77D1A422467E90E0015A449 /* MyPage.storyboard */; };
+		C77D1A452467EC6C0015A449 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C77D1A442467EC6C0015A449 /* Search.storyboard */; };
+		C77D1A472467ECD80015A449 /* Board.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C77D1A462467ECD80015A449 /* Board.storyboard */; };
+		C77D1A492467ED2F0015A449 /* Dibs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C77D1A482467ED2F0015A449 /* Dibs.storyboard */; };
 		C7824799243CB65A003D690F /* FindBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7824798243CB65A003D690F /* FindBackViewController.swift */; };
 		C7B0D2A92417E71700BF1467 /* WriteReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B0D2A82417E71700BF1467 /* WriteReviewViewController.swift */; };
 		C7C1FE6D23EC14060022C957 /* SearchSetLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C1FE6C23EC14060022C957 /* SearchSetLocationViewController.swift */; };
@@ -114,6 +118,10 @@
 		C7707F9723F290C5007BCCD3 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		C7707F9923F29126007BCCD3 /* SearchLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationViewController.swift; sourceTree = "<group>"; };
 		C7707F9B23F2917D007BCCD3 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		C77D1A422467E90E0015A449 /* MyPage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPage.storyboard; sourceTree = "<group>"; };
+		C77D1A442467EC6C0015A449 /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
+		C77D1A462467ECD80015A449 /* Board.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Board.storyboard; sourceTree = "<group>"; };
+		C77D1A482467ED2F0015A449 /* Dibs.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dibs.storyboard; sourceTree = "<group>"; };
 		C7824798243CB65A003D690F /* FindBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindBackViewController.swift; sourceTree = "<group>"; };
 		C7B0D2A82417E71700BF1467 /* WriteReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewController.swift; sourceTree = "<group>"; };
 		C7B4B9F923F4F8930066B66A /* PerfectDay-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "PerfectDay-iOS.entitlements"; sourceTree = "<group>"; };
@@ -249,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				C758EADA23F0FF4900033E29 /* BoardListViewController.swift */,
+				C77D1A462467ECD80015A449 /* Board.storyboard */,
 				C7C6811A23F131A10016412B /* PostListViewController.swift */,
 				C76ED01924037607003E21F1 /* ShowPostViewController.swift */,
 				C712AC4D24012258009BB29F /* WritePostViewController.swift */,
@@ -272,6 +281,7 @@
 				C7707F9723F290C5007BCCD3 /* SearchResultViewController.swift */,
 				C7707F9923F29126007BCCD3 /* SearchLocationViewController.swift */,
 				C71BAE9F23F39D0400D82351 /* SearchPostViewController.swift */,
+				C77D1A442467EC6C0015A449 /* Search.storyboard */,
 				C7707F9B23F2917D007BCCD3 /* SearchViewController.swift */,
 				C748813723FA472100E8C926 /* FilterLocationViewController.swift */,
 				C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */,
@@ -283,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				C7CD9D8423F1451100D26F62 /* DibsViewController.swift */,
+				C77D1A482467ED2F0015A449 /* Dibs.storyboard */,
 				C75760CA23F64964000BC016 /* DibsNavigationViewController.swift */,
 				C71BAEA123F39DB700D82351 /* DibsCourseViewController.swift */,
 				C7CD9D8823F1471400D26F62 /* DibsLocationViewController.swift */,
@@ -293,6 +304,7 @@
 		C7CD9D8B23F1552700D26F62 /* MypageView */ = {
 			isa = PBXGroup;
 			children = (
+				C77D1A422467E90E0015A449 /* MyPage.storyboard */,
 				C7CD9D8C23F1553B00D26F62 /* MyPageViewController.swift */,
 				C7CD9D8E23F1554800D26F62 /* SettingViewController.swift */,
 				C76ED01B2403D1F2003E21F1 /* SetUserInfoViewController.swift */,
@@ -366,9 +378,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C77D1A492467ED2F0015A449 /* Dibs.storyboard in Resources */,
 				C7EFBFCB23E907130034966C /* Login.storyboard in Resources */,
+				C77D1A432467E90E0015A449 /* MyPage.storyboard in Resources */,
+				C77D1A472467ECD80015A449 /* Board.storyboard in Resources */,
 				C74D96D823E7B1ED000E26C3 /* LaunchScreen.storyboard in Resources */,
 				C74D96D523E7B1ED000E26C3 /* Assets.xcassets in Resources */,
+				C77D1A452467EC6C0015A449 /* Search.storyboard in Resources */,
 				C74D96D323E7B1E9000E26C3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

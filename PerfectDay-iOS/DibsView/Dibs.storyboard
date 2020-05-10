@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XAN-wx-MkI">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--찜 목록-->
+        <scene sceneID="f7c-Y8-JED">
+            <objects>
+                <viewController storyboardIdentifier="dibsNavigationView" id="cnb-A1-8Xl" customClass="DibsNavigationViewController" customModule="PerfectDay_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gb8-os-ZRq">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6YZ-3B-oXD">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <connections>
+                                    <segue destination="Eed-b8-NbS" kind="embed" id="aTc-pH-XLm"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="6YZ-3B-oXD" firstAttribute="bottom" secondItem="3eq-1a-WEG" secondAttribute="bottom" id="2Xs-Lf-brO"/>
+                            <constraint firstItem="6YZ-3B-oXD" firstAttribute="leading" secondItem="3eq-1a-WEG" secondAttribute="leading" id="Uuk-ig-m65"/>
+                            <constraint firstItem="6YZ-3B-oXD" firstAttribute="trailing" secondItem="3eq-1a-WEG" secondAttribute="trailing" id="b76-rd-SSj"/>
+                            <constraint firstItem="6YZ-3B-oXD" firstAttribute="top" secondItem="3eq-1a-WEG" secondAttribute="top" id="u2U-Nn-phJ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3eq-1a-WEG"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="찜 목록" id="uay-eC-Mjf"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vcC-uP-FHP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1861" y="1394"/>
+        </scene>
+        <!--찜-->
+        <scene sceneID="2BM-Xb-I3k">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XAN-wx-MkI" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="찜" image="DibsBtn" id="2N6-wZ-L3g"/>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pbN-rg-1b3">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.98823529409999999" green="0.36470588240000001" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="cnb-A1-8Xl" kind="relationship" relationship="rootViewController" id="Z7S-88-zuI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BTy-IN-2Da" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1000" y="1394"/>
+        </scene>
+        <!--Dibs View Controller-->
+        <scene sceneID="vUu-Gk-uaY">
+            <objects>
+                <viewController id="Eed-b8-NbS" customClass="DibsViewController" customModule="PerfectDay_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qJP-MY-Oaf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="MJB-PE-elv"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8H6-NR-vsl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2668" y="1394"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="DibsBtn" width="28" height="28"/>
+    </resources>
+</document>
