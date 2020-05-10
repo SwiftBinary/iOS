@@ -15,12 +15,14 @@ class ShowPostViewController: UIViewController {
     
     let darkGray = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1)
-    
-    @IBOutlet var svHashTag: UIStackView!
+
     @IBOutlet var uvPost: UIView!
     @IBOutlet var uvComment: UIView!
     
+    @IBOutlet var svHashTag: UIStackView!
     @IBOutlet var svFuncStack: UIStackView!
+    @IBOutlet var svComment: UIStackView!
+    
     @IBOutlet var btnLike: FlatButton!
     @IBOutlet var btnComment: UIButton!
     @IBOutlet var btnMenu: IconButton!
@@ -32,7 +34,7 @@ class ShowPostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        // Do any additional setup after loading the view.
+        setComment()
         requestPost()
     }
     
@@ -68,6 +70,41 @@ class ShowPostViewController: UIViewController {
         
         btnMenu.image = Icon.cm.moreHorizontal
         btnMenu.tintColor = .darkGray
+    }
+    
+    func setComment() {
+        let backComment = UIView()
+        backComment.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        
+        let userNickName = UILabel()
+        userNickName.text = "닉네임"
+        let userComment = UITextView()
+        userComment.text = "와 제 남자친구랑 한 번 가보고 싶어요!"
+        userComment.isEditable = false
+        
+        let TempLabel = UILabel()
+        TempLabel.text = "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
+        let svCommentInfo = UIStackView(arrangedSubviews: [TempLabel]) //horizontal
+        svCommentInfo.axis = .horizontal
+        
+        let imgProfile = UIImageView(image: UIImage(named: "tempProfile"))
+        imgProfile.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        imgProfile.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        let svVertical = UIStackView(arrangedSubviews: [userNickName,userComment,svCommentInfo])
+        svVertical.axis = .vertical
+        let svHorizontal = UIStackView(arrangedSubviews: [imgProfile,svVertical])
+        svHorizontal.axis = .horizontal
+        
+        svHorizontal.translatesAutoresizingMaskIntoConstraints = false
+        backComment.addSubview(svHorizontal)
+        backComment.addConstraint(NSLayoutConstraint(item: svHorizontal, attribute: .centerX, relatedBy: .equal, toItem: backComment, attribute: .centerX, multiplier: 1, constant: 0))
+        svHorizontal.topAnchor.constraint(equalTo: backComment.topAnchor, constant: 0).isActive = true
+        svHorizontal.bottomAnchor.constraint(equalTo: backComment.bottomAnchor, constant: 0).isActive = true
+        svHorizontal.leadingAnchor.constraint(equalTo: backComment.leadingAnchor, constant: 0).isActive = true
+        svHorizontal.trailingAnchor.constraint(equalTo: backComment.trailingAnchor, constant: 0).isActive = true
+        svHorizontal.widthAnchor.constraint(equalTo: backComment.widthAnchor, multiplier: 1).isActive = true
+        
+        svComment.addArrangedSubview(backComment)
     }
     
     @IBAction func likePost(_ sender: FlatButton) {

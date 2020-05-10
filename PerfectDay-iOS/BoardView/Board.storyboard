@@ -910,7 +910,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="dgi-2O-tc8" userLabel="Bottom Stack">
                                                 <rect key="frame" x="20.5" y="381" width="373" height="20.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="게시글 제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEu-a1-D0v">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEu-a1-D0v">
                                                         <rect key="frame" x="0.0" y="0.0" width="373" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -993,6 +993,7 @@
                         <outlet property="btnComment" destination="dHW-7I-xps" id="9Lw-Qa-rjM"/>
                         <outlet property="btnLike" destination="jyX-fj-VIz" id="xx9-a3-AsV"/>
                         <outlet property="btnMenu" destination="AhI-MM-e9D" id="5mM-4L-1Xs"/>
+                        <outlet property="svComment" destination="dgi-2O-tc8" id="B91-GS-Ws0"/>
                         <outlet property="svFuncStack" destination="9bP-fS-YGH" id="QcY-4h-PN5"/>
                         <outlet property="svHashTag" destination="ZW0-Ty-BHG" id="JxV-q5-hc1"/>
                         <outlet property="uvComment" destination="Avv-xW-9z8" id="8P6-EN-qRR"/>
