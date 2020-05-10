@@ -142,7 +142,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DmQ-4C-Rtf">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="44" width="185.5" height="44"/>
                                 <items>
                                     <navigationItem title="필터" id="OPG-Oh-quc">
                                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="vso-ba-3Ve">
@@ -159,7 +159,7 @@
                                 </items>
                             </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ew-CU-Yrf" userLabel="완료">
-                                <rect key="frame" x="20.5" y="812" width="373" height="30"/>
+                                <rect key="frame" x="9.5" y="812" width="167" height="30"/>
                                 <color key="backgroundColor" red="0.98823529409999999" green="0.36470588240000001" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="완료">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -169,28 +169,28 @@
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JlT-rY-H0A">
-                                <rect key="frame" x="0.0" y="93" width="414" height="699"/>
+                                <rect key="frame" x="0.0" y="93" width="185.5" height="699"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="6xT-Yg-DAl" userLabel="Top Stack View">
-                                        <rect key="frame" x="20" y="0.0" width="372.5" height="339"/>
+                                        <rect key="frame" x="20" y="0.0" width="167" height="339"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="기본옵션" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSC-92-ybj">
-                                                <rect key="frame" x="0.0" y="0.0" width="372.5" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="167" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DfA-8o-5rW" userLabel="Price Stack View">
-                                                <rect key="frame" x="0.0" y="35.5" width="372.5" height="41"/>
+                                                <rect key="frame" x="0.0" y="35.5" width="167" height="41"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="가격" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sI-qg-Eam">
-                                                        <rect key="frame" x="0.0" y="0.0" width="372.5" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="167" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUz-yN-c8B">
-                                                        <rect key="frame" x="0.0" y="20.5" width="372.5" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="20.5" width="167" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -198,16 +198,16 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="m3w-LT-4wG" userLabel="Time Stack View">
-                                                <rect key="frame" x="0.0" y="91.5" width="372.5" height="41"/>
+                                                <rect key="frame" x="0.0" y="91.5" width="167" height="41"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="소요시간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGT-nZ-0Sf">
-                                                        <rect key="frame" x="0.0" y="0.0" width="372.5" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="167" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7h-xR-HGm">
-                                                        <rect key="frame" x="0.0" y="20.5" width="372.5" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="20.5" width="167" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -215,16 +215,16 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ox7-51-ffh" userLabel="Distance Stack View">
-                                                <rect key="frame" x="0.0" y="147.5" width="372.5" height="41"/>
+                                                <rect key="frame" x="0.0" y="147.5" width="167" height="41"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="거리" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BuH-cJ-Yxr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="372.5" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="167" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbX-w0-DVh">
-                                                        <rect key="frame" x="0.0" y="20.5" width="372.5" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="20.5" width="167" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -232,44 +232,44 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="정렬 기준" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GZT-9q-h5y">
-                                                <rect key="frame" x="0.0" y="203.5" width="372.5" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="203.5" width="167" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="1a9-Qn-sZd" userLabel="Sorting Stack">
-                                                <rect key="frame" x="0.0" y="239" width="372.5" height="100"/>
+                                                <rect key="frame" x="0.0" y="239" width="167" height="100"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="HLN-eI-4kl" userLabel="Stack1">
-                                                        <rect key="frame" x="0.0" y="0.0" width="184" height="100"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="81" height="100"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFq-N3-iez">
-                                                                <rect key="frame" x="0.0" y="0.0" width="184" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="81" height="30"/>
                                                                 <state key="normal" title="가까운 순"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vqp-le-3Nl">
-                                                                <rect key="frame" x="0.0" y="35" width="184" height="30"/>
+                                                                <rect key="frame" x="0.0" y="35" width="81" height="30"/>
                                                                 <state key="normal" title="소요 시간순↑"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bUT-TF-AxM">
-                                                                <rect key="frame" x="0.0" y="70" width="184" height="30"/>
+                                                                <rect key="frame" x="0.0" y="70" width="81" height="30"/>
                                                                 <state key="normal" title="높은 가격순"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="KqV-JS-f0u" userLabel="Stack2">
-                                                        <rect key="frame" x="189" y="0.0" width="183.5" height="100"/>
+                                                        <rect key="frame" x="86" y="0.0" width="81" height="100"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NxI-6B-EyS">
-                                                                <rect key="frame" x="0.0" y="0.0" width="183.5" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="81" height="30"/>
                                                                 <state key="normal" title="평점순"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O4z-ws-cGF">
-                                                                <rect key="frame" x="0.0" y="35" width="183.5" height="30"/>
+                                                                <rect key="frame" x="0.0" y="35" width="81" height="30"/>
                                                                 <state key="normal" title="소요 시간순↓"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IiJ-d0-Eco">
-                                                                <rect key="frame" x="0.0" y="70" width="183.5" height="30"/>
+                                                                <rect key="frame" x="0.0" y="70" width="81" height="30"/>
                                                                 <state key="normal" title="낮은 가격순"/>
                                                             </button>
                                                         </subviews>
@@ -442,4 +442,5 @@
     <resources>
         <image name="SearchBtn" width="28" height="28"/>
     </resources>
+    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

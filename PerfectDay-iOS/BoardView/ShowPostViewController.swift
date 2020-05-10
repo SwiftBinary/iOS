@@ -27,6 +27,7 @@ class ShowPostViewController: UIViewController {
     
     var checkLikePost = false
     var isMyPost = false
+    var commentNum = 20
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +62,7 @@ class ShowPostViewController: UIViewController {
         btnLike.setImage(UIImage(named: "LikeOffBtn"), for: .normal)
         btnLike.layer.cornerRadius = 15
         
+        btnComment.setTitle(String(commentNum))
         btnComment.setImage(UIImage(named: "CommentIcon"), for: .normal)
         btnComment.tintColor = .darkGray
         

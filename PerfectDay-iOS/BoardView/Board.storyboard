@@ -1023,4 +1023,5 @@
         <image name="tempProfile" width="95" height="95"/>
         <image name="viewIcon" width="13" height="13"/>
     </resources>
+    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

@@ -20,10 +20,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchLogo" translatesAutoresizingMaskIntoConstraints="NO" id="a0H-eF-Hio">
-                                <rect key="frame" x="103.66666666666669" y="227.66666666666663" width="207" height="360"/>
+                                <rect key="frame" x="103.66666666666669" y="317.66666666666669" width="207" height="180"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchString" translatesAutoresizingMaskIntoConstraints="NO" id="jZJ-jd-n0H">
-                                <rect key="frame" x="104.66666666666667" y="597.66666666666663" width="204.66666666666663" height="32"/>
+                                <rect key="frame" x="104.66666666666667" y="507.66666666666674" width="204.66666666666663" height="16"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchCopyright" translatesAutoresizingMaskIntoConstraints="NO" id="jJl-HU-wkJ">
                                 <rect key="frame" x="51.666666666666657" y="768.66666666666663" width="310.66666666666674" height="93.333333333333371"/>
@@ -100,16 +100,16 @@
                                 </constraints>
                             </scrollView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LandmarkTemp" translatesAutoresizingMaskIntoConstraints="NO" id="AZl-Me-Xlw">
-                                <rect key="frame" x="20.666666666666657" y="138" width="372.66666666666674" height="434"/>
+                                <rect key="frame" x="20.666666666666657" y="138" width="372.66666666666674" height="217"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meeting Point" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86e-rt-AJB">
-                                <rect key="frame" x="20.666666666666657" y="577" width="372.66666666666674" height="20.333333333333371"/>
+                                <rect key="frame" x="20.666666666666657" y="360" width="372.66666666666674" height="20.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ocj-wN-3Jj" userLabel="Landmark Scroll">
-                                <rect key="frame" x="20.666666666666657" y="602.33333333333337" width="372.66666666666674" height="210.66666666666663"/>
+                                <rect key="frame" x="20.666666666666657" y="385.33333333333326" width="372.66666666666674" height="427.66666666666674"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3cl-ui-xwb">
                                         <rect key="frame" x="0.0" y="0.0" width="372.66666666666669" height="0.0"/>
@@ -663,7 +663,7 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ifj-97-Ckn">
-                                <rect key="frame" x="328" y="726" width="76" height="76"/>
+                                <rect key="frame" x="366" y="764" width="38" height="38"/>
                                 <state key="normal" image="PlannerBtn"/>
                                 <connections>
                                     <action selector="goToPlannerView:" destination="Ib5-BB-kNU" eventType="touchUpInside" id="oy7-H8-miA"/>
@@ -896,10 +896,10 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="372.66666666666669" height="75"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="LbC-sj-uSS">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="142" height="75"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="71" height="75"/>
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVf-5y-IdL">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="142" height="75"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="71" height="75"/>
                                                                                 <state key="normal" image="AddPhotoBtn"/>
                                                                             </button>
                                                                         </subviews>

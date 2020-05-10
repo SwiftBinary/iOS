@@ -492,6 +492,9 @@
                                             <constraint firstItem="xKj-g5-Pfr" firstAttribute="centerY" secondItem="2qW-9o-QrU" secondAttribute="centerY" id="rTc-6E-iM7"/>
                                             <constraint firstItem="xKj-g5-Pfr" firstAttribute="width" secondItem="2qW-9o-QrU" secondAttribute="width" multiplier="0.9" id="rao-dn-pyO"/>
                                         </constraints>
+                                        <connections>
+                                            <segue destination="wbX-QB-3pL" kind="show" id="jvZ-W5-GpJ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -512,7 +515,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h9q-wk-WQ2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1000" y="2071"/>
+            <point key="canvasLocation" x="1000.0000000000001" y="2070.5357142857142"/>
         </scene>
         <!--어플리케이션 정보-->
         <scene sceneID="CQZ-cF-LwT">
@@ -1149,4 +1152,5 @@
         <image name="tempProfile" width="95" height="95"/>
         <image name="upArrow" width="15" height="9"/>
     </resources>
+    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>
