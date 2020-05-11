@@ -10,7 +10,7 @@ import UIKit
 import ImageSlideshow
 import Material
 
-class PostListViewController: UIViewController,UIGestureRecognizerDelegate {
+class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISearchBarDelegate {
     let darkGray = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     let themeColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
     var segueTitle: Int = 0
@@ -33,13 +33,9 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate {
         super.viewDidLoad()
         setUI()
         setBanner()
-        setNavigation()
     }
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
-    }
-    func setNavigation(){
-        
     }
     
     func setUI() {
@@ -134,6 +130,19 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate {
         self.navigationController?.pushViewController(goToVC!, animated: true)
     }
     
+    @IBAction func searchPost(_ sender: UIBarButtonItem) {
+        self.navigationItem.hidesBackButton = true
+        self.navigationItem.rightBarButtonItems?.remove(at: 1)
+        
+        let searchBar = UISearchBar()
+        searchBar.showsCancelButton = false
+        searchBar.placeholder = "ex) 동 검색: 화양동, 키워드 검색: 치킨.."
+        searchBar.delegate = self
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.heightAnchor.constraint(equalToConstant: (self.navigationController?.navigationBar.frame.height)!).isActive = true
+        self.navigationItem.titleView = searchBar
+    }
+    
     @IBAction func upToTop(_ sender: Any) {
         scrollPostList.scrollToTop()
         btnScrollUp.isHidden = true
@@ -143,6 +152,8 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate {
         
     }
     
+    
+    // 수정 필요
     @IBAction func showFilter(_ sender: UIBarButtonItem) {
         let goToVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "postFilterView")
         self.present(goToVC, animated: true, completion: nil)

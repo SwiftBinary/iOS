@@ -222,6 +222,7 @@
 				C76B37ED23EAC1D300B05A45 /* MainView */,
 				C74F973023E973F300E75058 /* LoginView */,
 				C74D96CD23E7B1E9000E26C3 /* SceneDelegate.swift */,
+				C74D96CB23E7B1E9000E26C3 /* AppDelegate.swift */,
 				C701C6C8243765A00079B395 /* UIFunctions.swift */,
 				C701C6CA2437884D0079B395 /* EnumValue.swift */,
 				C74D96D123E7B1E9000E26C3 /* Main.storyboard */,
@@ -246,7 +247,6 @@
 				C701C6C6243761E60079B395 /* FindPWViewController.swift */,
 				C718CE59243CAF6800F544BF /* FindEmailViewController.swift */,
 				C76B37EB23EA6F2900B05A45 /* ShowInfoViewController.swift */,
-				C74D96CB23E7B1E9000E26C3 /* AppDelegate.swift */,
 				C7EFBFCC23E911D90034966C /* LoginViewController.swift */,
 				C74D96CF23E7B1E9000E26C3 /* MainViewController.swift */,
 			);
