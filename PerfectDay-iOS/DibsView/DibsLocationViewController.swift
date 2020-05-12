@@ -7,15 +7,19 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+import Material
 import XLPagerTabStrip
 
 class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
 
-    let testNum = 50
+    let testNum = 5
+    
+    let lightGray = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
     
     var itemInfo: IndicatorInfo = "View"
     let btnCreateCourse = UIButton(type: .custom)
-    let btnCancelCreate = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(cancelCreate))
     let scrollMain = UIScrollView()
     var createONOFF = false
     
@@ -31,33 +35,44 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLocationStack()
+        setUI()
     }
     
     func setLocationStack(){
-        print(scrollMain.isScrollEnabled)
         scrollMain.translatesAutoresizingMaskIntoConstraints = false
         let svMain = UIStackView()
         svMain.translatesAutoresizingMaskIntoConstraints = false
-        svMain.distribution = .fillEqually
+        svMain.distribution = .fill
         svMain.axis = .vertical
         svMain.spacing = 15
-        addLocationItem(svMain,num:0)
-        for i in 1...testNum {
-            addLocationItem(svMain,num:i)
-        }
 
-        
-        scrollMain.addSubview(svMain)
-        svMain.widthAnchor.constraint(equalTo: scrollMain.widthAnchor, multiplier: 0.9).isActive = true
-        
         view.addSubview(scrollMain)
         view.addConstraint(NSLayoutConstraint(item: scrollMain, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
-        scrollMain.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
-        scrollMain.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
-        scrollMain.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
-        scrollMain.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
-        scrollMain.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        view.widthAnchor.constraint(equalTo: scrollMain.widthAnchor, multiplier: 1).isActive = true
+        view.topAnchor.constraint(equalTo: scrollMain.topAnchor, constant: 0).isActive = true
+        view.bottomAnchor.constraint(equalTo: scrollMain.bottomAnchor, constant: 0).isActive = true
+        view.trailingAnchor.constraint(equalTo: scrollMain.trailingAnchor, constant: 0).isActive = true
+        view.leadingAnchor.constraint(equalTo: scrollMain.leadingAnchor, constant: 0).isActive = true
+        
+        
+        scrollMain.addSubview(svMain)
         scrollMain.addConstraint(NSLayoutConstraint(item: svMain, attribute: .centerX, relatedBy: .equal, toItem: scrollMain, attribute: .centerX, multiplier: 1, constant: 0))
+        svMain.widthAnchor.constraint(equalTo: scrollMain.widthAnchor, multiplier: 0.9).isActive = true
+        svMain.topAnchor.constraint(equalTo: scrollMain.topAnchor, constant: 0).isActive = true
+        svMain.bottomAnchor.constraint(equalTo: scrollMain.bottomAnchor, constant: 0).isActive = true
+        
+        let topView = UIView()
+        topView.backgroundColor = .none
+        topView.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
+        let bottomView = UIView()
+        bottomView.backgroundColor = .none
+        bottomView.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
+        
+        svMain.addArrangedSubview(topView)
+        for i in 0...testNum {
+            addLocationItem(svMain,num:i)
+        }
+        svMain.addArrangedSubview(bottomView)
     }
     func addLocationItem(_ mainStack: UIStackView, num: Int){
         let svTwoItem = UIStackView()
@@ -68,99 +83,148 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         svTwoItem.distribution = .fillEqually
         
         mainStack.addArrangedSubview(svTwoItem)
-        //svTwoItem.widthAnchor.constraint(equalTo: mainStack.widthAnchor, multiplier: 1).isActive = true
     }
     
-    func makeItem(_ num: Int) -> UIStackView {
+    func makeItem(_ num: Int) -> UIView {
         //let btnItem = UIButton(type: .custom)
+        let uvLocation = UIView()
+        uvLocation.translatesAutoresizingMaskIntoConstraints = false
+        uvLocation.layer.cornerRadius = 5
+        uvLocation.layer.borderWidth = 0.5
+        uvLocation.layer.borderColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+        uvLocation.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tempFunc)))
         
         // 나중에 얘기는 클래스 단위로 따로 설계할 필요가 있음
-        let svItem = UIStackView()
-        svItem.axis = .vertical
-        let imgItem = UIImageView(image: UIImage(named: "ReviewBoardIcon"))
+        let imgItem = UIImageView(image: UIImage(named: "TempImage"))
+//        imgItem.widthAnchor.constraint(equalToConstant: 160).isActive = true
+        imgItem.heightAnchor.constraint(equalToConstant: 130).isActive = true
+        imgItem.contentMode = .scaleAspectFill
+        imgItem.clipsToBounds = true
+        imgItem.layer.cornerRadius = 5
+        imgItem.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
         let lblvar = UILabel()
-        lblvar.text = "만화카페" + String(num)
+        lblvar.text = "만화카페"
+        lblvar.fontSize = 11
+        lblvar.textColor = .systemBlue
         let lblName = UILabel()
         lblName.text = "놀숲 건대점"
-        let lblPrice = UILabel()
-        lblPrice.text = "대표메뉴 10,000원"
-        let lblLocate = UILabel()
-        lblLocate.text = "서울시 광진구 화양동"
-        // 좋아요 별점 추후 추가(위치 및 표시 기획 결정 안 남)
-        svItem.addArrangedSubview(imgItem)
-        svItem.addArrangedSubview(lblvar)
-        svItem.addArrangedSubview(lblName)
-        svItem.addArrangedSubview(lblPrice)
-        svItem.addArrangedSubview(lblLocate)
-        svItem.backgroundColor = .black
-        svItem.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tempFunc)))
-//        svItem.translatesAutoresizingMaskIntoConstraints = false
-//        svItem.layer.borderWidth = 0.5
-//        svItem.layer.borderColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
-//        btnItem.addSubview(svItem)
-//        btnItem.addTarget(self, action: #selector(tempFunc), for: .touchUpInside)
+        lblName.font = UIFont.boldSystemFont(ofSize: 18.0)
         
-        return svItem
+        
+        let lblPrice = UILabel()
+        lblPrice.text = "대표메뉴 " + String(num) + "원"
+        lblPrice.fontSize = 11
+        lblPrice.textColor = .darkGray
+        let lblLocation = UIButton(type: .custom)
+        lblLocation.setTitle("서울 광진구 자양동", for: .normal)
+        lblLocation.setTitleColor(.darkGray, for: .normal)
+        lblLocation.setImage(UIImage(named: "AddressIcon"), for: .normal)
+        lblLocation.titleLabel?.fontSize = 11
+        lblLocation.isUserInteractionEnabled = false
+        lblLocation.contentHorizontalAlignment = .left
+        let svLabel = UIStackView(arrangedSubviews: [lblPrice, lblLocation])
+        svLabel.axis = .vertical
+        
+        let imgDids = UIImageView(image: UIImage(named: "EmptyHeart"))
+        let imgGPA = UIImageView(image: UIImage(named: "GPAIcon"))
+        let svIcon = UIStackView(arrangedSubviews: [imgDids,imgGPA])
+        svIcon.axis = .vertical
+        
+        let lblDidsCount = UILabel()
+        lblDidsCount.text = "9999"
+        lblDidsCount.textColor = .darkGray
+        lblDidsCount.fontSize = 11
+        lblDidsCount.textAlignment = .center
+        let lblGPA = UILabel()
+        lblGPA.text = "3.5"
+        lblGPA.textColor = .darkGray
+        lblGPA.fontSize = 11
+        lblGPA.textAlignment = .center
+        let svCount = UIStackView(arrangedSubviews: [lblDidsCount,lblGPA])
+        svCount.axis = .vertical
+        
+        let svSubInfo = UIStackView(arrangedSubviews: [svLabel,svIcon,svCount])
+        svSubInfo.axis = .horizontal
+        svSubInfo.distribution = .fillProportionally
+        svSubInfo.spacing = 5
+        
+        let svItemInfo = UIStackView(arrangedSubviews: [lblvar,lblName,svSubInfo])
+        svItemInfo.translatesAutoresizingMaskIntoConstraints = false
+        svItemInfo.axis = .vertical
+        let uvItemInfo = UIView()
+        uvItemInfo.addSubview(svItemInfo)
+        uvItemInfo.addConstraint(NSLayoutConstraint(item: svItemInfo, attribute: .centerX, relatedBy: .equal, toItem: uvItemInfo, attribute: .centerX, multiplier: 1, constant: 0))
+        uvItemInfo.addConstraint(NSLayoutConstraint(item: svItemInfo, attribute: .centerY, relatedBy: .equal, toItem: uvItemInfo, attribute: .centerY, multiplier: 1, constant: 0))
+        svItemInfo.widthAnchor.constraint(equalTo: uvItemInfo.widthAnchor, multiplier: 0.9).isActive = true
+        svItemInfo.heightAnchor.constraint(equalTo: uvItemInfo.heightAnchor, multiplier: 0.9).isActive = true
+        
+        let svItem = UIStackView(arrangedSubviews: [imgItem,uvItemInfo])
+        svItem.translatesAutoresizingMaskIntoConstraints = false
+        svItem.axis = .vertical
+        svItem.distribution = .fill
+        
+        uvLocation.addSubview(svItem)
+        uvLocation.addConstraint(NSLayoutConstraint(item: svItem, attribute: .centerX, relatedBy: .equal, toItem: uvLocation, attribute: .centerX, multiplier: 1, constant: 0))
+        uvLocation.addConstraint(NSLayoutConstraint(item: svItem, attribute: .centerY, relatedBy: .equal, toItem: uvLocation, attribute: .centerY, multiplier: 1, constant: 0))
+        svItem.widthAnchor.constraint(equalTo: uvLocation.widthAnchor, multiplier: 1).isActive = true
+        svItem.heightAnchor.constraint(equalTo: uvLocation.heightAnchor, multiplier: 1).isActive = true
+        
+        let btnRemove = IconButton(image: Icon.cm.close)
+        btnRemove.translatesAutoresizingMaskIntoConstraints = false
+        btnRemove.backgroundColor = .white
+        btnRemove.tintColor = .darkGray
+        btnRemove.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        btnRemove.layer.cornerRadius = 12
+        btnRemove.layer.borderWidth = 1
+        uvLocation.addSubview(btnRemove)
+        btnRemove.topAnchor.constraint(equalTo: uvLocation.topAnchor, constant: 5).isActive = true
+        btnRemove.leadingAnchor.constraint(equalTo: uvLocation.leadingAnchor, constant: 5).isActive = true
+        
+        let btnCheck = IconButton(image: Icon.cm.close)
+        btnCheck.translatesAutoresizingMaskIntoConstraints = false
+        btnCheck.backgroundColor = .lightGray
+        btnCheck.tintColor = .darkGray
+        btnCheck.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        btnCheck.layer.cornerRadius = 12
+        btnCheck.layer.borderWidth = 2
+        uvLocation.addSubview(btnCheck)
+        btnCheck.topAnchor.constraint(equalTo: uvLocation.topAnchor, constant: 5).isActive = true
+        btnCheck.trailingAnchor.constraint(equalTo: uvLocation.trailingAnchor, constant: -5).isActive = true
+        
+        return uvLocation
     }
     
     @objc func tempFunc(){
         print("debug")
-        scrollMain.scrollToBottom()
     }
     
     // MARK: - ViewDidAppear
     override func viewDidAppear(_ animated: Bool) {
-        setUI()
+        
     }
     
     func setUI(){
         // 코스 생성 버튼
-        btnCreateCourse.setTitle(nil, for: .normal)
-        btnCreateCourse.backgroundColor = .none
-        btnCreateCourse.setImage(UIImage(named: "CreateCourseBtn") , for: .normal)
-        btnCreateCourse.addTarget(self, action: #selector(setCreateCourse), for: .touchUpInside)
-        btnCreateCourse.imageView?.contentMode = .scaleAspectFit
+        btnCreateCourse.setTitle("확인하기", for: .normal)
+        btnCreateCourse.setTitleColor(.white, for: .normal)
+        btnCreateCourse.backgroundColor = .lightGray
         btnCreateCourse.contentHorizontalAlignment = .center
         btnCreateCourse.translatesAutoresizingMaskIntoConstraints = false
 
+        btnCreateCourse.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        btnCreateCourse.layer.cornerRadius = 5
+        
         view.addSubview(btnCreateCourse)
         view.backgroundColor = .white
 
         view.addConstraint(NSLayoutConstraint(item: btnCreateCourse, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
         btnCreateCourse.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9).isActive = true
+        btnCreateCourse.heightAnchor.constraint(equalToConstant: 45).isActive = true
         btnCreateCourse.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15).isActive = true
     }
-    @objc func setCreateCourse(){
-        createONOFF = true
-        btnCreateCourse.removeTarget(self, action: #selector(setCreateCourse), for: .touchUpInside)
-        btnCreateCourse.setImage(nil, for: .normal)
-        btnCreateCourse.setTitle("확인 하기", for: .normal)
-        btnCreateCourse.setTitleColor(.white, for: .normal)
-        btnCreateCourse.isEnabled = true // false
-        btnCreateCourse.backgroundColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
-        btnCreateCourse.addTarget(self, action: #selector(createCourse), for: .touchUpInside)
-        
-        let VC = self.parent?.parent
-        VC?.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(cancelCreate))
-    }
     
-    @objc func createCourse() {
-        print("debug")
-//        btnCreateCourse.removeTarget(self, action: #selector(createCourse), for: .touchUpInside)
-//        btnCreateCourse.addTarget(self, action: #selector(setCreateCourse), for: .touchUpInside)
-    }
-    @objc func cancelCreate() {
-        print("btn debug")
-        createONOFF = false
-        btnCreateCourse.removeTarget(self, action: #selector(createCourse), for: .touchUpInside)
-        btnCreateCourse.setImage(UIImage(named: "CreateCourseBtn") , for: .normal)
-        btnCreateCourse.setTitle(nil, for: .normal)
-        btnCreateCourse.isEnabled = true
-        btnCreateCourse.backgroundColor = .none
-        btnCreateCourse.addTarget(self, action: #selector(setCreateCourse), for: .touchUpInside)
-        let VC = self.parent?.parent
-        VC?.navigationItem.leftBarButtonItem = nil
-    }
+
     
     // MARK: - IndicatorInfoProvider
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {

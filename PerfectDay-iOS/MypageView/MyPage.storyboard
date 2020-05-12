@@ -557,25 +557,25 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="a9C-eG-2uP" userLabel="Main Stack">
-                                <rect key="frame" x="0.0" y="103" width="414" height="422.5"/>
+                                <rect key="frame" x="20.5" y="103" width="373" height="422.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uwl-Q1-5TQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="122.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="373" height="122.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BpP-Us-SZC" userLabel="Eat Stack">
-                                                <rect key="frame" x="20.5" y="3" width="373" height="110.5"/>
+                                                <rect key="frame" x="19" y="3" width="335" height="110.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="XEy-EH-9XJ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="54"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="54"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   먹기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNa-TG-coY">
-                                                                <rect key="frame" x="0.0" y="17" width="349" height="20.5"/>
+                                                                <rect key="frame" x="0.0" y="17" width="311" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upArrow" translatesAutoresizingMaskIntoConstraints="NO" id="Lh7-1U-D8r">
-                                                                <rect key="frame" x="349" y="13.5" width="24" height="27"/>
+                                                                <rect key="frame" x="311" y="13.5" width="24" height="27"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="Lh7-1U-D8r" secondAttribute="height" multiplier="8:9" id="oSd-89-dNu"/>
                                                                 </constraints>
@@ -587,51 +587,51 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="vgI-r4-f9y">
-                                                        <rect key="frame" x="0.0" y="54" width="373" height="28.5"/>
+                                                        <rect key="frame" x="0.0" y="54" width="335" height="28.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKm-qg-cs8">
-                                                                <rect key="frame" x="0.0" y="0.0" width="93.5" height="28"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="83.5" height="28"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="밥"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="urt-5T-8mB">
-                                                                <rect key="frame" x="93.5" y="0.0" width="93" height="28"/>
+                                                                <rect key="frame" x="83.5" y="0.0" width="84" height="28"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="고기"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Srq-hg-VPL">
-                                                                <rect key="frame" x="186.5" y="0.0" width="93" height="28"/>
+                                                                <rect key="frame" x="167.5" y="0.0" width="84" height="28"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="면"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTE-cY-lCy">
-                                                                <rect key="frame" x="279.5" y="0.0" width="93.5" height="28"/>
+                                                                <rect key="frame" x="251.5" y="0.0" width="83.5" height="28"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="해산물"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="HFU-Rp-Sf5">
-                                                        <rect key="frame" x="0.0" y="82.5" width="373" height="28"/>
+                                                        <rect key="frame" x="0.0" y="82.5" width="335" height="28"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NkB-2Y-d1T">
-                                                                <rect key="frame" x="0.0" y="0.0" width="93.5" height="28"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="83.5" height="28"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="길거리"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6M8-vJ-OuO">
-                                                                <rect key="frame" x="93.5" y="0.0" width="93" height="28"/>
+                                                                <rect key="frame" x="83.5" y="0.0" width="84" height="28"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="피자/버거"/>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nA1-DU-HZD">
-                                                                <rect key="frame" x="186.5" y="3.5" width="93" height="20.5"/>
+                                                                <rect key="frame" x="167.5" y="3.5" width="84" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfd-rX-zzE">
-                                                                <rect key="frame" x="279.5" y="3.5" width="93.5" height="20.5"/>
+                                                                <rect key="frame" x="251.5" y="3.5" width="83.5" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -650,22 +650,22 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IPy-qo-ozV">
-                                        <rect key="frame" x="0.0" y="137.5" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="137.5" width="373" height="60"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7Ce-GV-mby" userLabel="Drink Stack">
-                                                <rect key="frame" x="20.5" y="3" width="373" height="54"/>
+                                                <rect key="frame" x="19" y="3" width="335" height="54"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="am1-Vn-LVJ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="54"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="54"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   마시기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMG-jp-kfw">
-                                                                <rect key="frame" x="0.0" y="17" width="349" height="20.5"/>
+                                                                <rect key="frame" x="0.0" y="17" width="311" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="luc-4d-fsC">
-                                                                <rect key="frame" x="349" y="13.5" width="24" height="27"/>
+                                                                <rect key="frame" x="311" y="13.5" width="24" height="27"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="luc-4d-fsC" secondAttribute="height" multiplier="8:9" id="hZc-7u-5Q9"/>
                                                                 </constraints>
@@ -677,50 +677,50 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="43i-ki-zhe">
-                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="0.0"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LNy-Mw-jLX">
-                                                                <rect key="frame" x="0.0" y="0.0" width="93.5" height="0.0"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="83.5" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="커피"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uee-bP-LaZ">
-                                                                <rect key="frame" x="93.5" y="0.0" width="93" height="0.0"/>
+                                                                <rect key="frame" x="83.5" y="0.0" width="84" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="차/음료"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pqC-3N-FOi">
-                                                                <rect key="frame" x="186.5" y="0.0" width="93" height="0.0"/>
+                                                                <rect key="frame" x="167.5" y="0.0" width="84" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="디저트"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2rA-uj-hjr">
-                                                                <rect key="frame" x="279.5" y="0.0" width="93.5" height="0.0"/>
+                                                                <rect key="frame" x="251.5" y="0.0" width="83.5" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="맥주"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wuM-Wa-jnO">
-                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="0.0"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o4W-nr-0eh">
-                                                                <rect key="frame" x="0.0" y="0.0" width="93.5" height="0.0"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="83.5" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="소주"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tlv-rm-Lbp">
-                                                                <rect key="frame" x="93.5" y="0.0" width="93" height="0.0"/>
+                                                                <rect key="frame" x="83.5" y="0.0" width="84" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="막걸리"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2lv-1Z-4eb">
-                                                                <rect key="frame" x="186.5" y="0.0" width="93" height="0.0"/>
+                                                                <rect key="frame" x="167.5" y="0.0" width="84" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="칵테일/와인"/>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vg6-hI-NbE">
-                                                                <rect key="frame" x="279.5" y="0.0" width="93.5" height="0.0"/>
+                                                                <rect key="frame" x="251.5" y="0.0" width="83.5" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -739,22 +739,22 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hty-kw-jft">
-                                        <rect key="frame" x="0.0" y="212.5" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="212.5" width="373" height="60"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VCZ-9j-5EN" userLabel="Drink Stack">
-                                                <rect key="frame" x="20.5" y="3" width="373" height="54"/>
+                                                <rect key="frame" x="19" y="3" width="335" height="54"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rvQ-VS-unH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="54"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="54"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   놀기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eFf-dS-y7a">
-                                                                <rect key="frame" x="0.0" y="17" width="349" height="20.5"/>
+                                                                <rect key="frame" x="0.0" y="17" width="311" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="ftC-Cd-N6M">
-                                                                <rect key="frame" x="349" y="13.5" width="24" height="27"/>
+                                                                <rect key="frame" x="311" y="13.5" width="24" height="27"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="ftC-Cd-N6M" secondAttribute="height" multiplier="8:9" id="cbw-3U-153"/>
                                                                 </constraints>
@@ -766,50 +766,50 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wCw-Es-7Xi">
-                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="0.0"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qx-bQ-F5i">
-                                                                <rect key="frame" x="0.0" y="0.0" width="93.5" height="0.0"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="83.5" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="게임/오락"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHg-jO-e9f">
-                                                                <rect key="frame" x="93.5" y="0.0" width="93" height="0.0"/>
+                                                                <rect key="frame" x="83.5" y="0.0" width="84" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="VR/방탈출"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m5X-aR-Vy1">
-                                                                <rect key="frame" x="186.5" y="0.0" width="93" height="0.0"/>
+                                                                <rect key="frame" x="167.5" y="0.0" width="84" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="실내 활동"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8g9-gp-WQe">
-                                                                <rect key="frame" x="279.5" y="0.0" width="93.5" height="0.0"/>
+                                                                <rect key="frame" x="251.5" y="0.0" width="83.5" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="실외 활동"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eJI-Ym-gB8">
-                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="0.0"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WFb-Fo-EsR">
-                                                                <rect key="frame" x="0.0" y="0.0" width="93.5" height="0.0"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="83.5" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="독서"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KX7-fe-uVN">
-                                                                <rect key="frame" x="93.5" y="0.0" width="93" height="0.0"/>
+                                                                <rect key="frame" x="83.5" y="0.0" width="84" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="힐링"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ILU-gS-Pgl">
-                                                                <rect key="frame" x="186.5" y="0.0" width="93" height="0.0"/>
+                                                                <rect key="frame" x="167.5" y="0.0" width="84" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="만들기"/>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eie-b1-Yzv">
-                                                                <rect key="frame" x="279.5" y="0.0" width="93.5" height="0.0"/>
+                                                                <rect key="frame" x="251.5" y="0.0" width="83.5" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -828,22 +828,22 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cyH-IM-2sF">
-                                        <rect key="frame" x="0.0" y="287.5" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="287.5" width="373" height="60"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="o8y-9Q-p8f" userLabel="Drink Stack">
-                                                <rect key="frame" x="20.5" y="3" width="373" height="54"/>
+                                                <rect key="frame" x="19" y="3" width="335" height="54"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="aBa-gL-CUq">
-                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="54"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="54"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   보기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOg-SL-L3n">
-                                                                <rect key="frame" x="0.0" y="17" width="349" height="20.5"/>
+                                                                <rect key="frame" x="0.0" y="17" width="311" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="ONS-KM-Xgi">
-                                                                <rect key="frame" x="349" y="13.5" width="24" height="27"/>
+                                                                <rect key="frame" x="311" y="13.5" width="24" height="27"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="ONS-KM-Xgi" secondAttribute="height" multiplier="8:9" id="bSr-Cs-lXE"/>
                                                                 </constraints>
@@ -855,25 +855,25 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="BxE-DB-tqC">
-                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="0.0"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQp-fz-nzb">
-                                                                <rect key="frame" x="0.0" y="0.0" width="93.5" height="0.0"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="83.5" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="영화"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rsh-Bn-hPG">
-                                                                <rect key="frame" x="93.5" y="0.0" width="93" height="0.0"/>
+                                                                <rect key="frame" x="83.5" y="0.0" width="84" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="스포츠 경기"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="orZ-sq-wDq">
-                                                                <rect key="frame" x="186.5" y="0.0" width="93" height="0.0"/>
+                                                                <rect key="frame" x="167.5" y="0.0" width="84" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="전시회"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgo-yG-exE">
-                                                                <rect key="frame" x="279.5" y="0.0" width="93.5" height="0.0"/>
+                                                                <rect key="frame" x="251.5" y="0.0" width="83.5" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="공연"/>
                                                             </button>
@@ -891,22 +891,22 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EIb-kQ-0pq">
-                                        <rect key="frame" x="0.0" y="362.5" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="362.5" width="373" height="60"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kEZ-oh-FJ4" userLabel="Drink Stack">
-                                                <rect key="frame" x="20.5" y="3" width="373" height="54"/>
+                                                <rect key="frame" x="19" y="3" width="335" height="54"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="O4R-vo-xtB">
-                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="54"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="54"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   걷기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N5Y-mH-lS7">
-                                                                <rect key="frame" x="0.0" y="17" width="349" height="20.5"/>
+                                                                <rect key="frame" x="0.0" y="17" width="311" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="v6E-ht-eK8">
-                                                                <rect key="frame" x="349" y="13.5" width="24" height="27"/>
+                                                                <rect key="frame" x="311" y="13.5" width="24" height="27"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="v6E-ht-eK8" secondAttribute="height" multiplier="8:9" id="4QW-YK-jkz"/>
                                                                 </constraints>
@@ -918,25 +918,25 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8Tw-Hv-E1I">
-                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="0.0"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OcJ-Pn-2Pr">
-                                                                <rect key="frame" x="0.0" y="0.0" width="93.5" height="0.0"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="83.5" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="시장"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vmi-RF-HaM">
-                                                                <rect key="frame" x="93.5" y="0.0" width="93" height="0.0"/>
+                                                                <rect key="frame" x="83.5" y="0.0" width="84" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="공원"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6h-oo-q1d">
-                                                                <rect key="frame" x="186.5" y="0.0" width="93" height="0.0"/>
+                                                                <rect key="frame" x="167.5" y="0.0" width="84" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="테마거리"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZk-5e-zqG">
-                                                                <rect key="frame" x="279.5" y="0.0" width="93.5" height="0.0"/>
+                                                                <rect key="frame" x="251.5" y="0.0" width="83.5" height="0.0"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                 <state key="normal" title="야경/풍경"/>
                                                             </button>
@@ -960,7 +960,7 @@
                         <constraints>
                             <constraint firstItem="72r-b3-GbO" firstAttribute="trailing" secondItem="Gdc-gd-hFL" secondAttribute="trailing" id="10j-xv-ycJ"/>
                             <constraint firstItem="72r-b3-GbO" firstAttribute="bottom" secondItem="njJ-gJ-JXX" secondAttribute="bottom" constant="20" id="A8Q-mR-ykW"/>
-                            <constraint firstItem="a9C-eG-2uP" firstAttribute="width" secondItem="8gb-cp-Q2b" secondAttribute="width" id="HF8-3k-NV2"/>
+                            <constraint firstItem="a9C-eG-2uP" firstAttribute="width" secondItem="8gb-cp-Q2b" secondAttribute="width" multiplier="0.9" id="HF8-3k-NV2"/>
                             <constraint firstItem="njJ-gJ-JXX" firstAttribute="centerX" secondItem="72r-b3-GbO" secondAttribute="centerX" id="TsM-DO-eO0"/>
                             <constraint firstItem="njJ-gJ-JXX" firstAttribute="width" secondItem="8gb-cp-Q2b" secondAttribute="width" multiplier="0.9" id="aGR-I1-nbC"/>
                             <constraint firstItem="Gdc-gd-hFL" firstAttribute="top" secondItem="72r-b3-GbO" secondAttribute="top" id="byC-IF-R6k"/>

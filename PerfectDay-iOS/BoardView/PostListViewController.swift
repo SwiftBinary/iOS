@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftyJSON
+import Alamofire
 import ImageSlideshow
 import Material
 
@@ -17,7 +19,9 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     let arrayTitle = ["공지사항","코스를 공유해요","인기 게시판","자유 게시판","썸타는 게시판","조언을 구해요","실시간 장소리뷰"]
     let arrayHiddenCreate = [0,2,6]
     
-    let testNum = 20
+    let btnMargin:CGFloat = -10
+    var reponseJSON:JSON = []
+    
     
     @IBOutlet var btnScrollUp: UIButton!
     @IBOutlet var btnCreatePost: UIButton!
@@ -31,23 +35,26 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
+        getCatagoryInfo()
+        requestPost()
+        
         setBanner()
     }
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
     }
     
-    func setUI() {
+    func getCatagoryInfo(){
         let navigationVCList = self.navigationController!.viewControllers
         segueTitle = (navigationVCList[0] as! BoardListViewController).segueTag
-        
         self.navigationItem.title = arrayTitle[segueTitle]
+    }
+    
+    func setUI() {
         if arrayHiddenCreate.contains(segueTitle) { // 실시간 장소리뷰, 공지사항
             btnCreatePost.isHidden = true
-        } else {
-            tempFunc(n: testNum)
         }
+        tempFunc(reponseJSON)
         
         let panGestureRecongnizer = UIPanGestureRecognizer(target: self, action: #selector(panAction(_ :)))
         panGestureRecongnizer.delegate = self
@@ -72,9 +79,10 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         return resultStr
     }
     
-    func tempFunc(n: Int){
-        for _ in 0...testNum {
-            let tempView = makeTempUv()
+    func tempFunc(_ reponseData: JSON){
+        let arrayData = reponseData.arrayValue
+        for data in arrayData {
+            let tempView = makeTempUv(data)
             svPostList.addArrangedSubview(tempView)
         }
         svPostList.translatesAutoresizingMaskIntoConstraints = false
@@ -93,36 +101,111 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         btnScrollUp.isHidden = (scrollPostList.contentOffset.y <= 0)
     }
     
-    func makeTempUv() -> UIView {
-        let myView = UIView()
-        myView.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        myView.backgroundColor = .white
-        myView.layer.cornerRadius = 30.0
-        myView.layer.shadowColor = UIColor.lightGray.cgColor
-        myView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-        myView.layer.shadowRadius = 2.0
-        myView.layer.shadowOpacity = 0.9
-//        let lblNickName = UILabel()
-//        let lblTitle = UILabel()
-//        let lblContent = UILabel()
-//        let lblDate = UILabel()
-//        lblNickName.text = "닉네임"
-//        lblTitle.text = "게시글 제목"
-//        lblContent.text = "내용을 입력해주세요."
-//        lblDate.text = "2020-02-24"
-//
-//        lblNickName.backgroundColor = .white
-//        lblTitle.backgroundColor = .white
-//        lblContent.backgroundColor = .white
-//        lblDate.backgroundColor = .white
-//
-//        let tempSv = UIStackView(arrangedSubviews: [lblNickName,lblTitle,lblContent,lblDate])
-//
-//        tempSv.axis = .vertical
-//        tempSv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gotoPost)))
-        myView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gotoPost)))
+    func makeTempUv(_ postData: JSON) -> UIView {
+        let viewPost = UIView()
+        viewPost.backgroundColor = .white
+        viewPost.layer.cornerRadius = 15
+        viewPost.layer.shadowColor = UIColor.lightGray.cgColor
+        viewPost.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        viewPost.layer.shadowRadius = 2.0
+        viewPost.layer.shadowOpacity = 0.9
         
-        return myView
+        let lblTitle = UILabel()
+        lblTitle.text = postData["title"].string
+        let lblContent = UILabel()
+        lblContent.isHidden = postData["content"].string == nil
+        lblContent.text = postData["content"].string
+        lblContent.numberOfLines = 4 //countLabelLines(label: lblContent)
+        lblContent.lineBreakMode = .byCharWrapping
+        
+        let scvTag = UIScrollView()
+        let svTag = UIStackView(arrangedSubviews: [UIButton(),UIButton(),UIButton(),UIButton(),UIButton()])
+        
+        let scvImg = UIScrollView()
+        let svImg = UIStackView(arrangedSubviews: [UIImageView(image: UIImage(named: "tempProfile")),UIImageView(image: UIImage(named: "tempProfile")),UIImageView(image: UIImage(named: "tempProfile")),UIImageView(image: UIImage(named: "tempProfile")),UIImageView(image: UIImage(named: "tempProfile"))])
+        scvImg.addSubview(svImg)
+        for img in svImg.arrangedSubviews {
+            img.widthAnchor.constraint(equalToConstant: 100).isActive = true
+            img.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        }
+        scvImg.addConstraint(NSLayoutConstraint(item: svImg, attribute: .centerY, relatedBy: .equal, toItem: scvImg, attribute: .centerY, multiplier: 1, constant: 0))
+        svImg.heightAnchor.constraint(equalTo: scvImg.heightAnchor, multiplier: 1).isActive = true
+        svImg.topAnchor.constraint(equalTo: scvImg.topAnchor, constant: 0).isActive = true
+        svImg.bottomAnchor.constraint(equalTo: scvImg.bottomAnchor, constant: 0).isActive = true
+        svImg.leadingAnchor.constraint(equalTo: scvImg.leadingAnchor, constant: 0).isActive = true
+        svImg.trailingAnchor.constraint(equalTo: scvImg.trailingAnchor, constant: 0).isActive = true
+        
+        
+        let svContent = UIStackView(arrangedSubviews: [lblTitle,lblContent])
+        svContent.axis = .vertical
+        svContent.spacing = 5
+        svContent.distribution = .fill
+        let uvContent = UIView()
+        svContent.translatesAutoresizingMaskIntoConstraints = false
+        uvContent.addSubview(svContent)
+        uvContent.addConstraint(NSLayoutConstraint(item: svContent, attribute: .centerX, relatedBy: .equal, toItem: uvContent, attribute: .centerX, multiplier: 1, constant: 0))
+        uvContent.addConstraint(NSLayoutConstraint(item: svContent, attribute: .centerY, relatedBy: .equal, toItem: uvContent, attribute: .centerY, multiplier: 1, constant: 0))
+        svContent.widthAnchor.constraint(equalTo: uvContent.widthAnchor, multiplier: 0.9).isActive = true
+        svContent.heightAnchor.constraint(equalTo: uvContent.heightAnchor, multiplier: 1).isActive = true
+        
+        let uvLineTop = UIView()
+        uvLineTop.backgroundColor = .none
+        uvLineTop.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
+        
+        let uvLine = UIView()
+        uvLine.backgroundColor = .lightGray
+        uvLine.heightAnchor.constraint(equalToConstant: 0.3).isActive = true
+        
+        let uvLineBottom = UIView()
+        uvLineBottom.backgroundColor = .none
+        uvLineBottom.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
+        
+        let btnLike = FlatButton(title: String(postData["favorCount"].int!))
+//        let btnLike = FlatButton(title: "999")
+        btnLike.setImage(UIImage(named: "LikeOffBtn"), for: .normal)
+        btnLike.layer.cornerRadius = 5
+//        btnLike.contentEdgeInsets.left = btnMargin
+//        btnLike.contentEdgeInsets.right = btnMargin
+        btnLike.titleColor = .lightGray
+        let btnComment = UIButton(type: .custom)
+        btnComment.isEnabled = false
+        btnComment.setTitle(String(postData["replyCount"].int!), for: .normal)
+        btnComment.setImage(UIImage(named: "CommentIcon"), for: .normal)
+        btnComment.tintColor = .darkGray
+        btnComment.contentEdgeInsets.left = btnMargin
+        btnComment.contentEdgeInsets.right = btnMargin
+        let lblTemp = UILabel()
+        lblTemp.text = "                          "
+        lblTemp.widthAnchor.constraint(lessThanOrEqualToConstant: 500).isActive = true
+        let btnMenu = IconButton()
+        btnMenu.image = Icon.cm.moreHorizontal
+        btnMenu.tintColor = .darkGray
+        let svFunc = UIStackView(arrangedSubviews: [btnLike,btnComment,lblTemp,btnMenu])
+        svFunc.axis = .horizontal
+        svFunc.distribution = .fillProportionally
+        svFunc.spacing = 5
+        let uvFunc = UIView()
+        svFunc.translatesAutoresizingMaskIntoConstraints = false
+        uvFunc.addSubview(svFunc)
+        uvFunc.addConstraint(NSLayoutConstraint(item: svFunc, attribute: .centerX, relatedBy: .equal, toItem: uvFunc, attribute: .centerX, multiplier: 1, constant: 0))
+        uvFunc.addConstraint(NSLayoutConstraint(item: svFunc, attribute: .centerY, relatedBy: .equal, toItem: uvFunc, attribute: .centerY, multiplier: 1, constant: 0))
+        svFunc.widthAnchor.constraint(equalTo: uvFunc.widthAnchor, multiplier: 0.9).isActive = true
+        svFunc.heightAnchor.constraint(equalTo: uvFunc.heightAnchor, multiplier: 1).isActive = true
+        
+        
+        let svMain = UIStackView(arrangedSubviews: [uvLineTop,uvContent,uvLine,uvFunc,uvLineBottom])
+        svMain.axis = .vertical
+        svMain.translatesAutoresizingMaskIntoConstraints = false
+        svMain.spacing = 5
+        viewPost.addSubview(svMain)
+        viewPost.addConstraint(NSLayoutConstraint(item: svMain, attribute: .centerX, relatedBy: .equal, toItem: viewPost, attribute: .centerX, multiplier: 1, constant: 0))
+        viewPost.addConstraint(NSLayoutConstraint(item: svMain, attribute: .centerY, relatedBy: .equal, toItem: viewPost, attribute: .centerY, multiplier: 1, constant: 0))
+        svMain.widthAnchor.constraint(equalTo: viewPost.widthAnchor, multiplier: 1).isActive = true
+        svMain.heightAnchor.constraint(equalTo: viewPost.heightAnchor, multiplier: 1).isActive = true
+        
+        viewPost.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gotoPost)))
+        
+        return viewPost
     }
     
     @objc func gotoPost(){
@@ -138,8 +221,18 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         searchBar.showsCancelButton = false
         searchBar.placeholder = "ex) 동 검색: 화양동, 키워드 검색: 치킨.."
         searchBar.delegate = self
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.heightAnchor.constraint(equalToConstant: (self.navigationController?.navigationBar.frame.height)!).isActive = true
+        
+        let uvSearch = UIView()
+        uvSearch.layer.cornerRadius = 15
+        uvSearch.backgroundColor = .lightGray
+        
+        let imgSearch = UIImageView(image: Icon.cm.search)
+        let tfSearch = UITextField()
+        
+        let svSearch = UIStackView(arrangedSubviews: [imgSearch,tfSearch])
+        svSearch.axis = .horizontal
+        svSearch.spacing = 5
+        
         self.navigationItem.titleView = searchBar
     }
     
@@ -152,11 +245,14 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         
     }
     
-    
     // 수정 필요
     @IBAction func showFilter(_ sender: UIBarButtonItem) {
-        let goToVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "postFilterView")
-        self.present(goToVC, animated: true, completion: nil)
+        self.navigationItem.hidesBackButton = false
+//        self.navigationItem.rightBarButtonItems?.remove(at: 1)
+        
+        self.navigationItem.titleView?.isHidden = true
+//        let goToVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "postFilterView")
+//        self.present(goToVC, animated: true, completion: nil)
     }
     
     /*
@@ -168,6 +264,35 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         // Pass the selected object to the new view controller.
     }
     */
+    func requestPost(){
+        let url = developIP + "/board/selectBoardListInfo.do"
+        let jsonHeader = JSON(["userSn":"U200207_1581067560549"])
+        let parameter = JSON([
+            "category": String(segueTitle+1),
+                "filterInfo": "1m",
+                "sortInfo": "viewCnt",
+                "offset": 0,
+                "limit": 20
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let httpHeaders: HTTPHeaders = ["userSn":"U200207_1581067560549"]
+        
+        print(convertedHeaderString)
+        print(convertedParameterString)
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            debugPrint(response)
+            if response.value != nil {
+                self.reponseJSON = JSON(response.value!)
+                print("##")
+                print(self.reponseJSON)
+                print("##")
+                self.setUI()
+            }
+        }
+    }
 }
 
 extension PostListViewController: ImageSlideshowDelegate {

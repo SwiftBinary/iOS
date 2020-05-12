@@ -252,18 +252,26 @@
                                     <constraint firstAttribute="bottom" secondItem="wiE-gU-wHb" secondAttribute="bottom" id="zFE-9M-STL"/>
                                 </constraints>
                             </scrollView>
+                            <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wr8-VC-Dm1">
+                                <rect key="frame" x="0.0" y="134.66666666666669" width="414" height="727.33333333333326"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="NtC-t8-qaM" firstAttribute="centerX" secondItem="KLF-Al-HCJ" secondAttribute="centerX" id="1gM-g3-xFd"/>
+                            <constraint firstItem="Wr8-VC-Dm1" firstAttribute="bottom" secondItem="KLF-Al-HCJ" secondAttribute="bottom" id="2Ou-LL-hdl"/>
                             <constraint firstItem="3CR-VE-CFs" firstAttribute="top" secondItem="KLF-Al-HCJ" secondAttribute="top" id="2gz-UU-hBY"/>
                             <constraint firstItem="3CR-VE-CFs" firstAttribute="centerX" secondItem="KLF-Al-HCJ" secondAttribute="centerX" id="3bb-5C-XEy"/>
+                            <constraint firstItem="Wr8-VC-Dm1" firstAttribute="leading" secondItem="KLF-Al-HCJ" secondAttribute="leading" id="BjV-tl-27C"/>
                             <constraint firstItem="PbQ-Xx-V76" firstAttribute="top" secondItem="NtC-t8-qaM" secondAttribute="bottom" constant="5" id="Dkb-83-4Se"/>
                             <constraint firstItem="wiE-gU-wHb" firstAttribute="centerX" secondItem="KLF-Al-HCJ" secondAttribute="centerX" id="H4G-A7-ye1"/>
                             <constraint firstItem="PbQ-Xx-V76" firstAttribute="width" secondItem="UMf-G4-CIk" secondAttribute="width" multiplier="0.900161" id="M90-0Q-79N"/>
+                            <constraint firstItem="Wr8-VC-Dm1" firstAttribute="trailing" secondItem="KLF-Al-HCJ" secondAttribute="trailing" id="Ml8-w4-Jtx"/>
                             <constraint firstItem="NtC-t8-qaM" firstAttribute="top" secondItem="3CR-VE-CFs" secondAttribute="bottom" id="OR2-Bc-pZu"/>
                             <constraint firstItem="NtC-t8-qaM" firstAttribute="width" secondItem="UMf-G4-CIk" secondAttribute="width" id="Rp8-8Z-Yj6"/>
                             <constraint firstItem="3CR-VE-CFs" firstAttribute="width" secondItem="UMf-G4-CIk" secondAttribute="width" multiplier="0.9" id="YFO-Fd-rfd"/>
+                            <constraint firstItem="Wr8-VC-Dm1" firstAttribute="top" secondItem="PbQ-Xx-V76" secondAttribute="bottom" id="bow-U4-Ww2"/>
                             <constraint firstItem="BIY-dk-pjC" firstAttribute="top" secondItem="PbQ-Xx-V76" secondAttribute="bottom" constant="5" id="jvC-CS-mIS"/>
                             <constraint firstItem="BIY-dk-pjC" firstAttribute="width" secondItem="UMf-G4-CIk" secondAttribute="width" id="kb0-gP-UVh"/>
                             <constraint firstItem="KLF-Al-HCJ" firstAttribute="bottom" secondItem="BIY-dk-pjC" secondAttribute="bottom" id="pJF-cL-Opg"/>
@@ -279,7 +287,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NVs-td-h7m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4138" y="139"/>
+            <point key="canvasLocation" x="4137.68115942029" y="138.61607142857142"/>
         </scene>
         <!--Location Info View Controller-->
         <scene sceneID="OwS-5w-6TB">

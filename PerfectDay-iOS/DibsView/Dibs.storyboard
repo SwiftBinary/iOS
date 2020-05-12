@@ -38,6 +38,65 @@
             </objects>
             <point key="canvasLocation" x="1861" y="1394"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="0RJ-ja-vZX">
+            <objects>
+                <viewController id="KZU-4b-btB" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ff7-ea-hMW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="jx9-55-IBM">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MDF-YC-6Y5">
+                                        <rect key="frame" x="0.0" y="0.0" width="207" height="818"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nwh-nw-vuD">
+                                        <rect key="frame" x="207" y="0.0" width="207" height="818"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWA-A6-8E9">
+                                                <rect key="frame" x="20" y="273" width="64" height="22"/>
+                                                <state key="normal" title="Button" image="AddressIcon">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="RWA-A6-8E9" firstAttribute="leading" secondItem="nwh-nw-vuD" secondAttribute="leading" constant="20" symbolic="YES" id="SJ9-Hr-vuG"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="nwh-nw-vuD" firstAttribute="leading" secondItem="MDF-YC-6Y5" secondAttribute="trailing" id="3aK-Rq-zck"/>
+                                    <constraint firstItem="nwh-nw-vuD" firstAttribute="top" secondItem="jx9-55-IBM" secondAttribute="top" id="5IF-E3-wXx"/>
+                                    <constraint firstAttribute="bottom" secondItem="MDF-YC-6Y5" secondAttribute="bottom" id="6Z6-Mk-jxC"/>
+                                    <constraint firstAttribute="trailing" secondItem="nwh-nw-vuD" secondAttribute="trailing" id="N0g-d4-qpu"/>
+                                    <constraint firstItem="nwh-nw-vuD" firstAttribute="leading" secondItem="MDF-YC-6Y5" secondAttribute="trailing" id="YmF-QZ-epa"/>
+                                    <constraint firstAttribute="bottom" secondItem="nwh-nw-vuD" secondAttribute="bottom" id="bb2-Wf-KAt"/>
+                                    <constraint firstItem="MDF-YC-6Y5" firstAttribute="top" secondItem="jx9-55-IBM" secondAttribute="top" id="fOP-DD-WFu"/>
+                                    <constraint firstItem="MDF-YC-6Y5" firstAttribute="leading" secondItem="jx9-55-IBM" secondAttribute="leading" id="j9Y-mc-RUn"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="jx9-55-IBM" firstAttribute="top" secondItem="Qig-HD-mhy" secondAttribute="top" id="0IQ-qN-OK3"/>
+                            <constraint firstItem="Qig-HD-mhy" firstAttribute="bottom" secondItem="jx9-55-IBM" secondAttribute="bottom" id="1BE-oV-yqT"/>
+                            <constraint firstItem="jx9-55-IBM" firstAttribute="centerY" secondItem="Qig-HD-mhy" secondAttribute="centerY" id="CJr-WE-2Ia"/>
+                            <constraint firstAttribute="trailing" secondItem="jx9-55-IBM" secondAttribute="trailing" id="GSy-fq-bod"/>
+                            <constraint firstItem="jx9-55-IBM" firstAttribute="leading" secondItem="Qig-HD-mhy" secondAttribute="leading" id="rQ5-Uv-zIR"/>
+                            <constraint firstItem="jx9-55-IBM" firstAttribute="centerX" secondItem="Qig-HD-mhy" secondAttribute="centerX" id="wfD-Eb-Ulm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Qig-HD-mhy"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FnO-H9-pLd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1860.8695652173915" y="2045.7589285714284"/>
+        </scene>
         <!--찜-->
         <scene sceneID="2BM-Xb-I3k">
             <objects>
@@ -79,6 +138,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="AddressIcon" width="10" height="11"/>
         <image name="DibsBtn" width="28" height="28"/>
     </resources>
     <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

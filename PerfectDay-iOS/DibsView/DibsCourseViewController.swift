@@ -38,11 +38,13 @@ class DibsCourseViewController: UIViewController, IndicatorInfoProvider {
         scrollMain.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollMain)
         view.addConstraint(NSLayoutConstraint(item: scrollMain, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
-        scrollMain.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
-        scrollMain.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
-        scrollMain.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
-        scrollMain.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
-        scrollMain.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        
+        view.widthAnchor.constraint(equalTo: scrollMain.widthAnchor, multiplier: 1).isActive = true
+        
+        view.topAnchor.constraint(equalTo: scrollMain.topAnchor, constant: 0).isActive = true
+        view.bottomAnchor.constraint(equalTo: scrollMain.bottomAnchor, constant: 0).isActive = true
+        view.leadingAnchor.constraint(equalTo: scrollMain.leadingAnchor, constant: 0).isActive = true
+        view.trailingAnchor.constraint(equalTo: scrollMain.trailingAnchor, constant: 0).isActive = true
         
         let svMain = UIStackView()
         svMain.translatesAutoresizingMaskIntoConstraints = false
@@ -53,29 +55,26 @@ class DibsCourseViewController: UIViewController, IndicatorInfoProvider {
 
         scrollMain.addSubview(svMain)
         scrollMain.addConstraint(NSLayoutConstraint(item: svMain, attribute: .centerX, relatedBy: .equal, toItem: scrollMain, attribute: .centerX, multiplier: 1, constant: 0))
+        
         svMain.widthAnchor.constraint(equalTo: scrollMain.widthAnchor, multiplier: 0.9).isActive = true
-        svMain.topAnchor.constraint(equalTo: scrollMain.topAnchor, constant: 15).isActive = true
+        
+        svMain.bottomAnchor.constraint(equalTo: scrollMain.bottomAnchor, constant: 0).isActive = true
+        
+        svMain.topAnchor.constraint(equalTo: scrollMain.topAnchor, constant: 0).isActive = true
 
-        for _ in 0...100 {
+        for _ in 0...10 {
             let tempBtn = UIButton(type: .system)
             tempBtn.setTitle("Button", for: .normal)
             tempBtn.backgroundColor = .white
-            setSNSButton(tempBtn,"")
+            setSNSButton(tempBtn,"tempProfile")
             svMain.addArrangedSubview(tempBtn)
         }
     }
     
     
     func setUI(){
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "찜한 코스"
-
-        view.addSubview(label)
+        
         view.backgroundColor = .white
-
-        view.addConstraint(NSLayoutConstraint(item: label, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
-        view.addConstraint(NSLayoutConstraint(item: label, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1, constant: -50))
     }
     // MARK: - IndicatorInfoProvider
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {

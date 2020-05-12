@@ -25,6 +25,16 @@ public func makeUITextField(_ placeholder: String) -> UITextField {
     return uiTextField
 }
 
+public func countLabelLines(label: UILabel!) -> Int {
+    // Call self.layoutIfNeeded() if your view uses auto layout
+    let myText = label.text! as NSString
+
+    let rect = CGSize(width: label.bounds.width, height: CGFloat.greatestFiniteMagnitude)
+    let labelSize = myText.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: label.font], context: nil)
+
+    return Int(ceil(CGFloat(labelSize.height) / label.font.lineHeight))
+}
+
 extension UITextView
 {
     

@@ -36,6 +36,11 @@ class ShowPostViewController: UIViewController {
     let commentFontSize: CGFloat = 15
     let commentInfoFontSize: CGFloat = 10
     
+    @IBOutlet var lblContentTitle: UILabel!
+    @IBOutlet var lblContent: UILabel!
+    
+    var reponseJSON: JSON = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -48,6 +53,10 @@ class ShowPostViewController: UIViewController {
         let navigationVCList = self.navigationController!.viewControllers
         let navigationTitle = navigationVCList[1].navigationItem.title
         self.navigationItem.title = navigationTitle
+        
+        lblContent.text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."
+        lblContent.numberOfLines = countLabelLines(label: lblContent)
+        lblContent.lineBreakMode = .byCharWrapping
         
         uvPost.backgroundColor = .white
         uvPost.clipsToBounds = true
@@ -94,6 +103,7 @@ class ShowPostViewController: UIViewController {
         let lblUserNickName = UILabel()
         lblUserNickName.text = "닉네임"
         lblUserNickName.font = UIFont.systemFont(ofSize: commentFontSize)
+        
         let lblUserComment = UILabel()
         lblUserComment.text = "와 제 남자친구랑 한 번 가보고 싶어요!와 제 남자친구랑 한 번 가보고 싶어요!와 제 남자친구랑 한 번 가보고 싶어요!와 제 남자친구랑 한 번 가보고 싶어요!와 제 남자친구랑 한 번 가보고 싶어요!"
         lblUserComment.font = UIFont.systemFont(ofSize: commentFontSize-1)
@@ -235,7 +245,7 @@ class ShowPostViewController: UIViewController {
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["json":convertedHeaderString]
+        let httpHeaders: HTTPHeaders = ["userSn":"U200207_1581067560549"]
         
         print(convertedHeaderString)
         print(convertedParameterString)
@@ -243,7 +253,10 @@ class ShowPostViewController: UIViewController {
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             debugPrint(response)
             if response.value != nil {
-                let reponseJSON = JSON(response.value!)
+                self.reponseJSON = JSON(response.value!)
+                print("##")
+                print(self.reponseJSON)
+                print("##")
             }
         }
     }
