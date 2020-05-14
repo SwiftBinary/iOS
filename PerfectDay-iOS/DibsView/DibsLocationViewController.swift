@@ -14,11 +14,11 @@ import XLPagerTabStrip
 
 class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
 
-    let testNum = 5
-    
-    let lightGray = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
-    
     var itemInfo: IndicatorInfo = "View"
+    
+    let testNum = 10
+    let lightGray = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+
     let btnCreateCourse = UIButton(type: .custom)
     let scrollMain = UIScrollView()
     var createONOFF = false
@@ -87,6 +87,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     
     func makeItem(_ num: Int) -> UIView {
         //let btnItem = UIButton(type: .custom)
+        // 가져온 장소의 고유번호를 uvLocation의 Tag로 사용할 것
         let uvLocation = UIView()
         uvLocation.translatesAutoresizingMaskIntoConstraints = false
         uvLocation.layer.cornerRadius = 5
@@ -171,28 +172,42 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         svItem.heightAnchor.constraint(equalTo: uvLocation.heightAnchor, multiplier: 1).isActive = true
         
         let btnRemove = IconButton(image: Icon.cm.close)
+        let btnRemoveSize:CGFloat = 20
         btnRemove.translatesAutoresizingMaskIntoConstraints = false
-        btnRemove.backgroundColor = .white
+        btnRemove.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         btnRemove.tintColor = .darkGray
-        btnRemove.layer.borderColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-        btnRemove.layer.cornerRadius = 12
+        btnRemove.widthAnchor.constraint(equalToConstant: btnRemoveSize).isActive = true
+        btnRemove.heightAnchor.constraint(equalToConstant: btnRemoveSize).isActive = true
+        btnRemove.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        btnRemove.layer.cornerRadius = btnRemoveSize * 0.5
         btnRemove.layer.borderWidth = 1
         uvLocation.addSubview(btnRemove)
         btnRemove.topAnchor.constraint(equalTo: uvLocation.topAnchor, constant: 5).isActive = true
-        btnRemove.leadingAnchor.constraint(equalTo: uvLocation.leadingAnchor, constant: 5).isActive = true
+        btnRemove.trailingAnchor.constraint(equalTo: uvLocation.trailingAnchor, constant: -5).isActive = true
+        btnRemove.addTarget(self, action: #selector(removeDidLocation(_:)), for: .touchUpInside)
         
-        let btnCheck = IconButton(image: Icon.cm.close)
+        let btnCheck = IconButton(image: nil)
+        let btnCheckSize:CGFloat = 25
         btnCheck.translatesAutoresizingMaskIntoConstraints = false
-        btnCheck.backgroundColor = .lightGray
+        btnCheck.backgroundColor = .white
         btnCheck.tintColor = .darkGray
-        btnCheck.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        btnCheck.layer.cornerRadius = 12
-        btnCheck.layer.borderWidth = 2
+        btnCheck.widthAnchor.constraint(equalToConstant: btnCheckSize).isActive = true
+        btnCheck.heightAnchor.constraint(equalToConstant: btnCheckSize).isActive = true
+        btnCheck.layer.borderColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
+        btnCheck.layer.cornerRadius = btnCheckSize * 0.5
+        btnCheck.layer.borderWidth = 0.5
         uvLocation.addSubview(btnCheck)
         btnCheck.topAnchor.constraint(equalTo: uvLocation.topAnchor, constant: 5).isActive = true
-        btnCheck.trailingAnchor.constraint(equalTo: uvLocation.trailingAnchor, constant: -5).isActive = true
+        btnCheck.leadingAnchor.constraint(equalTo: uvLocation.leadingAnchor, constant: 5).isActive = true
         
         return uvLocation
+    }
+    
+    @objc func removeDidLocation(_ sender: IconButton) {
+        let uvWhite = UIView()
+        uvWhite.backgroundColor = .white
+        (sender.superview?.superview as! UIStackView).removeArrangedSubview(sender.superview!)
+        (sender.superview?.superview as! UIStackView).insertArrangedSubview(uvWhite, at: 0)
     }
     
     @objc func tempFunc(){

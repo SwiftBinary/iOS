@@ -14,10 +14,8 @@ class MyPageViewController: UIViewController {
     @IBOutlet var svServiceCenter: UIStackView!
     var arrayServiceBtn : Array<MaterialVerticalButton> = []
     
-    
     let grayColor = #colorLiteral(red: 0.9411764706, green: 0.9411764706, blue: 0.9411764706, alpha: 1) //e6e6e6
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
