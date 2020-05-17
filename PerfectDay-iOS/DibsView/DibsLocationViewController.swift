@@ -178,7 +178,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         btnRemove.tintColor = .darkGray
         btnRemove.widthAnchor.constraint(equalToConstant: btnRemoveSize).isActive = true
         btnRemove.heightAnchor.constraint(equalToConstant: btnRemoveSize).isActive = true
-        btnRemove.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        btnRemove.layer.borderColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
         btnRemove.layer.cornerRadius = btnRemoveSize * 0.5
         btnRemove.layer.borderWidth = 1
         uvLocation.addSubview(btnRemove)

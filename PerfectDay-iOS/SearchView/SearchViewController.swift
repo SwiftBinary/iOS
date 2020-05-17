@@ -9,28 +9,25 @@
 import UIKit
 
 class SearchViewController: UIViewController {
-
     @IBOutlet var svHashTag: UIStackView!
-    
+    let strHashTag = ["건대", "홍대", "강남", "이색", "고궁", "tv방영", "가성비", "고급진", "국밥", "방탈출", "야식", "비오는날", "100일데이트코스", "커플100%되는곳", "킬링타임코스", "호불호없는"]
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setUI()
     }
-    
     func setUI() {
-        // 실제 적용 시에
-        // - 서버에서 올릴 해시태그 받아서
-        // - 버튼 변수 만들고 속성 부여 후
-        // - svHashTag에 addArrangedSubview로 버튼 추가
-        for btn in svHashTag.arrangedSubviews {
-            btn.layer.cornerRadius = 15
-            btn.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
-            btn.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
+        for hashTag in strHashTag {
+            let btnHashTag = UIButton(type: .system)
+            btnHashTag.setTitle(setHashTagString(hashTag))
+            btnHashTag.layer.cornerRadius = 15
+            btnHashTag.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
+            btnHashTag.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
+            svHashTag.addArrangedSubview(btnHashTag)
         }
         svHashTag.translatesAutoresizingMaskIntoConstraints = false
     }
-
-    /* _ */
-
+    func setHashTagString(_ str: String) -> String{
+        let setStr = "  #" + str + "  "
+        return setStr
+    }
 }

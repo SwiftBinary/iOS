@@ -8,6 +8,10 @@
 
 import UIKit
 import XLPagerTabStrip
+import Alamofire
+import SwiftyJSON
+import Material
+
 // UIPickerViewDelegate, UIPickerViewDataSource,
 class SearchLocationViewController: UIViewController, IndicatorInfoProvider, LocationDelegate {
     
@@ -19,7 +23,7 @@ class SearchLocationViewController: UIViewController, IndicatorInfoProvider, Loc
     func didLocationDone(_ controller: SetLocationViewController, currentLocation: String) {
         ((view.subviews[0] as! UIStackView).arrangedSubviews[1] as! UILabel).text = currentLocation
     }
-
+    
     var itemInfo: IndicatorInfo = "View"
     init(itemInfo: IndicatorInfo) {
         self.itemInfo = itemInfo
@@ -29,11 +33,13 @@ class SearchLocationViewController: UIViewController, IndicatorInfoProvider, Loc
         fatalError("init(coder:) has not been implemented")
     }
     
+    let testNum = 10
     var label = ""
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
+        setTopUI()
+        setScrollUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,61 +54,59 @@ class SearchLocationViewController: UIViewController, IndicatorInfoProvider, Loc
         // 뷰의 서브뷰[0] -> 세로 스택[1] -> 가로 스택[0] -> 장소 개수 라벨
         //(((view.subviews[0] as! UIStackView).arrangedSubviews[1] as! UIStackView).arrangedSubviews[0] as! UILabel).text = {"곳"}
     }
-
-    func setUI(){
+    func setTopUI(){
+        view.backgroundColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
+        
         // UI 구조
         // 세로 스택뷰[ 가로 스택 뷰1{선택한 위치 라벨, 위치 설정 버튼} , 가로 스택 뷰2{결과 장소 수 라벨, 필터 버튼, 정렬조건 버튼} ]
         let svHorizontal = UIStackView()
-        let btnSetLocation = UIButton(type: .system)
+        let btnSetLocation = UIButton(type: .custom)
         let lblLocation = UILabel()
-        let lblCountLocation = UILabel()
-        let btnFilter = UIButton(type: .system)
-
+        let lblLocationDistance = UILabel()
+        let lblLocationCount = UILabel()
+        let lblEnd = UILabel()
+        let btnFilter = UIButton(type: .custom)
+        
         //Label Setting
         lblLocation.text = " 위치 정보 없음"
         lblLocation.textAlignment = .left
-        lblCountLocation.text = " 1.5km 이내 n 곳"
-        lblCountLocation.textAlignment = .right
-
+        lblLocationDistance.text = " 1.5km 이내"
+        lblLocationDistance.textAlignment = .right
+        lblLocationCount.text = " n"
+        lblLocationCount.textColor = #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1)
+        lblEnd.text = "곳"
+        
         //Button Setting
         btnSetLocation.setTitle("", for: .normal)
-        btnSetLocation.setImage(UIImage(named: "FocusLocation"), for: .normal)
+        btnSetLocation.setImage(UIImage(named: "setLocationBtn"), for: .normal)
         btnSetLocation.addTarget(self, action: #selector(gotoSetLocation), for: .touchUpInside)
+        btnSetLocation.imageView?.contentMode = .scaleAspectFit
+        
         btnFilter.setTitle("", for: .normal)
         btnFilter.setImage(UIImage(named: "FilterBtn"), for: .normal)
         btnFilter.addTarget(self, action: #selector(filterLocation), for: .touchUpInside)
-
+        
         //Stack Setting
         svHorizontal.addArrangedSubview(btnSetLocation)
         svHorizontal.addArrangedSubview(lblLocation)
-        svHorizontal.addArrangedSubview(lblCountLocation)
+        svHorizontal.addArrangedSubview(lblLocationDistance)
+        svHorizontal.addArrangedSubview(lblLocationCount)
+        svHorizontal.addArrangedSubview(lblEnd)
         svHorizontal.addArrangedSubview(btnFilter)
         
         btnSetLocation.widthAnchor.constraint(equalTo: svHorizontal.heightAnchor, multiplier: 1).isActive = true
         btnFilter.widthAnchor.constraint(equalTo: svHorizontal.heightAnchor, multiplier: 1).isActive = true
-
-//        svHorizontal2.addArrangedSubview(lblCountLocation)
-//        svHorizontal2.addArrangedSubview(btnFilter)
-//        svHorizontal2.addArrangedSubview(btnSorting)
-//        svHorizontal2.distribution = .fillProportionally
-//        view.addSubview(svVertical)
-//        view.addConstraint(NSLayoutConstraint(item: svVertical, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0) )
-//        svVertical.addArrangedSubview(svHorizontal1)
-//        svVertical.addArrangedSubview(svHorizontal2)
-//        svVertical.translatesAutoresizingMaskIntoConstraints = false
-
+        
         svHorizontal.translatesAutoresizingMaskIntoConstraints = false
-
+        
         svHorizontal.distribution = .fill
         view.addSubview(svHorizontal)
-        view.backgroundColor = .white
         view.addConstraint(NSLayoutConstraint(item: svHorizontal, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
         svHorizontal.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9).isActive = true
         svHorizontal.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
-
-        // Add actions
+        
     }
-
+    
     // 위치 설정 이벤트
     @objc func gotoSetLocation(sender: UIButton){
         let goToVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "searchSetLocationView")
@@ -113,51 +117,165 @@ class SearchLocationViewController: UIViewController, IndicatorInfoProvider, Loc
         let goToVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "locationFilterView")
         self.present(goToVC, animated: true, completion: nil)
     }
-
-
-    //MARK - PickerView
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        return 1
-//    }
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        return optionList.count
-//    }
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        return optionList[row]
-//    }
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        checkPv = true
-//        typeValue = optionList[row]
-//    }
-//    @objc func sortingLocation(sender: UIButton){
-//        checkPv = false
-//        let alertController = UIAlertController(title: "정렬기준", message: "\n\n\n\n", preferredStyle: UIAlertController.Style.alert)
-//        let sortingPicker = UIPickerView()
-//        alertController.view.addSubview(sortingPicker)
-//        sortingPicker.frame = CGRect(x: 10, y: 35, width: 250, height: 100)
-//
-//        sortingPicker.dataSource = self
-//        sortingPicker.delegate = self
-//
-//        let selectAction = UIAlertAction(title: "선택", style: .default, handler: { _ in
-//            if self.checkPv {
-//                (((self.view.subviews[0] as! UIStackView).arrangedSubviews[1] as! UIStackView).arrangedSubviews[2] as! UIButton).setTitle(self.typeValue, for: .normal)
-//            } else {
-//                (((self.view.subviews[0] as! UIStackView).arrangedSubviews[1] as! UIStackView).arrangedSubviews[2] as! UIButton).setTitle(self.optionList[0], for: .normal)
-//            }
-//        })
-//        let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
-//
-//        alertController.addAction(selectAction)
-//        alertController.addAction(cancelAction)
-//        present(alertController, animated: true, completion: nil)
-//    }
-
+    
+    func setScrollUI(){
+        let scrollMain = UIScrollView()
+        scrollMain.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(scrollMain)
+        view.addConstraint(NSLayoutConstraint(item: scrollMain, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
+        view.widthAnchor.constraint(equalTo: scrollMain.widthAnchor, multiplier: 1).isActive = true
+        scrollMain.topAnchor.constraint(equalTo: view.subviews[0].bottomAnchor, constant: 10).isActive = true
+        view.bottomAnchor.constraint(equalTo: scrollMain.bottomAnchor, constant: 0).isActive = true
+        view.trailingAnchor.constraint(equalTo: scrollMain.trailingAnchor, constant: 0).isActive = true
+        view.leadingAnchor.constraint(equalTo: scrollMain.leadingAnchor, constant: 0).isActive = true
+        
+        let uvMain = UIView()
+        uvMain.translatesAutoresizingMaskIntoConstraints = false
+        uvMain.layer.cornerRadius = 15
+        uvMain.backgroundColor = .white
+        
+        scrollMain.addSubview(uvMain)
+        scrollMain.addConstraint(NSLayoutConstraint(item: uvMain, attribute: .centerX, relatedBy: .equal, toItem: scrollMain, attribute: .centerX, multiplier: 1, constant: 0))
+        uvMain.widthAnchor.constraint(equalTo: scrollMain.widthAnchor, multiplier: 1).isActive = true
+        uvMain.topAnchor.constraint(equalTo: scrollMain.topAnchor, constant: 0).isActive = true
+        uvMain.bottomAnchor.constraint(equalTo: scrollMain.bottomAnchor, constant: 0).isActive = true
+        
+        let svMain = UIStackView()
+        svMain.translatesAutoresizingMaskIntoConstraints = false
+        svMain.distribution = .fill
+        svMain.axis = .vertical
+        svMain.spacing = 15
+        
+        uvMain.addSubview(svMain)
+        uvMain.addConstraint(NSLayoutConstraint(item: svMain, attribute: .centerX, relatedBy: .equal, toItem: uvMain, attribute: .centerX, multiplier: 1, constant: 0))
+        uvMain.addConstraint(NSLayoutConstraint(item: svMain, attribute: .centerY, relatedBy: .equal, toItem: uvMain, attribute: .centerY, multiplier: 1, constant: 0))
+        svMain.widthAnchor.constraint(equalTo: uvMain.widthAnchor, multiplier: 0.9).isActive = true
+        svMain.heightAnchor.constraint(equalTo: uvMain.heightAnchor, multiplier: 1).isActive = true
+        
+        let topView = UIView()
+        topView.backgroundColor = .none
+        topView.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
+        let bottomView = UIView()
+        bottomView.backgroundColor = .none
+        bottomView.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
+        
+        svMain.addArrangedSubview(topView)
+        for i in 0...testNum {
+            addLocationItem(svMain,num:i)
+        }
+        svMain.addArrangedSubview(bottomView)
+    }
+    
+    func addLocationItem(_ mainStack: UIStackView, num: Int){
+        let svTwoItem = UIStackView()
+        svTwoItem.axis = .horizontal
+        svTwoItem.spacing = 15
+        svTwoItem.addArrangedSubview(makeItem(num))
+        svTwoItem.addArrangedSubview(makeItem(num+1))
+        svTwoItem.distribution = .fillEqually
+        
+        mainStack.addArrangedSubview(svTwoItem)
+    }
+    
+    func makeItem(_ num: Int) -> UIView {
+        //let btnItem = UIButton(type: .custom)
+        // 가져온 장소의 고유번호를 uvLocation의 Tag로 사용할 것
+        let uvLocation = UIView()
+        uvLocation.translatesAutoresizingMaskIntoConstraints = false
+        uvLocation.layer.cornerRadius = 5
+        uvLocation.layer.borderWidth = 0.5
+        uvLocation.layer.borderColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+        uvLocation.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tempFunc)))
+        
+        // 나중에 얘기는 클래스 단위로 따로 설계할 필요가 있음
+        let imgItem = UIImageView(image: UIImage(named: "TempImage"))
+        //        imgItem.widthAnchor.constraint(equalToConstant: 160).isActive = true
+        imgItem.heightAnchor.constraint(equalToConstant: 130).isActive = true
+        imgItem.contentMode = .scaleAspectFill
+        imgItem.clipsToBounds = true
+        imgItem.layer.cornerRadius = 5
+        imgItem.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
+        let lblvar = UILabel()
+        lblvar.text = "만화카페"
+        lblvar.fontSize = 11
+        lblvar.textColor = .systemBlue
+        let lblName = UILabel()
+        lblName.text = "놀숲 건대점"
+        lblName.font = UIFont.boldSystemFont(ofSize: 18.0)
+        
+        
+        let lblPrice = UILabel()
+        lblPrice.text = "대표메뉴 " + String(num) + "원"
+        lblPrice.fontSize = 11
+        lblPrice.textColor = .darkGray
+        let lblLocation = UIButton(type: .custom)
+        lblLocation.setTitle("서울 광진구 자양동", for: .normal)
+        lblLocation.setTitleColor(.darkGray, for: .normal)
+        lblLocation.setImage(UIImage(named: "AddressIcon"), for: .normal)
+        lblLocation.titleLabel?.fontSize = 11
+        lblLocation.isUserInteractionEnabled = false
+        lblLocation.contentHorizontalAlignment = .left
+        let svLabel = UIStackView(arrangedSubviews: [lblPrice, lblLocation])
+        svLabel.axis = .vertical
+        
+        let imgDids = UIImageView(image: UIImage(named: "EmptyHeart"))
+        let imgGPA = UIImageView(image: UIImage(named: "GPAIcon"))
+        let svIcon = UIStackView(arrangedSubviews: [imgDids,imgGPA])
+        svIcon.axis = .vertical
+        
+        let lblDidsCount = UILabel()
+        lblDidsCount.text = "9999"
+        lblDidsCount.textColor = .darkGray
+        lblDidsCount.fontSize = 11
+        lblDidsCount.textAlignment = .center
+        let lblGPA = UILabel()
+        lblGPA.text = "3.5"
+        lblGPA.textColor = .darkGray
+        lblGPA.fontSize = 11
+        lblGPA.textAlignment = .center
+        let svCount = UIStackView(arrangedSubviews: [lblDidsCount,lblGPA])
+        svCount.axis = .vertical
+        
+        let svSubInfo = UIStackView(arrangedSubviews: [svLabel,svIcon,svCount])
+        svSubInfo.axis = .horizontal
+        svSubInfo.distribution = .fillProportionally
+        svSubInfo.spacing = 5
+        
+        let svItemInfo = UIStackView(arrangedSubviews: [lblvar,lblName,svSubInfo])
+        svItemInfo.translatesAutoresizingMaskIntoConstraints = false
+        svItemInfo.axis = .vertical
+        let uvItemInfo = UIView()
+        uvItemInfo.addSubview(svItemInfo)
+        uvItemInfo.addConstraint(NSLayoutConstraint(item: svItemInfo, attribute: .centerX, relatedBy: .equal, toItem: uvItemInfo, attribute: .centerX, multiplier: 1, constant: 0))
+        uvItemInfo.addConstraint(NSLayoutConstraint(item: svItemInfo, attribute: .centerY, relatedBy: .equal, toItem: uvItemInfo, attribute: .centerY, multiplier: 1, constant: 0))
+        svItemInfo.widthAnchor.constraint(equalTo: uvItemInfo.widthAnchor, multiplier: 0.9).isActive = true
+        svItemInfo.heightAnchor.constraint(equalTo: uvItemInfo.heightAnchor, multiplier: 0.9).isActive = true
+        
+        let svItem = UIStackView(arrangedSubviews: [imgItem,uvItemInfo])
+        svItem.translatesAutoresizingMaskIntoConstraints = false
+        svItem.axis = .vertical
+        svItem.distribution = .fill
+        
+        uvLocation.addSubview(svItem)
+        uvLocation.addConstraint(NSLayoutConstraint(item: svItem, attribute: .centerX, relatedBy: .equal, toItem: uvLocation, attribute: .centerX, multiplier: 1, constant: 0))
+        uvLocation.addConstraint(NSLayoutConstraint(item: svItem, attribute: .centerY, relatedBy: .equal, toItem: uvLocation, attribute: .centerY, multiplier: 1, constant: 0))
+        svItem.widthAnchor.constraint(equalTo: uvLocation.widthAnchor, multiplier: 1).isActive = true
+        svItem.heightAnchor.constraint(equalTo: uvLocation.heightAnchor, multiplier: 1).isActive = true
+        
+        return uvLocation
+    }
+    
+    @objc func tempFunc(){
+        print("debug")
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let locationViewController = segue.destination as! SetLocationViewController
         locationViewController.delegate = self
     }
-
+    
     // MARK: - IndicatorInfoProvider
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return itemInfo

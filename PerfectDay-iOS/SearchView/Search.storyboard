@@ -22,59 +22,16 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjn-DH-9g7">
-                                <rect key="frame" x="20.5" y="100" width="373" height="30"/>
+                                <rect key="frame" x="20.5" y="100" width="373" height="0.0"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="0AN-lt-3KP">
-                                        <rect key="frame" x="0.0" y="0.0" width="757" height="30"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yGm-Xs-l4R">
-                                                <rect key="frame" x="0.0" y="0.0" width="52" height="30"/>
-                                                <state key="normal" title="  #건대  "/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nBy-rF-kR9">
-                                                <rect key="frame" x="57" y="0.0" width="52" height="30"/>
-                                                <state key="normal" title="  #홍대  "/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1T1-QV-Bdz">
-                                                <rect key="frame" x="114" y="0.0" width="52" height="30"/>
-                                                <state key="normal" title="  #강남  "/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w3l-Jb-OEf">
-                                                <rect key="frame" x="171" y="0.0" width="52" height="30"/>
-                                                <state key="normal" title="  #이색  "/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WxB-VY-soH">
-                                                <rect key="frame" x="228" y="0.0" width="52" height="30"/>
-                                                <state key="normal" title="  #고궁  "/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jaH-1Z-s4x">
-                                                <rect key="frame" x="285" y="0.0" width="65" height="30"/>
-                                                <state key="normal" title="  #tv방영  "/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0cJ-d1-Z0x">
-                                                <rect key="frame" x="355" y="0.0" width="65" height="30"/>
-                                                <state key="normal" title="  #가성비  "/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fiA-dL-1NB">
-                                                <rect key="frame" x="425" y="0.0" width="65" height="30"/>
-                                                <state key="normal" title="  #고급진  "/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tZA-Jh-YhM">
-                                                <rect key="frame" x="495" y="0.0" width="52" height="30"/>
-                                                <state key="normal" title="  #국밥  "/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WFl-IN-PbZ">
-                                                <rect key="frame" x="552" y="0.0" width="65" height="30"/>
-                                                <state key="normal" title="  #방탈출  "/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sd4-5m-Jsk">
-                                                <rect key="frame" x="622" y="0.0" width="52" height="30"/>
-                                                <state key="normal" title="  #야식  "/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CqJ-vZ-wom">
-                                                <rect key="frame" x="679" y="0.0" width="78" height="30"/>
-                                                <state key="normal" title="  #비오는날  "/>
-                                            </button>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7h-N3-hd8" userLabel="TempLbl">
+                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -87,7 +44,7 @@
                                 </constraints>
                             </scrollView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k0m-6N-QtU">
-                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <rect key="frame" x="0.0" y="110" width="414" height="703"/>
                                 <connections>
                                     <segue destination="0lS-ea-nt3" kind="embed" id="fjv-xb-yrc"/>
                                 </connections>
@@ -123,7 +80,7 @@
             <objects>
                 <viewController storyboardIdentifier="searchResultView" id="0lS-ea-nt3" customClass="SearchResultViewController" customModule="PerfectDay_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7g7-Hx-uyQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="673"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="703"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="jtW-In-DyR"/>
@@ -172,7 +129,7 @@
                                 <rect key="frame" x="0.0" y="93" width="185.5" height="699"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="6xT-Yg-DAl" userLabel="Top Stack View">
-                                        <rect key="frame" x="20" y="0.0" width="167" height="339"/>
+                                        <rect key="frame" x="20" y="0.0" width="167" height="351"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="기본옵션" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSC-92-ybj">
                                                 <rect key="frame" x="0.0" y="0.0" width="167" height="20.5"/>
@@ -238,38 +195,38 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="1a9-Qn-sZd" userLabel="Sorting Stack">
-                                                <rect key="frame" x="0.0" y="239" width="167" height="100"/>
+                                                <rect key="frame" x="0.0" y="239" width="167" height="112"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="HLN-eI-4kl" userLabel="Stack1">
-                                                        <rect key="frame" x="0.0" y="0.0" width="81" height="100"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="81" height="112"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFq-N3-iez">
-                                                                <rect key="frame" x="0.0" y="0.0" width="81" height="30"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFq-N3-iez">
+                                                                <rect key="frame" x="0.0" y="0.0" width="81" height="34"/>
                                                                 <state key="normal" title="가까운 순"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vqp-le-3Nl">
-                                                                <rect key="frame" x="0.0" y="35" width="81" height="30"/>
+                                                                <rect key="frame" x="0.0" y="39" width="81" height="34"/>
                                                                 <state key="normal" title="소요 시간순↑"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bUT-TF-AxM">
-                                                                <rect key="frame" x="0.0" y="70" width="81" height="30"/>
+                                                                <rect key="frame" x="0.0" y="78" width="81" height="34"/>
                                                                 <state key="normal" title="높은 가격순"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="KqV-JS-f0u" userLabel="Stack2">
-                                                        <rect key="frame" x="86" y="0.0" width="81" height="100"/>
+                                                        <rect key="frame" x="86" y="0.0" width="81" height="112"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NxI-6B-EyS">
-                                                                <rect key="frame" x="0.0" y="0.0" width="81" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="81" height="34"/>
                                                                 <state key="normal" title="평점순"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O4z-ws-cGF">
-                                                                <rect key="frame" x="0.0" y="35" width="81" height="30"/>
+                                                                <rect key="frame" x="0.0" y="39" width="81" height="34"/>
                                                                 <state key="normal" title="소요 시간순↓"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IiJ-d0-Eco">
-                                                                <rect key="frame" x="0.0" y="70" width="81" height="30"/>
+                                                                <rect key="frame" x="0.0" y="78" width="81" height="34"/>
                                                                 <state key="normal" title="낮은 가격순"/>
                                                             </button>
                                                         </subviews>
