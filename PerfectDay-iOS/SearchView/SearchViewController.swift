@@ -26,8 +26,5 @@ class SearchViewController: UIViewController {
         }
         svHashTag.translatesAutoresizingMaskIntoConstraints = false
     }
-    func setHashTagString(_ str: String) -> String{
-        let setStr = "  #" + str + "  "
-        return setStr
-    }
+    
 }

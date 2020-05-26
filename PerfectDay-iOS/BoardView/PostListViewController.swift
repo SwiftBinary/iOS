@@ -17,6 +17,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     let themeColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
     var segueTitle: Int = 0
     let arrayTitle = ["공지사항","코스를 공유해요","인기 게시판","자유 게시판","썸타는 게시판","조언을 구해요","실시간 장소리뷰"]
+    let strHashTag = ["건대", "홍대", "강남", "이색", "고궁", "tv방영", "가성비", "고급진", "국밥", "방탈출", "야식", "비오는날", "100일데이트코스", "커플100%되는곳", "킬링타임코스", "호불호없는"]
     let arrayHiddenCreate = [0,2,6]
     
     let btnMargin:CGFloat = -10
@@ -97,7 +98,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         return true
     }
     
-    @objc func panAction (_ sender : UIPanGestureRecognizer){
+    @objc func panAction(_ sender : UIPanGestureRecognizer){
         btnScrollUp.isHidden = (scrollPostList.contentOffset.y <= 0)
     }
     
@@ -119,10 +120,30 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         lblContent.lineBreakMode = .byCharWrapping
         
         let scvTag = UIScrollView()
-        let svTag = UIStackView(arrangedSubviews: [UIButton(),UIButton(),UIButton(),UIButton(),UIButton()])
+        scvTag.translatesAutoresizingMaskIntoConstraints = false
+        let svTag = UIStackView()
+        for hashTag in strHashTag {
+            let btnHashTag = UIButton(type: .system)
+            btnHashTag.setTitle(setHashTagString(hashTag))
+            btnHashTag.layer.cornerRadius = 15
+            btnHashTag.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
+            btnHashTag.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
+            svTag.addArrangedSubview(btnHashTag)
+        }
+        svTag.translatesAutoresizingMaskIntoConstraints = false
+        scvTag.addSubview(svTag)
+        scvTag.addConstraint(NSLayoutConstraint(item: svTag, attribute: .centerY, relatedBy: .equal, toItem: scvTag, attribute: .centerY, multiplier: 1, constant: 0))
+        svTag.heightAnchor.constraint(equalTo: scvTag.heightAnchor, multiplier: 0.9).isActive = true
+        svTag.topAnchor.constraint(equalTo: scvTag.topAnchor, constant: 0).isActive = true
+        svTag.bottomAnchor.constraint(equalTo: scvTag.bottomAnchor, constant: 0).isActive = true
+        svTag.leadingAnchor.constraint(equalTo: scvTag.leadingAnchor, constant: 0).isActive = true
+        svTag.trailingAnchor.constraint(equalTo: scvTag.trailingAnchor, constant: 0).isActive = true
         
         let scvImg = UIScrollView()
+        scvImg.translatesAutoresizingMaskIntoConstraints = false
         let svImg = UIStackView(arrangedSubviews: [UIImageView(image: UIImage(named: "tempProfile")),UIImageView(image: UIImage(named: "tempProfile")),UIImageView(image: UIImage(named: "tempProfile")),UIImageView(image: UIImage(named: "tempProfile")),UIImageView(image: UIImage(named: "tempProfile"))])
+        svImg.translatesAutoresizingMaskIntoConstraints = false
+        svImg.spacing = 5
         scvImg.addSubview(svImg)
         for img in svImg.arrangedSubviews {
             img.widthAnchor.constraint(equalToConstant: 100).isActive = true
@@ -136,7 +157,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         svImg.trailingAnchor.constraint(equalTo: scvImg.trailingAnchor, constant: 0).isActive = true
         
         
-        let svContent = UIStackView(arrangedSubviews: [lblTitle,lblContent])
+        let svContent = UIStackView(arrangedSubviews: [lblTitle,lblContent,scvTag,scvImg])
         svContent.axis = .vertical
         svContent.spacing = 5
         svContent.distribution = .fill

@@ -12,7 +12,7 @@ import SwiftyJSON
 import XLPagerTabStrip
 import Material
 
-class DibsCourseViewController: UIViewController, IndicatorInfoProvider {
+class DibsCourseViewController: UIViewController,UIGestureRecognizerDelegate, IndicatorInfoProvider {
     
     var itemInfo: IndicatorInfo = "View"
     
@@ -21,6 +21,7 @@ class DibsCourseViewController: UIViewController, IndicatorInfoProvider {
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
     
     let scrollMain = UIScrollView()
+    let btnScrollUp = UIButton(type: .custom)
     
     init(itemInfo: IndicatorInfo) {
         self.itemInfo = itemInfo
@@ -38,6 +39,7 @@ class DibsCourseViewController: UIViewController, IndicatorInfoProvider {
     
     func setCourseStack(){
         scrollMain.translatesAutoresizingMaskIntoConstraints = false
+        
         let svMain = UIStackView()
         svMain.translatesAutoresizingMaskIntoConstraints = false
         svMain.distribution = .fill
@@ -51,7 +53,7 @@ class DibsCourseViewController: UIViewController, IndicatorInfoProvider {
         view.bottomAnchor.constraint(equalTo: scrollMain.bottomAnchor, constant: 0).isActive = true
         view.trailingAnchor.constraint(equalTo: scrollMain.trailingAnchor, constant: 0).isActive = true
         view.leadingAnchor.constraint(equalTo: scrollMain.leadingAnchor, constant: 0).isActive = true
-        
+    
         
         scrollMain.addSubview(svMain)
         scrollMain.addConstraint(NSLayoutConstraint(item: svMain, attribute: .centerX, relatedBy: .equal, toItem: scrollMain, attribute: .centerX, multiplier: 1, constant: 0))
@@ -127,6 +129,18 @@ class DibsCourseViewController: UIViewController, IndicatorInfoProvider {
         btnDelete.topAnchor.constraint(equalTo: uvPost.topAnchor, constant: 5).isActive = true
         btnDelete.trailingAnchor.constraint(equalTo: uvPost.trailingAnchor, constant: -10).isActive = true
         //        btnDelete.addTarget(self, action: #selector(), for: .touchUpInside)
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool{
+        return true
+    }
+    
+    @objc func panAction(_ sender : UIPanGestureRecognizer){
+        btnScrollUp.isHidden = (scrollMain.contentOffset.y <= 0)
+    }
+    @objc func upToTop(_ sender: Any) {
+        scrollMain.scrollToTop()
+        btnScrollUp.isHidden = true
     }
     
     func inputLoaction(_ index: Int) -> UIView {
@@ -298,6 +312,21 @@ class DibsCourseViewController: UIViewController, IndicatorInfoProvider {
     
     func setUI(){
         view.backgroundColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
+        btnScrollUp.isHidden = true
+        btnScrollUp.setTitle("", for: .normal)
+        btnScrollUp.translatesAutoresizingMaskIntoConstraints = false
+        btnScrollUp.addTarget(self, action: #selector(upToTop(_:)), for: .touchUpInside)
+        btnScrollUp.setImage(UIImage(named: "arrow_up"), for: .normal)
+        view.addSubview(btnScrollUp)
+
+        view.addConstraint(NSLayoutConstraint(item: btnScrollUp, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
+        btnScrollUp.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        btnScrollUp.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        btnScrollUp.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5).isActive = true
+        
+        let panGestureRecongnizer = UIPanGestureRecognizer(target: self, action: #selector(panAction(_ :)))
+        panGestureRecongnizer.delegate = self
+        scrollMain.addGestureRecognizer(panGestureRecongnizer)
     }
     // MARK: - IndicatorInfoProvider
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {

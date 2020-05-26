@@ -13,12 +13,15 @@ import SwiftyJSON
 import Material
 
 // UIPickerViewDelegate, UIPickerViewDataSource,
-class SearchLocationViewController: UIViewController, IndicatorInfoProvider, LocationDelegate {
+class SearchLocationViewController: UIViewController,UIGestureRecognizerDelegate, IndicatorInfoProvider, LocationDelegate {
     
     var optionList = ["높은 가격순","낮은 가격순","긴 소요시간순","짧은 소요시간순","높은 평점순","가까운 거리순"]
     var checkPv = true // true didSelectRow 호출됨, false didSelectRow 호출 안 됨
     var pickerView = UIPickerView()
     var typeValue = String()
+    
+    let scrollMain = UIScrollView()
+    let btnScrollUp = UIButton(type: .custom)
     
     func didLocationDone(_ controller: SetLocationViewController, currentLocation: String) {
         ((view.subviews[0] as! UIStackView).arrangedSubviews[1] as! UILabel).text = currentLocation
@@ -40,6 +43,7 @@ class SearchLocationViewController: UIViewController, IndicatorInfoProvider, Loc
         super.viewDidLoad()
         setTopUI()
         setScrollUI()
+        setUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -56,7 +60,6 @@ class SearchLocationViewController: UIViewController, IndicatorInfoProvider, Loc
     }
     func setTopUI(){
         view.backgroundColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
-        
         // UI 구조
         // 세로 스택뷰[ 가로 스택 뷰1{선택한 위치 라벨, 위치 설정 버튼} , 가로 스택 뷰2{결과 장소 수 라벨, 필터 버튼, 정렬조건 버튼} ]
         let svHorizontal = UIStackView()
@@ -73,7 +76,7 @@ class SearchLocationViewController: UIViewController, IndicatorInfoProvider, Loc
         lblLocationDistance.text = " 1.5km 이내"
         lblLocationDistance.textAlignment = .right
         lblLocationCount.text = " n"
-        lblLocationCount.textColor = #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1)
+        lblLocationCount.textColor = #colorLiteral(red: 1, green: 0.3921568627, blue: 0.568627451, alpha: 1)
         lblEnd.text = "곳"
         
         //Button Setting
@@ -114,12 +117,11 @@ class SearchLocationViewController: UIViewController, IndicatorInfoProvider, Loc
         self.present(navigationController, animated: true, completion: nil)
     }
     @objc func filterLocation(sender: UIButton){
-        let goToVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "locationFilterView")
+        let goToVC = UIStoryboard.init(name: "Search", bundle: Bundle.main).instantiateViewController(withIdentifier: "locationFilterView")
         self.present(goToVC, animated: true, completion: nil)
     }
     
     func setScrollUI(){
-        let scrollMain = UIScrollView()
         scrollMain.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(scrollMain)
@@ -265,6 +267,37 @@ class SearchLocationViewController: UIViewController, IndicatorInfoProvider, Loc
         svItem.heightAnchor.constraint(equalTo: uvLocation.heightAnchor, multiplier: 1).isActive = true
         
         return uvLocation
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool{
+        return true
+    }
+    
+    @objc func panAction(_ sender : UIPanGestureRecognizer){
+        btnScrollUp.isHidden = (scrollMain.contentOffset.y <= 0)
+    }
+    
+    @objc func upToTop(_ sender: Any) {
+        scrollMain.scrollToTop()
+        btnScrollUp.isHidden = true
+    }
+    
+    func setUI(){
+        btnScrollUp.isHidden = true
+        btnScrollUp.setTitle("", for: .normal)
+        btnScrollUp.translatesAutoresizingMaskIntoConstraints = false
+        btnScrollUp.addTarget(self, action: #selector(upToTop(_:)), for: .touchUpInside)
+        btnScrollUp.setImage(UIImage(named: "arrow_up"), for: .normal)
+        view.addSubview(btnScrollUp)
+
+        view.addConstraint(NSLayoutConstraint(item: btnScrollUp, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
+        btnScrollUp.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        btnScrollUp.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        btnScrollUp.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5).isActive = true
+        
+        let panGestureRecongnizer = UIPanGestureRecognizer(target: self, action: #selector(panAction(_ :)))
+        panGestureRecongnizer.delegate = self
+        scrollMain.addGestureRecognizer(panGestureRecongnizer)
     }
     
     @objc func tempFunc(){

@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        
+        self.tabBarController?.tabBar.backgroundColor = .white
     }
     
     override func viewWillAppear(_ animated: Bool) {

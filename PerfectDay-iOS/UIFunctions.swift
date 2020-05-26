@@ -35,6 +35,11 @@ public func countLabelLines(label: UILabel!) -> Int {
     return Int(ceil(CGFloat(labelSize.height) / label.font.lineHeight))
 }
 
+public func setHashTagString(_ str: String) -> String{
+    let setStr = "  #" + str + "  "
+    return setStr
+}
+
 extension UITextView
 {
     
@@ -129,3 +134,4 @@ extension UITextField {
     self.leftViewMode = ViewMode.always
   }
 }
+

@@ -8,18 +8,11 @@
 
 import UIKit
 import XLPagerTabStrip
-// UIPickerViewDelegate, UIPickerViewDataSource,
-class SearchPostViewController: UIViewController, IndicatorInfoProvider {
+import MaterialDesignWidgets
+import Material
 
-//    let svHorizontal = UIStackView()
-//    let uvBack = UIView()
-    
-//    var sortingOptionList = ["최신순","조회순","댓글순","공감순"]
-//    var periodOptionList = ["1주","1개월","3개월","6개월"]
-//    var checkBtn = true // true 검색 기간, false 정렬조건
-//    var checkPv = true // true didSelectRow 호출됨, false didSelectRow 호출 안 됨
-    //var pickerView = UIPickerView()
-//    var typeValue = String()
+// UIPickerViewDelegate, UIPickerViewDataSource,
+class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, IndicatorInfoProvider {
     
     var itemInfo: IndicatorInfo = "View"
     init(itemInfo: IndicatorInfo) {
@@ -29,181 +22,277 @@ class SearchPostViewController: UIViewController, IndicatorInfoProvider {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    let strHashTag = ["건대", "홍대", "강남", "이색", "고궁", "tv방영", "가성비", "고급진", "국밥", "방탈출", "야식", "비오는날", "100일데이트코스", "커플100%되는곳", "킬링타임코스", "호불호없는"]
+    let btnMargin:CGFloat = -10
+    var scrollPostList = UIScrollView()
+    var svPostList = UIStackView()
+    var btnScrollUp = UIButton(type: .custom)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
-//        setScroll(UIScrollView())
+        view.backgroundColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
+        setFilterUI()
+        //        setScroll(UIScrollView())
+        setPostUI()
+        setScrollUI()
+    }
+    func setSampleSegments(_ segmentedControl: MaterialSegmentedControl, _ cornerRadius: CGFloat) {
+        let strList = ["게시글","생생 리뷰"]
+        for str in strList {
+            // Button background needs to be clear, it will be set to clear in segmented control anyway.
+            let button = MaterialButton(text: str, textColor: .white, bgColor: #colorLiteral(red: 1, green: 0.3921568627, blue: 0.568627451, alpha: 1), cornerRadius: cornerRadius)
+            button.titleLabel?.fontSize = 13
+            button.rippleLayerColor = .white
+            button.rippleLayerAlpha = 0.15
+            segmentedControl.segments.append(button)
+        }
     }
     
-    func setUI(){
+    func setFilterUI(){
         // UI 구조
         // 세로 스택뷰[ 가로 스택 뷰1{선택한 위치 라벨, 위치 설정 버튼} , 가로 스택 뷰2{결과 장소 수 라벨, 필터 버튼, 정렬조건 버튼} ]
         let svHorizontal = UIStackView()
+        let svLabel = UIStackView()
+        let lblCountPostGuide = UILabel()
         let lblCountPost = UILabel()
-        let btnFilter = UIButton(type: .system)
-
+        let lblCountPostEnd = UILabel()
+        let btnFilter = UIButton(type: .custom)
+        
         //Label Setting
-        lblCountPost.text = "조건에 해당하는 게시물: 000 개"
-        lblCountPost.textAlignment = .left
-
+        let intFontSize:CGFloat = 13
+        lblCountPostGuide.fontSize = intFontSize
+        lblCountPostGuide.text = "조건에 해당하는 게시물: "
+        lblCountPostGuide.textAlignment = .right
+        lblCountPost.fontSize = intFontSize
+        lblCountPost.textColor = #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1)
+        lblCountPost.text = "000"
+        lblCountPost.textAlignment = .center
+        lblCountPostEnd.fontSize = intFontSize
+        lblCountPostEnd.text = " 개"
+        lblCountPostEnd.textAlignment = .left
+        
+        //segmentControl
+        let segmentControl = MaterialSegmentedControl()
+        segmentControl.selectorStyle = .fill
+        segmentControl.foregroundColor = .white
+        segmentControl.selectedForegroundColor = .white
+        segmentControl.selectorColor = #colorLiteral(red: 1, green: 0.3921568627, blue: 0.568627451, alpha: 1)
+        segmentControl.backgroundColor = .lightGray
+        setSampleSegments(segmentControl, intFontSize)
+        segmentControl.setCornerBorder(cornerRadius: intFontSize)
+        
         //Button Setting
         btnFilter.setTitle("", for: .normal)
         btnFilter.setImage(UIImage(named: "FilterBtn"), for: .normal)
         btnFilter.addTarget(self, action: #selector(filterPost), for: .touchUpInside)
-
+        
         //Stack Setting
-        svHorizontal.addArrangedSubview(lblCountPost)
+        svLabel.addArrangedSubview(lblCountPostGuide)
+        svLabel.addArrangedSubview(lblCountPost)
+        svLabel.addArrangedSubview(lblCountPostEnd)
+        svHorizontal.addArrangedSubview(svLabel)
+        svHorizontal.addArrangedSubview(segmentControl)
         svHorizontal.addArrangedSubview(btnFilter)
         
         btnFilter.widthAnchor.constraint(equalTo: svHorizontal.heightAnchor, multiplier: 1).isActive = true
-
-        //        svHorizontal2.addArrangedSubview(lblCountLocation)
-        //        svHorizontal2.addArrangedSubview(btnFilter)
-        //        svHorizontal2.addArrangedSubview(btnSorting)
-        //        svHorizontal2.distribution = .fillProportionally
-        //        view.addSubview(svVertical)
-        //        view.addConstraint(NSLayoutConstraint(item: svVertical, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0) )
-        //        svVertical.addArrangedSubview(svHorizontal1)
-        //        svVertical.addArrangedSubview(svHorizontal2)
-        //        svVertical.translatesAutoresizingMaskIntoConstraints = false
-
+        
         svHorizontal.translatesAutoresizingMaskIntoConstraints = false
-
         svHorizontal.distribution = .fill
+        svHorizontal.spacing = 3
         view.addSubview(svHorizontal)
-        view.backgroundColor = .white
         view.addConstraint(NSLayoutConstraint(item: svHorizontal, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
         svHorizontal.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9).isActive = true
         svHorizontal.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
-        
         // Add actions
     }
     
     @objc func filterPost(sender: UIButton){
-        let goToVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "postFilterView")
+        let goToVC = UIStoryboard.init(name: "Search", bundle: Bundle.main).instantiateViewController(withIdentifier: "postFilterView")
         self.present(goToVC, animated: true, completion: nil)
     }
-
-//    func setScroll(_ scrollMain: UIScrollView){
-//
-//        scrollMain.translatesAutoresizingMaskIntoConstraints = false
-//        uvBack.addSubview(scrollMain)
-//        uvBack.addConstraint(NSLayoutConstraint(item: scrollMain, attribute: .centerX, relatedBy: .equal, toItem: uvBack, attribute: .centerX, multiplier: 1, constant: 0))
-//        scrollMain.widthAnchor.constraint(equalTo: uvBack.widthAnchor, multiplier: 1).isActive = true
-//        svHorizontal.bottomAnchor.constraint(equalTo: scrollMain.topAnchor, constant: 0).isActive = true
-//        scrollMain.bottomAnchor.constraint(equalTo: uvBack.bottomAnchor, constant: 0).isActive = true
-//        scrollMain.leadingAnchor.constraint(equalTo: uvBack.leadingAnchor, constant: 0).isActive = true
-//        scrollMain.trailingAnchor.constraint(equalTo: uvBack.trailingAnchor, constant: 0).isActive = true
-//
-//        let svMain = UIStackView()
-//        svMain.translatesAutoresizingMaskIntoConstraints = false
-//        svMain.distribution = .fillEqually
-//        svMain.backgroundColor = .darkGray
-//        svMain.axis = .vertical
-//        svMain.spacing = 15
-//
-//        scrollMain.addSubview(svMain)
-//        scrollMain.addConstraint(NSLayoutConstraint(item: svMain, attribute: .centerX, relatedBy: .equal, toItem: scrollMain, attribute: .centerX, multiplier: 1, constant: 0))
-//        svMain.widthAnchor.constraint(equalTo: scrollMain.widthAnchor, multiplier: 0.9).isActive = true
-//        svMain.topAnchor.constraint(equalTo: scrollMain.topAnchor, constant: 10).isActive = true
-//
-//        for _ in 0...100 {
-//            let tempBtn = UIButton(type: .system)
-//            tempBtn.setTitle("Button", for: .normal)
-//            tempBtn.backgroundColor = .white
-//            setSNSButton(tempBtn,"")
-//            svMain.addArrangedSubview(tempBtn)
-//        }
-//    }
     
-    //MARK - PickerView
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        return 1
-//    }
-//     
-//    //row를 결정
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        if checkBtn { // 검색 기간
-//            return periodOptionList.count
-//        } else { // 정렬 조건
-//            return sortingOptionList.count
-//        }
-//    }
-//
-//    // Pickerview에 들어간 content를 결정
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        if checkBtn { // 검색 기간
-//            return periodOptionList[row]
-//        } else { // 정렬 조건
-//            return sortingOptionList[row]
-//        }
-//    }
-//
-//    // Picker Item이 선택되었을때 해당 Item의 row 함께 호출되는 함수
-//    // 문제는 이게 Picker뷰를 호출하고 선택을 안 하면 아예 호출이 안 됨
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        checkPv = true
-//        if checkBtn { // 검색 기간
-//            typeValue = periodOptionList[row]
-//        } else { // 정렬 조건
-//            typeValue = sortingOptionList[row]
-//        }
-//    }
-//
-//    @objc func periodPost(sender: UIButton){
-//        checkBtn = true
-//        checkPv = false
-//        let alertController = UIAlertController(title: "검색기간", message: "\n\n\n\n", preferredStyle: UIAlertController.Style.alert)
-//        let sortingPicker = UIPickerView()
-//        alertController.view.addSubview(sortingPicker)
-//        sortingPicker.frame = CGRect(x: 10, y: 35, width: 250, height: 100)
-//
-//        sortingPicker.dataSource = self
-//        sortingPicker.delegate = self
-//
-//        let selectAction = UIAlertAction(title: "선택", style: .default, handler: { _ in
-//            if self.checkPv {
-//                ((self.view.subviews[0].subviews[0] as! UIStackView).arrangedSubviews[1] as! UIButton).setTitle(self.typeValue, for: .normal)
-//            } else {
-//                ((self.view.subviews[0].subviews[0] as! UIStackView).arrangedSubviews[1] as! UIButton).setTitle(self.periodOptionList[0], for: .normal)
-//            }
-//        })
-//        let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
-//
-//        alertController.addAction(selectAction)
-//        alertController.addAction(cancelAction)
-//        present(alertController, animated: true, completion: nil)
-//    }
-//
-//    @objc func sortingPost(sender: UIButton){
-//        checkBtn = false
-//        checkPv = false
-//        let alertController = UIAlertController(title: "정렬기준", message: "\n\n\n\n", preferredStyle: UIAlertController.Style.alert)
-//        let sortingPicker = UIPickerView()
-//        alertController.view.addSubview(sortingPicker)
-//        sortingPicker.frame = CGRect(x: 10, y: 35, width: 250, height: 100)
-//
-//        sortingPicker.dataSource = self
-//        sortingPicker.delegate = self
-//
-//        let selectAction = UIAlertAction(title: "선택", style: .default, handler: { _ in
-//            if self.checkPv {
-//                ((self.view.subviews[0].subviews[0] as! UIStackView).arrangedSubviews[2] as! UIButton).setTitle(self.typeValue, for: .normal)
-//            } else {
-//                ((self.view.subviews[0].subviews[0] as! UIStackView).arrangedSubviews[2] as! UIButton).setTitle(self.sortingOptionList[0], for: .normal)
-//            }
-//        })
-//        let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
-//
-//        alertController.addAction(selectAction)
-//        alertController.addAction(cancelAction)
-//        present(alertController, animated: true, completion: nil)
-//    }
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool{
+        return true
+    }
     
+    func setPostUI(){
+        tempFunc()
+        
+        let panGestureRecongnizer = UIPanGestureRecognizer(target: self, action: #selector(panAction(_ :)))
+        panGestureRecongnizer.delegate = self
+        scrollPostList.addGestureRecognizer(panGestureRecongnizer)
+    }
     
+    @objc func panAction(_ sender : UIPanGestureRecognizer){
+        btnScrollUp.isHidden = (scrollPostList.contentOffset.y <= 0)
+    }
     
-
+    func tempFunc(){
+        for index in 1..<20 {
+            let tempView = makeTempUv(index)
+            svPostList.addArrangedSubview(tempView)
+        }
+        svPostList.translatesAutoresizingMaskIntoConstraints = false
+        let endLbl = UILabel()
+        endLbl.text = " "
+        endLbl.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
+        endLbl.backgroundColor = .white
+        svPostList.addArrangedSubview(endLbl)
+    }
+    
+    func makeTempUv(_ i: Int) -> UIView {
+        let viewPost = UIView()
+        viewPost.backgroundColor = .white
+        viewPost.layer.cornerRadius = 15
+        viewPost.layer.shadowColor = UIColor.lightGray.cgColor
+        viewPost.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        viewPost.layer.shadowRadius = 2.0
+        viewPost.layer.shadowOpacity = 0.9
+        
+        let lblTitle = UILabel()
+        lblTitle.text = "게시글 " + String(i)
+        let lblContent = UILabel()
+        //            lblContent.isHidden = postData["content"].string == nil
+        lblContent.text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."
+        lblContent.numberOfLines = 4 //countLabelLines(label: lblContent)
+        lblContent.lineBreakMode = .byCharWrapping
+        
+        let scvTag = UIScrollView()
+        scvTag.translatesAutoresizingMaskIntoConstraints = false
+        let svTag = UIStackView()
+        for hashTag in strHashTag {
+            let btnHashTag = UIButton(type: .system)
+            btnHashTag.setTitle(setHashTagString(hashTag))
+            btnHashTag.layer.cornerRadius = 15
+            btnHashTag.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
+            btnHashTag.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
+            svTag.addArrangedSubview(btnHashTag)
+        }
+        svTag.translatesAutoresizingMaskIntoConstraints = false
+        scvTag.addSubview(svTag)
+        scvTag.addConstraint(NSLayoutConstraint(item: svTag, attribute: .centerY, relatedBy: .equal, toItem: scvTag, attribute: .centerY, multiplier: 1, constant: 0))
+        svTag.heightAnchor.constraint(equalTo: scvTag.heightAnchor, multiplier: 0.9).isActive = true
+        svTag.topAnchor.constraint(equalTo: scvTag.topAnchor, constant: 0).isActive = true
+        svTag.bottomAnchor.constraint(equalTo: scvTag.bottomAnchor, constant: 0).isActive = true
+        svTag.leadingAnchor.constraint(equalTo: scvTag.leadingAnchor, constant: 0).isActive = true
+        svTag.trailingAnchor.constraint(equalTo: scvTag.trailingAnchor, constant: 0).isActive = true
+        
+        let scvImg = UIScrollView()
+        scvImg.translatesAutoresizingMaskIntoConstraints = false
+        let svImg = UIStackView(arrangedSubviews: [UIImageView(image: UIImage(named: "tempProfile")),UIImageView(image: UIImage(named: "tempProfile")),UIImageView(image: UIImage(named: "tempProfile")),UIImageView(image: UIImage(named: "tempProfile")),UIImageView(image: UIImage(named: "tempProfile"))])
+        svImg.translatesAutoresizingMaskIntoConstraints = false
+        svImg.spacing = 5
+        scvImg.addSubview(svImg)
+        for img in svImg.arrangedSubviews {
+            img.widthAnchor.constraint(equalToConstant: 100).isActive = true
+            img.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        }
+        scvImg.addConstraint(NSLayoutConstraint(item: svImg, attribute: .centerY, relatedBy: .equal, toItem: scvImg, attribute: .centerY, multiplier: 1, constant: 0))
+        svImg.heightAnchor.constraint(equalTo: scvImg.heightAnchor, multiplier: 1).isActive = true
+        svImg.topAnchor.constraint(equalTo: scvImg.topAnchor, constant: 0).isActive = true
+        svImg.bottomAnchor.constraint(equalTo: scvImg.bottomAnchor, constant: 0).isActive = true
+        svImg.leadingAnchor.constraint(equalTo: scvImg.leadingAnchor, constant: 0).isActive = true
+        svImg.trailingAnchor.constraint(equalTo: scvImg.trailingAnchor, constant: 0).isActive = true
+        
+        let svContent = UIStackView(arrangedSubviews: [lblTitle,lblContent,scvTag,scvImg])
+        svContent.axis = .vertical
+        svContent.spacing = 5
+        svContent.distribution = .fill
+        let uvContent = UIView()
+        svContent.translatesAutoresizingMaskIntoConstraints = false
+        uvContent.addSubview(svContent)
+        uvContent.addConstraint(NSLayoutConstraint(item: svContent, attribute: .centerX, relatedBy: .equal, toItem: uvContent, attribute: .centerX, multiplier: 1, constant: 0))
+        uvContent.addConstraint(NSLayoutConstraint(item: svContent, attribute: .centerY, relatedBy: .equal, toItem: uvContent, attribute: .centerY, multiplier: 1, constant: 0))
+        svContent.widthAnchor.constraint(equalTo: uvContent.widthAnchor, multiplier: 0.9).isActive = true
+        svContent.heightAnchor.constraint(equalTo: uvContent.heightAnchor, multiplier: 1).isActive = true
+        
+        let uvLineTop = UIView()
+        uvLineTop.backgroundColor = .none
+        uvLineTop.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
+        
+        let uvLine = UIView()
+        uvLine.backgroundColor = .lightGray
+        uvLine.heightAnchor.constraint(equalToConstant: 0.3).isActive = true
+        
+        let uvLineBottom = UIView()
+        uvLineBottom.backgroundColor = .none
+        uvLineBottom.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
+        
+        //            let btnLike = FlatButton(title: "String(postData["favorCount"].int!)")
+        let btnLike = FlatButton(title: "999")
+        btnLike.setImage(UIImage(named: "LikeOffBtn"), for: .normal)
+        btnLike.layer.cornerRadius = 5
+        //        btnLike.contentEdgeInsets.left = btnMargin
+        //        btnLike.contentEdgeInsets.right = btnMargin
+        btnLike.titleColor = .lightGray
+        let btnComment = FlatButton(title: "999")
+        btnComment.isEnabled = false
+        btnComment.setImage(UIImage(named: "CommentIcon"), for: .normal)
+        btnComment.titleColor = .lightGray
+//        btnComment.contentEdgeInsets.left = btnMargin
+//        btnComment.contentEdgeInsets.right = btnMargin
+        let lblTemp = UILabel()
+        lblTemp.text = "                          "
+        lblTemp.widthAnchor.constraint(lessThanOrEqualToConstant: 500).isActive = true
+        let btnMenu = IconButton()
+        btnMenu.image = Icon.cm.moreHorizontal
+        btnMenu.tintColor = .darkGray
+        let svFunc = UIStackView(arrangedSubviews: [btnLike,btnComment,lblTemp,btnMenu])
+        svFunc.axis = .horizontal
+        svFunc.distribution = .fillProportionally
+        svFunc.spacing = 5
+        let uvFunc = UIView()
+        svFunc.translatesAutoresizingMaskIntoConstraints = false
+        uvFunc.addSubview(svFunc)
+        uvFunc.addConstraint(NSLayoutConstraint(item: svFunc, attribute: .centerX, relatedBy: .equal, toItem: uvFunc, attribute: .centerX, multiplier: 1, constant: 0))
+        uvFunc.addConstraint(NSLayoutConstraint(item: svFunc, attribute: .centerY, relatedBy: .equal, toItem: uvFunc, attribute: .centerY, multiplier: 1, constant: 0))
+        svFunc.widthAnchor.constraint(equalTo: uvFunc.widthAnchor, multiplier: 0.9).isActive = true
+        svFunc.heightAnchor.constraint(equalTo: uvFunc.heightAnchor, multiplier: 1).isActive = true
+        
+        
+        let svMain = UIStackView(arrangedSubviews: [uvLineTop,uvContent,uvLine,uvFunc,uvLineBottom])
+        svMain.axis = .vertical
+        svMain.translatesAutoresizingMaskIntoConstraints = false
+        svMain.spacing = 5
+        viewPost.addSubview(svMain)
+        viewPost.addConstraint(NSLayoutConstraint(item: svMain, attribute: .centerX, relatedBy: .equal, toItem: viewPost, attribute: .centerX, multiplier: 1, constant: 0))
+        viewPost.addConstraint(NSLayoutConstraint(item: svMain, attribute: .centerY, relatedBy: .equal, toItem: viewPost, attribute: .centerY, multiplier: 1, constant: 0))
+        svMain.widthAnchor.constraint(equalTo: viewPost.widthAnchor, multiplier: 1).isActive = true
+        svMain.heightAnchor.constraint(equalTo: viewPost.heightAnchor, multiplier: 1).isActive = true
+        
+//        viewPost.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gotoPost)))
+        
+        return viewPost
+    }
+    
+    @objc func gotoPost(){
+        let goToVC = UIStoryboard.init(name: "Board", bundle: Bundle.main).instantiateViewController(withIdentifier: "showPostView")
+        self.present(goToVC, animated: true, completion: nil)
+    }
+    
+    func setScrollUI(){
+        scrollPostList.translatesAutoresizingMaskIntoConstraints = false
+        svPostList.translatesAutoresizingMaskIntoConstraints = false
+        svPostList.distribution = .fill
+        svPostList.axis = .vertical
+        svPostList.spacing = 15
+        
+        view.addSubview(scrollPostList)
+        view.addConstraint(NSLayoutConstraint(item: scrollPostList, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0))
+        view.widthAnchor.constraint(equalTo: scrollPostList.widthAnchor, multiplier: 1).isActive = true
+        scrollPostList.topAnchor.constraint(equalTo: view.subviews[0].bottomAnchor, constant: 10).isActive = true
+        view.bottomAnchor.constraint(equalTo: scrollPostList.bottomAnchor, constant: 0).isActive = true
+        view.trailingAnchor.constraint(equalTo: scrollPostList.trailingAnchor, constant: 0).isActive = true
+        view.leadingAnchor.constraint(equalTo: scrollPostList.leadingAnchor, constant: 0).isActive = true
+        
+        scrollPostList.addSubview(svPostList)
+        scrollPostList.addConstraint(NSLayoutConstraint(item: svPostList, attribute: .centerX, relatedBy: .equal, toItem: scrollPostList, attribute: .centerX, multiplier: 1, constant: 0))
+        svPostList.widthAnchor.constraint(equalTo: scrollPostList.widthAnchor, multiplier: 1).isActive = true
+        svPostList.topAnchor.constraint(equalTo: scrollPostList.topAnchor, constant: 0).isActive = true
+        svPostList.bottomAnchor.constraint(equalTo: scrollPostList.bottomAnchor, constant: 0).isActive = true
+    }
+    
     // MARK: - IndicatorInfoProvider
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         return itemInfo
