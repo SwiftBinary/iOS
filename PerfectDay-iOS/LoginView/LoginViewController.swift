@@ -164,5 +164,8 @@ class LoginViewController: UIViewController {
 //        goToVC.modalPresentationStyle = .fullScreen
 //        self.present(goToVC, animated: true, completion: nil)
     }
-
+    
+    @IBAction func tempLogin2(_ sender: UIButton) {
+        loginSuccess()
+    }
 }

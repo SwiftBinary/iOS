@@ -7,18 +7,20 @@
 //
 
 import UIKit
+import MaterialDesignWidgets
 
 class FilterLocationViewController: UIViewController {
     
     //Button
-    @IBOutlet var btnDistance: UIButton!
-    @IBOutlet var btnGPA: UIButton!
-    @IBOutlet var btnTimeLong: UIButton!
-    @IBOutlet var btnTimeShort: UIButton!
-    @IBOutlet var btnPriceHigh: UIButton!
-    @IBOutlet var btnPriceLow: UIButton!
-
-    var listBtn: [UIButton] = []
+    @IBOutlet var btnDistance: MaterialButton!
+    @IBOutlet var btnGPA: MaterialButton!
+    @IBOutlet var btnTimeLong: MaterialButton!
+    @IBOutlet var btnTimeShort: MaterialButton!
+    @IBOutlet var btnPriceHigh: MaterialButton!
+    @IBOutlet var btnPriceLow: MaterialButton!
+    var selectBtn = 0
+    
+    var listBtn: [MaterialButton] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,21 +34,46 @@ class FilterLocationViewController: UIViewController {
     func setBtn(){
         listBtn = [btnDistance,btnGPA,btnTimeLong,btnTimeShort,btnPriceHigh,btnPriceLow]
         for btn in listBtn {
-            btn.layer.cornerRadius = 5
+            btn.setTextStyles(textColor: .black, font: .systemFont(ofSize: 17))
+            btn.cornerRadius = 5
+            btn.backgroundColor = .white
             btn.layer.borderColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
             btn.layer.borderWidth = 0.5
+            btn.rippleEnabled = false
+            btn.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            btn.addTarget(self, action: #selector(btnAction(_:)), for: .touchUpInside)
         }
+        listBtn[0].setTextStyles(textColor: .white, font: .none)
+        listBtn[0].backgroundColor = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 1)
     }
+    
+    @objc func btnAction(_ sender: MaterialButton) {
+        let index = listBtn.firstIndex(of: sender)!
+        if selectBtn != index {
+            print(index)
+            listBtn[selectBtn].setTextStyles(textColor: .black, font: .none)
+            listBtn[selectBtn].backgroundColor = .white
+        }
+        selectBtn = index
+        sender.setTextStyles(textColor: .white, font: .none)
+        sender.backgroundColor = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 1)
+    }
+    
     
     @IBAction func gotoBack(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func setOption(_ sender: UIButton) {
-        
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func allClear(_ sender: UIBarButtonItem) {
+        listBtn[selectBtn].setTextStyles(textColor: .black, font: .none)
+        listBtn[selectBtn].backgroundColor = .white
+        listBtn[0].setTextStyles(textColor: .white, font: .none)
+        listBtn[0].backgroundColor = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 1)
+        selectBtn = 0
     }
     
     

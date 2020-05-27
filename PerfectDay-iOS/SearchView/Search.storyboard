@@ -99,7 +99,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DmQ-4C-Rtf">
-                                <rect key="frame" x="0.0" y="44" width="185.5" height="44"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <items>
                                     <navigationItem title="필터" id="OPG-Oh-quc">
                                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="vso-ba-3Ve">
@@ -116,7 +116,7 @@
                                 </items>
                             </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ew-CU-Yrf" userLabel="완료">
-                                <rect key="frame" x="9.5" y="812" width="167" height="30"/>
+                                <rect key="frame" x="20.5" y="812" width="373" height="30"/>
                                 <color key="backgroundColor" red="0.98823529409999999" green="0.36470588240000001" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="완료">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -126,28 +126,28 @@
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JlT-rY-H0A">
-                                <rect key="frame" x="0.0" y="93" width="185.5" height="699"/>
+                                <rect key="frame" x="0.0" y="93" width="414" height="699"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="6xT-Yg-DAl" userLabel="Top Stack View">
-                                        <rect key="frame" x="20" y="0.0" width="167" height="351"/>
+                                        <rect key="frame" x="20.5" y="0.0" width="373" height="351"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="기본옵션" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSC-92-ybj">
-                                                <rect key="frame" x="0.0" y="0.0" width="167" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="373" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DfA-8o-5rW" userLabel="Price Stack View">
-                                                <rect key="frame" x="0.0" y="35.5" width="167" height="41"/>
+                                                <rect key="frame" x="0.0" y="35.5" width="373" height="41"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="가격" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sI-qg-Eam">
-                                                        <rect key="frame" x="0.0" y="0.0" width="167" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUz-yN-c8B">
-                                                        <rect key="frame" x="0.0" y="20.5" width="167" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="20.5" width="373" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -155,16 +155,16 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="m3w-LT-4wG" userLabel="Time Stack View">
-                                                <rect key="frame" x="0.0" y="91.5" width="167" height="41"/>
+                                                <rect key="frame" x="0.0" y="91.5" width="373" height="41"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="소요시간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGT-nZ-0Sf">
-                                                        <rect key="frame" x="0.0" y="0.0" width="167" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7h-xR-HGm">
-                                                        <rect key="frame" x="0.0" y="20.5" width="167" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="20.5" width="373" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -172,16 +172,16 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ox7-51-ffh" userLabel="Distance Stack View">
-                                                <rect key="frame" x="0.0" y="147.5" width="167" height="41"/>
+                                                <rect key="frame" x="0.0" y="147.5" width="373" height="41"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="거리" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BuH-cJ-Yxr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="167" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbX-w0-DVh">
-                                                        <rect key="frame" x="0.0" y="20.5" width="167" height="20.5"/>
+                                                        <rect key="frame" x="0.0" y="20.5" width="373" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -189,45 +189,45 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="정렬 기준" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GZT-9q-h5y">
-                                                <rect key="frame" x="0.0" y="203.5" width="167" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="203.5" width="373" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="1a9-Qn-sZd" userLabel="Sorting Stack">
-                                                <rect key="frame" x="0.0" y="239" width="167" height="112"/>
+                                                <rect key="frame" x="0.0" y="239" width="373" height="112"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="HLN-eI-4kl" userLabel="Stack1">
-                                                        <rect key="frame" x="0.0" y="0.0" width="81" height="112"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="184" height="112"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFq-N3-iez">
-                                                                <rect key="frame" x="0.0" y="0.0" width="81" height="34"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFq-N3-iez" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                                                <rect key="frame" x="0.0" y="0.0" width="184" height="34"/>
                                                                 <state key="normal" title="가까운 순"/>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vqp-le-3Nl">
-                                                                <rect key="frame" x="0.0" y="39" width="81" height="34"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vqp-le-3Nl" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                                                <rect key="frame" x="0.0" y="39" width="184" height="34"/>
                                                                 <state key="normal" title="소요 시간순↑"/>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bUT-TF-AxM">
-                                                                <rect key="frame" x="0.0" y="78" width="81" height="34"/>
-                                                                <state key="normal" title="높은 가격순"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bUT-TF-AxM" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                                                <rect key="frame" x="0.0" y="78" width="184" height="34"/>
+                                                                <state key="normal" title="높은 가격순↑"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="KqV-JS-f0u" userLabel="Stack2">
-                                                        <rect key="frame" x="86" y="0.0" width="81" height="112"/>
+                                                        <rect key="frame" x="189" y="0.0" width="184" height="112"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NxI-6B-EyS">
-                                                                <rect key="frame" x="0.0" y="0.0" width="81" height="34"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NxI-6B-EyS" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                                                <rect key="frame" x="0.0" y="0.0" width="184" height="34"/>
                                                                 <state key="normal" title="평점순"/>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O4z-ws-cGF">
-                                                                <rect key="frame" x="0.0" y="39" width="81" height="34"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O4z-ws-cGF" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                                                <rect key="frame" x="0.0" y="39" width="184" height="34"/>
                                                                 <state key="normal" title="소요 시간순↓"/>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IiJ-d0-Eco">
-                                                                <rect key="frame" x="0.0" y="78" width="81" height="34"/>
-                                                                <state key="normal" title="낮은 가격순"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IiJ-d0-Eco" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                                                <rect key="frame" x="0.0" y="78" width="184" height="34"/>
+                                                                <state key="normal" title="낮은 가격순↓"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -246,7 +246,6 @@
                                     <constraint firstAttribute="trailing" secondItem="6xT-Yg-DAl" secondAttribute="trailing" constant="20" symbolic="YES" id="R1s-DE-Ezw"/>
                                     <constraint firstItem="6xT-Yg-DAl" firstAttribute="top" secondItem="JlT-rY-H0A" secondAttribute="top" id="jYZ-o4-Fuo"/>
                                     <constraint firstItem="6xT-Yg-DAl" firstAttribute="centerX" secondItem="JlT-rY-H0A" secondAttribute="centerX" id="nRL-nD-9CP"/>
-                                    <constraint firstItem="6xT-Yg-DAl" firstAttribute="leading" secondItem="JlT-rY-H0A" secondAttribute="leading" constant="20" symbolic="YES" id="r53-JF-q82"/>
                                     <constraint firstItem="6xT-Yg-DAl" firstAttribute="width" secondItem="JlT-rY-H0A" secondAttribute="width" multiplier="0.9" id="tuI-D4-ann"/>
                                 </constraints>
                             </scrollView>
@@ -298,6 +297,7 @@
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="모두 초기화" id="EYf-DK-dMz">
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="allClear:" destination="WrO-Qn-G7i" id="h2r-FQ-WJC"/>
                                             </connections>
@@ -316,47 +316,47 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="tqD-QM-1Xk" userLabel="Top Stack View">
-                                <rect key="frame" x="20.5" y="93" width="373" height="135.5"/>
+                                <rect key="frame" x="20.5" y="98" width="373" height="145.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="정렬 기준" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gA3-bg-vmE">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="검색 기간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gA3-bg-vmE">
                                         <rect key="frame" x="0.0" y="0.0" width="373" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="KvP-aH-fFj" userLabel="Sorting Stack">
-                                        <rect key="frame" x="0.0" y="35.5" width="373" height="100"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KvP-aH-fFj" userLabel="Sorting Stack">
+                                        <rect key="frame" x="0.0" y="35.5" width="373" height="110"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="rNB-0j-anr" userLabel="Stack1">
-                                                <rect key="frame" x="0.0" y="0.0" width="184" height="100"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rNB-0j-anr" userLabel="Stack1">
+                                                <rect key="frame" x="0.0" y="0.0" width="181.5" height="110"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqT-J9-ge2">
-                                                        <rect key="frame" x="0.0" y="0.0" width="184" height="30"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yqT-J9-ge2" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                                        <rect key="frame" x="0.0" y="0.0" width="181.5" height="30"/>
                                                         <state key="normal" title="전체기간"/>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9xI-TB-VIV">
-                                                        <rect key="frame" x="0.0" y="35" width="184" height="30"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9xI-TB-VIV" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                                        <rect key="frame" x="0.0" y="40" width="181.5" height="30"/>
                                                         <state key="normal" title="1개월"/>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5yd-cF-YWl">
-                                                        <rect key="frame" x="0.0" y="70" width="184" height="30"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5yd-cF-YWl" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                                        <rect key="frame" x="0.0" y="80" width="181.5" height="30"/>
                                                         <state key="normal" title="6개월"/>
                                                     </button>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="89d-FO-zJI" userLabel="Stack2">
-                                                <rect key="frame" x="189" y="0.0" width="184" height="100"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="89d-FO-zJI" userLabel="Stack2">
+                                                <rect key="frame" x="191.5" y="0.0" width="181.5" height="110"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGe-Rc-Hh8">
-                                                        <rect key="frame" x="0.0" y="0.0" width="184" height="30"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGe-Rc-Hh8" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                                        <rect key="frame" x="0.0" y="0.0" width="181.5" height="30"/>
                                                         <state key="normal" title="1주"/>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9tW-54-zrd">
-                                                        <rect key="frame" x="0.0" y="35" width="184" height="30"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9tW-54-zrd" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                                        <rect key="frame" x="0.0" y="40" width="181.5" height="30"/>
                                                         <state key="normal" title="3개월"/>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1V-go-AQk">
-                                                        <rect key="frame" x="0.0" y="70" width="184" height="30"/>
+                                                        <rect key="frame" x="0.0" y="80" width="181.5" height="30"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -367,28 +367,87 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ug9-JG-Tn7">
+                                <rect key="frame" x="0.0" y="258.5" width="414" height="0.5"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="YQq-sg-c4p"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="qYC-63-dNg" userLabel="Top Stack View">
+                                <rect key="frame" x="20.5" y="274" width="373" height="105.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="정렬 기준" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hE4-Hl-32S">
+                                        <rect key="frame" x="0.0" y="0.0" width="373" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Zjv-Xw-hbv" userLabel="Sorting Stack">
+                                        <rect key="frame" x="0.0" y="35.5" width="373" height="70"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PyH-Ke-nRP" userLabel="Stack1">
+                                                <rect key="frame" x="0.0" y="0.0" width="181.5" height="70"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4P-Wb-MMD" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                                        <rect key="frame" x="0.0" y="0.0" width="181.5" height="30"/>
+                                                        <state key="normal" title="최신순"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tQV-x4-3fa" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                                        <rect key="frame" x="0.0" y="40" width="181.5" height="30"/>
+                                                        <state key="normal" title="댓글순"/>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Bcl-ni-lyy" userLabel="Stack2">
+                                                <rect key="frame" x="191.5" y="0.0" width="181.5" height="70"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcd-HN-87p" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                                        <rect key="frame" x="0.0" y="0.0" width="181.5" height="30"/>
+                                                        <state key="normal" title="조회순"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DbZ-56-xJ3" customClass="MaterialButton" customModule="MaterialDesignWidgets">
+                                                        <rect key="frame" x="0.0" y="40" width="181.5" height="30"/>
+                                                        <state key="normal" title="공감순"/>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="qYC-63-dNg" firstAttribute="width" secondItem="v6f-lo-p3M" secondAttribute="width" multiplier="0.9" id="2Ew-1d-ers"/>
                             <constraint firstItem="L0d-Jp-Y4g" firstAttribute="trailing" secondItem="eIn-R2-H8y" secondAttribute="trailing" id="56j-pY-am5"/>
                             <constraint firstItem="L0d-Jp-Y4g" firstAttribute="top" secondItem="eIn-R2-H8y" secondAttribute="top" id="63Q-Bu-EhL"/>
-                            <constraint firstItem="tqD-QM-1Xk" firstAttribute="top" secondItem="L0d-Jp-Y4g" secondAttribute="bottom" constant="5" id="6UM-mp-O49"/>
+                            <constraint firstItem="tqD-QM-1Xk" firstAttribute="top" secondItem="L0d-Jp-Y4g" secondAttribute="bottom" constant="10" id="6UM-mp-O49"/>
                             <constraint firstItem="tqD-QM-1Xk" firstAttribute="width" secondItem="v6f-lo-p3M" secondAttribute="width" multiplier="0.9" id="HQG-rX-ftk"/>
+                            <constraint firstItem="qYC-63-dNg" firstAttribute="top" secondItem="ug9-JG-Tn7" secondAttribute="bottom" constant="15" id="KkU-Nc-LKv"/>
                             <constraint firstItem="L0d-Jp-Y4g" firstAttribute="leading" secondItem="eIn-R2-H8y" secondAttribute="leading" id="PgN-bk-Y0M"/>
                             <constraint firstItem="glT-vm-nyD" firstAttribute="width" secondItem="eIn-R2-H8y" secondAttribute="width" multiplier="0.9" id="czK-p1-NGv"/>
+                            <constraint firstItem="ug9-JG-Tn7" firstAttribute="top" secondItem="tqD-QM-1Xk" secondAttribute="bottom" constant="15" id="ePo-DN-a6S"/>
                             <constraint firstItem="eIn-R2-H8y" firstAttribute="bottom" secondItem="glT-vm-nyD" secondAttribute="bottom" constant="20" id="jCH-za-h9k"/>
                             <constraint firstItem="tqD-QM-1Xk" firstAttribute="centerX" secondItem="eIn-R2-H8y" secondAttribute="centerX" id="lKa-qk-fJI"/>
+                            <constraint firstItem="ug9-JG-Tn7" firstAttribute="width" secondItem="v6f-lo-p3M" secondAttribute="width" id="mTH-bS-tgj"/>
+                            <constraint firstItem="qYC-63-dNg" firstAttribute="centerX" secondItem="eIn-R2-H8y" secondAttribute="centerX" id="nC6-C3-C1R"/>
                             <constraint firstItem="glT-vm-nyD" firstAttribute="centerX" secondItem="eIn-R2-H8y" secondAttribute="centerX" id="swM-SI-yVd"/>
+                            <constraint firstItem="ug9-JG-Tn7" firstAttribute="centerX" secondItem="eIn-R2-H8y" secondAttribute="centerX" id="uLI-nx-wqX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eIn-R2-H8y"/>
                     </view>
                     <navigationItem key="navigationItem" id="Vmx-rq-lLU"/>
                     <connections>
                         <outlet property="btnAll" destination="yqT-J9-ge2" id="FS8-Yw-QSD"/>
+                        <outlet property="btnComment" destination="tQV-x4-3fa" id="FDJ-M2-C1B"/>
+                        <outlet property="btnLatest" destination="C4P-Wb-MMD" id="tzX-1h-naq"/>
+                        <outlet property="btnLike" destination="DbZ-56-xJ3" id="lnB-k6-HLV"/>
                         <outlet property="btnOneMonth" destination="9xI-TB-VIV" id="Cds-aS-23c"/>
                         <outlet property="btnOneWeek" destination="FGe-Rc-Hh8" id="DUb-kz-s7b"/>
                         <outlet property="btnSixMonths" destination="5yd-cF-YWl" id="Qpa-5z-ydi"/>
                         <outlet property="btnThreeMonths" destination="9tW-54-zrd" id="4Ta-Q1-sJT"/>
+                        <outlet property="btnView" destination="bcd-HN-87p" id="fsr-he-Dch"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bXn-PN-jCE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
