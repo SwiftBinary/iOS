@@ -40,6 +40,15 @@ public func setHashTagString(_ str: String) -> String{
     return setStr
 }
 
+public func setShadowCard(_ item: UIView, bgColor: UIColor, crRadius:CGFloat, shColor: UIColor, shOffsetW: CGFloat ,shOffsetH: CGFloat, shRadius: CGFloat, sdOpacity: Float){
+    item.backgroundColor = .white
+    item.layer.cornerRadius = crRadius
+    item.layer.shadowColor = shColor.cgColor
+    item.layer.shadowOffset = CGSize(width: shOffsetW, height: shOffsetH)
+    item.layer.shadowRadius = shRadius
+    item.layer.shadowOpacity = sdOpacity
+}
+
 extension UITextView
 {
     

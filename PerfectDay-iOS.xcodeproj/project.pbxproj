@@ -34,6 +34,10 @@
 		C74F972F23E953E300E75058 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74F972E23E953E300E75058 /* JoinViewController.swift */; };
 		C75760CB23F64964000BC016 /* DibsNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75760CA23F64964000BC016 /* DibsNavigationViewController.swift */; };
 		C758EADB23F0FF4900033E29 /* BoardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C758EADA23F0FF4900033E29 /* BoardListViewController.swift */; };
+		C759B549247F3DAA0080E150 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C759B548247F3DAA0080E150 /* LocationViewController.swift */; };
+		C759B54B247F3DD60080E150 /* LocationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C759B54A247F3DD60080E150 /* LocationInfoViewController.swift */; };
+		C759B54D247F3DEC0080E150 /* LocationReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C759B54C247F3DEC0080E150 /* LocationReviewViewController.swift */; };
+		C759B54F247F3F760080E150 /* LocationViewTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C759B54E247F3F760080E150 /* LocationViewTabController.swift */; };
 		C76626C9241726BB002B3DD6 /* FilterPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */; };
 		C76B37EC23EA6F2900B05A45 /* ShowInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76B37EB23EA6F2900B05A45 /* ShowInfoViewController.swift */; };
 		C76B37EF23EAC27000B05A45 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76B37EE23EAC27000B05A45 /* HomeViewController.swift */; };
@@ -57,7 +61,6 @@
 		C7CD9D8F23F1554800D26F62 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CD9D8E23F1554800D26F62 /* SettingViewController.swift */; };
 		C7CE240E23ED00C10010C8E9 /* LocationResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CE240D23ED00C10010C8E9 /* LocationResultViewController.swift */; };
 		C7CE241023ED28A60010C8E9 /* SetLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CE240F23ED28A60010C8E9 /* SetLocationViewController.swift */; };
-		C7D8263A2415E0F4005A9D5A /* LocationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D826392415E0F4005A9D5A /* LocationInfoViewController.swift */; };
 		C7D8263C241629C0005A9D5A /* PlannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8263B241629C0005A9D5A /* PlannerViewController.swift */; };
 		C7D8263E24162A09005A9D5A /* CourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8263D24162A09005A9D5A /* CourseViewController.swift */; };
 		C7EFBFCB23E907130034966C /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7EFBFCA23E907130034966C /* Login.storyboard */; };
@@ -109,6 +112,10 @@
 		C74F972E23E953E300E75058 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		C75760CA23F64964000BC016 /* DibsNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DibsNavigationViewController.swift; sourceTree = "<group>"; };
 		C758EADA23F0FF4900033E29 /* BoardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardListViewController.swift; sourceTree = "<group>"; };
+		C759B548247F3DAA0080E150 /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		C759B54A247F3DD60080E150 /* LocationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfoViewController.swift; sourceTree = "<group>"; };
+		C759B54C247F3DEC0080E150 /* LocationReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationReviewViewController.swift; sourceTree = "<group>"; };
+		C759B54E247F3F760080E150 /* LocationViewTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewTabController.swift; sourceTree = "<group>"; };
 		C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPostViewController.swift; sourceTree = "<group>"; };
 		C76B37EB23EA6F2900B05A45 /* ShowInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowInfoViewController.swift; sourceTree = "<group>"; };
 		C76B37EE23EAC27000B05A45 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -133,7 +140,6 @@
 		C7CD9D8E23F1554800D26F62 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		C7CE240D23ED00C10010C8E9 /* LocationResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationResultViewController.swift; sourceTree = "<group>"; };
 		C7CE240F23ED28A60010C8E9 /* SetLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLocationViewController.swift; sourceTree = "<group>"; };
-		C7D826392415E0F4005A9D5A /* LocationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfoViewController.swift; sourceTree = "<group>"; };
 		C7D8263B241629C0005A9D5A /* PlannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannerViewController.swift; sourceTree = "<group>"; };
 		C7D8263D24162A09005A9D5A /* CourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseViewController.swift; sourceTree = "<group>"; };
 		C7EFBFCA23E907130034966C /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -185,8 +191,11 @@
 			children = (
 				C70F492F241091F80058A61A /* LandmarkViewController.swift */,
 				C70F4931241092140058A61A /* LocationListViewController.swift */,
-				C7D826392415E0F4005A9D5A /* LocationInfoViewController.swift */,
+				C759B548247F3DAA0080E150 /* LocationViewController.swift */,
+				C759B54C247F3DEC0080E150 /* LocationReviewViewController.swift */,
+				C759B54E247F3F760080E150 /* LocationViewTabController.swift */,
 				C7B0D2A82417E71700BF1467 /* WriteReviewViewController.swift */,
+				C759B54A247F3DD60080E150 /* LocationInfoViewController.swift */,
 				C7D8263B241629C0005A9D5A /* PlannerViewController.swift */,
 				C7D8263D24162A09005A9D5A /* CourseViewController.swift */,
 			);
@@ -449,7 +458,6 @@
 				C74D96CC23E7B1E9000E26C3 /* AppDelegate.swift in Sources */,
 				C76B37EF23EAC27000B05A45 /* HomeViewController.swift in Sources */,
 				C7D8263C241629C0005A9D5A /* PlannerViewController.swift in Sources */,
-				C7D8263A2415E0F4005A9D5A /* LocationInfoViewController.swift in Sources */,
 				C7824799243CB65A003D690F /* FindBackViewController.swift in Sources */,
 				C7CD9D8F23F1554800D26F62 /* SettingViewController.swift in Sources */,
 				C75760CB23F64964000BC016 /* DibsNavigationViewController.swift in Sources */,
@@ -465,6 +473,7 @@
 				C701C6C524372EA10079B395 /* FindViewController.swift in Sources */,
 				C74F972F23E953E300E75058 /* JoinViewController.swift in Sources */,
 				C718CE5A243CAF6800F544BF /* FindEmailViewController.swift in Sources */,
+				C759B54F247F3F760080E150 /* LocationViewTabController.swift in Sources */,
 				C76ED01A24037607003E21F1 /* ShowPostViewController.swift in Sources */,
 				C76ED01C2403D1F2003E21F1 /* SetUserInfoViewController.swift in Sources */,
 				C76B37EC23EA6F2900B05A45 /* ShowInfoViewController.swift in Sources */,
@@ -473,6 +482,9 @@
 				C701C6C7243761E60079B395 /* FindPWViewController.swift in Sources */,
 				C7707F9A23F29126007BCCD3 /* SearchLocationViewController.swift in Sources */,
 				C71BAEAB23F3AC7B00D82351 /* LocationInfo.swift in Sources */,
+				C759B54D247F3DEC0080E150 /* LocationReviewViewController.swift in Sources */,
+				C759B549247F3DAA0080E150 /* LocationViewController.swift in Sources */,
+				C759B54B247F3DD60080E150 /* LocationInfoViewController.swift in Sources */,
 				C74D96CE23E7B1E9000E26C3 /* SceneDelegate.swift in Sources */,
 				C718B3CF2420A6A00017EC60 /* Data.xcdatamodeld in Sources */,
 				C70F4930241091F80058A61A /* LandmarkViewController.swift in Sources */,
