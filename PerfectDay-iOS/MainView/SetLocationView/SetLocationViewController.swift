@@ -14,10 +14,16 @@ protocol LocationDelegate {
 }
 
 class SetLocationViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate {
-
+    
     @IBOutlet var lblCenterLocation: UILabel!
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var setLocation: UIButton!
+    
+    @IBOutlet var guideView: UIView!
+    @IBOutlet var disableGuideBtn: UIButton!
+    @IBOutlet var colseGuideBtn: UIButton!
+    
+    
     var locationManager = CLLocationManager()
     let spanValue = 0.01
     var address:String = ""
@@ -44,10 +50,17 @@ class SetLocationViewController: UIViewController,MKMapViewDelegate,CLLocationMa
         
         lblCenterLocation.layer.borderWidth = 1
         lblCenterLocation.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        lblCenterLocation.layer.cornerRadius = 5
+        
+        lblCenterLocation.layer.cornerRadius = lblCenterLocation.frame.height/2
         lblCenterLocation.layer.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        lblCenterLocation.layer.shadowColor = UIColor.lightGray.cgColor
+        lblCenterLocation.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        lblCenterLocation.layer.shadowRadius = 2.0
+        lblCenterLocation.layer.shadowOpacity = 0.9
+        
         setSNSButton(setLocation, "")
         setLocation.layer.backgroundColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
+        
     }
     
     func goLocation(latitudeValue: CLLocationDegrees, longitudeValue: CLLocationDegrees, delta span :Double) -> CLLocationCoordinate2D{
@@ -70,8 +83,8 @@ class SetLocationViewController: UIViewController,MKMapViewDelegate,CLLocationMa
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         let center = mapView.centerCoordinate
-//        let centerLatitude = center.latitude
-//        let centerLongitude = center.longitude
+        //        let centerLatitude = center.latitude
+        //        let centerLongitude = center.longitude
         let pLocation = CLLocation(latitude: center.latitude, longitude: center.longitude)
         CLGeocoder().reverseGeocodeLocation(pLocation, completionHandler: {
             (placemarks, error) -> Void in
@@ -92,32 +105,52 @@ class SetLocationViewController: UIViewController,MKMapViewDelegate,CLLocationMa
                     address += pm!.name!
                     self.address += " " + pm!.name!
                 }
-//                if pm!.thoroughfare != nil { // 도로 값이 존재하면 address에 추가
-//                    address += " "
-//                    address += pm!.thoroughfare!
-//                }
+                //                if pm!.thoroughfare != nil { // 도로 값이 존재하면 address에 추가
+                //                    address += " "
+                //                    address += pm!.thoroughfare!
+                //                }
                 self.lblCenterLocation.text = address
             }
         })
     }
     
     @IBAction func setAndBack(_ sender: UIButton) {
+        
         LocationInfo.locationString.str = address
         let navigationVCList = self.navigationController!.viewControllers
         //print(navigationVCList.count)
+        navigationController?.popToViewController(navigationVCList[navigationVCList.count-3], animated: true)
         
         print(delegate as Any)
         if delegate != nil {
             delegate?.didLocationDone(self, currentLocation: address)
         }
-        navigationController?.popToViewController(navigationVCList[0], animated: true)
+        
+        let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "locationListView")
+        self.navigationController?.pushViewController(goToVC!, animated: true)
         //self.dismiss(animated: true, completion: nil)
     }
-    /*
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    
+    @IBAction func colseGuideView(_ sender: UIButton) {
+        if sender == colseGuideBtn {
+            self.guideView.isHidden = true
+        }
     }
-    */
-
+    @IBAction func DisableGuideView(_ sender: UIButton) {
+        if sender == disableGuideBtn {
+            self.guideView.isHidden = true
+        }
+    }
+    
+    
+    
+    
+    /*
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

@@ -111,11 +111,54 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         viewPost.layer.shadowRadius = 2.0
         viewPost.layer.shadowOpacity = 0.9
         
+        let imgProfile = UIImageView(image: UIImage(named: "tempProfile"))
+        let iconSize:CGFloat = 30
+        imgProfile.heightAnchor.constraint(equalToConstant: iconSize).isActive = true
+        imgProfile.widthAnchor.constraint(equalToConstant: iconSize).isActive = true
+        
+        let lblNickName = UILabel()
+        lblNickName.text = postData["userDTO"]["userName"].string
+        lblNickName.fontSize = 15
+        
+        let imgViewCount = UIImageView(image: UIImage(named: "viewIcon"))
+        imgViewCount.widthAnchor.constraint(equalTo: imgViewCount.heightAnchor, multiplier: 1).isActive = true
+        let lblPostInfo = UILabel()
+        let strView:String = String(postData["viewCount"].intValue)
+        let strDate:String = String(postData["updateDt"].string!.split(separator: " ")[0])
+        lblPostInfo.text = strView + " " + strDate
+        lblPostInfo.fontSize = 11
+        lblPostInfo.textColor = .lightGray
+        
+        let svCountDate = UIStackView(arrangedSubviews: [imgViewCount,lblPostInfo])
+        svCountDate.axis = .horizontal
+        svCountDate.spacing = 5
+        
+        let svPostInfo = UIStackView(arrangedSubviews: [lblNickName,svCountDate])
+        svPostInfo.axis = .vertical
+        svPostInfo.spacing = 5
+        //
+        //         let svStar = UIStackView()
+        //         let cgSize:CGFloat = 25
+        //         for _ in 1...5 {
+        //             let imgStar = UIImageView(image: UIImage(named: "GPAIcon"))
+        //             imgStar.contentMode = .scaleAspectFit
+        //             imgStar.heightAnchor.constraint(equalToConstant: cgSize).isActive = true
+        //             imgStar.widthAnchor.constraint(equalToConstant: cgSize).isActive = true
+        //             svStar.addArrangedSubview(imgStar)
+        //         }
+        //         svStar.spacing = 2
+        let svTopPost = UIStackView(arrangedSubviews: [imgProfile,svPostInfo])
+        svTopPost.axis = .horizontal
+        svTopPost.spacing = 5
+        
         let lblTitle = UILabel()
         lblTitle.text = postData["title"].string
+        lblTitle.font = UIFont.boldSystemFont(ofSize: 20)
         let lblContent = UILabel()
         lblContent.isHidden = postData["content"].string == nil
         lblContent.text = postData["content"].string
+        lblContent.textColor = .lightGray
+        lblContent.fontSize = 15
         lblContent.numberOfLines = 4 //countLabelLines(label: lblContent)
         lblContent.lineBreakMode = .byCharWrapping
         
@@ -131,9 +174,10 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
             svTag.addArrangedSubview(btnHashTag)
         }
         svTag.translatesAutoresizingMaskIntoConstraints = false
+        svTag.spacing = 5
         scvTag.addSubview(svTag)
         scvTag.addConstraint(NSLayoutConstraint(item: svTag, attribute: .centerY, relatedBy: .equal, toItem: scvTag, attribute: .centerY, multiplier: 1, constant: 0))
-        svTag.heightAnchor.constraint(equalTo: scvTag.heightAnchor, multiplier: 0.9).isActive = true
+        scvTag.showsHorizontalScrollIndicator = false
         svTag.topAnchor.constraint(equalTo: scvTag.topAnchor, constant: 0).isActive = true
         svTag.bottomAnchor.constraint(equalTo: scvTag.bottomAnchor, constant: 0).isActive = true
         svTag.leadingAnchor.constraint(equalTo: scvTag.leadingAnchor, constant: 0).isActive = true
@@ -157,9 +201,9 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         svImg.trailingAnchor.constraint(equalTo: scvImg.trailingAnchor, constant: 0).isActive = true
         
         
-        let svContent = UIStackView(arrangedSubviews: [lblTitle,lblContent,scvTag,scvImg])
+        let svContent = UIStackView(arrangedSubviews: [svTopPost,lblTitle,lblContent,scvTag,scvImg])
         svContent.axis = .vertical
-        svContent.spacing = 5
+        svContent.spacing = 10
         svContent.distribution = .fill
         let uvContent = UIView()
         svContent.translatesAutoresizingMaskIntoConstraints = false
@@ -168,10 +212,12 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         uvContent.addConstraint(NSLayoutConstraint(item: svContent, attribute: .centerY, relatedBy: .equal, toItem: uvContent, attribute: .centerY, multiplier: 1, constant: 0))
         svContent.widthAnchor.constraint(equalTo: uvContent.widthAnchor, multiplier: 0.9).isActive = true
         svContent.heightAnchor.constraint(equalTo: uvContent.heightAnchor, multiplier: 1).isActive = true
+        svContent.topAnchor.constraint(equalTo: uvContent.topAnchor, constant: 0).isActive = true
+        svContent.bottomAnchor.constraint(equalTo: uvContent.bottomAnchor, constant: 0).isActive = true
         
         let uvLineTop = UIView()
         uvLineTop.backgroundColor = .none
-        uvLineTop.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
+        uvLineTop.heightAnchor.constraint(equalToConstant: 15).isActive = true
         
         let uvLine = UIView()
         uvLine.backgroundColor = .lightGray
@@ -182,19 +228,19 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         uvLineBottom.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
         
         let btnLike = FlatButton(title: String(postData["favorCount"].int!))
-//        let btnLike = FlatButton(title: "999")
         btnLike.setImage(UIImage(named: "LikeOffBtn"), for: .normal)
         btnLike.layer.cornerRadius = 5
-//        btnLike.contentEdgeInsets.left = btnMargin
-//        btnLike.contentEdgeInsets.right = btnMargin
+        btnLike.titleLabel?.fontSize = 12
+        //        btnLike.contentEdgeInsets.left = btnMargin
+        //        btnLike.contentEdgeInsets.right = btnMargin
         btnLike.titleColor = .lightGray
-        let btnComment = UIButton(type: .custom)
+        let btnComment = FlatButton(title: String(postData["replyCount"].int!))
         btnComment.isEnabled = false
-        btnComment.setTitle(String(postData["replyCount"].int!), for: .normal)
         btnComment.setImage(UIImage(named: "CommentIcon"), for: .normal)
-        btnComment.tintColor = .darkGray
-        btnComment.contentEdgeInsets.left = btnMargin
-        btnComment.contentEdgeInsets.right = btnMargin
+        btnComment.titleColor = .lightGray
+        btnComment.titleLabel?.fontSize = 12
+//        btnComment.contentEdgeInsets.left = btnMargin
+//        btnComment.contentEdgeInsets.right = btnMargin
         let lblTemp = UILabel()
         lblTemp.text = "                          "
         lblTemp.widthAnchor.constraint(lessThanOrEqualToConstant: 500).isActive = true
@@ -212,7 +258,6 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         uvFunc.addConstraint(NSLayoutConstraint(item: svFunc, attribute: .centerY, relatedBy: .equal, toItem: uvFunc, attribute: .centerY, multiplier: 1, constant: 0))
         svFunc.widthAnchor.constraint(equalTo: uvFunc.widthAnchor, multiplier: 0.9).isActive = true
         svFunc.heightAnchor.constraint(equalTo: uvFunc.heightAnchor, multiplier: 1).isActive = true
-        
         
         let svMain = UIStackView(arrangedSubviews: [uvLineTop,uvContent,uvLine,uvFunc,uvLineBottom])
         svMain.axis = .vertical
@@ -269,31 +314,31 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     // 수정 필요
     @IBAction func showFilter(_ sender: UIBarButtonItem) {
         self.navigationItem.hidesBackButton = false
-//        self.navigationItem.rightBarButtonItems?.remove(at: 1)
+        //        self.navigationItem.rightBarButtonItems?.remove(at: 1)
         
         self.navigationItem.titleView?.isHidden = true
-//        let goToVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "postFilterView")
-//        self.present(goToVC, animated: true, completion: nil)
+        //        let goToVC = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "postFilterView")
+        //        self.present(goToVC, animated: true, completion: nil)
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
     func requestPost(){
         let url = developIP + "/board/selectBoardListInfo.do"
         let jsonHeader = JSON(["userSn":"U200207_1581067560549"])
         let parameter = JSON([
             "category": String(segueTitle+1),
-                "filterInfo": "1m",
-                "sortInfo": "viewCnt",
-                "offset": 0,
-                "limit": 20
+            "filterInfo": "1m",
+            "sortInfo": "viewCnt",
+            "offset": 0,
+            "limit": 20
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
@@ -319,7 +364,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
 extension PostListViewController: ImageSlideshowDelegate {
     func imageSlideshow(_ imageSlideshow: ImageSlideshow, didChangeCurrentPageTo page: Int) {
         lblBannerIndex.text = setSideSpace("\(page+1)/\(localSource.count)")
-//        print("current page:", page)
+        //        print("current page:", page)
     }
 }
 
