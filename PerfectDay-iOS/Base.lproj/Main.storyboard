@@ -80,16 +80,16 @@
                                 </constraints>
                             </scrollView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LandmarkTemp" translatesAutoresizingMaskIntoConstraints="NO" id="AZl-Me-Xlw">
-                                <rect key="frame" x="20.666666666666657" y="138" width="372.66666666666674" height="217"/>
+                                <rect key="frame" x="20.666666666666657" y="138" width="372.66666666666674" height="434"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meeting Point" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86e-rt-AJB">
-                                <rect key="frame" x="20.666666666666657" y="360" width="372.66666666666674" height="20.333333333333314"/>
+                                <rect key="frame" x="20.666666666666657" y="577" width="372.66666666666674" height="20.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ocj-wN-3Jj" userLabel="Landmark Scroll">
-                                <rect key="frame" x="20.666666666666657" y="385.33333333333326" width="372.66666666666674" height="427.66666666666674"/>
+                                <rect key="frame" x="20.666666666666657" y="602.33333333333337" width="372.66666666666674" height="210.66666666666663"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="3cl-ui-xwb">
                                         <rect key="frame" x="0.0" y="0.0" width="372.66666666666669" height="0.0"/>
@@ -527,7 +527,7 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ifj-97-Ckn">
-                                <rect key="frame" x="366" y="764" width="38" height="38"/>
+                                <rect key="frame" x="328" y="726" width="76" height="76"/>
                                 <state key="normal" image="PlannerBtn"/>
                                 <connections>
                                     <action selector="goToPlannerView:" destination="Ib5-BB-kNU" eventType="touchUpInside" id="oy7-H8-miA"/>
@@ -760,10 +760,10 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="372.66666666666669" height="75"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="LbC-sj-uSS">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="71" height="75"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="142" height="75"/>
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVf-5y-IdL">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="71" height="75"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="142" height="75"/>
                                                                                 <state key="normal" image="AddPhotoBtn"/>
                                                                             </button>
                                                                         </subviews>
@@ -999,16 +999,91 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qao-RB-yc2">
-                                <rect key="frame" x="160" y="159" width="95" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="랜드마크 페이지"/>
-                                <connections>
-                                    <segue destination="m2n-gu-LlV" kind="show" id="B3J-2q-yKU"/>
-                                </connections>
-                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DeQ-3W-dVy">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Gpy-Td-GgX">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="500"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EVl-Yf-6Pq">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="390"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qao-RB-yc2">
+                                                        <rect key="frame" x="159.66666666666666" y="180" width="95" height="30"/>
+                                                        <state key="normal" title="랜드마크 페이지"/>
+                                                        <connections>
+                                                            <segue destination="m2n-gu-LlV" kind="show" id="B3J-2q-yKU"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="Qao-RB-yc2" firstAttribute="centerX" secondItem="EVl-Yf-6Pq" secondAttribute="centerX" id="3aK-GU-dVU"/>
+                                                    <constraint firstItem="Qao-RB-yc2" firstAttribute="centerY" secondItem="EVl-Yf-6Pq" secondAttribute="centerY" id="sCs-ed-UiT"/>
+                                                    <constraint firstAttribute="height" constant="390" id="xrT-mU-q2m"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ec-eQ-aw7">
+                                                <rect key="frame" x="0.0" y="400" width="414" height="90"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Rdy-sM-DuL">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="90"/>
+                                                        <color key="backgroundColor" red="0.60392156862745094" green="0.60392156862745094" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="Rdy-sM-DuL" secondAttribute="bottom" id="3S3-3f-lci"/>
+                                                    <constraint firstItem="Rdy-sM-DuL" firstAttribute="leading" secondItem="6ec-eQ-aw7" secondAttribute="leading" id="VbP-Dx-PsA"/>
+                                                    <constraint firstItem="Rdy-sM-DuL" firstAttribute="top" secondItem="6ec-eQ-aw7" secondAttribute="top" id="bEn-wK-92I"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Rdy-sM-DuL" secondAttribute="trailing" id="hYo-nK-ZpP"/>
+                                                    <constraint firstAttribute="height" constant="90" id="w4j-WR-dhC"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="po4-J7-zgI">
+                                                <rect key="frame" x="0.0" y="500" width="414" height="0.0"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bud-lp-ngT">
+                                                        <rect key="frame" x="20.666666666666657" y="0.0" width="393.33333333333337" height="0.0"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="it8-R7-9qd">
+                                                                <rect key="frame" x="0.0" y="0.0" width="393.33333333333331" height="0.0"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="0.10000000000000001" id="22x-BW-bDe"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="bud-lp-ngT" firstAttribute="centerY" secondItem="po4-J7-zgI" secondAttribute="centerY" id="IrW-pF-Mf8"/>
+                                                    <constraint firstItem="bud-lp-ngT" firstAttribute="width" secondItem="po4-J7-zgI" secondAttribute="width" multiplier="0.95" id="PrX-Yf-Qwd"/>
+                                                    <constraint firstAttribute="trailing" secondItem="bud-lp-ngT" secondAttribute="trailing" id="SsA-Wg-8Oz"/>
+                                                    <constraint firstItem="bud-lp-ngT" firstAttribute="height" secondItem="po4-J7-zgI" secondAttribute="height" id="T0r-3d-aE7"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Gpy-Td-GgX" secondAttribute="trailing" id="5jO-fF-MZa"/>
+                                    <constraint firstItem="Gpy-Td-GgX" firstAttribute="width" secondItem="DeQ-3W-dVy" secondAttribute="width" id="I1g-V3-xRG"/>
+                                    <constraint firstItem="Gpy-Td-GgX" firstAttribute="leading" secondItem="DeQ-3W-dVy" secondAttribute="leading" id="VI0-52-4e1"/>
+                                    <constraint firstAttribute="bottom" secondItem="Gpy-Td-GgX" secondAttribute="bottom" id="eys-J7-RWG"/>
+                                    <constraint firstItem="Gpy-Td-GgX" firstAttribute="top" secondItem="DeQ-3W-dVy" secondAttribute="top" id="hNa-WB-avd"/>
+                                    <constraint firstItem="Gpy-Td-GgX" firstAttribute="centerX" secondItem="DeQ-3W-dVy" secondAttribute="centerX" id="t5E-tG-on4"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DeQ-3W-dVy" firstAttribute="width" secondItem="ipi-oz-gWX" secondAttribute="width" id="2Rf-iV-zHd"/>
+                            <constraint firstItem="DeQ-3W-dVy" firstAttribute="top" secondItem="ipi-oz-gWX" secondAttribute="top" id="2i3-8e-Ve1"/>
+                            <constraint firstItem="DeQ-3W-dVy" firstAttribute="centerX" secondItem="ipi-oz-gWX" secondAttribute="centerX" id="IKx-xj-JEy"/>
+                            <constraint firstItem="ipi-oz-gWX" firstAttribute="bottom" secondItem="DeQ-3W-dVy" secondAttribute="bottom" id="jhN-4o-xG6"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ipi-oz-gWX"/>
                     </view>
                     <navigationItem key="navigationItem" title="완벽한 하루" id="JaD-X4-Dfe">
@@ -1019,10 +1094,17 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="svFuncButton" destination="Rdy-sM-DuL" id="AgV-Kl-Fxt"/>
+                        <outlet property="svThemeLocation" destination="bud-lp-ngT" id="Rgz-kD-l6S"/>
+                        <outlet property="uvFuncButton" destination="6ec-eQ-aw7" id="dpY-uu-niq"/>
+                        <outlet property="uvLandmark" destination="EVl-Yf-6Pq" id="Bgy-Pl-T78"/>
+                        <outlet property="uvThemeLocation" destination="po4-J7-zgI" id="y66-wA-qmS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e0B-vq-pht" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2622" y="139"/>
+            <point key="canvasLocation" x="2621.739130434783" y="138.61607142857142"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="zoD-2v-BSs">
@@ -1502,7 +1584,7 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xeQ-5s-CII">
-                                        <rect key="frame" x="20" y="661" width="135" height="34"/>
+                                        <rect key="frame" x="20" y="647" width="159" height="48"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <state key="normal" title="  다시 보지 않기" image="cm_check_white"/>
                                         <connections>
@@ -1510,7 +1592,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMX-cu-rdA">
-                                        <rect key="frame" x="362" y="661" width="32" height="34"/>
+                                        <rect key="frame" x="362" y="647" width="32" height="48"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <state key="normal" title="닫기"/>
                                         <connections>

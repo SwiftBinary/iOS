@@ -31,15 +31,15 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var uvFilterView: UIView!
     @IBOutlet var uvFilter: UIView!
     
-    
     let testNum = 15
     let lightGray = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
     let backColor = #colorLiteral(red: 0.9937904477, green: 0.9502945542, blue: 0.9648948312, alpha: 1)
+    let fontSize:CGFloat = 14
     
     var tempBtn : UIButton?
     
-    
+    let listTag = ["수제햄버거","미친가격","너무맛있다","건대", "홍대", "강남", "이색", "고궁", "tv방영", "가성비", "고급진", "국밥", "방탈출", "야식", "비오는날", "100일데이트코스", "커플100%되는곳", "킬링타임코스", "호불호없는"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -360,33 +360,36 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         
         let reprMenuPrice = UILabel()
         reprMenuPrice.text = "대표메뉴 " + String(num * 1000) + "원"
-        reprMenuPrice.fontSize = 14
+        reprMenuPrice.fontSize = fontSize
         let areaDetailNm = UIButton(type: .custom)
         areaDetailNm.setTitle("서울 광진구 자양동", for: .normal)
         areaDetailNm.setTitleColor(.darkGray, for: .normal)
         areaDetailNm.setImage(UIImage(named: "AddressIcon"), for: .normal)
-        areaDetailNm.titleLabel?.fontSize = 14
+        areaDetailNm.titleLabel?.fontSize = fontSize
         areaDetailNm.isUserInteractionEnabled = false
         areaDetailNm.contentHorizontalAlignment = .left
         
         //해시태그 추후 추가 예정
         let svHashTag = UIStackView()
         setHashTagList(svHashTag)
+        svHashTag.translatesAutoresizingMaskIntoConstraints = false
         let scvHashTag = UIScrollView()
         scvHashTag.addSubview(svHashTag)
+        scvHashTag.translatesAutoresizingMaskIntoConstraints = false
         //        scvHashTag.backgroundColor = .systemPink
-        scvHashTag.addConstraint(NSLayoutConstraint(item: svHashTag, attribute: .left, relatedBy: .greaterThanOrEqual, toItem: scvHashTag, attribute: .left, multiplier: 1, constant: 0))
-        scvHashTag.addConstraint(NSLayoutConstraint(item: svHashTag, attribute: .centerY, relatedBy: .greaterThanOrEqual, toItem: scvHashTag, attribute: .centerY, multiplier: 1, constant: 0))
-        svHashTag.widthAnchor.constraint(equalTo: scvHashTag.widthAnchor, multiplier: 1).isActive = true
-        svHashTag.heightAnchor.constraint(equalTo: scvHashTag.heightAnchor, multiplier: 1).isActive = true
         scvHashTag.bounces = false
-        
+        scvHashTag.addConstraint(NSLayoutConstraint(item: svHashTag, attribute: .centerY, relatedBy: .equal, toItem: scvHashTag, attribute: .centerY, multiplier: 1, constant: 0))
+        scvHashTag.showsHorizontalScrollIndicator = false
+        svHashTag.topAnchor.constraint(equalTo: scvHashTag.topAnchor, constant: 0).isActive = true
+        svHashTag.bottomAnchor.constraint(equalTo: scvHashTag.bottomAnchor, constant: 0).isActive = true
+        svHashTag.leadingAnchor.constraint(equalTo: scvHashTag.leadingAnchor, constant: 0).isActive = true
+        svHashTag.trailingAnchor.constraint(equalTo: scvHashTag.trailingAnchor, constant: 0).isActive = true
         
         let storeFavorCount = UILabel()
         storeFavorCount.text = "999+"
         storeFavorCount.textColor = .darkGray
         storeFavorCount.baselineAdjustment = .alignCenters
-        storeFavorCount.fontSize = 14
+        storeFavorCount.fontSize = fontSize
         storeFavorCount.widthAnchor.constraint(equalTo: storeFavorCount.heightAnchor, multiplier: 2).isActive = true
         let favorImg = UIImageView(image: UIImage(named: "EmptyHeart"))
         favorImg.contentMode = .scaleAspectFill
@@ -395,7 +398,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         storeScore.baselineAdjustment = .alignCenters
         storeScore.textColor = .darkGray
         storeFavorCount.widthAnchor.constraint(equalTo: storeFavorCount.heightAnchor, multiplier: 2).isActive = true
-        storeScore.fontSize = 14
+        storeScore.fontSize = fontSize
         let scoreImage = UIImageView(image: UIImage(named: "GPAIcon"))
         let Distance = UILabel()
         Distance.text = "00M"
@@ -456,23 +459,23 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     //HashTag
     func setHashTagList(_ svHashTag : UIStackView) {
         svHashTag.axis = .horizontal
-        svHashTag.spacing = 5
+        svHashTag.spacing = 0
         
-        for i in 0...5 {
+        for i in listTag {
             makeHashTag(i, svHashTag)
         }
     }
     
-    func makeHashTag(_ num: Int,_ svHashTag: UIStackView){
+    func makeHashTag(_ str: String,_ svHashTag: UIStackView){
         let HashTagBtn = UIButton(type: .custom)
         HashTagBtn.isUserInteractionEnabled = false
-        HashTagBtn.setTitle("#HashTag" + String(num), for: .normal)
-        HashTagBtn.setTitleColor(.darkGray, for: .normal)
-        HashTagBtn.backgroundColor = .lightGray
-        HashTagBtn.titleLabel?.fontSize = 11
+        HashTagBtn.setTitle("#" + str, for: .normal)
+        HashTagBtn.setTitleColor(.lightGray, for: .normal)
+//        HashTagBtn.backgroundColor = .lightGray
+        HashTagBtn.titleLabel?.fontSize = fontSize
         HashTagBtn.contentHorizontalAlignment = .fill
-        HashTagBtn.layer.cornerRadius = 10
-        HashTagBtn.layer.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+//        HashTagBtn.layer.cornerRadius = 10
+//        HashTagBtn.layer.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         
         svHashTag.addArrangedSubview(HashTagBtn)
     }

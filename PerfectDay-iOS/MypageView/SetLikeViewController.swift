@@ -70,9 +70,9 @@ class SetLikeViewController: UIViewController {
     
     func setUI(){
         self.tabBarController?.tabBar.isHidden = true
-        let btn = MaterialVerticalButton(icon: UIImage(named: "category")!, title: "밥", font: .systemFont(ofSize: 14), foregroundColor: .white, useOriginalImg: true, bgColor: .white, cornerRadius: 0)
-        btn.label.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        (svEat.subviews[1] as! UIStackView).insertArrangedSubview(btn, at: 0)
+//        let btn = MaterialVerticalButton(icon: UIImage(named: "category")!, title: "밥", font: .systemFont(ofSize: 14), foregroundColor: .white, useOriginalImg: true, bgColor: .white, cornerRadius: 0)
+//        btn.label.heightAnchor.constraint(equalToConstant: 30).isActive = true
+//        (svEat.subviews[1] as! UIStackView).insertArrangedSubview(btn, at: 0)
     }
     func setUIView(){
         let uvList: Array<UIView> = [uvEat,uvDrink,uvPlay,uvWatch,uvWalk]
