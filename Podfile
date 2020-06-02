@@ -11,7 +11,8 @@ pod 'SwiftyJSON', '~> 4.0'
 pod 'XLPagerTabStrip', '~> 9.0'
 pod 'Alamofire', '~> 5.0.0-rc.3'
 pod 'CryptoSwift', '~> 1.0'
-pod 'Hero'
 pod 'Material', '~> 3.1.0'
+pod 'naveridlogin-sdk-ios'
+pod 'FBSDKLoginKit'
   # Pods for PerfectDay-iOS
 end

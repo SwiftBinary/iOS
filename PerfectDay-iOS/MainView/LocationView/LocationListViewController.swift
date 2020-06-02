@@ -63,12 +63,12 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setKategorie(){
-        let btnAll = MaterialVerticalButton(icon: UIImage(named: "KategorieAll")!, title: "전체보기", foregroundColor: .black, useOriginalImg: true, bgColor: .white)
-        let btnEat = MaterialVerticalButton(icon: UIImage(named: "KategorieEat")!, title: "먹기", foregroundColor: .black, useOriginalImg: true, bgColor: .white)
-        let btnDrink = MaterialVerticalButton(icon: UIImage(named: "KategorieDrink")!, title: "마시기", foregroundColor: .black, useOriginalImg: true, bgColor: .white)
-        let btnPlay = MaterialVerticalButton(icon: UIImage(named: "KategoriePlay")!, title: "놀기", foregroundColor: .black, useOriginalImg: true, bgColor: .white)
-        let btnWatch = MaterialVerticalButton(icon: UIImage(named: "KategorieWatch")!, title: "보기", foregroundColor: .black, useOriginalImg: true, bgColor: .white)
-        let btnWalk = MaterialVerticalButton(icon: UIImage(named: "KategorieWalk")!, title: "걷기", foregroundColor: .black, useOriginalImg: true, bgColor: .white)
+        let btnAll = MaterialVerticalButton(icon: UIImage(named: "CategorieAll")!, text: "전체보기", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnEat = MaterialVerticalButton(icon: UIImage(named: "CategorieEat")!, text:  "먹기", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnDrink = MaterialVerticalButton(icon: UIImage(named: "CategorieDrink")!, text:  "마시기", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnPlay = MaterialVerticalButton(icon: UIImage(named: "CategoriePlay")!, text: "놀기", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnWatch = MaterialVerticalButton(icon: UIImage(named: "CategorieWatch")!, text: "보기", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnWalk = MaterialVerticalButton(icon: UIImage(named: "CategorieWalk")!, text: "걷기", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
         
         let btnArray = [btnAll,btnEat,btnDrink,btnPlay,btnWatch,btnWalk]
         

@@ -23,12 +23,12 @@ class SetLikeViewController: UIViewController {
     @IBOutlet var uvWalk: UIView!
     
     //Eat
-    @IBOutlet var btnRice: UIButton!
-    @IBOutlet var btnMeat: UIButton!
-    @IBOutlet var btnNoodle: UIButton!
-    @IBOutlet var btnSeafood: UIButton!
-    @IBOutlet var btnStreetfood: UIButton!
-    @IBOutlet var btnFastfood: UIButton!
+    let btnRice = MaterialVerticalButton()
+    let btnMeat = MaterialVerticalButton()
+    let btnNoodle = MaterialVerticalButton()
+    let btnSeafood = MaterialVerticalButton()
+    let btnStreetfood = MaterialVerticalButton()
+    let btnFastfood = MaterialVerticalButton()
     
     //Drink
     @IBOutlet var btnCoffee: UIButton!
@@ -66,13 +66,12 @@ class SetLikeViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setUIView()
+        
+        setEatUI()
     }
     
     func setUI(){
         self.tabBarController?.tabBar.isHidden = true
-//        let btn = MaterialVerticalButton(icon: UIImage(named: "category")!, title: "밥", font: .systemFont(ofSize: 14), foregroundColor: .white, useOriginalImg: true, bgColor: .white, cornerRadius: 0)
-//        btn.label.heightAnchor.constraint(equalToConstant: 30).isActive = true
-//        (svEat.subviews[1] as! UIStackView).insertArrangedSubview(btn, at: 0)
     }
     func setUIView(){
         let uvList: Array<UIView> = [uvEat,uvDrink,uvPlay,uvWatch,uvWalk]
@@ -109,6 +108,34 @@ class SetLikeViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    func setEatUI(){
+        let svSub = UIStackView()
+        svSub.axis = .horizontal
+        svSub.spacing = 10
+        svSub.distribution = .fillEqually
+
+        let btnCompany = MaterialVerticalButton(icon: UIImage(named: "GrayCircle")!, text: "GrayCircle", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnInsta = MaterialVerticalButton(icon: UIImage(named: "GrayCircle")!, text: "GrayCircle", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnNaver =  MaterialVerticalButton(icon: UIImage(named: "GrayCircle")!, text: "GrayCircle", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnKakao =  MaterialVerticalButton(icon: UIImage(named: "GrayCircle")!, text: "GrayCircle", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let arrayServiceBtn = [btnCompany,btnInsta,btnNaver,btnKakao]
+        for btn in arrayServiceBtn {
+            svSub.addArrangedSubview(btn)
+            btn.label.textColor = .black
+            btn.label.font = .systemFont(ofSize: 13)
+            btn.rippleLayerColor = .lightGray
+        }
+//        let IconSize:CGFloat = (svEat.frame.width-(10*3))/4
+
+//
+//        for i in 1...4{
+//            let btn = MaterialVerticalButton(icon: UIImage(named: "GrayCircle")!, title: "밥"+String(i), font: .systemFont(ofSize: 14), foregroundColor: .black, useOriginalImg: true, bgColor: .white, cornerRadius: 0)
+//            btn.rippleLayerColor = .clear
+//            btn.rippleLayer.setRippleColor(color: .white)
+//            svSub.addArrangedSubview(btn)
+//        }
+        svEat.addArrangedSubview(svSub)
+    }
     /*
      // MARK: - Navigation
      

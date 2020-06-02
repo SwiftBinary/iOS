@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchLogo" translatesAutoresizingMaskIntoConstraints="NO" id="a0H-eF-Hio">
-                                <rect key="frame" x="103.66666666666669" y="227.66666666666663" width="207" height="360"/>
+                                <rect key="frame" x="103.66666666666669" y="317.66666666666669" width="207" height="180"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.72941176470588232" blue="0.81568627450980391" alpha="1" colorSpace="calibratedRGB"/>
@@ -527,7 +527,7 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ifj-97-Ckn">
-                                <rect key="frame" x="328" y="726" width="76" height="76"/>
+                                <rect key="frame" x="366" y="764" width="38" height="38"/>
                                 <state key="normal" image="PlannerBtn"/>
                                 <connections>
                                     <action selector="goToPlannerView:" destination="Ib5-BB-kNU" eventType="touchUpInside" id="oy7-H8-miA"/>
@@ -760,10 +760,10 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="372.66666666666669" height="75"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="LbC-sj-uSS">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="142" height="75"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="71" height="75"/>
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVf-5y-IdL">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="142" height="75"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="71" height="75"/>
                                                                                 <state key="normal" image="AddPhotoBtn"/>
                                                                             </button>
                                                                         </subviews>
@@ -1008,9 +1008,11 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EVl-Yf-6Pq">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="390"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qao-RB-yc2">
-                                                        <rect key="frame" x="159.66666666666666" y="180" width="95" height="30"/>
-                                                        <state key="normal" title="랜드마크 페이지"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qao-RB-yc2">
+                                                        <rect key="frame" x="20.666666666666657" y="15" width="393.33333333333337" height="40"/>
+                                                        <state key="normal" title="랜드마크 페이지" image="SearchLocationIcon">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
                                                         <connections>
                                                             <segue destination="m2n-gu-LlV" kind="show" id="B3J-2q-yKU"/>
                                                         </connections>
@@ -1018,8 +1020,9 @@
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
-                                                    <constraint firstItem="Qao-RB-yc2" firstAttribute="centerX" secondItem="EVl-Yf-6Pq" secondAttribute="centerX" id="3aK-GU-dVU"/>
-                                                    <constraint firstItem="Qao-RB-yc2" firstAttribute="centerY" secondItem="EVl-Yf-6Pq" secondAttribute="centerY" id="sCs-ed-UiT"/>
+                                                    <constraint firstItem="Qao-RB-yc2" firstAttribute="width" secondItem="EVl-Yf-6Pq" secondAttribute="width" multiplier="0.95" id="9lf-cd-YdA"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Qao-RB-yc2" secondAttribute="trailing" id="T36-fH-xnG"/>
+                                                    <constraint firstItem="Qao-RB-yc2" firstAttribute="top" secondItem="EVl-Yf-6Pq" secondAttribute="top" constant="15" id="WeH-eb-o0W"/>
                                                     <constraint firstAttribute="height" constant="390" id="xrT-mU-q2m"/>
                                                 </constraints>
                                             </view>
@@ -1044,10 +1047,10 @@
                                                 <rect key="frame" x="0.0" y="500" width="414" height="0.0"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bud-lp-ngT">
-                                                        <rect key="frame" x="20.666666666666657" y="0.0" width="393.33333333333337" height="0.0"/>
+                                                        <rect key="frame" x="20.666666666666657" y="0.0" width="372.66666666666674" height="0.0"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="it8-R7-9qd">
-                                                                <rect key="frame" x="0.0" y="0.0" width="393.33333333333331" height="0.0"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="372.66666666666669" height="0.0"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="0.10000000000000001" id="22x-BW-bDe"/>
@@ -1059,9 +1062,9 @@
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstItem="bud-lp-ngT" firstAttribute="centerY" secondItem="po4-J7-zgI" secondAttribute="centerY" id="IrW-pF-Mf8"/>
-                                                    <constraint firstItem="bud-lp-ngT" firstAttribute="width" secondItem="po4-J7-zgI" secondAttribute="width" multiplier="0.95" id="PrX-Yf-Qwd"/>
-                                                    <constraint firstAttribute="trailing" secondItem="bud-lp-ngT" secondAttribute="trailing" id="SsA-Wg-8Oz"/>
+                                                    <constraint firstItem="bud-lp-ngT" firstAttribute="width" secondItem="po4-J7-zgI" secondAttribute="width" multiplier="0.9" id="PrX-Yf-Qwd"/>
                                                     <constraint firstItem="bud-lp-ngT" firstAttribute="height" secondItem="po4-J7-zgI" secondAttribute="height" id="T0r-3d-aE7"/>
+                                                    <constraint firstItem="bud-lp-ngT" firstAttribute="centerX" secondItem="po4-J7-zgI" secondAttribute="centerX" id="ccp-YC-SAn"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -1584,7 +1587,7 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xeQ-5s-CII">
-                                        <rect key="frame" x="20" y="647" width="159" height="48"/>
+                                        <rect key="frame" x="20" y="661" width="135" height="34"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <state key="normal" title="  다시 보지 않기" image="cm_check_white"/>
                                         <connections>
@@ -1592,7 +1595,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMX-cu-rdA">
-                                        <rect key="frame" x="362" y="647" width="32" height="48"/>
+                                        <rect key="frame" x="362" y="661" width="32" height="34"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <state key="normal" title="닫기"/>
                                         <connections>
@@ -1665,10 +1668,11 @@
         <image name="LaunchLogo" width="182" height="180"/>
         <image name="ListBtn" width="13" height="13"/>
         <image name="LocationBtn" width="44" height="44"/>
-        <image name="MapGuideImg" width="16" height="16"/>
+        <image name="MapGuideImg" width="226" height="462"/>
         <image name="NaverBtn" width="55" height="55"/>
         <image name="PlannerBtn" width="38" height="38"/>
         <image name="ReviewBoardIcon" width="120" height="120"/>
+        <image name="SearchLocationIcon" width="40" height="40"/>
         <image name="cm_check_white" width="24" height="24"/>
     </resources>
     <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

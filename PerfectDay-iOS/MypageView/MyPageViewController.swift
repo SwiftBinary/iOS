@@ -23,11 +23,11 @@ class MyPageViewController: UIViewController {
     }
     
     func setServiceCenter(){
-        let btnCompany = MaterialVerticalButton(icon: UIImage(named: "IntroBtn")!, title: "소개페이지", foregroundColor: .white,useOriginalImg: true, bgColor: .white,cornerRadius: 10.0)
-        let btnInsta = MaterialVerticalButton(icon: UIImage(named: "InstaBtn")!, title: "회사 SNS", foregroundColor: .white,useOriginalImg: true, bgColor: .white,cornerRadius: 10.0)
-        let btnNaver = MaterialVerticalButton(icon: UIImage(named: "NaverBtn")!, title: "회사블로그", foregroundColor: .white,useOriginalImg: true, bgColor: .white,cornerRadius: 10.0)
-        let btnKakao = MaterialVerticalButton(icon: UIImage(named: "KakaoBtn")!, title: "1:1 문의", foregroundColor: .white,useOriginalImg: true, bgColor: .white,cornerRadius: 10.0)
-        let btnSuggest = MaterialVerticalButton(icon: UIImage(named: "InstaBtn")!, title: "장소 제안", foregroundColor: .white,useOriginalImg: true, bgColor: .white,cornerRadius: 10.0)
+        let btnCompany = MaterialVerticalButton(icon: UIImage(named: "IntroBtn")!, text: "소개페이지", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnInsta = MaterialVerticalButton(icon: UIImage(named: "InstaBtn")!, text: "회사 SNS", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnNaver = MaterialVerticalButton(icon: UIImage(named: "NaverBtn")!, text: "회사블로그", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnKakao = MaterialVerticalButton(icon: UIImage(named: "KakaoBtn")!, text: "1:1 문의", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnSuggest = MaterialVerticalButton(icon: UIImage(named: "InstaBtn")!, text: "장소 제안", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
         arrayServiceBtn = [btnCompany,btnInsta,btnNaver,btnKakao,btnSuggest]
         for btn in arrayServiceBtn {
             svServiceCenter.addArrangedSubview(btn)
@@ -37,6 +37,7 @@ class MyPageViewController: UIViewController {
         }
     }
     @IBAction func logout(_ sender: UIButton) {
+        UserDefaults.standard.removeObject(forKey: "userData")
         self.dismiss(animated: true, completion: nil)
     }
     

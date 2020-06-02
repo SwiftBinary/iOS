@@ -11,44 +11,26 @@
 // 안으로 작성하기 (코드 수행에 도움이 됨!)
 
 import UIKit
-import Alamofire
+import SwiftyJSON
 
 class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        let loginCheck = isLogin()
-//        if  loginCheck { // Login 됨
-//            print("Debug")
-//            gotoMain()
-//        } else { // Login 안 됨
-//            gotoLogin()
-//            //gotoMain()
-//        }
+        sleep(1)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        // 로그인 정보가 없으면
-        gotoLogin()
+        let getData = UserDefaults.standard.dictionary(forKey: "userData")
+        if getData == nil{
+            gotoLogin()
+        } else {
+            print(JSON(arrayLiteral: getData!).rawString())
+            gotoMain()
+        }
+        
         // 로그인 정보가 있으면
         
-    }
-    
-    func isLogin() -> Bool{
-        // http://203.252.161.219:8080/
-        let url = "http://203.252.161.219:8080/cmmn/isLogin.do"
-        var returnValue = false
-        // true - -1, false - 1
-        AF.request(url, method: .get).responseString { response in
-            //debugPrint(response)
-            if response.value! == "-1" {
-                returnValue = true
-            } else {
-                returnValue = false
-            }
-        }
-        return returnValue
     }
     
     func gotoLogin(){

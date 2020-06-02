@@ -83,7 +83,8 @@ open class MaterialSegmentedControl: UIControl {
      - Parameter selectorColor:   The color of the selector.
      - Parameter bgColor:         Background color.
      */
-    convenience public init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line, fgColor: UIColor = .gray, selectedFgColor: UIColor = .white, selectorColor: UIColor = .gray, bgColor: UIColor = .clear) {
+    public convenience init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line,
+                            fgColor: UIColor, selectedFgColor: UIColor, selectorColor: UIColor, bgColor: UIColor) {
         self.init(frame: .zero)
         
         self.segments = segments
@@ -93,24 +94,50 @@ open class MaterialSegmentedControl: UIControl {
         self.selectorColor = selectorColor
         self.backgroundColor = bgColor
     }
+    /**
+     Convenience init of material design segmentedControl using system default colors. This initializer
+     reflects dark mode colors on iOS 13 or later platforms. However, it will ignore any custom colors
+     set to the segmentedControl.
+     
+     - Parameter segments:      The segment in UIButton form.
+     - Parameter selectorStyle: The style of the selector, fill, outline and line are supported.
+     */
+    @available(iOS 13.0, *)
+    public convenience init(segments: [UIButton] = [], selectorStyle: SelectorStyle = .line) {
+        self.init(frame: .zero)
+        
+        self.segments = segments
+        self.selectorStyle = selectorStyle
+        self.foregroundColor = .label
+        self.selectedForegroundColor = .label
+        switch selectorStyle {
+        case .fill:
+            self.selectorColor = .systemGray3
+            self.backgroundColor = .systemFill
+        default:
+            self.selectorColor = .label
+            self.backgroundColor = .systemBackground
+        }
+    }
     
-    open func appendIconSegment(icon: UIImage? = nil, preserveIconColor: Bool = true, rippleColor: UIColor = .clear, cornerRadius: CGFloat = 12.0) {
+    open func appendIconSegment(icon: UIImage? = nil, preserveIconColor: Bool = true, rippleColor: UIColor, cornerRadius: CGFloat = 12.0) {
         self.preserveIconColor = preserveIconColor
-        let button = MaterialButton(icon: icon, bgColor: rippleColor, cornerRadius: cornerRadius)
+        let button = MaterialButton(icon: icon, textColor: nil, bgColor: rippleColor, cornerRadius: cornerRadius)
         button.rippleLayerAlpha = 0.15
         self.segments.append(button)
     }
     
     open func appendSegment(icon: UIImage? = nil, text: String? = nil,
-                            textColor: UIColor? = .white, font: UIFont? = nil, rippleColor: UIColor = .clear,
+                            textColor: UIColor?, font: UIFont? = nil, rippleColor: UIColor,
                             cornerRadius: CGFloat = 12.0) {
         let button = MaterialButton(icon: icon, text: text, textColor: textColor, bgColor: rippleColor, cornerRadius: cornerRadius)
         button.rippleLayerAlpha = 0.15
         self.segments.append(button)
     }
     
-    open func appendSegment(text: String, textColor: UIColor, bgColor: UIColor, cornerRadius: CGFloat = 12.0) {
-        self.appendSegment(icon: nil, text: text, textColor: textColor, rippleColor: bgColor, cornerRadius: cornerRadius)
+    open func appendTextSegment(text: String, textColor: UIColor?, font: UIFont? = nil,
+                                rippleColor: UIColor, cornerRadius: CGFloat = 12.0) {
+        self.appendSegment(text: text, textColor: textColor, font: font, rippleColor: rippleColor, cornerRadius: cornerRadius)
     }
     
     func updateViews() {
@@ -135,7 +162,7 @@ open class MaterialSegmentedControl: UIControl {
         case .fill, .line:
             selector.backgroundColor = selectorColor
         case .outline:
-            selector.setCornerBorder(color: selectorColor, borderWidth: 1.5)
+            selector.setCornerBorder(color: selectorColor, cornerRadius: selector.layer.cornerRadius, borderWidth: 1.5)
         }
         
         subviews.forEach { (view) in

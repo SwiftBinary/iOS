@@ -1,7 +1,16 @@
 PODS:
   - Alamofire (5.0.5)
   - CryptoSwift (1.3.1)
-  - Hero (1.5.0)
+  - FBSDKCoreKit (7.0.0):
+    - FBSDKCoreKit/Basics (= 7.0.0)
+    - FBSDKCoreKit/Core (= 7.0.0)
+  - FBSDKCoreKit/Basics (7.0.0)
+  - FBSDKCoreKit/Core (7.0.0):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (7.0.0):
+    - FBSDKLoginKit/Login (= 7.0.0)
+  - FBSDKLoginKit/Login (7.0.0):
+    - FBSDKCoreKit (~> 7.0.0)
   - ImageSlideshow (1.8.3):
     - ImageSlideshow/Core (= 1.8.3)
   - ImageSlideshow/Core (1.8.3)
@@ -9,10 +18,11 @@ PODS:
     - Material/Core (= 3.1.8)
   - Material/Core (3.1.8):
     - Motion (~> 3.1.1)
-  - MaterialDesignWidgets (0.1.0)
+  - MaterialDesignWidgets (0.1.1)
   - Motion (3.1.3):
     - Motion/Core (= 3.1.3)
   - Motion/Core (3.1.3)
+  - naveridlogin-sdk-ios (4.1.2)
   - RSKPlaceholderTextView (6.0.3)
   - SwiftyJSON (4.3.0)
   - XLPagerTabStrip (9.0.0)
@@ -20,10 +30,11 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.3)
   - CryptoSwift (~> 1.0)
-  - Hero
+  - FBSDKLoginKit
   - ImageSlideshow (~> 1.8.3)
   - Material (~> 3.1.0)
   - MaterialDesignWidgets
+  - naveridlogin-sdk-ios
   - RSKPlaceholderTextView
   - SwiftyJSON (~> 4.0)
   - XLPagerTabStrip (~> 9.0)
@@ -32,11 +43,13 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - CryptoSwift
-    - Hero
+    - FBSDKCoreKit
+    - FBSDKLoginKit
     - ImageSlideshow
     - Material
     - MaterialDesignWidgets
     - Motion
+    - naveridlogin-sdk-ios
     - RSKPlaceholderTextView
     - SwiftyJSON
     - XLPagerTabStrip
@@ -44,15 +57,17 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
   CryptoSwift: f12f037f6d0fcd6d48c96db0071b653de64e6c4d
-  Hero: b7385b75e7259da62f4f85462f59a5082d66b058
+  FBSDKCoreKit: 8ad31cd09f793d1d7e84cf20fd6cebfe80ad318d
+  FBSDKLoginKit: 5d1e321dc45ab1fa09198b77fc17c32a06f008c0
   ImageSlideshow: 4694d7d699a1549582e7cc631fb392d8f91630f3
   Material: a2a3f400a3b549d53ef89e56c58c4535b29db387
-  MaterialDesignWidgets: 2dee272bc9b058cc64c3eb1f5c90334a450957d7
+  MaterialDesignWidgets: 6d02d3fbba2fa89f6e773983346ad2187d7ef8ff
   Motion: cf1e060e489f6661126374d5c60dbd2ed991605c
+  naveridlogin-sdk-ios: cf8afccdb1793d4ecfcd5d46aa8729d8b5058c70
   RSKPlaceholderTextView: fc8c8932546298ec9d5e5572284aa42adb87b066
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
 
-PODFILE CHECKSUM: 149c593548f839b3105e402e8c38d99627b2010a
+PODFILE CHECKSUM: 9333dcb686eb391b5ff029e9804f802d3bef364d
 
 COCOAPODS: 1.9.0.beta.2

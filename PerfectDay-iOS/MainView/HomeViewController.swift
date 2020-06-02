@@ -20,6 +20,8 @@ class HomeViewController: UIViewController {
     @IBOutlet var svFuncButton: UIStackView!
     @IBOutlet var svThemeLocation: UIStackView!
     
+    let listTag = ["홍대맛집","잠실야경","VR데이트","산책데이트", "수제햄버거","미친가격","너무맛있다","건대", "홍대", "강남", "이색", "고궁", "tv방영", "가성비", "고급진", "국밥", "방탈출", "야식", "비오는날", "100일데이트코스", "커플100%되는곳", "킬링타임코스", "호불호없는"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -43,6 +45,32 @@ class HomeViewController: UIViewController {
     func setLandmarkMap(){
         setShadowCard(uvLandmark, bgColor: .white, crRadius: 15, shColor: .lightGray, shOffsetW: 0.0, shOffsetH: 2.0, shRadius: 2.0, sdOpacity: 0.9)
         uvLandmark.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        
+        let scvTag = UIScrollView()
+        scvTag.translatesAutoresizingMaskIntoConstraints = false
+        let svTag = UIStackView()
+        for hashTag in listTag {
+            let btnHashTag = UIButton(type: .system)
+            btnHashTag.setTitle(setHashTagString(hashTag))
+            btnHashTag.layer.cornerRadius = 15
+            btnHashTag.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
+            btnHashTag.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
+            svTag.addArrangedSubview(btnHashTag)
+        }
+        svTag.translatesAutoresizingMaskIntoConstraints = false
+        svTag.spacing = 10
+        scvTag.addSubview(svTag)
+        scvTag.addConstraint(NSLayoutConstraint(item: svTag, attribute: .centerY, relatedBy: .equal, toItem: scvTag, attribute: .centerY, multiplier: 1, constant: 0))
+        scvTag.showsHorizontalScrollIndicator = false
+        svTag.topAnchor.constraint(equalTo: scvTag.topAnchor, constant: 0).isActive = true
+        svTag.bottomAnchor.constraint(equalTo: scvTag.bottomAnchor, constant: 0).isActive = true
+        svTag.leadingAnchor.constraint(equalTo: scvTag.leadingAnchor, constant: 0).isActive = true
+        svTag.trailingAnchor.constraint(equalTo: scvTag.trailingAnchor, constant: 0).isActive = true
+        
+        uvLandmark.addSubview(scvTag)
+        uvLandmark.addConstraint(NSLayoutConstraint(item: scvTag, attribute: .centerX, relatedBy: .equal, toItem: uvLandmark, attribute: .centerX, multiplier: 1, constant: 0))
+        scvTag.bottomAnchor.constraint(equalTo: uvLandmark.bottomAnchor, constant: -15).isActive = true
+        scvTag.widthAnchor.constraint(equalTo: uvLandmark.widthAnchor, multiplier: 0.9).isActive = true
     }
     
     func setFuncButtonView(){
@@ -50,11 +78,11 @@ class HomeViewController: UIViewController {
         
         let fontSize:CGFloat = 16
         
-        let btnOneClickCourse = MaterialVerticalButton(icon: UIImage(named: "KategorieWalk")!, title: "원클릭 데이트 코스 추천", foregroundColor: .black, useOriginalImg: true, bgColor: .white, cornerRadius: 15.0)
+        let btnOneClickCourse = MaterialVerticalButton(icon: UIImage(named: "CourseRecommandIcon")!, text: "원클릭 데이트 코스 추천", font: nil ,foregroundColor: .black, bgColor: .white, useOriginalImg: true,cornerRadius: 15.0)
         btnOneClickCourse.label.font = UIFont.boldSystemFont(ofSize: fontSize)
         btnOneClickCourse.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         
-        let btnFindAroundLocation = MaterialVerticalButton(icon: UIImage(named: "KategorieWalk")!, title: "내 주변 데이트 장소 찾기", foregroundColor: .black, useOriginalImg: true, bgColor: .white,cornerRadius: 15.0)
+        let btnFindAroundLocation = MaterialVerticalButton(icon: UIImage(named: "SearchLocationIcon")!, text: "내 주변 데이트 장소 찾기", font: nil ,foregroundColor: .black, bgColor: .white, useOriginalImg: true, cornerRadius: 15.0)
         btnFindAroundLocation.label.font = UIFont.boldSystemFont(ofSize: fontSize)
         btnFindAroundLocation.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
         
@@ -70,23 +98,47 @@ class HomeViewController: UIViewController {
         let LocationData = [0,1,2,3,4,5]
         
         let lblHotPlace = UILabel()
-        lblHotPlace.text = "금주의 핫 플레이스"
         lblHotPlace.font = UIFont.boldSystemFont(ofSize: 17)
+        let attributedHotPlaceString: NSMutableAttributedString = NSMutableAttributedString(string: "금주의 핫 플레이스")
+        attributedHotPlaceString.setColor(color: #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1), forText: "핫 플레이스")
+        lblHotPlace.attributedText = attributedHotPlaceString
+        let imgHotPlace = UIButton(type: .custom)
+        imgHotPlace.isUserInteractionEnabled = false
+        imgHotPlace.setTitle(" ")
+        imgHotPlace.setImage(UIImage(named: "HotPlace"), for: .normal)
+        imgHotPlace.semanticContentAttribute = .forceRightToLeft
+        imgHotPlace.contentHorizontalAlignment = .left
+//        UIImageView(image: UIImage(named: "HotPlace"))
+//        imgHotPlace.heightAnchor.constraint(equalToConstant: 16).isActive = true
+//        imgHotPlace.contentMode = .scaleAspectFit
+        
+        let svHotPlaceTitle = UIStackView(arrangedSubviews: [lblHotPlace,imgHotPlace])
+        svHotPlaceTitle.axis = .horizontal
         
         let scvHotPlace = makeScrollView(Theme: "HotPlace", items: LocationData)
         
-        let svHotPlace = UIStackView(arrangedSubviews: [lblHotPlace,scvHotPlace])
+        let svHotPlace = UIStackView(arrangedSubviews: [svHotPlaceTitle,scvHotPlace])
         svHotPlace.axis = .vertical
         svHotPlace.spacing = 10
         
-        
         let lblTodayPlace = UILabel()
-        lblTodayPlace.text = "20세의 오늘"
         lblTodayPlace.font = UIFont.boldSystemFont(ofSize: 17)
+        let attributedTodayPlaceString: NSMutableAttributedString = NSMutableAttributedString(string: "20세의 오늘")
+        attributedTodayPlaceString.setColor(color: #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1), forText: "오늘")
+        lblTodayPlace.attributedText = attributedTodayPlaceString
+        let imgTodayPlace = UIButton(type: .custom)
+        imgTodayPlace.isUserInteractionEnabled = false
+        imgTodayPlace.setTitle(" ")
+        imgTodayPlace.setImage(UIImage(named: "Oneul"), for: .normal)
+        imgTodayPlace.semanticContentAttribute = .forceRightToLeft
+        imgTodayPlace.contentHorizontalAlignment = .left
+        
+        let svTodayPlaceTitle = UIStackView(arrangedSubviews: [lblTodayPlace,imgTodayPlace])
+        svTodayPlaceTitle.axis = .horizontal
         
         let scvTodayPlace = makeScrollView(Theme: "TodayPlace", items: LocationData)
         
-        let svTodayPlace = UIStackView(arrangedSubviews: [lblTodayPlace,scvTodayPlace])
+        let svTodayPlace = UIStackView(arrangedSubviews: [svTodayPlaceTitle,scvTodayPlace])
         svTodayPlace.axis = .vertical
         svTodayPlace.spacing = 10
         
@@ -154,6 +206,9 @@ class HomeViewController: UIViewController {
     }
     
     func addTodayPlaceItem(_ stackView: UIStackView, _ items: [Int]){
+        
+        
+        
         for item in items{
             let imgLocation = UIImageView(image: UIImage(named: "TempImage"))
             imgLocation.widthAnchor.constraint(equalToConstant: 136).isActive = true
