@@ -21,16 +21,12 @@ class MainViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let getData = UserDefaults.standard.dictionary(forKey: "userData")
+        let getData = UserDefaults.standard.dictionary(forKey: userDataKey)
         if getData == nil{
             gotoLogin()
         } else {
-            print(JSON(arrayLiteral: getData!).rawString())
             gotoMain()
         }
-        
-        // 로그인 정보가 있으면
-        
     }
     
     func gotoLogin(){

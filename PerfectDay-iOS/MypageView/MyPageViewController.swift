@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import SwiftyJSON
 import MaterialDesignWidgets
 
 class MyPageViewController: UIViewController {
+    
+    @IBOutlet var lblUserNickName: UILabel!
+    @IBOutlet var lblUserEmail: UILabel!
+    
     
     @IBOutlet var svServiceCenter: UIStackView!
     var arrayServiceBtn : Array<MaterialVerticalButton> = []
@@ -19,9 +24,17 @@ class MyPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setProfileUI()
         setServiceCenter()
     }
     
+    func setProfileUI() {
+        let userData = getUserData()
+        print(userData)
+        lblUserNickName.text  = userData["userName"] as? String
+        lblUserEmail.text = userData["userEmail"] as? String
+        lblUserEmail.font = UIFont.systemFont(ofSize: 15)
+    }
     func setServiceCenter(){
         let btnCompany = MaterialVerticalButton(icon: UIImage(named: "IntroBtn")!, text: "소개페이지", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
         let btnInsta = MaterialVerticalButton(icon: UIImage(named: "InstaBtn")!, text: "회사 SNS", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
@@ -33,12 +46,18 @@ class MyPageViewController: UIViewController {
             svServiceCenter.addArrangedSubview(btn)
             btn.label.textColor = .black
             btn.label.font = .systemFont(ofSize: 13)
-            btn.rippleLayerColor = grayColor
-        }
+            btn.rippleLayerColor = grayColor        }
     }
     @IBAction func logout(_ sender: UIButton) {
-        UserDefaults.standard.removeObject(forKey: "userData")
-        self.dismiss(animated: true, completion: nil)
+        let alertController = UIAlertController(title: "정말 로그아웃 하시겠습니까?", message: "", preferredStyle: UIAlertController.Style.alert)
+        let acceptAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.default , handler: { _ in
+            UserDefaults.standard.removeObject(forKey: userDataKey)
+            self.dismiss(animated: true, completion: nil)
+        })
+        let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel , handler: nil)
+        alertController.addAction(cancelAction)
+        alertController.addAction(acceptAction)
+        present(alertController, animated: true, completion:{})
     }
     
     override func viewWillAppear(_ animated: Bool) {

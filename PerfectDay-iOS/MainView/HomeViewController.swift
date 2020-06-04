@@ -95,7 +95,7 @@ class HomeViewController: UIViewController {
         setShadowCard(uvThemeLocation, bgColor: .white, crRadius: 15, shColor: .lightGray, shOffsetW: 0.0, shOffsetH: 2.0, shRadius: 2.0, sdOpacity: 0.9)
         uvThemeLocation.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
-        let LocationData = [0,1,2,3,4,5]
+        let LocationData = [0,1,2,3,4]
         
         let lblHotPlace = UILabel()
         lblHotPlace.font = UIFont.boldSystemFont(ofSize: 17)
@@ -162,6 +162,7 @@ class HomeViewController: UIViewController {
         case "HotPlace":
             addHotPlaceItem(svPlaceItem, items)
         case "TodayPlace":
+            addADTodayPlaceItem(svPlaceItem)
             addTodayPlaceItem(svPlaceItem, items)
         default:
             print("Error")
@@ -205,10 +206,57 @@ class HomeViewController: UIViewController {
         }
     }
     
+    func addADTodayPlaceItem(_ stackView: UIStackView){
+        
+        let imgLocation = UIImageView(image: UIImage(named: "TempImage"))
+        imgLocation.widthAnchor.constraint(equalToConstant: 136).isActive = true
+        imgLocation.heightAnchor.constraint(equalToConstant: 136).isActive = true
+        imgLocation.contentMode = .scaleAspectFill
+        imgLocation.clipsToBounds = true
+        imgLocation.layer.cornerRadius = 5
+        
+        let imgAdLabel = UIImageView(image: UIImage(named: "AdLabelIcon"))
+        imgAdLabel.translatesAutoresizingMaskIntoConstraints = false
+        imgAdLabel.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        imgAdLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        imgLocation.addSubview(imgAdLabel)
+        imgAdLabel.topAnchor.constraint(equalTo: imgLocation.topAnchor, constant: 4).isActive = true
+        imgAdLabel.leadingAnchor.constraint(equalTo: imgLocation.leadingAnchor, constant: 4).isActive = true
+        
+        let btnADLabel = UIButton(type: .custom)
+        btnADLabel.isUserInteractionEnabled = false
+        btnADLabel.setTitle(" ")
+        btnADLabel.setImage(UIImage(named: "AdIcon"), for: .normal)
+        //        lblADLabel.semanticContentAttribute = .
+        btnADLabel.contentHorizontalAlignment = .center
+        
+        let lblLocationName = UILabel()
+        lblLocationName.text = "AD장소명"
+        lblLocationName.font = UIFont.boldSystemFont(ofSize: 16)
+        
+        let btnADHelp = UIButton(type: .custom)
+        btnADHelp.setTitle(" ")
+        btnADHelp.setImage(UIImage(named: "HelpIcon"), for: .normal)
+        //        lblADLabel.semanticContentAttribute = .
+        btnADHelp.contentHorizontalAlignment = .center
+        
+        let svLocationName = UIStackView(arrangedSubviews: [btnADLabel,lblLocationName,btnADHelp])
+        svLocationName.axis = .horizontal
+        svLocationName.distribution = .fillProportionally
+        svLocationName.spacing = -5
+        
+        let lblLocationAddress = UILabel()
+        lblLocationAddress.text = "AD 장소위치"
+        lblLocationAddress.fontSize = 13
+        
+        let svItem = UIStackView(arrangedSubviews: [imgLocation,svLocationName,lblLocationAddress])
+        svItem.axis = .vertical
+        svItem.spacing = 7
+        
+        stackView.addArrangedSubview(svItem)
+    }
+    
     func addTodayPlaceItem(_ stackView: UIStackView, _ items: [Int]){
-        
-        
-        
         for item in items{
             let imgLocation = UIImageView(image: UIImage(named: "TempImage"))
             imgLocation.widthAnchor.constraint(equalToConstant: 136).isActive = true
@@ -217,8 +265,27 @@ class HomeViewController: UIViewController {
             imgLocation.clipsToBounds = true
             imgLocation.layer.cornerRadius = 5
             
+            let lblLocationRank = UILabel()
+            let strRank = String(items.count - item) + "위"
+//            lblLocationRank.text = strRank
+            lblLocationRank.font = UIFont.boldSystemFont(ofSize: 16)
+            let attributedLocationRankString = NSMutableAttributedString(string: strRank)
+            attributedLocationRankString.setAttributes([NSAttributedString.Key.font:UIFont.systemFont(ofSize: 12)], range: (strRank as NSString).range(of: "위"))
+            lblLocationRank.attributedText = attributedLocationRankString
+            lblLocationRank.textColor = .white
+            lblLocationRank.textAlignment = .center
+            lblLocationRank.layer.backgroundColor = #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1)
+            lblLocationRank.layer.cornerRadius = 5
+            lblLocationRank.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
+            lblLocationRank.translatesAutoresizingMaskIntoConstraints = false
+            lblLocationRank.widthAnchor.constraint(equalToConstant: 30).isActive = true
+            lblLocationRank.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            imgLocation.addSubview(lblLocationRank)
+            lblLocationRank.topAnchor.constraint(equalTo: imgLocation.topAnchor, constant: 0).isActive = true
+            lblLocationRank.leadingAnchor.constraint(equalTo: imgLocation.leadingAnchor, constant:0).isActive = true
+            
             let lblLocationName = UILabel()
-            lblLocationName.text = "장소명" + String(item)
+            lblLocationName.text = "장소명"
             lblLocationName.font = UIFont.boldSystemFont(ofSize: 16)
             
             let lblLocationAddress = UILabel()

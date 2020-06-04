@@ -34,7 +34,6 @@ class LoginViewController: UIViewController {
     
     @IBOutlet var lblDataString: UITextView!
     let uds = UserDefaults.standard
-    let dataKey = "userData"
     @IBAction func saveData(_ sender: UIButton) {
 //        UserDefaults.standard.set("Test String", forKey: "string")
 //        uds.setValue("T_e_s_t S_t_r_i_n_g", forKey: "string2")
@@ -42,23 +41,21 @@ class LoginViewController: UIViewController {
     }
     @IBAction func printData(_ sender: Any) {
 //        let data1 = UserDefaults.standard.string(forKey: "string")
-        let data2 = uds.dictionary(forKey: dataKey)
+        let data2 = uds.dictionary(forKey: userDataKey)
         print("#")
         
         if data2 == nil {
-            print(data2)
             lblDataString.text = "nil"
         } else {
-            print(data2)
+//            print(data2!)
             lblDataString.text = JSON(arrayLiteral: data2!).rawString()
         }
         print("#")
         print(uds.dictionaryRepresentation())
     }
     @IBAction func removeData(_ sender: Any) {
-        uds.removeObject(forKey: dataKey)
-//        uds.removePersistentDomain(forName: dataKey)
-        print("\n\n#\nRemove Data forKey: " + dataKey)
+        uds.removeObject(forKey: userDataKey)
+        print("\n\n#\nRemove Data forKey: " + userDataKey)
         
         print(uds.dictionaryRepresentation())
     }
@@ -97,7 +94,7 @@ class LoginViewController: UIViewController {
         let userId = tfEmail.text!
         let userPw = tfPassword.text! == "0000" ? "0000".sha256() : tfPassword.text!
         if checkId(userId: userId, userPw: userPw) {
-            let url = developIP + "/user/loginUser.do"
+            let url = OperationIP + "/user/loginUser.do"
             let jsonHeader = JSON(["userSn":"_","deviceOS":"IOS"])
             let parameter = JSON([
                 "userEmail":userId,
@@ -115,6 +112,7 @@ class LoginViewController: UIViewController {
                     let reponseJSON = JSON(response.value!)
                     // result값 - 1:성공, 2:실패
                     let loginResult = Int(reponseJSON["result"].stringValue)
+                    self.uds.setValue(reponseJSON.dictionaryObject, forKey: userDataKey)
                     switch loginResult {
                     case 1:
                         self.loginSuccess()
@@ -173,10 +171,7 @@ class LoginViewController: UIViewController {
                     let reponseJSON = JSON(response.value!)
                     // result값 - 1:성공, 2:실패
                     let loginResult = Int(reponseJSON["result"].stringValue)
-                    print("#")
-                    print(reponseJSON.dictionaryObject)
-                    self.uds.setValue(reponseJSON.dictionaryObject, forKey: self.dataKey)
-                    print("#")
+                    self.uds.setValue(reponseJSON.dictionaryObject, forKey: userDataKey)
                     switch loginResult {
                     case 1:
                         self.loginSuccess()
@@ -187,10 +182,55 @@ class LoginViewController: UIViewController {
                     default: break
                     }
                 }
+                if response.response?.statusCode != 200 {
+                    self.networkFail()
+                }
             }
         } else {
             alertControllerDefault(title: "아이디 및 비밀번호를\n입력해주세요.", message: "")
         }
+    }
+    @IBAction func tempLogin3(_ sender: UIButton) {
+               let userId = "testemail0@test.com"
+               let userPw = "passw0rd!!"
+               if checkId(userId: userId, userPw: userPw) {
+                   let url = OperationIP + "/user/loginUser.do"
+                   let jsonHeader = JSON(["userSn":"_","deviceOS":"IOS"])
+                   let parameter = JSON([
+                       "userEmail":userId,
+                       "userPw":userPw,
+                       "loginType":"001",
+                   ])
+                   
+                   let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+                   let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+                   let httpHeaders: HTTPHeaders = ["json":convertedHeaderString]
+                   
+                   AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+                       debugPrint(response)
+                       if response.value != nil {
+                           let reponseJSON = JSON(response.value!)
+                           // result값 - 1:성공, 2:실패
+                           let loginResult = Int(reponseJSON["result"].stringValue)
+                           self.uds.setValue(reponseJSON.dictionaryObject, forKey: userDataKey)
+                           switch loginResult {
+                           case 1:
+                               self.loginSuccess()
+                           case 2:
+                               self.loginFail()
+                           case -1:
+                               self.networkFail()
+                           default: break
+                           }
+                       }
+                       if response.response?.statusCode != 200 {
+                           self.networkFail()
+                       }
+                   }
+               } else {
+                   alertControllerDefault(title: "아이디 및 비밀번호를\n입력해주세요.", message: "")
+               }
+        
     }
     @IBAction func tempLogin2(_ sender: UIButton) {
         loginSuccess()

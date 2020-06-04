@@ -16,6 +16,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     let darkGray = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     let themeColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
     var segueTitle: Int = 0
+    var boardSn: String = ""
     let arrayTitle = ["공지사항","코스를 공유해요","인기 게시판","자유 게시판","썸타는 게시판","조언을 구해요","실시간 장소리뷰"]
     let strHashTag = ["건대", "홍대", "강남", "이색", "고궁", "tv방영", "가성비", "고급진", "국밥", "방탈출", "야식", "비오는날", "100일데이트코스", "커플100%되는곳", "킬링타임코스", "호불호없는"]
     let arrayHiddenCreate = [0,2,6]
@@ -23,6 +24,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     let btnMargin:CGFloat = -10
     var reponseJSON:JSON = []
     
+    let userData = getUserData()
     
     @IBOutlet var btnScrollUp: UIButton!
     @IBOutlet var btnCreatePost: UIButton!
@@ -38,11 +40,11 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         super.viewDidLoad()
         getCatagoryInfo()
         requestPost()
-        
         setBanner()
     }
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
+        
     }
     
     func getCatagoryInfo(){
@@ -55,7 +57,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         if arrayHiddenCreate.contains(segueTitle) { // 실시간 장소리뷰, 공지사항
             btnCreatePost.isHidden = true
         }
-        tempFunc(reponseJSON)
+        setData(reponseJSON)
         
         let panGestureRecongnizer = UIPanGestureRecognizer(target: self, action: #selector(panAction(_ :)))
         panGestureRecongnizer.delegate = self
@@ -80,10 +82,10 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         return resultStr
     }
     
-    func tempFunc(_ reponseData: JSON){
+    func setData(_ reponseData: JSON){
         let arrayData = reponseData.arrayValue
         for data in arrayData {
-            let tempView = makeTempUv(data)
+            let tempView = makePostUv(data)
             svPostList.addArrangedSubview(tempView)
         }
         svPostList.translatesAutoresizingMaskIntoConstraints = false
@@ -102,7 +104,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         btnScrollUp.isHidden = (scrollPostList.contentOffset.y <= 0)
     }
     
-    func makeTempUv(_ postData: JSON) -> UIView {
+    func makePostUv(_ postData: JSON) -> UIView {
         let viewPost = UIView()
         viewPost.backgroundColor = .white
         viewPost.layer.cornerRadius = 15
@@ -112,7 +114,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         viewPost.layer.shadowOpacity = 0.9
         
         let imgProfile = UIImageView(image: UIImage(named: "tempProfile"))
-        let iconSize:CGFloat = 30
+        let iconSize:CGFloat = 35
         imgProfile.heightAnchor.constraint(equalToConstant: iconSize).isActive = true
         imgProfile.widthAnchor.constraint(equalToConstant: iconSize).isActive = true
         
@@ -125,7 +127,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         let lblPostInfo = UILabel()
         let strView:String = String(postData["viewCount"].intValue)
         let strDate:String = String(postData["updateDt"].string!.split(separator: " ")[0])
-        lblPostInfo.text = strView + " " + strDate
+        lblPostInfo.text = strView + "  " + strDate
         lblPostInfo.fontSize = 11
         lblPostInfo.textColor = .lightGray
         
@@ -269,12 +271,16 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         svMain.widthAnchor.constraint(equalTo: viewPost.widthAnchor, multiplier: 1).isActive = true
         svMain.heightAnchor.constraint(equalTo: viewPost.heightAnchor, multiplier: 1).isActive = true
         
-        viewPost.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gotoPost)))
+        viewPost.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gotoPost(_:))))
+        
+        viewPost.accessibilityIdentifier = postData["boardSn"].string
         
         return viewPost
     }
     
-    @objc func gotoPost(){
+    @objc func gotoPost(_ sender : UITapGestureRecognizer){
+        print(sender.view!.accessibilityIdentifier!)
+        boardSn = sender.view!.accessibilityIdentifier!
         let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "showPostView")
         self.navigationController?.pushViewController(goToVC!, animated: true)
     }
@@ -331,8 +337,8 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
      }
      */
     func requestPost(){
-        let url = developIP + "/board/selectBoardListInfo.do"
-        let jsonHeader = JSON(["userSn":"U200207_1581067560549"])
+        let url = OperationIP + "/board/selectBoardListInfo.do"
+        let jsonHeader = JSON(["userSn":(userData["userSn"] as? String)!])
         let parameter = JSON([
             "category": String(segueTitle+1),
             "filterInfo": "1m",
@@ -343,7 +349,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":"U200207_1581067560549"]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
         
         print(convertedHeaderString)
         print(convertedParameterString)

@@ -124,16 +124,9 @@ class SetLikeViewController: UIViewController {
             btn.label.textColor = .black
             btn.label.font = .systemFont(ofSize: 13)
             btn.rippleLayerColor = .lightGray
+            btn.label.topAnchor.constraint(equalTo: btn.imageView.bottomAnchor, constant: 0).isActive = true
         }
-//        let IconSize:CGFloat = (svEat.frame.width-(10*3))/4
-
-//
-//        for i in 1...4{
-//            let btn = MaterialVerticalButton(icon: UIImage(named: "GrayCircle")!, title: "밥"+String(i), font: .systemFont(ofSize: 14), foregroundColor: .black, useOriginalImg: true, bgColor: .white, cornerRadius: 0)
-//            btn.rippleLayerColor = .clear
-//            btn.rippleLayer.setRippleColor(color: .white)
-//            svSub.addArrangedSubview(btn)
-//        }
+        
         svEat.addArrangedSubview(svSub)
     }
     /*

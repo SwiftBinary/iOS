@@ -6,7 +6,7 @@ target 'PerfectDay-iOS' do
   use_frameworks!
 pod 'ImageSlideshow', '~> 1.8.3'
 pod 'RSKPlaceholderTextView'
-pod 'MaterialDesignWidgets'
+pod 'MaterialDesignWidgets', '~> 0.1.1'
 pod 'SwiftyJSON', '~> 4.0'
 pod 'XLPagerTabStrip', '~> 9.0'
 pod 'Alamofire', '~> 5.0.0-rc.3'

@@ -14,7 +14,6 @@
 		C70F4930241091F80058A61A /* LandmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70F492F241091F80058A61A /* LandmarkViewController.swift */; };
 		C70F4932241092140058A61A /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70F4931241092140058A61A /* LocationListViewController.swift */; };
 		C712AC4E24012258009BB29F /* WritePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C712AC4D24012258009BB29F /* WritePostViewController.swift */; };
-		C718B3CF2420A6A00017EC60 /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C718B3CD2420A6A00017EC60 /* Data.xcdatamodeld */; };
 		C718CE5A243CAF6800F544BF /* FindEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C718CE59243CAF6800F544BF /* FindEmailViewController.swift */; };
 		C71BAEA023F39D0400D82351 /* SearchPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71BAE9F23F39D0400D82351 /* SearchPostViewController.swift */; };
 		C71BAEA223F39DB700D82351 /* DibsCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71BAEA123F39DB700D82351 /* DibsCourseViewController.swift */; };
@@ -94,7 +93,6 @@
 		C70F492F241091F80058A61A /* LandmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkViewController.swift; sourceTree = "<group>"; };
 		C70F4931241092140058A61A /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 		C712AC4D24012258009BB29F /* WritePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritePostViewController.swift; sourceTree = "<group>"; };
-		C718B3CE2420A6A00017EC60 /* UserModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = UserModel.xcdatamodel; sourceTree = "<group>"; };
 		C718CE59243CAF6800F544BF /* FindEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindEmailViewController.swift; sourceTree = "<group>"; };
 		C71BAE9F23F39D0400D82351 /* SearchPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPostViewController.swift; sourceTree = "<group>"; };
 		C71BAEA123F39DB700D82351 /* DibsCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DibsCourseViewController.swift; sourceTree = "<group>"; };
@@ -243,7 +241,6 @@
 				C76A0FF22484E5E4008AC74C /* CategoryIcon.xcassets */,
 				C76A0FF02484E56E008AC74C /* Temp.xcassets */,
 				C74D96D623E7B1ED000E26C3 /* LaunchScreen.storyboard */,
-				C718B3CD2420A6A00017EC60 /* Data.xcdatamodeld */,
 				C74D96D923E7B1ED000E26C3 /* Info.plist */,
 			);
 			path = "PerfectDay-iOS";
@@ -494,7 +491,6 @@
 				C759B549247F3DAA0080E150 /* LocationViewController.swift in Sources */,
 				C759B54B247F3DD60080E150 /* LocationInfoViewController.swift in Sources */,
 				C74D96CE23E7B1E9000E26C3 /* SceneDelegate.swift in Sources */,
-				C718B3CF2420A6A00017EC60 /* Data.xcdatamodeld in Sources */,
 				C70F4930241091F80058A61A /* LandmarkViewController.swift in Sources */,
 				C7CD9D8923F1471400D26F62 /* DibsLocationViewController.swift in Sources */,
 				C739126C2406376900954617 /* AcceptContentViewController.swift in Sources */,
@@ -712,19 +708,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		C718B3CD2420A6A00017EC60 /* Data.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				C718B3CE2420A6A00017EC60 /* UserModel.xcdatamodel */,
-			);
-			currentVersion = C718B3CE2420A6A00017EC60 /* UserModel.xcdatamodel */;
-			path = Data.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = C74D96C023E7B1E9000E26C3 /* Project object */;
 }
