@@ -20,7 +20,7 @@ class DibsViewController: ButtonBarPagerTabStripViewController {
 
         func setUI(){
             // change selected bar color
-            settings.style.buttonBarBackgroundColor = .darkGray
+            settings.style.buttonBarBackgroundColor = .white
             settings.style.buttonBarItemBackgroundColor = .white
             settings.style.selectedBarBackgroundColor = colorPink
             settings.style.buttonBarItemFont = .boldSystemFont(ofSize: 14)

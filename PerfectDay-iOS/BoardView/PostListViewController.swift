@@ -44,7 +44,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     }
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
-        
+//        requestPost()
     }
     
     func getCatagoryInfo(){
@@ -84,10 +84,11 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     
     func setData(_ reponseData: JSON){
         let arrayData = reponseData.arrayValue
-        for data in arrayData {
+        for data in arrayData.reversed() {
             let tempView = makePostUv(data)
             svPostList.addArrangedSubview(tempView)
         }
+        
         svPostList.translatesAutoresizingMaskIntoConstraints = false
         let endLbl = UILabel()
         endLbl.text = " "
@@ -126,7 +127,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         imgViewCount.widthAnchor.constraint(equalTo: imgViewCount.heightAnchor, multiplier: 1).isActive = true
         let lblPostInfo = UILabel()
         let strView:String = String(postData["viewCount"].intValue)
-        let strDate:String = String(postData["updateDt"].string!.split(separator: " ")[0])
+        let strDate:String = String(postData["registerDt"].string!.split(separator: " ")[0])
         lblPostInfo.text = strView + "  " + strDate
         lblPostInfo.fontSize = 11
         lblPostInfo.textColor = .lightGray
@@ -155,7 +156,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         
         let lblTitle = UILabel()
         lblTitle.text = postData["title"].string
-        lblTitle.font = UIFont.boldSystemFont(ofSize: 20)
+        lblTitle.font = UIFont.boldSystemFont(ofSize: 17)
         let lblContent = UILabel()
         lblContent.isHidden = postData["content"].string == nil
         lblContent.text = postData["content"].string
@@ -167,14 +168,20 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         let scvTag = UIScrollView()
         scvTag.translatesAutoresizingMaskIntoConstraints = false
         let svTag = UIStackView()
-        for hashTag in strHashTag {
-            let btnHashTag = UIButton(type: .system)
-            btnHashTag.setTitle(setHashTagString(hashTag))
-            btnHashTag.layer.cornerRadius = 15
-            btnHashTag.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
-            btnHashTag.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
-            svTag.addArrangedSubview(btnHashTag)
+        let listHashTag = postData["hashTag"].string?.split(separator: " ")
+        if listHashTag == nil {
+            svTag.isHidden = true
+        } else {
+            for hashTag in listHashTag! {
+                let btn = UIButton(type: .system)
+                btn.setTitle(setHashTagString(String(hashTag)), for: .normal)
+                btn.layer.cornerRadius = 15
+                btn.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
+                btn.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
+                svTag.addArrangedSubview(btn)
+            }
         }
+        
         svTag.translatesAutoresizingMaskIntoConstraints = false
         svTag.spacing = 5
         scvTag.addSubview(svTag)
@@ -338,20 +345,17 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
      */
     func requestPost(){
         let url = OperationIP + "/board/selectBoardListInfo.do"
-        let jsonHeader = JSON(["userSn":(userData["userSn"] as? String)!])
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
         let parameter = JSON([
             "category": String(segueTitle+1),
-            "filterInfo": "1m",
+            "filterInfo": "all",
             "sortInfo": "viewCnt",
             "offset": 0,
             "limit": 20
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
         
-        print(convertedHeaderString)
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in

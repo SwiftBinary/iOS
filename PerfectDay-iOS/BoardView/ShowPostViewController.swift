@@ -22,15 +22,18 @@ class ShowPostViewController: UIViewController {
     @IBOutlet var uvPost: UIView!
     @IBOutlet var uvComment: UIView!
     
-    @IBOutlet var svHashTag: UIStackView!
     @IBOutlet var uvFunc: UIView!
+    @IBOutlet var svHashTag: UIStackView!
+    @IBOutlet var scvHashTag: UIScrollView!
     @IBOutlet var svimage: UIStackView!
-    @IBOutlet var svComment: UIStackView!
+    @IBOutlet var scvImage: UIScrollView!
     
+    @IBOutlet var svComment: UIStackView!
     @IBOutlet var lblTemp: UILabel!
     
     var checkLikePost = false
     var isMyPost = false
+    var isCommentUpdate = false
     
     let userData = getUserData()
     
@@ -44,9 +47,11 @@ class ShowPostViewController: UIViewController {
     @IBOutlet var lblContent: UILabel!
     
     @IBOutlet var tfComment: UITextField!
+    @IBOutlet var btnSendComment: UIButton!
     
     var reponseJSON: JSON = []
     var boardSn = ""
+    var replySn = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,17 +67,17 @@ class ShowPostViewController: UIViewController {
         boardSn = (navigationVCList[1] as! PostListViewController).boardSn
     }
     func requestPostFirst(){
-        let url = developIP + "/board/selectBoardInfo.do"
+        let url = OperationIP + "/board/selectBoardInfo.do"
         let parameter = JSON([
             "boardSn": boardSn
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
-        print(convertedParameterString)
+        //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
+            //            debugPrint(response)
             if response.value != nil {
                 self.reponseJSON = JSON(response.value!)
                 print("##")
@@ -91,11 +96,11 @@ class ShowPostViewController: UIViewController {
         
         lblUserNickName.text = postData["userDTO"]["userName"].string
         let strView:String = String(postData["viewCount"].intValue)
-        let strDate:String = String(postData["updateDt"].string!.split(separator: " ")[0])
+        let strDate:String = String(postData["registerDt"].string!.split(separator: " ")[0])
         lblPostInfo.text = strView + "  " + strDate
         
         lblContentTitle.text = postData["title"].string
-        lblContent.isHidden = postData["content"].string == nil
+        lblContent.isHidden = (postData["content"].string == nil)
         lblContent.text = postData["content"].string
         lblContent.numberOfLines = countLabelLines(label: lblContent)
         lblContent.lineBreakMode = .byCharWrapping
@@ -112,9 +117,8 @@ class ShowPostViewController: UIViewController {
         uvComment.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         
         let listHashTag = postData["hashTag"].string?.split(separator: " ")
-        
-        if listHashTag!.isEmpty {
-            svHashTag.isHidden = true
+        if listHashTag == nil {
+            scvHashTag.isHidden = true
         } else {
             for hashTag in listHashTag! {
                 let btn = UIButton(type: .system)
@@ -127,7 +131,7 @@ class ShowPostViewController: UIViewController {
         }
         
         if postData["photoList"].arrayValue.isEmpty {
-            svimage.isHidden = true
+            scvImage.isHidden = true
         }
         
         btnLike.title = String(postData["favorCount"].int!)
@@ -162,7 +166,7 @@ class ShowPostViewController: UIViewController {
         svFunc.widthAnchor.constraint(equalTo: uvFunc.widthAnchor, multiplier: 0.9).isActive = true
         svFunc.heightAnchor.constraint(equalTo: uvFunc.heightAnchor, multiplier: 1).isActive = true
         
-        updatePost()
+        updatePostUI()
         setComment(postData["replyList"])
     }
     
@@ -172,36 +176,35 @@ class ShowPostViewController: UIViewController {
         checkLikePost ? likePostOn() : likePostOff()
     }
     func likePostOn(){
-        let url = developIP + "/board/insertBoardFavorInfo.do"
+        let url = OperationIP + "/board/insertBoardFavorInfo.do"
         let parameter = JSON([
             "boardSn": boardSn
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
-        print(convertedParameterString)
+        //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
+            //            debugPrint(response)
             if response.value != nil {
-                self.requestPost()
+                self.requestPost(true)
             }
         }
     }
     func likePostOff(){
-        let url = developIP + "/board/deleteBoardFavorInfo.do"
+        let url = OperationIP + "/board/deleteBoardFavorInfo.do"
         let parameter = JSON([
             "boardSn": boardSn
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
-        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
+            //            debugPrint(response)
             if response.value != nil {
-                print(response.value!)
-                self.requestPost()
+                //                print(response.value!)
+                self.requestPost(true)
             }
         }
     }
@@ -210,21 +213,21 @@ class ShowPostViewController: UIViewController {
     //           댓글
     //###########################
     func setComment(_ comments: JSON) {
-        let listComment = comments.arrayValue
+        let listComment = comments.arrayValue.reversed()
         for comment in listComment{
-            let commentItem = makeCommentView(comment)
+            let isEnable = comment["isEnable"].stringValue
+            let commentItem = UIView()
+            if isEnable == "001" {
+                makeCommentView(comment,commentItem)
+            } else {
+                makeDeleteCommentView(comment,commentItem)
+            }
             svComment.addArrangedSubview(commentItem)
         }
         lblTemp.isHidden = true
         //        uvPost.heightAnchor.constraint(equalToConstant: uvPost.frame.height + svComment.frame.height).isActive = true
     }
-    
-    func makeCommentView(_ comment: JSON) -> UIView {
-        print(comment)
-        
-        let backComment = UIView()
-        //        backComment.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        
+    func makeCommentView(_ comment: JSON,_ backComment: UIView){
         let lblUserNickName = UILabel()
         lblUserNickName.text = String(comment["userDTO"]["userName"].string!)
         lblUserNickName.font = UIFont.systemFont(ofSize: commentFontSize)
@@ -238,13 +241,14 @@ class ShowPostViewController: UIViewController {
         lblTime.text =  "시간"
         lblTime.textColor = .lightGray
         lblTime.font = UIFont.systemFont(ofSize: commentInfoFontSize)
-        let btnLikeComment = UIButton(type: .system)
-        btnLikeComment.tag = 0
-        btnLikeComment.setTitle("공감" + String(comment["selectedFavor"].int!), for: .normal)
-        btnLikeComment.setImage(UIImage(named: "LikeOffBtn"), for: .normal)
-        btnLikeComment.addTarget(self, action: #selector(likeComment), for: .touchUpInside)
+        let btnLikeComment = UIButton(type: .custom)
+        btnLikeComment.setTitle(String(comment["selectedFavor"].intValue)+"공감" + String(comment["favorCount"].int!), for: .normal)
+        btnLikeComment.setImage(UIImage(named: (comment["selectedFavor"].intValue == 0) ? "LikeOffBtn":"LikeOnBtn"), for: .normal)
+        btnLikeComment.addTarget(self, action: #selector(likeComment(_:)), for: .touchUpInside)
         btnLikeComment.titleLabel!.font = UIFont.systemFont(ofSize: commentInfoFontSize)
-        btnLikeComment.setTitleColor(.lightGray, for: .normal)
+        btnLikeComment.setTitleColor((comment["selectedFavor"].intValue == 0) ? .lightGray: themeColor, for: .normal)
+        btnLikeComment.accessibilityIdentifier = comment["replySn"].stringValue
+        btnLikeComment.accessibilityValue = String(comment["selectedFavor"].intValue)
         
         let btnAddComment = UIButton(type: .system)
         btnAddComment.setTitle("댓글달기", for: .normal)
@@ -256,11 +260,28 @@ class ShowPostViewController: UIViewController {
         btnReportComment.setTitle("신고", for: .normal)
         btnReportComment.setTitleColor(.lightGray, for: .normal)
         btnReportComment.titleLabel!.font = UIFont.systemFont(ofSize: commentInfoFontSize)
+        btnReportComment.accessibilityIdentifier = comment["replySn"].stringValue
+        
+        let btnUpdateComment = UIButton(type: .system)
+        btnUpdateComment.addTarget(self, action: #selector(updateComment(_:)), for: .touchUpInside)
+        btnUpdateComment.setTitle("수정", for: .normal)
+        btnUpdateComment.setTitleColor(.lightGray, for: .normal)
+        btnUpdateComment.titleLabel!.font = UIFont.systemFont(ofSize: commentInfoFontSize)
+        btnUpdateComment.accessibilityIdentifier = comment["replySn"].stringValue
+        
+        let btnDeleteComment = UIButton(type: .system)
+        btnDeleteComment.addTarget(self, action: #selector(deleteComment(_:)), for: .touchUpInside)
+        btnDeleteComment.setTitle("삭제", for: .normal)
+        btnDeleteComment.setTitleColor(.lightGray, for: .normal)
+        btnDeleteComment.titleLabel!.font = UIFont.systemFont(ofSize: commentInfoFontSize)
+        btnDeleteComment.accessibilityIdentifier = comment["replySn"].stringValue
+        
         let lblSpace = UILabel()
         lblSpace.text = ""
         lblSpace.widthAnchor.constraint(lessThanOrEqualToConstant: 500).isActive = true
         
-        let svCommentInfo = UIStackView(arrangedSubviews: [lblTime,btnLikeComment,btnAddComment,btnReportComment,lblSpace])
+        let listCommentInfo = (comment["userSn"].stringValue == getString(userData["userSn"])) ? [lblTime,btnLikeComment,btnAddComment,btnUpdateComment,btnDeleteComment,lblSpace] : [lblTime,btnLikeComment,btnAddComment,btnReportComment,lblSpace]
+        let svCommentInfo = UIStackView(arrangedSubviews: listCommentInfo)
         svCommentInfo.spacing = 5
         svCommentInfo.axis = .horizontal
         svCommentInfo.distribution = .fill
@@ -289,8 +310,44 @@ class ShowPostViewController: UIViewController {
         svHorizontal.widthAnchor.constraint(equalTo: backComment.widthAnchor, multiplier: 1).isActive = true
         svHorizontal.heightAnchor.constraint(equalTo: backComment.heightAnchor, multiplier: 1).isActive = true
         
-        return backComment
+        //        return backComment
     }
+    func makeDeleteCommentView(_ comment: JSON,_ backComment: UIView){
+        let lblDeleteGuide = UILabel()
+        lblDeleteGuide.text = "삭제된 댓글입니다."
+        lblDeleteGuide.font = UIFont.systemFont(ofSize: commentFontSize)
+        
+        let lblDeleteGuide2 = UILabel()
+        lblDeleteGuide2.text = "삭제된 댓글입니다."
+        lblDeleteGuide2.font = UIFont.systemFont(ofSize: commentFontSize-2)
+        //        userComment.numberOfLines = 0
+        
+        let imgProfile = UIImageView(image: UIImage(named: "tempProfile"))
+        imgProfile.contentMode = .scaleAspectFit
+        imgProfile.widthAnchor.constraint(equalToConstant: commentProfileSize).isActive = true
+        imgProfile.heightAnchor.constraint(equalToConstant: commentProfileSize).isActive = true
+        
+        let svVertical = UIStackView(arrangedSubviews: [lblDeleteGuide,lblDeleteGuide2])
+        svVertical.axis = .vertical
+        svVertical.distribution = .fill
+        svVertical.spacing = 2
+        
+        let svHorizontal = UIStackView(arrangedSubviews: [imgProfile,svVertical])
+        svHorizontal.alignment = .top
+        svHorizontal.axis = .horizontal
+        svHorizontal.distribution = .fill
+        svHorizontal.spacing = 10
+        
+        svHorizontal.translatesAutoresizingMaskIntoConstraints = false
+        backComment.addSubview(svHorizontal)
+        backComment.addConstraint(NSLayoutConstraint(item: svHorizontal, attribute: .centerX, relatedBy: .equal, toItem: backComment, attribute: .centerX, multiplier: 1, constant: 0))
+        
+        svHorizontal.leadingAnchor.constraint(equalTo: backComment.leadingAnchor, constant: 0).isActive = true
+        svHorizontal.trailingAnchor.constraint(equalTo: backComment.trailingAnchor, constant: 0).isActive = true
+        svHorizontal.widthAnchor.constraint(equalTo: backComment.widthAnchor, multiplier: 1).isActive = true
+        svHorizontal.heightAnchor.constraint(equalTo: backComment.heightAnchor, multiplier: 1).isActive = true
+    }
+    
     @objc func menuComment(_ sender: IconButton) {
         let alertController = UIAlertController(title: "글 메뉴", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
@@ -333,31 +390,123 @@ class ShowPostViewController: UIViewController {
         alertController.addAction(reportAction2)
         alertController.addAction(reportAction3)
         alertController.addAction(reportAction4)
-        
         alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true, completion: nil)
     }
     
     @objc func likeComment(_ sender: UIButton){
-        if sender.tag == 0{
-            sender.setImage(UIImage(named: "LikeOnBtn"), for: .normal)
-            sender.tag = 1
-        } else {
-            sender.setImage(UIImage(named: "LikeOffBtn"), for: .normal)
-            sender.tag = 0
-        }
-        
+        let isFavor = sender.accessibilityValue!
+        replySn = sender.accessibilityIdentifier!
+        print("~~~~~")
+        print(isFavor)
+        print(replySn)
+        print("~~~~~")
+        (isFavor == "0") ? likeCommentOn(replySn,sender) : likeCommentOff(replySn,sender)
     }
+    func likeCommentOn(_ replySn: String, _ btn: UIButton){
+        print("ON")
+        let url = OperationIP + "/board/insertReplyFavorInfo.do"
+        let parameter = JSON([
+            "replySn": replySn
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+//        print(convertedParameterString)
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            if response.value != nil {
+                self.requestPost(false,btn)
+            }
+        }
+    }
+    func likeCommentOff(_ replySn: String, _ btn: UIButton){
+        print("OFF")
+        let url = OperationIP + "/board/deleteReplyFavorInfo.do"
+        let parameter = JSON([
+            "replySn": replySn
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+//        print(convertedParameterString)
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            debugPrint(response)
+            if response.value != nil {
+                self.requestPost(false,btn)
+            }
+        }
+    }
+    @objc func deleteComment(_ sender :UIButton) {
+        let alertController = UIAlertController(title: "댓글 삭제", message: "댓글을 삭제하시겠습니까?", preferredStyle: UIAlertController.Style.actionSheet)
+        let deleteCommentAction = UIAlertAction(title: "확인", style: .destructive, handler: { _ in
+            self.requestDeleteComment(sender)
+        })
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alertController.addAction(deleteCommentAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    func requestDeleteComment(_ btn: UIButton){
+        replySn = btn.accessibilityIdentifier!
+        let url = OperationIP + "/board/deleteReplyInfo.do"
+        let parameter = JSON([
+            "replySn": replySn
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+//            debugPrint(response)
+            if response.value != nil {
+                //                self.requestPost(false,btn)
+            }
+        }
+    }
+    @objc func updateComment(_ sender :UIButton) {
+        let alertController = UIAlertController(title: "댓글 수정", message: "댓글을 수정하시겠습니까?", preferredStyle: UIAlertController.Style.actionSheet)
+        let deleteCommentAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
+            self.isCommentUpdate = true
+            self.btnSendComment.setTitle("수정", for: .normal)
+            self.replySn = sender.accessibilityIdentifier!
+        })
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        alertController.addAction(deleteCommentAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    func requestUpdateComment(){
+        let url = OperationIP + "/board/updateReplyInfo.do"
+        let parameter = JSON([
+            "replySn" : replySn,
+            "boardSn" : boardSn,
+            "content" : tfComment.text!
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+//            debugPrint(response)
+            if response.value != nil {
+                self.btnSendComment.setTitle("등록", for: .normal)
+            }
+        }
+    }
+    
     @IBAction func sendComment(_ sender: UIButton) {
         if tfComment.text!.isEmpty {
             alertControllerDefault(title: "댓글을 입력해주세요.", message: "")
         } else {
-            requestComment(tfComment.text!)
+            isCommentUpdate ? requestUpdateComment() : requestComment(tfComment.text!)
+            
+            tfComment.text = ""
         }
     }
     func requestComment(_ comment: String){
-        let url = developIP + "/board/insertReplyInfo.do"
+        let url = OperationIP + "/board/insertReplyInfo.do"
         let parameter = JSON([
             "boardSn": boardSn,
             "content": comment
@@ -368,11 +517,11 @@ class ShowPostViewController: UIViewController {
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
+//            debugPrint(response)
             if response.value != nil {
-                print("#####")
-//                print(JSON(response.value!))
-//                print("##")
+                //                print("#####")
+                //                print(JSON(response.value!))
+                //                print("##")
             }
         }
     }
@@ -390,8 +539,8 @@ class ShowPostViewController: UIViewController {
     //######################
     //      업데이트용
     //######################
-    func requestPost(){
-        let url = developIP + "/board/selectBoardInfo.do"
+    func requestPost(_ isPost : Bool, _ btn: UIButton? = nil){
+        let url = OperationIP + "/board/selectBoardInfo.do"
         let parameter = JSON([
             "boardSn": boardSn
         ])
@@ -401,19 +550,28 @@ class ShowPostViewController: UIViewController {
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
+//            debugPrint(response)
             if response.value != nil {
                 self.reponseJSON = JSON(response.value!)
-                self.updatePost()
+                isPost ? self.updatePostUI() : self.updateCommentUI(btn!)
             }
         }
     }
-    func updatePost(){
+    func updatePostUI(){
         let postData = reponseJSON
         checkLikePost = (postData["selectedFavor"].int != 0)
         btnLike.setImage(UIImage(named: checkLikePost ? "LikeOnBtn" : "LikeOffBtn"), for: .normal)
         btnLike.titleColor = checkLikePost ? themeColor : .darkGray
         btnLike.title = String(postData["favorCount"].int!)
         btnComment.title = String(postData["replyCount"].int!)
+    }
+    func updateCommentUI(_ btn : UIButton){
+        let postData = reponseJSON
+        for comment in postData["replyList"].arrayValue {
+            btn.setTitle(String(comment["selectedFavor"].intValue) + "공감" + String(comment["favorCount"].int!), for: .normal)
+            btn.setImage(UIImage(named: (comment["selectedFavor"].intValue == 0) ?  "LikeOffBtn":"LikeOnBtn"), for: .normal)
+            btn.setTitleColor((comment["selectedFavor"].intValue == 0) ? .lightGray: themeColor, for: .normal)
+            btn.accessibilityValue = String(comment["selectedFavor"].intValue)
+        }
     }
 }

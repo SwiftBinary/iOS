@@ -11,13 +11,15 @@ import SwiftyJSON
 import Alamofire
 import MobileCoreServices
 import RSKPlaceholderTextView
+import Material
 
 class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextViewDelegate {
     
-
+    
     let developIP = "http://203.252.161.96:8080"
     let OperationIP = "http://203.252.161.219:8080"
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
+    let userData = getUserData()
     
     @IBOutlet var tfTitle: UITextField!
     @IBOutlet var tvContentView: UIView!
@@ -31,17 +33,31 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
     @IBOutlet var svUploadImage: UIStackView!
     @IBOutlet var svUploadImage2: UIStackView!
     
+    @IBOutlet var bbtnBack: UIBarButtonItem!
+    
+    var categorySn: Int = 0
     var uploadPost = false
     @IBOutlet var btnUploadPost: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "게시글 작성하기"
-        self.tabBarController?.tabBar.isHidden = true
+        getCategorySn()
         setUI()
     }
     
+    func getCategorySn(){
+        let navigationVCList = self.navigationController!.viewControllers
+        categorySn = (navigationVCList[1] as! PostListViewController).segueTitle + 1
+    }
+    
     func setUI(){
+        self.navigationItem.title = "게시글 작성하기"
+        self.navigationItem.titleLabel.textColor = .black
+        self.navigationItem.hidesBackButton = true
+        self.tabBarController?.tabBar.isHidden = true
+        
+        bbtnBack.image = Icon.close
+        
         tfTitle.smartInsertDeleteType = UITextSmartInsertDeleteType.no
         tfTitle.delegate = self
         
@@ -88,7 +104,7 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         
         if mediaType.isEqual(to: kUTTypeImage as NSString as String) {
             captureImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-//            UIImageWriteToSavedPhotosAlbum(captureImage, self, nil, nil)
+            //            UIImageWriteToSavedPhotosAlbum(captureImage, self, nil, nil)
             imgView.image = captureImage
         }
         self.dismiss(animated: true, completion: nil)
@@ -116,38 +132,50 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
     }
     
     @IBAction func uploadPost(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "게시글 업로드", message: "게시글을 업로드 하시겠습니까?", preferredStyle: UIAlertController.Style.actionSheet)
+        let deleteCommentAction = UIAlertAction(title: "확인", style: .destructive, handler: { _ in
+            self.requestUploadPost()
+        })
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alertController.addAction(deleteCommentAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    func requestUploadPost(){
         let postTitle = tfTitle.text!
         let postContent = (tvContentView.subviews[0] as! RSKPlaceholderTextView).text!
         let url = OperationIP + "/board/insertBoardInfo.do"
-        let jsonHeader = JSON(["userSn":"U200207_1581067560549"])
         let parameter = JSON([
-                "boardSn": "1",
-            "category": 4,
-                "title": "test",
-                "content": "test",
-                "hashTag": "iii",
-
+            //                "boardSn": "1",
+            "category": categorySn,
+            "title": postTitle,
+            "content": postContent,
+            "hashTag": "test",
         ])
         
-        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["json":convertedHeaderString]
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
+        
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             debugPrint(response)
             if response.value != nil {
                 let reponseJSON = JSON(response.value!)
+                print(reponseJSON)
             }
         }
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

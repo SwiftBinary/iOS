@@ -78,11 +78,11 @@ class HomeViewController: UIViewController {
         
         let fontSize:CGFloat = 16
         
-        let btnOneClickCourse = MaterialVerticalButton(icon: UIImage(named: "CourseRecommandIcon")!, text: "원클릭 데이트 코스 추천", font: nil ,foregroundColor: .black, bgColor: .white, useOriginalImg: true,cornerRadius: 15.0)
+        let btnOneClickCourse = MaterialVerticalButton(icon: UIImage(named: "CourseRecommandIcon")!, text: "원클릭 코스 추천", font: nil ,foregroundColor: .black, bgColor: .white, useOriginalImg: true,cornerRadius: 15.0)
         btnOneClickCourse.label.font = UIFont.boldSystemFont(ofSize: fontSize)
         btnOneClickCourse.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         
-        let btnFindAroundLocation = MaterialVerticalButton(icon: UIImage(named: "SearchLocationIcon")!, text: "내 주변 데이트 장소 찾기", font: nil ,foregroundColor: .black, bgColor: .white, useOriginalImg: true, cornerRadius: 15.0)
+        let btnFindAroundLocation = MaterialVerticalButton(icon: UIImage(named: "SearchLocationIcon")!, text: "내 주변 장소 찾기", font: nil ,foregroundColor: .black, bgColor: .white, useOriginalImg: true, cornerRadius: 15.0)
         btnFindAroundLocation.label.font = UIFont.boldSystemFont(ofSize: fontSize)
         btnFindAroundLocation.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
         
@@ -239,6 +239,7 @@ class HomeViewController: UIViewController {
         btnADHelp.setImage(UIImage(named: "HelpIcon"), for: .normal)
         //        lblADLabel.semanticContentAttribute = .
         btnADHelp.contentHorizontalAlignment = .center
+        btnADHelp.addTarget(self, action: #selector(temptouch(_:)), for: .touchDown)
         
         let svLocationName = UIStackView(arrangedSubviews: [btnADLabel,lblLocationName,btnADHelp])
         svLocationName.axis = .horizontal
@@ -254,6 +255,10 @@ class HomeViewController: UIViewController {
         svItem.spacing = 7
         
         stackView.addArrangedSubview(svItem)
+    }
+    
+    @objc func temptouch(_ sender: UIButton){
+        
     }
     
     func addTodayPlaceItem(_ stackView: UIStackView, _ items: [Int]){

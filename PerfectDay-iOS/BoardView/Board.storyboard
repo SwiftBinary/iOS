@@ -442,6 +442,7 @@
                         <viewLayoutGuide key="safeArea" id="9hJ-iS-wSv"/>
                     </view>
                     <navigationItem key="navigationItem" id="elR-sQ-VVx">
+                        <barButtonItem key="backBarButtonItem" title=" " id="898-SL-BbW"/>
                         <rightBarButtonItems>
                             <barButtonItem image="slider.horizontal.3" catalog="system" id="Qwm-VV-41r">
                                 <connections>
@@ -492,6 +493,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
                                                     <action selector="checkEdit:" destination="elY-2H-xwr" eventType="editingChanged" id="8Dd-Xc-yj3"/>
+                                                    <action selector="tfFocusing:" destination="elY-2H-xwr" eventType="editingDidEnd" id="dto-gH-022"/>
                                                 </connections>
                                             </textField>
                                         </subviews>
@@ -692,8 +694,14 @@
                     </view>
                     <navigationItem key="navigationItem" title="게시글 작성하기" id="JnI-bi-w4o">
                         <barButtonItem key="backBarButtonItem" title=" " id="hJU-3t-Z0a"/>
+                        <barButtonItem key="leftBarButtonItem" title=" " id="Qao-iR-wSD">
+                            <connections>
+                                <action selector="gotoBack:" destination="elY-2H-xwr" id="bkb-bW-sL4"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bbtnBack" destination="Qao-iR-wSD" id="dy4-c5-NT9"/>
                         <outlet property="btnUploadPost" destination="eHg-SM-hRe" id="1sa-0W-gAq"/>
                         <outlet property="imgView" destination="LdS-oo-h2b" id="fnW-EY-Pep"/>
                         <outlet property="svUploadImage" destination="Z69-33-19s" id="X5x-lL-zFb"/>
@@ -806,13 +814,13 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="게시글 내용" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJf-jA-ztl">
-                                                                        <rect key="frame" x="0.0" y="75.5" width="373" height="20.5"/>
-                                                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                                                        <rect key="frame" x="0.0" y="75.5" width="373" height="18"/>
+                                                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJD-mr-klW" userLabel="HashTag Scroll">
-                                                                        <rect key="frame" x="0.0" y="106" width="373" height="91"/>
+                                                                        <rect key="frame" x="0.0" y="103.5" width="373" height="91"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ZW0-Ty-BHG">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="0.0" height="91"/>
@@ -834,10 +842,10 @@
                                                                         </constraints>
                                                                     </scrollView>
                                                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mYZ-Os-kub" userLabel="HashTag Scroll">
-                                                                        <rect key="frame" x="0.0" y="207" width="373" height="160"/>
+                                                                        <rect key="frame" x="0.0" y="204.5" width="373" height="162.5"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="03b-Up-k7W">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="160"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="162.5"/>
                                                                                 <subviews>
                                                                                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tempProfile" translatesAutoresizingMaskIntoConstraints="NO" id="oHU-tu-ZyL">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -991,11 +999,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="xyZ-GK-rUK"/>
                     <connections>
+                        <outlet property="btnSendComment" destination="MYz-Tx-PAo" id="Ow9-mx-9wP"/>
                         <outlet property="lblContent" destination="hJf-jA-ztl" id="HvV-GP-AKn"/>
                         <outlet property="lblContentTitle" destination="9go-AH-N1W" id="qaE-pT-sY9"/>
                         <outlet property="lblPostInfo" destination="6fr-Ib-ige" id="egu-L3-FLA"/>
                         <outlet property="lblTemp" destination="DEu-a1-D0v" id="HAS-8k-gbl"/>
                         <outlet property="lblUserNickName" destination="rmo-cV-x8P" id="iTK-hm-bYe"/>
+                        <outlet property="scvHashTag" destination="UJD-mr-klW" id="mBs-iS-01s"/>
+                        <outlet property="scvImage" destination="mYZ-Os-kub" id="D2Y-d8-ofa"/>
                         <outlet property="svComment" destination="dgi-2O-tc8" id="B91-GS-Ws0"/>
                         <outlet property="svHashTag" destination="ZW0-Ty-BHG" id="JxV-q5-hc1"/>
                         <outlet property="svimage" destination="03b-Up-k7W" id="zgP-zC-DK9"/>
