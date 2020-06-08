@@ -35,8 +35,10 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
     
     @IBOutlet var bbtnBack: UIBarButtonItem!
     
+    var isUpdatePost = false
     var categorySn: Int = 0
     var uploadPost = false
+    var reponseJSON: JSON = []
     @IBOutlet var btnUploadPost: UIButton!
     
     override func viewDidLoad() {
@@ -46,8 +48,15 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
     }
     
     func getCategorySn(){
-        let navigationVCList = self.navigationController!.viewControllers
-        categorySn = (navigationVCList[1] as! PostListViewController).segueTitle + 1
+        var navigationVCList = self.navigationController!.viewControllers
+        navigationVCList = navigationVCList.reversed()
+        if type(of: navigationVCList[1]) == PostListViewController.self {
+            categorySn = (navigationVCList[1] as! PostListViewController).segueTitle + 1
+        } else {
+            self.reponseJSON = (navigationVCList[1] as! ShowPostViewController).reponseJSON
+            categorySn = reponseJSON["category"].intValue
+            isUpdatePost = true
+        }
     }
     
     func setUI(){
@@ -65,6 +74,14 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         content.placeholder = "내용을 입력하세요. (최대 1000자 까지 입력 가능)"
         content.delegate = self
         tvContentView.addSubview(content)
+        
+        print(isUpdatePost)
+        if isUpdatePost {
+            btnUploadPost.setTitle("게시글 수정하기", for: .normal)
+            tfTitle.text = reponseJSON["title"].stringValue
+            content.text = reponseJSON["content"].stringValue
+            tfHashTag.text = reponseJSON["hashTag"].stringValue
+        }
         
     }
     
@@ -132,28 +149,37 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
     }
     
     @IBAction func uploadPost(_ sender: UIButton) {
-        let alertController = UIAlertController(title: "게시글 업로드", message: "게시글을 업로드 하시겠습니까?", preferredStyle: UIAlertController.Style.actionSheet)
-        let deleteCommentAction = UIAlertAction(title: "확인", style: .destructive, handler: { _ in
-            self.requestUploadPost()
-        })
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        let alertController = UIAlertController(title: isUpdatePost ? "게시글 수정":"게시글 업로드", message: isUpdatePost ? "게시글을 수정하시겠습니까?":"게시글을 업로드 하시겠습니까?", preferredStyle: UIAlertController.Style.actionSheet)
         
-        alertController.addAction(deleteCommentAction)
+        if isUpdatePost{
+            let uploadPostAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
+                self.requestUpdatePost()
+            })
+            alertController.addAction(uploadPostAction)
+        } else {
+            let uploadPostAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
+                self.requestUploadPost()
+            })
+            alertController.addAction(uploadPostAction)
+        }
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
         
     }
     
-    func requestUploadPost(){
+    func requestUpdatePost(){
         let postTitle = tfTitle.text!
         let postContent = (tvContentView.subviews[0] as! RSKPlaceholderTextView).text!
-        let url = OperationIP + "/board/insertBoardInfo.do"
+        let postHashTag = (tfHashTag.text!.isEmpty) ? " " : tfHashTag.text!
+        let url = OperationIP + "/board/updateBoardInfo.do"
         let parameter = JSON([
-            //                "boardSn": "1",
+            "boardSn": reponseJSON["boardSn"].stringValue,
             "category": categorySn,
             "title": postTitle,
             "content": postContent,
-            "hashTag": "test",
+            "hashTag": postHashTag,
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
@@ -163,9 +189,37 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             debugPrint(response)
             if response.value != nil {
-                let reponseJSON = JSON(response.value!)
-                print(reponseJSON)
+//                let reponseJSON = JSON(response.value!)
+//                print(reponseJSON)
             }
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    func requestUploadPost(){
+        let postTitle = tfTitle.text!
+        let postContent = (tvContentView.subviews[0] as! RSKPlaceholderTextView).text!
+        let postHashTag = (tfHashTag.text!.isEmpty) ? " " : tfHashTag.text!
+        let url = OperationIP + "/board/insertBoardInfo.do"
+        let parameter = JSON([
+            //                "boardSn": "1",
+            "category": categorySn,
+            "title": postTitle,
+            "content": postContent,
+            "hashTag": postHashTag,
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
+        
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            debugPrint(response)
+            if response.value != nil {
+//                let reponseJSON = JSON(response.value!)
+//                print(reponseJSON)
+            }
+            self.navigationController?.popViewController(animated: true)
         }
     }
     /*

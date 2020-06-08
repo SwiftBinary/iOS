@@ -30,12 +30,12 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.3)
   - CryptoSwift (~> 1.0)
-  - FBSDKLoginKit
+  - FBSDKLoginKit (~> 7.0.0)
   - ImageSlideshow (~> 1.8.3)
   - Material (~> 3.1.0)
-  - MaterialDesignWidgets
-  - naveridlogin-sdk-ios
-  - RSKPlaceholderTextView
+  - MaterialDesignWidgets (~> 0.1.1)
+  - naveridlogin-sdk-ios (~> 4.1.2)
+  - RSKPlaceholderTextView (~> 6.0.3)
   - SwiftyJSON (~> 4.0)
   - XLPagerTabStrip (~> 9.0)
 
@@ -68,6 +68,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
 
-PODFILE CHECKSUM: 9333dcb686eb391b5ff029e9804f802d3bef364d
+PODFILE CHECKSUM: 4aefbca7ec6f502bafdd63cbcc63a613b3e1a0ad
 
 COCOAPODS: 1.9.0.beta.2

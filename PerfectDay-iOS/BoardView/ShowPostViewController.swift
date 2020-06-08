@@ -153,7 +153,7 @@ class ShowPostViewController: UIViewController {
         let btnMenu = IconButton()
         btnMenu.image = Icon.cm.moreHorizontal
         btnMenu.tintColor = .darkGray
-        btnMenu.addTarget(self, action: #selector(menuComment(_:)), for: .touchUpInside)
+        btnMenu.addTarget(self, action: #selector(menuPost(_:)), for: .touchUpInside)
         let svFunc = UIStackView(arrangedSubviews: [btnLike,btnComment,lblTemp,btnMenu])
         svFunc.axis = .horizontal
         svFunc.distribution = .fillProportionally
@@ -206,6 +206,67 @@ class ShowPostViewController: UIViewController {
                 //                print(response.value!)
                 self.requestPost(true)
             }
+        }
+    }
+    @objc func menuPost(_ sender: IconButton) {
+        let alertController = UIAlertController(title: "글 메뉴", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        
+        let MyPostEditAction = UIAlertAction(title: "수정", style: .default, handler: { _ in
+            self.updatePost()
+        })
+        let MyPostDeleteAction = UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
+            self.deletePostAlert()
+        })
+        
+        let PostAction = UIAlertAction(title: "신고", style: .default, handler: { _ in
+            self.reportPostOrComment()
+        })
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        if getString(userData["userSn"]) == reponseJSON["userSn"].stringValue {
+            alertController.addAction(MyPostEditAction)
+            alertController.addAction(MyPostDeleteAction)
+        } else {
+            alertController.addAction(PostAction)
+        }
+        
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    func updatePost(){
+        let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "writePostView")
+        self.navigationController?.pushViewController(goToVC!, animated: true)
+    }
+    func deletePostAlert(){
+        let alertController = UIAlertController(title: "글을 삭제하시겠습니까?", message: "삭제된 게시글은 되돌릴 수 없습니다.", preferredStyle: UIAlertController.Style.actionSheet)
+        
+        let MyPostDeleteAction = UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
+            self.deletePost()
+        })
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alertController.addAction(MyPostDeleteAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    func deletePost(){
+        let url = OperationIP + "/board/deleteBoardInfo.do"
+        let parameter = JSON([
+            "boardSn": reponseJSON["boardSn"].stringValue
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
+        
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            debugPrint(response)
+            if response.value != nil {
+                print(response.value!)
+            }
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -348,33 +409,6 @@ class ShowPostViewController: UIViewController {
         svHorizontal.heightAnchor.constraint(equalTo: backComment.heightAnchor, multiplier: 1).isActive = true
     }
     
-    @objc func menuComment(_ sender: IconButton) {
-        let alertController = UIAlertController(title: "글 메뉴", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
-        
-        let MyPostEditAction = UIAlertAction(title: "수정", style: .default, handler: { _ in
-            
-        })
-        let MyPostDeleteAction = UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
-            
-        })
-        
-        let PostAction = UIAlertAction(title: "신고", style: .default, handler: { _ in
-            self.reportPostOrComment()
-        })
-        
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        
-        if isMyPost {
-            alertController.addAction(MyPostEditAction)
-            alertController.addAction(MyPostDeleteAction)
-        } else {
-            alertController.addAction(PostAction)
-        }
-        
-        alertController.addAction(cancelAction)
-        present(alertController, animated: true, completion: nil)
-    }
-    
     @objc func reportPostOrComment(){
         let alertController = UIAlertController(title: "신고 사유 선택", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
@@ -413,7 +447,7 @@ class ShowPostViewController: UIViewController {
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
-//        print(convertedParameterString)
+        //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             if response.value != nil {
@@ -429,7 +463,7 @@ class ShowPostViewController: UIViewController {
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
-//        print(convertedParameterString)
+        //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             debugPrint(response)
@@ -460,7 +494,7 @@ class ShowPostViewController: UIViewController {
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-//            debugPrint(response)
+            //            debugPrint(response)
             if response.value != nil {
                 //                self.requestPost(false,btn)
             }
@@ -486,10 +520,10 @@ class ShowPostViewController: UIViewController {
             "content" : tfComment.text!
         ])
         
-        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-//            debugPrint(response)
+            //            debugPrint(response)
             if response.value != nil {
                 self.btnSendComment.setTitle("등록", for: .normal)
             }
@@ -512,12 +546,12 @@ class ShowPostViewController: UIViewController {
             "content": comment
         ])
         
-        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-//            debugPrint(response)
+            //            debugPrint(response)
             if response.value != nil {
                 //                print("#####")
                 //                print(JSON(response.value!))
@@ -550,7 +584,7 @@ class ShowPostViewController: UIViewController {
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-//            debugPrint(response)
+            //            debugPrint(response)
             if response.value != nil {
                 self.reponseJSON = JSON(response.value!)
                 isPost ? self.updatePostUI() : self.updateCommentUI(btn!)
@@ -568,10 +602,16 @@ class ShowPostViewController: UIViewController {
     func updateCommentUI(_ btn : UIButton){
         let postData = reponseJSON
         for comment in postData["replyList"].arrayValue {
-            btn.setTitle(String(comment["selectedFavor"].intValue) + "공감" + String(comment["favorCount"].int!), for: .normal)
-            btn.setImage(UIImage(named: (comment["selectedFavor"].intValue == 0) ?  "LikeOffBtn":"LikeOnBtn"), for: .normal)
-            btn.setTitleColor((comment["selectedFavor"].intValue == 0) ? .lightGray: themeColor, for: .normal)
-            btn.accessibilityValue = String(comment["selectedFavor"].intValue)
+            if btn.accessibilityIdentifier! == comment["replySn"].stringValue{
+                print(comment)
+                let isSelectedFavor = comment["selectedFavor"].intValue
+                btn.setTitle(String(isSelectedFavor) + "공감" + String(comment["favorCount"].int!), for: .normal)
+                btn.setImage(UIImage(named: (isSelectedFavor == 0) ?  "LikeOffBtn":"LikeOnBtn"), for: .normal)
+                btn.setTitleColor((isSelectedFavor == 0) ? .lightGray: themeColor, for: .normal)
+                btn.accessibilityValue = String(isSelectedFavor)
+                print(btn.accessibilityIdentifier)
+                print(btn.accessibilityValue)
+            }
         }
     }
 }

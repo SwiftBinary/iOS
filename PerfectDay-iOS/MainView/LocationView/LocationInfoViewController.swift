@@ -35,6 +35,7 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         setBottomInfoUI()
         setScrollUI()
     }
+
     
     func setImageUI() {
         let issBanner = ImageSlideshow()

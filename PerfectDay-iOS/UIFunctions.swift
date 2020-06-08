@@ -62,6 +62,11 @@ public func getString(_ data: Any?) -> String {
     return data as! String
 }
 
+public func getImageURL(_ storeSn:String,_ imageSn: String) -> String{
+    let URL = ImageURL + storeSn + "/" + imageSn
+    return URL
+}
+
 extension UITextView
 {
     

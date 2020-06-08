@@ -8,18 +8,42 @@
 
 import UIKit
 import MaterialDesignWidgets
+import Alamofire
+import SwiftyJSON
 
 class LocationViewController: UIViewController {
-
+    
     @IBOutlet var uvPlannerBack: UIView!
     @IBOutlet var btnAddPlanner: UIButton!
+    
+    let userData = getUserData()
+    //    let locationData = JSON()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
+        getLocationInfo()
         setNavigationUI()
         setPlannerUI()
         // Do any additional setup after loading the view.
+    }
+    func getLocationInfo(){
+        if (UserDefaults.standard.string(forKey: locationSnKey) != nil) {
+            let locationSn = UserDefaults.standard.string(forKey: locationSnKey)!
+            let url = OperationIP + "/store/selectStoreInfo.do"
+            let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+            let parameter = JSON([
+                "storeSn": locationSn,
+            ])
+            let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+            AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+                //                  debugPrint(response)
+                if response.value != nil {
+                    let reponseJSON = JSON(response.value!)
+                    print(reponseJSON)
+                }
+            }
+        }
     }
     
     func setNavigationUI(){
@@ -45,15 +69,15 @@ class LocationViewController: UIViewController {
         
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
