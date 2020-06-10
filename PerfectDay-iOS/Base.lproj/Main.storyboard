@@ -954,11 +954,23 @@
                                     <constraint firstAttribute="height" constant="75" id="t8G-ao-Wvx"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6i-5m-66l">
+                                <rect key="frame" x="343.33333333333331" y="717" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="KIy-Ld-SKl"/>
+                                    <constraint firstAttribute="height" constant="50" id="LcI-VH-HKW"/>
+                                </constraints>
+                                <state key="normal" image="PlannerIcon">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="OdF-zt-5VE" firstAttribute="trailing" secondItem="ozf-pY-Uar" secondAttribute="trailing" id="3lk-I2-Ka2"/>
                             <constraint firstItem="OdF-zt-5VE" firstAttribute="leading" secondItem="ozf-pY-Uar" secondAttribute="leading" id="ElE-bf-2cy"/>
+                            <constraint firstItem="p6i-5m-66l" firstAttribute="trailing" secondItem="EYz-7Z-ZGe" secondAttribute="trailing" id="PH9-DT-Jwo"/>
+                            <constraint firstItem="QRx-We-B1R" firstAttribute="top" secondItem="p6i-5m-66l" secondAttribute="bottom" constant="20" id="TPk-ub-5BN"/>
                             <constraint firstItem="OdF-zt-5VE" firstAttribute="top" secondItem="ozf-pY-Uar" secondAttribute="top" id="WMg-fs-FB4"/>
                             <constraint firstItem="ozf-pY-Uar" firstAttribute="bottom" secondItem="QRx-We-B1R" secondAttribute="bottom" id="dMQ-1a-lT9"/>
                             <constraint firstItem="QRx-We-B1R" firstAttribute="leading" secondItem="ozf-pY-Uar" secondAttribute="leading" id="f17-mq-DlS"/>
@@ -969,6 +981,7 @@
                     </view>
                     <connections>
                         <outlet property="btnAddPlanner" destination="EYz-7Z-ZGe" id="lgT-wT-GN8"/>
+                        <outlet property="btnPlanner" destination="p6i-5m-66l" id="idb-EH-bOv"/>
                         <outlet property="uvPlannerBack" destination="QRx-We-B1R" id="A7T-cV-ysX"/>
                     </connections>
                 </viewController>
@@ -1009,7 +1022,10 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="390"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qao-RB-yc2">
-                                                        <rect key="frame" x="20.666666666666657" y="15" width="393.33333333333337" height="40"/>
+                                                        <rect key="frame" x="10.333333333333343" y="15" width="393.33333333333326" height="40"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="d7F-Wk-1H2"/>
+                                                        </constraints>
                                                         <state key="normal" title="랜드마크 페이지" image="SearchLocationIcon">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -1017,12 +1033,19 @@
                                                             <segue destination="m2n-gu-LlV" kind="show" id="B3J-2q-yKU"/>
                                                         </connections>
                                                     </button>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="AYV-np-vRa">
+                                                        <rect key="frame" x="10" y="55" width="394" height="295"/>
+                                                    </stackView>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
+                                                    <constraint firstItem="Qao-RB-yc2" firstAttribute="centerX" secondItem="EVl-Yf-6Pq" secondAttribute="centerX" id="8L0-G5-Qmh"/>
+                                                    <constraint firstItem="AYV-np-vRa" firstAttribute="top" secondItem="Qao-RB-yc2" secondAttribute="bottom" id="9hL-1V-acA"/>
                                                     <constraint firstItem="Qao-RB-yc2" firstAttribute="width" secondItem="EVl-Yf-6Pq" secondAttribute="width" multiplier="0.95" id="9lf-cd-YdA"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Qao-RB-yc2" secondAttribute="trailing" id="T36-fH-xnG"/>
+                                                    <constraint firstAttribute="trailing" secondItem="AYV-np-vRa" secondAttribute="trailing" constant="10" id="KD9-a5-Qbt"/>
+                                                    <constraint firstAttribute="bottom" secondItem="AYV-np-vRa" secondAttribute="bottom" constant="40" id="RLe-SI-U12"/>
                                                     <constraint firstItem="Qao-RB-yc2" firstAttribute="top" secondItem="EVl-Yf-6Pq" secondAttribute="top" constant="15" id="WeH-eb-o0W"/>
+                                                    <constraint firstItem="AYV-np-vRa" firstAttribute="leading" secondItem="EVl-Yf-6Pq" secondAttribute="leading" constant="10" id="he3-U8-eOA"/>
                                                     <constraint firstAttribute="height" constant="390" id="xrT-mU-q2m"/>
                                                 </constraints>
                                             </view>
@@ -1099,6 +1122,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="svFuncButton" destination="Rdy-sM-DuL" id="AgV-Kl-Fxt"/>
+                        <outlet property="svTempLandmark" destination="AYV-np-vRa" id="m48-fw-2GA"/>
                         <outlet property="svThemeLocation" destination="bud-lp-ngT" id="Rgz-kD-l6S"/>
                         <outlet property="uvFuncButton" destination="6ec-eQ-aw7" id="dpY-uu-niq"/>
                         <outlet property="uvLandmark" destination="EVl-Yf-6Pq" id="Bgy-Pl-T78"/>
@@ -1671,6 +1695,7 @@
         <image name="MapGuideImg" width="226" height="462"/>
         <image name="NaverBtn" width="55" height="55"/>
         <image name="PlannerBtn" width="38" height="38"/>
+        <image name="PlannerIcon" width="50" height="50"/>
         <image name="ReviewBoardIcon" width="120" height="120"/>
         <image name="SearchLocationIcon" width="40" height="40"/>
         <image name="cm_check_white" width="24" height="24"/>

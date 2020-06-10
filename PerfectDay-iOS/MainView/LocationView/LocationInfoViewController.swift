@@ -8,8 +8,10 @@
 
 import UIKit
 import MapKit
+import SwiftyJSON
 import XLPagerTabStrip
 import ImageSlideshow
+import Alamofire
 
 class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,IndicatorInfoProvider,MKMapViewDelegate {
     var itemInfo: IndicatorInfo = "View"
@@ -23,9 +25,10 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
     
     let scvLocationInfo = UIScrollView()
     let svLocationInfo = UIStackView()
-    let strHashTag = ["건대", "홍대", "강남", "이색", "고궁", "tv방영", "가성비", "고급진", "국밥", "방탈출", "야식", "비오는날", "100일데이트코스", "커플100%되는곳", "킬링타임코스", "호불호없는"]
     let sizeTitle:CGFloat = 20
     let sizeContent:CGFloat = 14
+    
+    let userData = getUserData() // Dictionary<String,Any>
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +38,21 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         setBottomInfoUI()
         setScrollUI()
     }
-
+    
     
     func setImageUI() {
         let issBanner = ImageSlideshow()
-        let localSource = [BundleImageSource(imageString: "testBanner0"), BundleImageSource(imageString: "testBanner1"), BundleImageSource(imageString: "testBanner2"), BundleImageSource(imageString: "testBanner3"),BundleImageSource(imageString: "TempImage")]
+        var localSource:Array<ImageSource> = []
+        for imageURL in locationData["storeImageUrlList"].arrayValue {
+            let url = URL(string: getImageURL(locationData["storeSn"].stringValue,
+            imageURL.stringValue))
+            let data = try? Data(contentsOf: url!)
+            if data != nil {
+                localSource.append(ImageSource(image: UIImage(data: data!)!))
+            } else {
+                localSource.append(ImageSource(image: UIImage(named: "TempImage")!))
+            }
+        }
         issBanner.slideshowInterval = 5.0
         issBanner.contentScaleMode = UIViewContentMode.scaleAspectFill
         issBanner.activityIndicator = DefaultActivityIndicator()
@@ -52,17 +65,21 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
     
     func setTopInfoUI(){
         let lblMainMenuName = UILabel()
-        lblMainMenuName.text = "대표메뉴명"
+        lblMainMenuName.text = locationData["menuList"].arrayValue[0]["menuNm"].stringValue
         lblMainMenuName.font = UIFont.boldSystemFont(ofSize: 20)
         let lblMainMenuPrice = UILabel()
-        lblMainMenuPrice.text = "₩ 5,000원"
+        if locationData["reprMenuPrice"].intValue == 0 {
+            lblMainMenuPrice.text = "무료"
+        } else {
+            lblMainMenuPrice.text = "₩ " + String(locationData["reprMenuPrice"].intValue) + "원"
+        }
         lblMainMenuPrice.font = UIFont.systemFont(ofSize: 15)
         
         let svMainMenu = UIStackView(arrangedSubviews: [lblMainMenuName,lblMainMenuPrice])
         svMainMenu.axis = .horizontal
         
         let lblLocationDetail = UILabel()
-        lblLocationDetail.text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."
+        lblLocationDetail.text = locationData["storeDesc"].stringValue
         lblLocationDetail.textColor = .darkGray
         lblLocationDetail.fontSize = 15
         lblLocationDetail.numberOfLines = 2
@@ -71,9 +88,10 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         let scvTag = UIScrollView()
         scvTag.translatesAutoresizingMaskIntoConstraints = false
         let svTag = UIStackView()
+        let strHashTag = locationData["tagList"].stringValue.split(separator: " ")
         for hashTag in strHashTag {
             let btnHashTag = UIButton(type: .system)
-            btnHashTag.setTitle(setHashTagString(hashTag))
+            btnHashTag.setTitle(setHashTagString(String(hashTag)))
             btnHashTag.layer.cornerRadius = 15
             btnHashTag.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
             btnHashTag.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
@@ -98,12 +116,16 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         lblMenu.font = UIFont.boldSystemFont(ofSize: 20)
         
         let svMenuList = UIStackView()
-        for i in 1...3 {
+        for menu in locationData["menuList"].arrayValue {
             let lblMenuName = UILabel()
-            lblMenuName.text = "메뉴명 " + String(i)
+            lblMenuName.text = menu["menuNm"].stringValue
             lblMenuName.fontSize = 15
             let lblMenuPrice = UILabel()
-            lblMenuPrice.text = "₩ " + String(i*2) + ",000원"
+            if menu["menuPrice"].intValue == 0 {
+                lblMenuPrice.text = "무료"
+            } else {
+                lblMenuPrice.text = "₩ " + String(menu["menuPrice"].intValue) + "원"
+            }
             lblMenuPrice.textAlignment = .right
             lblMenuPrice.fontSize = 15
             let svMenu = UIStackView(arrangedSubviews: [lblMenuName,lblMenuPrice])
@@ -119,6 +141,9 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         btnMoreMenu.titleLabel?.font = UIFont.boldSystemFont(ofSize: sizeContent)
         btnMoreMenu.contentHorizontalAlignment = .right
         svMenuList.addArrangedSubview(btnMoreMenu)
+        if locationData["menuList"].arrayValue.count > 3 {
+            btnMoreMenu.isHidden = true
+        }
         
         let uvLine2 = UIView()
         uvLine2.heightAnchor.constraint(equalToConstant: 0.3).isActive = true
@@ -210,7 +235,7 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         lblOfficeHours.font = UIFont.boldSystemFont(ofSize: sizeTitle)
         
         let svOfficeHours = UIStackView()
-        let listHours = ["주말 : 오전 10:00 ~ 오후 2:00" , "평일 : 오전 10:00 ~ 오후 11:00"]
+        let listHours = [locationData["storeOpTm"].stringValue]
         for str in listHours {
             let lblHours = UILabel()
             lblHours.text = str

@@ -26,9 +26,13 @@ class HomeViewController: UIViewController {
     let userData = getUserData()
     var listOneDayPickInfo = JSON()
     var listHotStoreInfo = JSON()
-
+    
     var scvHotPlace = UIScrollView()
     var scvOneDayPick = UIScrollView()
+    var areaSdDetailCode = ""
+    
+    @IBOutlet var svTempLandmark: UIStackView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +41,6 @@ class HomeViewController: UIViewController {
         setFuncButtonView()
         getHotPlaceInfo()
         //        setThemeLocation()
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +60,25 @@ class HomeViewController: UIViewController {
         setShadowCard(uvLandmark, bgColor: .white, crRadius: 15, shColor: .lightGray, shOffsetW: 0.0, shOffsetH: 2.0, shRadius: 2.0, sdOpacity: 0.9)
         uvLandmark.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         
+        var count = 0
+        for i in 1...5{
+            let stackView = UIStackView()
+            stackView.axis = .vertical
+            stackView.distribution = .fillEqually
+            for f in 1...5{
+                let landmarkKey = String(format: "%02d", i*f)
+               let btnLandmark = UIButton(type: .system)
+                btnLandmark.setTitle(landmarkInfoDictionary[landmarkKey], for: .normal)
+                btnLandmark.contentHorizontalAlignment = .center
+                btnLandmark.accessibilityIdentifier = landmarkKey
+                btnLandmark.addTarget(self, action: #selector(getLandmarkList(_:)), for: .touchUpInside)
+                stackView.addArrangedSubview(btnLandmark)
+                count += 1
+            }
+            svTempLandmark.addArrangedSubview(stackView)
+        }
+        
+        // 해시태그
         let scvTag = UIScrollView()
         scvTag.translatesAutoresizingMaskIntoConstraints = false
         let svTag = UIStackView()
@@ -85,6 +106,27 @@ class HomeViewController: UIViewController {
         scvTag.widthAnchor.constraint(equalTo: uvLandmark.widthAnchor, multiplier: 0.9).isActive = true
     }
     
+    @objc func getLandmarkList(_ sender:UIButton){
+        areaSdDetailCode = sender.accessibilityIdentifier!
+        let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "landmarkListView")
+        self.navigationController?.pushViewController(goToVC!, animated: true)
+//        let url = OperationIP + "/landmark/selectLandmarkInfoList.do"
+//        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+//        print(sender.accessibilityIdentifier)
+//        let parameter = JSON([
+//            "areaSdCode" : SeoulSn,
+//            "areaDetailCode" : sender.accessibilityIdentifier!,
+//        ])
+//        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+//        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+//            debugPrint(response)
+//            if response.value != nil {
+//                let reponseJSON = JSON(response.value!)
+//                print(reponseJSON)
+//            }
+//        }
+    }
+    
     
     //###########################
     //           기능버튼
@@ -103,7 +145,6 @@ class HomeViewController: UIViewController {
         btnFindAroundLocation.label.font = UIFont.boldSystemFont(ofSize: fontSize)
         btnFindAroundLocation.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
         
-        
         svFuncButton.addArrangedSubview(btnOneClickCourse)
         svFuncButton.addArrangedSubview(btnFindAroundLocation)
     }
@@ -112,20 +153,17 @@ class HomeViewController: UIViewController {
         let url = OperationIP + "/oneClick/selectOneClickInfo.do"
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
         //        let parameter = JSON([])
-        
         //        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
         
         AF.request(url,method: .post, headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
+            //            debugPrint(response)
             if response.value != nil {
                 print("~~~~~~~~~~~~~~~~~~~~~~~원클릭코스")
                 print(JSON(response.value!))
                 print("~~~~~~~~~~~~~~~~~~~~~~~")
             }
         }
-        
     }
-    
     
     //###########################
     //           테마장소
@@ -152,7 +190,7 @@ class HomeViewController: UIViewController {
             if response.value != nil {
                 self.listOneDayPickInfo = JSON(response.value!)
                 print("~~~~~~~~~~~~~~~~~~~~~~~00세의 하루")
-                print(self.listOneDayPickInfo)
+                //                print(self.listOneDayPickInfo)
                 print("~~~~~~~~~~~~~~~~~~~~~~~")
                 self.scvOneDayPick = self.makeScrollView(Theme: "OneDayPick")
                 self.setThemeLocation()
@@ -248,7 +286,14 @@ class HomeViewController: UIViewController {
     
     func addHotPlaceItem(_ stackView: UIStackView, _ items: JSON){
         for item in items.arrayValue{
-            let imgLocation = UIImageView(image: UIImage(named: "TempImage"))
+            let url = URL(string: getImageURL(item["storeSn"].stringValue, item["storeImageUrlList"].arrayValue.first!.stringValue))
+            let data = try? Data(contentsOf: url!)
+            let imgLocation = UIImageView()
+            if data != nil {
+                imgLocation.image = UIImage(data: data!)
+            } else {
+                imgLocation.image = UIImage(named: "TempImage")
+            }
             imgLocation.widthAnchor.constraint(equalToConstant: 136).isActive = true
             imgLocation.heightAnchor.constraint(equalToConstant: 136).isActive = true
             imgLocation.contentMode = .scaleAspectFill
@@ -348,7 +393,14 @@ class HomeViewController: UIViewController {
     }
     
     func addOneDayPickItem(_ stackView: UIStackView, _ item: JSON){
-        let imgLocation = UIImageView(image: UIImage(named: "TempImage"))
+        let url = URL(string: getImageURL(item["storeSn"].stringValue, item["storeImageUrlList"].arrayValue.first!.stringValue))
+        let data = try? Data(contentsOf: url!)
+        let imgLocation = UIImageView()
+        if data != nil {
+            imgLocation.image = UIImage(data: data!)
+        } else {
+            imgLocation.image = UIImage(named: "TempImage")
+        }
         imgLocation.widthAnchor.constraint(equalToConstant: 136).isActive = true
         imgLocation.heightAnchor.constraint(equalToConstant: 136).isActive = true
         imgLocation.contentMode = .scaleAspectFill
@@ -394,17 +446,44 @@ class HomeViewController: UIViewController {
     @objc func gotoLocationInfo(_ sender: UITapGestureRecognizer){
         let locationSn = sender.view!.accessibilityIdentifier
         UserDefaults.standard.setValue(locationSn, forKey: locationSnKey)
-        let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "locationInfoView")
-        self.navigationController?.pushViewController(goToVC!, animated: true)
+        getLocationInfo(locationSn!)
+    }
+    
+    func getLocationInfo(_ locationSn : String) {
+//        let locationSn = UserDefaults.standard.string(forKey: locationSnKey)!
+        let url = OperationIP + "/store/selectStoreInfo.do"
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let parameter = JSON([
+            "storeSn": locationSn,
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            //                  debugPrint(response)
+            if response.value != nil {
+                let reponseJSON = JSON(response.value!)
+                print(reponseJSON)
+                //                    self.uds.set(reponseJSON.dictionaryObject, forKey: locationDataKey)
+                locationData = reponseJSON
+                let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "locationInfoView")
+                self.navigationController?.pushViewController(goToVC!, animated: true)
+            }
+        }
+        //            if (UserDefaults.standard.string(forKey: locationSnKey) != nil) {
+        //
+        //            }
     }
     
     
     
-    /*
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
+//      In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
+        print(segue.destination)
+//        if segue.destination {
+//            let landmarkViewController = segue.destination as! LandmarkViewController
+//            landmarkViewController.areaSdDetailCode = self.areaSdDetailCode
+//        }
+//      Get the new view controller using segue.destination.
+//      Pass the selected object to the new view controller.
      }
-     */
+     
 }

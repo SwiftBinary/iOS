@@ -17,8 +17,16 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setData()
         sleep(1)
     }
+    func setData(){
+        UserDefaults.standard.removeObject(forKey: locationSnKey)
+        UserDefaults.standard.removeObject(forKey: locationDataKey)
+        print(UserDefaults.standard.value(forKey: locationSnKey))
+        print(UserDefaults.standard.value(forKey: locationDataKey))
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         let getData = UserDefaults.standard.dictionary(forKey: userDataKey)
@@ -28,14 +36,12 @@ class MainViewController: UIViewController {
             gotoMain()
         }
     }
-    
     func gotoLogin(){
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         let goToVC = storyboard.instantiateViewController(withIdentifier: "loginView")
         goToVC.modalPresentationStyle = .fullScreen
         self.present(goToVC, animated: true, completion: nil)
     }
-    
     func gotoMain(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let goToVC = storyboard.instantiateViewController(withIdentifier: "mainView")

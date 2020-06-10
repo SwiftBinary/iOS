@@ -879,7 +879,7 @@
                                     <action selector="btnBackFunc:" destination="xUy-4n-8Id" eventType="touchUpInside" id="Rlk-eE-nfg"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Temp" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ym5-nB-K2K">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text=" " textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ym5-nB-K2K">
                                 <rect key="frame" x="20.5" y="98" width="373" height="250"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>

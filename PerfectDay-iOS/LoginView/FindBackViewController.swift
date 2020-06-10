@@ -16,8 +16,6 @@ class FindBackViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "findIdentifier" {
             let showInfoViewController = segue.destination as! ShowInfoViewController

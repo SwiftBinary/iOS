@@ -42,7 +42,7 @@ class ShowInfoViewController: UIViewController {
     }
     
     func findUserEmail(name: String, birth: String, gender: String){
-        let url = developIP + "/user/findUserEmail.do"
+        let url = OperationIP + "/user/findUserEmail.do"
         let jsonHeader = JSON([
             "userSn":"_",
             "deviceOS":"IOS"

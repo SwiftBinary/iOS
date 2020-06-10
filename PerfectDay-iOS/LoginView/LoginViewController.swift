@@ -170,6 +170,7 @@ class LoginViewController: UIViewController {
                 if response.value != nil {
                     let reponseJSON = JSON(response.value!)
                     // result값 - 1:성공, 2:실패
+                    print(reponseJSON)
                     let loginResult = Int(reponseJSON["result"].stringValue)
                     self.uds.setValue(reponseJSON.dictionaryObject, forKey: userDataKey)
                     switch loginResult {

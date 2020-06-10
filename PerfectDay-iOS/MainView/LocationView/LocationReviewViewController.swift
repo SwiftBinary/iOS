@@ -29,7 +29,6 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("#GOto")
         view.backgroundColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
         setPostUI()
         setScrollUI()
@@ -189,12 +188,14 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
         let cgSize:CGFloat = 25
         for _ in 1...5 {
             let imgStar = UIImageView(image: UIImage(named: "GPAIcon"))
-            imgStar.contentMode = .scaleAspectFit
-            imgStar.heightAnchor.constraint(equalToConstant: cgSize).isActive = true
+            imgStar.contentMode = .scaleAspectFill
+//            imgStar.heightAnchor.constraint(equalToConstant: cgSize).isActive = true
             imgStar.widthAnchor.constraint(equalToConstant: cgSize).isActive = true
             svStar.addArrangedSubview(imgStar)
         }
         svStar.spacing = 2
+        svStar.alignment = .center
+        svStar.distribution = .fillEqually
         
         let svTopPost = UIStackView(arrangedSubviews: [imgProfile,svPostInfo,svStar])
         svTopPost.axis = .horizontal

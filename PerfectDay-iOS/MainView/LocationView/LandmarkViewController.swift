@@ -14,10 +14,14 @@ class LandmarkViewController: UIViewController {
     @IBOutlet var scLandmark: UIScrollView!
     @IBOutlet var svLandmark: UIStackView!
     
+    var areaSdDetailCode = ""
+    
     //    let svLandmark = UIStackView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("~~~~~~~~~")
+        print(areaSdDetailCode)
         setUI()
     }
     
@@ -28,7 +32,7 @@ class LandmarkViewController: UIViewController {
             btn.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
         }
         setStackView()
-        for i in 0...15 {
+        for i in 0...2 {
             tempLandmark(i)
         }
         let bottomUI = UIView()

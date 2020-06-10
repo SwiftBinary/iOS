@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftyJSON
 
 public func makeUILabel(_ text: String) -> UILabel {
     let uiLabel = UILabel()
@@ -28,10 +29,10 @@ public func makeUITextField(_ placeholder: String) -> UITextField {
 public func countLabelLines(label: UILabel!) -> Int {
     // Call self.layoutIfNeeded() if your view uses auto layout
     let myText = label.text! as NSString
-
+    
     let rect = CGSize(width: label.bounds.width, height: CGFloat.greatestFiniteMagnitude)
     let labelSize = myText.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: label.font], context: nil)
-
+    
     return Int(ceil(CGFloat(labelSize.height) / label.font.lineHeight))
 }
 
@@ -57,6 +58,17 @@ public func getUserData() -> Dictionary<String,Any> {
         return data!
     }
 }
+
+//public func getLocationData() -> JSON {
+//    let data = UserDefaults.standard.dictionary(forKey: locationDataKey)
+//    var dataJSON = JSON()
+//    if data == nil {
+//        return dataJSON
+//    } else {
+//        dataJSON = JSON(data!)
+//        return dataJSON
+//    }
+//}
 
 public func getString(_ data: Any?) -> String {
     return data as! String
@@ -155,18 +167,18 @@ extension UIScrollView {
 }
 
 extension UITextField {
-  func addLeftPadding() {
-    let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.height))
-    self.leftView = paddingView
-    self.leftViewMode = ViewMode.always
-  }
+    func addLeftPadding() {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.height))
+        self.leftView = paddingView
+        self.leftViewMode = ViewMode.always
+    }
 }
 
 extension NSMutableAttributedString {
     func setColor(color: UIColor, forText stringValue: String) {
-       let range: NSRange = self.mutableString.range(of: stringValue, options: .caseInsensitive)
+        let range: NSRange = self.mutableString.range(of: stringValue, options: .caseInsensitive)
         self.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range)
     }
-
+    
 }
 
