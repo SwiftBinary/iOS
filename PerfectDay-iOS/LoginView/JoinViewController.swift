@@ -28,11 +28,12 @@ import UIKit
 import MaterialDesignWidgets
 import SwiftyJSON
 import Alamofire
+import CryptoSwift
 
 class JoinViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    let developIP = "http://203.252.161.96:8080"
-    let operationIP = "http://203.252.161.219:8080"
+//    let developIP = "http://203.252.161.96:8080"
+    let operationIP = OperationIP
     
     // View
     @IBOutlet var scrollView: UIScrollView!
@@ -351,7 +352,7 @@ class JoinViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             "userRealName": userRealName,
             "userName": userName,
             "userEmail": userEmail,
-            "userPw": userPw,
+            "userPw": userPw.sha256(),
             "userGender":userGender,
             "birthDt": userBirth,
             "userAvgBudget": "002",

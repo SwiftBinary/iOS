@@ -16,7 +16,7 @@ class DibsNavigationViewController: UIViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
         
-        // 같은 기능 코드 -> 선이 지워지는 원래가 뭐지??
+        // 같은 기능 코드 -> 선이 지워지는 원리가 뭐지??
         // 1.
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
 //        self.navigationController?.navigationBar.shadowImage = UIImage()

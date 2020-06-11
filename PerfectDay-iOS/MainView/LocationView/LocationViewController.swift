@@ -141,6 +141,10 @@ class LocationViewController: UIViewController {
         btnAddPlanner.backgroundColor = #colorLiteral(red: 1, green: 0.9333333333, blue: 0.8588235294, alpha: 1)
     }
     
+    @IBAction func goToPlanner(_ sender: UIButton) {
+        let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "plannerView")
+        self.navigationController?.pushViewController(goToVC!, animated: true)
+    }
     
     /*
      // MARK: - Navigation

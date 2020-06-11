@@ -59,15 +59,15 @@ class HomeViewController: UIViewController {
     func setLandmarkMap(){
         setShadowCard(uvLandmark, bgColor: .white, crRadius: 15, shColor: .lightGray, shOffsetW: 0.0, shOffsetH: 2.0, shRadius: 2.0, sdOpacity: 0.9)
         uvLandmark.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        
         var count = 0
-        for i in 1...5{
+        for i in 0...4{
             let stackView = UIStackView()
             stackView.axis = .vertical
             stackView.distribution = .fillEqually
             for f in 1...5{
-                let landmarkKey = String(format: "%02d", i*f)
-               let btnLandmark = UIButton(type: .system)
+//                print(i*5+f)
+                let landmarkKey = String(format: "%02d", i*5+f)
+                let btnLandmark = UIButton(type: .system)
                 btnLandmark.setTitle(landmarkInfoDictionary[landmarkKey], for: .normal)
                 btnLandmark.contentHorizontalAlignment = .center
                 btnLandmark.accessibilityIdentifier = landmarkKey
@@ -108,23 +108,11 @@ class HomeViewController: UIViewController {
     
     @objc func getLandmarkList(_ sender:UIButton){
         areaSdDetailCode = sender.accessibilityIdentifier!
-        let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "landmarkListView")
-        self.navigationController?.pushViewController(goToVC!, animated: true)
-//        let url = OperationIP + "/landmark/selectLandmarkInfoList.do"
-//        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
-//        print(sender.accessibilityIdentifier)
-//        let parameter = JSON([
-//            "areaSdCode" : SeoulSn,
-//            "areaDetailCode" : sender.accessibilityIdentifier!,
-//        ])
-//        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-//        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-//            debugPrint(response)
-//            if response.value != nil {
-//                let reponseJSON = JSON(response.value!)
-//                print(reponseJSON)
-//            }
-//        }
+//        print(areaSdDetailCode)
+        let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "landmarkListView") as! LandmarkViewController
+        goToVC.areaSdDetailCode = self.areaSdDetailCode
+        self.navigationController?.pushViewController(goToVC, animated: true)
+        
     }
     
     
@@ -154,7 +142,6 @@ class HomeViewController: UIViewController {
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
         //        let parameter = JSON([])
         //        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
-        
         AF.request(url,method: .post, headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
             if response.value != nil {
@@ -286,7 +273,7 @@ class HomeViewController: UIViewController {
     
     func addHotPlaceItem(_ stackView: UIStackView, _ items: JSON){
         for item in items.arrayValue{
-            let url = URL(string: getImageURL(item["storeSn"].stringValue, item["storeImageUrlList"].arrayValue.first!.stringValue))
+            let url = URL(string: getImageURL(item["storeSn"].stringValue, item["storeImageUrlList"].arrayValue.first!.stringValue,tag: "store"))
             let data = try? Data(contentsOf: url!)
             let imgLocation = UIImageView()
             if data != nil {
@@ -329,7 +316,7 @@ class HomeViewController: UIViewController {
     }
     
     func addADOneDayPickItem(_ stackView: UIStackView, _ item: JSON){
-        let url = URL(string: getImageURL(item["storeSn"].stringValue, item["storeImageUrlList"].arrayValue.first!.stringValue))
+        let url = URL(string: getImageURL(item["storeSn"].stringValue, item["storeImageUrlList"].arrayValue.first!.stringValue,tag: "store"))
         let data = try? Data(contentsOf: url!)
         let imgLocation = UIImageView()
         if data != nil {
@@ -393,7 +380,7 @@ class HomeViewController: UIViewController {
     }
     
     func addOneDayPickItem(_ stackView: UIStackView, _ item: JSON){
-        let url = URL(string: getImageURL(item["storeSn"].stringValue, item["storeImageUrlList"].arrayValue.first!.stringValue))
+        let url = URL(string: getImageURL(item["storeSn"].stringValue, item["storeImageUrlList"].arrayValue.first!.stringValue,tag: "store"))
         let data = try? Data(contentsOf: url!)
         let imgLocation = UIImageView()
         if data != nil {
@@ -450,7 +437,7 @@ class HomeViewController: UIViewController {
     }
     
     func getLocationInfo(_ locationSn : String) {
-//        let locationSn = UserDefaults.standard.string(forKey: locationSnKey)!
+        //        let locationSn = UserDefaults.standard.string(forKey: locationSnKey)!
         let url = OperationIP + "/store/selectStoreInfo.do"
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
         let parameter = JSON([
@@ -475,15 +462,14 @@ class HomeViewController: UIViewController {
     
     
     
-//      In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print(segue.destination)
-//        if segue.destination {
-//            let landmarkViewController = segue.destination as! LandmarkViewController
-//            landmarkViewController.areaSdDetailCode = self.areaSdDetailCode
-//        }
-//      Get the new view controller using segue.destination.
-//      Pass the selected object to the new view controller.
-     }
-     
+    //      In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //        if segue.destination {
+        //            let landmarkViewController = segue.destination as! LandmarkViewController
+        //            landmarkViewController.areaSdDetailCode = self.areaSdDetailCode
+        //        }
+        //      Get the new view controller using segue.destination.
+        //      Pass the selected object to the new view controller.
+    }
+    
 }

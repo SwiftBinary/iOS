@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uAI-ND-vfx" userLabel="Email Login">
-                                <rect key="frame" x="20" y="88" width="374" height="449"/>
+                                <rect key="frame" x="20" y="88" width="374" height="419"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLw-ox-dr7">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
@@ -93,17 +93,8 @@
                                             <action selector="tempLogin3:" destination="bQ5-80-Ob3" eventType="touchUpInside" id="iSg-mo-xud"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Abt-lM-Iex">
-                                        <rect key="frame" x="0.0" y="336.5" width="374" height="30"/>
-                                        <state key="normal" title="임시 로그인">
-                                            <color key="titleColor" red="0.98823529409999999" green="0.36470588240000001" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="tempLogin2:" destination="bQ5-80-Ob3" eventType="touchUpInside" id="SEP-US-pB9"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Heq-20-Q8W">
-                                        <rect key="frame" x="0.0" y="366.5" width="374" height="30"/>
+                                        <rect key="frame" x="0.0" y="336.5" width="374" height="30"/>
                                         <state key="normal" title="SNS Logout Test">
                                             <color key="titleColor" red="0.98823529409999999" green="0.36470588240000001" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -112,7 +103,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="DtB-yL-GoF">
-                                        <rect key="frame" x="0.0" y="396.5" width="374" height="52.5"/>
+                                        <rect key="frame" x="0.0" y="366.5" width="374" height="52.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yZz-94-7dZ">
                                                 <rect key="frame" x="107" y="0.0" width="160" height="30"/>

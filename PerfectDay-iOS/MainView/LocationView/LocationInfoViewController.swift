@@ -45,7 +45,7 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         var localSource:Array<ImageSource> = []
         for imageURL in locationData["storeImageUrlList"].arrayValue {
             let url = URL(string: getImageURL(locationData["storeSn"].stringValue,
-            imageURL.stringValue))
+            imageURL.stringValue,tag: "store"))
             let data = try? Data(contentsOf: url!)
             if data != nil {
                 localSource.append(ImageSource(image: UIImage(data: data!)!))

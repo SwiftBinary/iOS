@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftyJSON
+import Alamofire
 
 class LandmarkViewController: UIViewController {
     
@@ -15,14 +17,33 @@ class LandmarkViewController: UIViewController {
     @IBOutlet var svLandmark: UIStackView!
     
     var areaSdDetailCode = ""
+    let userData = getUserData()
+    var listLandmarkData:Array<JSON> = []
     
-    //    let svLandmark = UIStackView()
+    //        let svLandmark = UIStackView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("~~~~~~~~~")
-        print(areaSdDetailCode)
-        setUI()
+        getLandmarkInfo()
+    }
+    
+    func getLandmarkInfo(){
+        let url = OperationIP + "/landmark/selectLandmarkInfoList.do"
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let parameter = JSON([
+            "areaSdCode" : SeoulSn,
+            "areaDetailCode" : areaSdDetailCode,
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            //            debugPrint(response)
+            if response.value != nil {
+                let reponseJSON = JSON(response.value!)
+                self.listLandmarkData = reponseJSON.arrayValue
+                //                print(reponseJSON)
+                self.setUI()
+            }
+        }
     }
     
     func setUI(){
@@ -32,8 +53,8 @@ class LandmarkViewController: UIViewController {
             btn.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
         }
         setStackView()
-        for i in 0...2 {
-            tempLandmark(i)
+        for i in listLandmarkData {
+            makeLandmarkItem(i)
         }
         let bottomUI = UIView()
         bottomUI.frame.size.height = 20
@@ -49,69 +70,79 @@ class LandmarkViewController: UIViewController {
         //UIview 넣고 Hide로 숨기기
     }
     
-    func tempLandmark(_ num: Int) {
+    func makeLandmarkItem(_ item:JSON) {
+//        print(item)
         let uvItem = UIView()
         uvItem.translatesAutoresizingMaskIntoConstraints = false
         
         let lblTitle = UILabel()
-        lblTitle.text = "랜드마크 " + String(num)
+        lblTitle.text = item["landmarkName"].stringValue
         lblTitle.fontSize = 15
         let lblContent = UILabel()
-        lblContent.text = "분위기 좋고 맛있고 갈곳 많고! 없는게 없는 건대 맛의 거리"
+        lblContent.text = item["landmarkDesc"].stringValue
         lblContent.lineBreakMode = .byWordWrapping
         lblContent.numberOfLines = 2
         lblContent.fontSize = 13
         //        lblContent.heightAnchor.constraint(equalToConstant: lblContent.frame.height ).isActive = true
         lblContent.textColor = .darkGray
-        let lblAddress = UILabel()
-        lblAddress.text = "서울 광진구 자양동"
-        lblAddress.textColor = .darkGray
-        lblAddress.fontSize = 13
-        let imgAddress = UIImageView(image: UIImage(named: "AddressIcon"))
-        imgAddress.contentMode = .scaleAspectFit
-        imgAddress.widthAnchor.constraint(equalToConstant: imgAddress.frame.height * 1 ).isActive = true
-        let svAddress = UIStackView(arrangedSubviews: [imgAddress,lblAddress])
-        svAddress.axis = .horizontal
-        svAddress.distribution = .fillProportionally
-        svAddress.spacing = 5
-        svAddress.widthAnchor.constraint(equalToConstant: (view.frame.width * 0.54) - 15 ).isActive = true
         
-        let midUI = UIView()
-        midUI.heightAnchor.constraint(equalToConstant: view.frame.width / 33 ).isActive = true
+        let lblAddress = UIButton(type: .custom)
+        lblAddress.isUserInteractionEnabled = false
+        lblAddress.setImage(UIImage(named: "AddressIcon"), for: .normal)
+        lblAddress.setTitle(item["landmarkAddress"].stringValue, for: .normal)
+        lblAddress.setTitleColor(.darkGray, for: .normal)
+        lblAddress.semanticContentAttribute = .forceLeftToRight
+        lblAddress.contentHorizontalAlignment = .left
+        lblAddress.fontSize = 13
+        
+        let uvMid = UIView()
+        uvMid.heightAnchor.constraint(greaterThanOrEqualToConstant: 1).isActive = true
+        //        midUI.heightAnchor.constraint(equalToConstant: view.frame.width / 33 ).isActive = true
         let lblTouch = UILabel()
-        let touchNum = Int(999)
-        lblTouch.text = "클릭수 " + String(touchNum)
+        lblTouch.text = "클릭수 " + item["landmarkViewCount"].stringValue
         lblTouch.fontSize = 12
         
-        let imgLand = UIImageView(image: UIImage(named: "TempImage"))
+        let url = URL(string: getImageURL(item["landmarkSn"].stringValue, item["landmarkImageUrlList"].arrayValue.first!.stringValue,tag: "landmark"))
+        let data = try? Data(contentsOf: url!)
+        let imgLand = UIImageView()
+        if data != nil {
+            imgLand.image = UIImage(data: data!)
+        } else {
+            imgLand.image = UIImage(named: "TempImage")
+        }
         imgLand.clipsToBounds = true
         imgLand.layer.cornerRadius = 5
         imgLand.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        imgLand.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        imgLand.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        imgLand.contentMode = .scaleAspectFill
         
-        let svInfo = UIStackView(arrangedSubviews: [lblTitle,lblContent,svAddress,midUI,lblTouch])
+        let svInfo = UIStackView(arrangedSubviews: [lblTitle,lblContent,lblAddress,uvMid,lblTouch])
         svInfo.translatesAutoresizingMaskIntoConstraints = false
         svInfo.axis = .vertical
-        svInfo.widthAnchor.constraint(equalToConstant: (view.frame.width * 0.54) - 15).isActive = true
-        svInfo.heightAnchor.constraint(equalToConstant: (view.frame.width * 0.27) - 15).isActive = true
         svInfo.distribution = .fill
-        svInfo.spacing = 3
+        svInfo.spacing = 1
         
         let uvInfo = UIView()
         uvInfo.addSubview(svInfo)
         uvInfo.translatesAutoresizingMaskIntoConstraints = false
-        uvInfo.widthAnchor.constraint(equalToConstant: view.frame.width * 0.54).isActive = true
-        uvInfo.heightAnchor.constraint(equalToConstant: view.frame.width * 0.27).isActive = true
+        //        uvInfo.widthAnchor.constraint(equalToConstant: view.frame.width * 0.54).isActive = true
+        //        uvInfo.heightAnchor.constraint(equalToConstant: view.frame.width * 0.27).isActive = true
         uvInfo.addConstraint(NSLayoutConstraint(item: svInfo, attribute: .centerX, relatedBy: .equal, toItem: uvInfo,
                                                 attribute: .centerX, multiplier: 1, constant: 0))
         uvInfo.addConstraint(NSLayoutConstraint(item: svInfo, attribute: .centerY, relatedBy: .equal, toItem: uvInfo,
                                                 attribute: .centerY, multiplier: 1, constant: 0))
+        //        svInfo.widthAnchor.constraint(equalToConstant: (view.frame.width * 0.54) - 15).isActive = true
+        //        svInfo.heightAnchor.constraint(equalToConstant: (view.frame.width * 0.27) - 15).isActive = true
+        svInfo.widthAnchor.constraint(equalTo: uvInfo.widthAnchor, multiplier: 0.9).isActive = true
+        svInfo.heightAnchor.constraint(equalTo: uvInfo.heightAnchor, multiplier: 0.9).isActive = true
         
         let svMain = UIStackView(arrangedSubviews: [imgLand,uvInfo])
         svMain.translatesAutoresizingMaskIntoConstraints = false
         svMain.axis = .horizontal
-        svMain.distribution = .fillProportionally
-        svMain.widthAnchor.constraint(equalToConstant: view.frame.width * 0.81).isActive = true
-        svMain.heightAnchor.constraint(equalToConstant: view.frame.width * 0.27).isActive = true
+        svMain.distribution = .fill
+        //        svMain.widthAnchor.constraint(equalToConstant: view.frame.width * 0.81).isActive = true
+        //        svMain.heightAnchor.constraint(equalToConstant: view.frame.width * 0.27).isActive = true
         
         let uvMain = UIView()
         uvMain.addSubview(svMain)
@@ -125,14 +156,15 @@ class LandmarkViewController: UIViewController {
         svMain.widthAnchor.constraint(equalTo: uvMain.widthAnchor, multiplier: 1).isActive = true
         
         let recommandBtn = UIButton(type: .custom)
+        recommandBtn.translatesAutoresizingMaskIntoConstraints = false
         recommandBtn.setTitle("주\n변\n추\n천", for: .normal)
         recommandBtn.titleLabel?.numberOfLines = 4
         recommandBtn.layer.borderColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
-        recommandBtn.setTitleColor(.darkGray, for: .normal)
+        recommandBtn.setTitleColor(#colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1), for: .normal)
         recommandBtn.fontSize = 13
         recommandBtn.layer.borderWidth = 0.5
         recommandBtn.layer.cornerRadius = 5
-        recommandBtn.widthAnchor.constraint(equalToConstant: view.frame.width * 0.07).isActive = true
+        recommandBtn.widthAnchor.constraint(equalToConstant: 22).isActive = true
         
         let svItem = UIStackView(arrangedSubviews: [uvMain, recommandBtn])
         //        svItem.addSubview(uvMain)
@@ -142,23 +174,40 @@ class LandmarkViewController: UIViewController {
         svItem.distribution = .fill
         svItem.spacing = 10
         
+        
         uvItem.addSubview(svItem)
-        uvItem.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
-        uvItem.heightAnchor.constraint(equalTo: uvItem.widthAnchor, multiplier: 0.3).isActive = true
+        //        uvItem.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
+        //        uvItem.heightAnchor.constraint(equalTo: uvItem.widthAnchor, multiplier: 0.3).isActive = true
         uvItem.addConstraint(NSLayoutConstraint(item: svItem, attribute: .centerX, relatedBy: .equal, toItem: uvItem, attribute: .centerX, multiplier: 1, constant: 0))
         uvItem.addConstraint(NSLayoutConstraint(item: svItem, attribute: .centerY, relatedBy: .equal, toItem: uvItem, attribute: .centerY, multiplier: 1, constant: 0))
         svItem.heightAnchor.constraint(equalTo: uvItem.heightAnchor, multiplier: 1).isActive = true
         svItem.widthAnchor.constraint(equalTo: uvItem.widthAnchor, multiplier: 1).isActive = true
         
-        uvItem.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gotoLocationList)))
+        uvMain.accessibilityIdentifier = item["landmarkSn"].stringValue
+        uvMain.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gotoLocationList(_:))))
         
         svLandmark.addArrangedSubview(uvItem)
     }
     
-    @objc func gotoLocationList(){
-        //        print("debug")
-        let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "locationListView")
-        self.navigationController?.pushViewController(goToVC!, animated: true)
+    @objc func gotoLocationList(_ sender:UITapGestureRecognizer){
+        let landmarkSn = sender.view!.accessibilityIdentifier!
+        updateLandmarkInfo(landmarkSn)
+        let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "locationListView") as! LocationListViewController
+        goToVC.landmarkSn = landmarkSn
+        self.navigationController?.pushViewController(goToVC, animated: true)
+    }
+    
+    func  updateLandmarkInfo(_ landmarkSn: String){
+        let url = OperationIP + "/landmark/updateLandmarkInfo.do"
+        let parameter = JSON([
+            "landmarkSn" : landmarkSn,
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString]).responseJSON { response in
+            if response.value != nil {
+//                print(response.value!)
+            }
+        }
     }
     
     /*
@@ -169,5 +218,4 @@ class LandmarkViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
-    
 }

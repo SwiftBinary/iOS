@@ -1083,6 +1083,11 @@
                         <viewLayoutGuide key="safeArea" id="9uR-7t-Ih2"/>
                     </view>
                     <navigationItem key="navigationItem" title="내 정보 수정" id="vsO-HJ-88m"/>
+                    <connections>
+                        <outlet property="tfCurrentPw" destination="AMF-29-dvA" id="xKa-CE-Ha4"/>
+                        <outlet property="tfNewPw" destination="Dpf-tl-n52" id="KXV-15-W00"/>
+                        <outlet property="tfNewPwCheck" destination="bCe-ng-Fk9" id="VNp-KV-Bop"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ib-e5-wyt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

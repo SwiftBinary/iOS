@@ -74,10 +74,87 @@ public func getString(_ data: Any?) -> String {
     return data as! String
 }
 
-public func getImageURL(_ storeSn:String,_ imageSn: String) -> String{
-    let URL = ImageURL + storeSn + "/" + imageSn
+public func getImageURL(_ locationSn:String,_ imageSn: String, tag: String) -> String{
+    var URL = locationSn + "/" + imageSn
+    
+    switch tag {
+    case "landmark":
+        URL = LandmarkImageURL + URL
+    case "store":
+        URL = StoreImageURL + URL
+    default:
+        print("")
+    }
     return URL
 }
+
+public func setPref(_ label : UILabel,_ PrefSn : String,_ prefData : String){
+    switch PrefSn {
+    case "10000000":
+        setprefData(eat,label,prefData)
+        break
+    case "01000000":
+        setprefData(drink,label,prefData)
+        break
+    case "00100000":
+        setprefData(play,label,prefData)
+        break
+    case "00010000":
+        setprefData(see,label,prefData)
+        break
+    case "00001000":
+        setprefData(walk,label,prefData)
+        break
+    default :
+        setprefData(ect,label,prefData)
+        break
+    }
+}
+public func setprefData(_ data : Array<String>,_ label : UILabel,_ prefInt : String){
+    var text : String = ""
+    var num = 1000000000
+    var dataNum = Int(prefInt)
+    for i in 0...9{
+        if dataNum! / num > 0 {
+            switch dataNum! / num {
+            case 1, 2:
+                if text == "" { text = data[i] }
+                else { text = text + " " + data[i] }
+                break
+            default:
+                if text == "" { text = "기타"}
+                break
+            }
+            dataNum = dataNum! % num
+        }
+        num /= 10
+    }
+    label.text = text
+}
+
+public func setSequenceColor(_ PrefSn : String,_ btnColor : UIButton){
+    switch PrefSn {
+    case "10000000":
+        btnColor.layer.backgroundColor = #colorLiteral(red: 1, green: 0.2955724597, blue: 0.5731969476, alpha: 1)
+        break
+    case "01000000":
+        btnColor.layer.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        break
+    case "00100000":
+        btnColor.layer.backgroundColor = #colorLiteral(red: 1, green: 0.6745098039, blue: 0.02352941176, alpha: 1)
+        break
+    case "00010000":
+        btnColor.layer.backgroundColor = #colorLiteral(red: 0.5176470588, green: 0.3215686275, blue: 0.7803921569, alpha: 1)
+        break
+    case "00001000":
+        btnColor.layer.backgroundColor = #colorLiteral(red: 0.3215686275, green: 0.7803921569, blue: 0.6901960784, alpha: 1)
+        break
+    default :
+        btnColor.layer.backgroundColor = #colorLiteral(red: 1, green: 0.2955724597, blue: 0.5731969476, alpha: 1)
+        break
+    }
+}
+
 
 extension UITextView
 {

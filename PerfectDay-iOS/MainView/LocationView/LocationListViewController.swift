@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftyJSON
+import Alamofire
 import MaterialDesignWidgets
 
 class LocationListViewController: UIViewController, UIScrollViewDelegate {
@@ -31,22 +33,22 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var uvFilterView: UIView!
     @IBOutlet var uvFilter: UIView!
     
-    let testNum = 15
+    let userData = getUserData()
+    let testNum = 3
     let lightGray = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
     let backColor = #colorLiteral(red: 0.9937904477, green: 0.9502945542, blue: 0.9648948312, alpha: 1)
-    let fontSize:CGFloat = 14
     
+    var landmarkSn:String = ""
+    var listStoreData:Array<JSON> = []
     var tempBtn : UIButton?
-    
-    let listTag = ["수제햄버거","미친가격","너무맛있다","건대", "홍대", "강남", "이색", "고궁", "tv방영", "가성비", "고급진", "국밥", "방탈출", "야식", "비오는날", "100일데이트코스", "커플100%되는곳", "킬링타임코스", "호불호없는"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationBar()
         setKategorie()
-        setLocationList()
         setFilterBtnList()
+        getLandmarkInfo()
     }
     
     
@@ -62,6 +64,9 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         self.navigationItem.backBarButtonItem = backItem
     }
     
+    //###########################
+    //           카테고리
+    //###########################
     func setKategorie(){
         let btnAll = MaterialVerticalButton(icon: UIImage(named: "CategorieAll")!, text: "전체보기", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
         let btnEat = MaterialVerticalButton(icon: UIImage(named: "CategorieEat")!, text:  "먹기", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
@@ -83,7 +88,9 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    //Filter Btn
+    //###########################
+    //           필터
+    //###########################
     func setFilterBtnList(){
         for btn in svFilterBtn.arrangedSubviews {
             btn.layer.cornerRadius = svFilterBtn.frame.height/2
@@ -304,11 +311,65 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     
     
     
+    //###########################
+    //         장소 리스트
+    //###########################
+    func getLandmarkInfo(){
+        let url = OperationIP + "/landmark/selectLandmarkInfo.do"
+        let parameter = JSON([
+            "landmarkSn" : landmarkSn,
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString]).responseJSON { response in
+            if response.value != nil {
+//                print(response.value!)
+                let landmarkInfo = JSON(response.value!)
+                print("***")
+//                print(landmarkInfo)
+                self.getStoreList(landmarkInfo)
+            }
+        }
+    }
+    func getStoreList(_ landmarkInfo:JSON){
+        let url = OperationIP + "/store/selectStoreInfoList.do"
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let parameter = JSON([
+            "distanceLimit": 3,
+            "latitude": 37.68915657,
+            "limit": 20,
+            "longitude": 127.04546691,
+            "offset": 0,
+            "priceLimit": 70000,
+            "searchKeyWord": "고기",
+            "sortedBy": "DISTANCE_ASC",
+            "tmCostLimit": 180,
+            
+            //            "latitude": landmarkInfo["latitude"].doubleValue,
+            //            "longitude": landmarkInfo["longitude"].doubleValue,
+            //            "limit": 20,
+            //            "offset": 0,
+            //            "priceLimit": 70000,
+            //            "searchKeyWord": "",
+            //            "sortedBy": "DISTANCE_ASC",
+            //            "tmCostLimit": 180,
+            //            "distanceLimit": 3,
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+//            debugPrint(response)
+            if response.value != nil {
+                let reponseJSON = JSON(response.value!)
+                print("^^^")
+                print(reponseJSON)
+                self.setLocationList(reponseJSON.arrayValue)
+            }
+        }
+    }
     
-    func setLocationList(){
+    func setLocationList(_ listStore:[JSON]){
         setLocationListBackView()
         setStackView()
-        for i in 0...15 {
+        for i in listStore {
             makeItem(i)
         }
     }
@@ -328,8 +389,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         uvLocationList.layer.shadowOpacity = 0.5
     }
     
-    func makeItem(_ num: Int) {
-        
+    func makeItem(_ item: JSON) {
         let uvLocation = UIView()
         uvLocation.translatesAutoresizingMaskIntoConstraints = false
         uvLocation.layer.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -337,41 +397,44 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         uvLocation.layer.borderWidth = 0.5
         uvLocation.layer.borderColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
         
+        let fontSize:CGFloat = 12
         
-        let storeType = UILabel()
-        storeType.text = "장소유형"
-        storeType.fontSize = 13
-        storeType.textColor = .systemBlue
-        let storeNm = UILabel()
-        storeNm.text = "장소명" + String(num)
-        storeNm.font = UIFont.boldSystemFont(ofSize: 19.0)
-        let svUpperLeft = UIStackView(arrangedSubviews: [storeType,storeNm])
+        let lblStoreType = UILabel()
+        setPref(lblStoreType,item["prefSn"].string!,item["prefData"].string!)
+        lblStoreType.text = "장소유형"
+        lblStoreType.fontSize = fontSize
+        lblStoreType.textColor = .systemBlue
+        let lblStoreNm = UILabel()
+        lblStoreNm.text = item["storeNm"].stringValue
+        lblStoreNm.font = UIFont.boldSystemFont(ofSize: fontSize+3)
+        let svUpperLeft = UIStackView(arrangedSubviews: [lblStoreType,lblStoreNm])
         svUpperLeft.distribution = .fillEqually
         svUpperLeft.axis = .vertical
-        svUpperLeft.spacing = 2
-        let plannerBtn = UIButton()
-        plannerBtn.setImage(UIImage(named: "AddPlannerBtn"), for: .normal)
-        plannerBtn.contentHorizontalAlignment = .right
-        let svTop = UIStackView(arrangedSubviews: [svUpperLeft,plannerBtn])
+        svUpperLeft.spacing = 1
+        let btnAddPlanner = UIButton()
+        btnAddPlanner.setImage(UIImage(named: "AddPlannerBtn"), for: .normal)
+        btnAddPlanner.contentHorizontalAlignment = .right
+        btnAddPlanner.imageView?.contentMode = .scaleAspectFill
+        let svTop = UIStackView(arrangedSubviews: [svUpperLeft,btnAddPlanner])
         svTop.axis = .horizontal
         svTop.distribution = .fillProportionally
-        svTop.widthAnchor.constraint(equalToConstant: (view.frame.width * 0.56) - 15 ).isActive = true
-        svTop.heightAnchor.constraint(equalToConstant: (view.frame.width * 0.12) - 7 ).isActive = true
+        //        svTop.widthAnchor.constraint(equalToConstant: (view.frame.width * 0.56) - 15 ).isActive = true
+        //        svTop.heightAnchor.constraint(equalToConstant: (view.frame.width * 0.12) - 7 ).isActive = true
         
-        let reprMenuPrice = UILabel()
-        reprMenuPrice.text = "대표메뉴 " + String(num * 1000) + "원"
-        reprMenuPrice.fontSize = fontSize
-        let areaDetailNm = UIButton(type: .custom)
-        areaDetailNm.setTitle("서울 광진구 자양동", for: .normal)
-        areaDetailNm.setTitleColor(.darkGray, for: .normal)
-        areaDetailNm.setImage(UIImage(named: "AddressIcon"), for: .normal)
-        areaDetailNm.titleLabel?.fontSize = fontSize
-        areaDetailNm.isUserInteractionEnabled = false
-        areaDetailNm.contentHorizontalAlignment = .left
+        let lblReprMenuPrice = UILabel()
+        lblReprMenuPrice.text = "대표메뉴 " + item["reprMenuPrice"].stringValue + "원"
+        lblReprMenuPrice.fontSize = fontSize
+        let lblAreaDetailNm = UIButton(type: .custom)
+        lblAreaDetailNm.setTitle(item["areaDetailNm"].stringValue, for: .normal)
+        lblAreaDetailNm.setTitleColor(.darkGray, for: .normal)
+        lblAreaDetailNm.setImage(UIImage(named: "AddressIcon"), for: .normal)
+        lblAreaDetailNm.titleLabel?.fontSize = fontSize
+        lblAreaDetailNm.isUserInteractionEnabled = false
+        lblAreaDetailNm.contentHorizontalAlignment = .left
         
         //해시태그 추후 추가 예정
         let svHashTag = UIStackView()
-        setHashTagList(svHashTag)
+        setHashTagList(svHashTag,item["tagList"].stringValue)
         svHashTag.translatesAutoresizingMaskIntoConstraints = false
         let scvHashTag = UIScrollView()
         scvHashTag.addSubview(svHashTag)
@@ -385,47 +448,74 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         svHashTag.leadingAnchor.constraint(equalTo: scvHashTag.leadingAnchor, constant: 0).isActive = true
         svHashTag.trailingAnchor.constraint(equalTo: scvHashTag.trailingAnchor, constant: 0).isActive = true
         
-        let storeFavorCount = UILabel()
-        storeFavorCount.text = "999+"
-        storeFavorCount.textColor = .darkGray
-        storeFavorCount.baselineAdjustment = .alignCenters
-        storeFavorCount.fontSize = fontSize
-        storeFavorCount.widthAnchor.constraint(equalTo: storeFavorCount.heightAnchor, multiplier: 2).isActive = true
-        let favorImg = UIImageView(image: UIImage(named: "EmptyHeart"))
-        favorImg.contentMode = .scaleAspectFill
-        let storeScore = UILabel()
-        storeScore.text = "4.5"
-        storeScore.baselineAdjustment = .alignCenters
-        storeScore.textColor = .darkGray
-        storeFavorCount.widthAnchor.constraint(equalTo: storeFavorCount.heightAnchor, multiplier: 2).isActive = true
-        storeScore.fontSize = fontSize
-        let scoreImage = UIImageView(image: UIImage(named: "GPAIcon"))
-        let Distance = UILabel()
-        Distance.text = "00M"
-        Distance.textColor = .darkGray
-        Distance.font = UIFont.boldSystemFont(ofSize: 18.0)
-        Distance.textAlignment = .right
-        let svBottomInfo = UIStackView(arrangedSubviews: [favorImg,storeFavorCount,scoreImage,storeScore,Distance])
-        svBottomInfo.spacing = 5
+        let iconSize: CGFloat = 15
+        
+        
+        let imgFavor = UIImageView(image: UIImage(named: "EmptyHeart"))
+        imgFavor.contentMode = .scaleAspectFit
+        imgFavor.heightAnchor.constraint(equalToConstant: iconSize).isActive = true
+        imgFavor.widthAnchor.constraint(equalToConstant: iconSize).isActive = true
+        let lblStoreFavorCount = UILabel()
+        lblStoreFavorCount.text = String(item["storeFavorCount"].intValue)
+        lblStoreFavorCount.textColor = .darkGray
+        lblStoreFavorCount.textAlignment = .left
+        //        lblStoreFavorCount.baselineAdjustment = .alignCenters
+        lblStoreFavorCount.fontSize = fontSize
+        //        lblStoreFavorCount.widthAnchor.constraint(greaterThanOrEqualToConstant: 1).isActive = true
+        lblStoreFavorCount.widthAnchor.constraint(equalTo: lblStoreFavorCount.heightAnchor, multiplier: 3).isActive = true
+        
+        let imgScore = UIImageView(image: UIImage(named: "GPAIcon"))
+        imgScore.contentMode = .scaleAspectFit
+        imgScore.heightAnchor.constraint(equalToConstant: iconSize).isActive = true
+        imgScore.widthAnchor.constraint(equalToConstant: iconSize).isActive = true
+        let lblStoreScore = UILabel()
+        lblStoreScore.text = String(item["storeScore"].intValue)
+        lblStoreScore.baselineAdjustment = .alignCenters
+        lblStoreScore.textColor = .darkGray
+        lblStoreScore.fontSize = fontSize
+        lblStoreScore.textAlignment = .left
+        lblStoreScore.widthAnchor.constraint(equalTo: lblStoreScore.heightAnchor, multiplier: 3).isActive = true
+        
+        //        let uvMid = UIView()
+        //        uvMid.widthAnchor.constraint(lessThanOrEqualToConstant: view.frame.width).isActive = true
+        let lblDistance = UILabel()
+        lblDistance.text = String(format: "%.1f",  item["distance"].doubleValue) + "KM"
+        lblDistance.textColor = .darkGray
+        lblDistance.font = UIFont.boldSystemFont(ofSize: 17.0)
+        lblDistance.textAlignment = .right
+        lblDistance.widthAnchor.constraint(greaterThanOrEqualToConstant: 30).isActive = true
+        let svBottomInfo = UIStackView(arrangedSubviews: [imgFavor,lblStoreFavorCount,imgScore,lblStoreScore,lblDistance])
+        svBottomInfo.spacing = 2
         svBottomInfo.axis = .horizontal
         svBottomInfo.distribution = .fillProportionally
-        let svBottom = UIStackView(arrangedSubviews: [reprMenuPrice,areaDetailNm,scvHashTag,svBottomInfo])
-        svBottom.widthAnchor.constraint(equalToConstant: (view.frame.width * 0.56) - 15 ).isActive = true
-        svBottom.heightAnchor.constraint(equalToConstant: (view.frame.width * 0.22) - 7 ).isActive = true
+        let svBottom = UIStackView(arrangedSubviews: [lblReprMenuPrice,lblAreaDetailNm,scvHashTag,svBottomInfo])
+        //        svBottom.widthAnchor.constraint(equalToConstant: (view.frame.width * 0.56) - 15 ).isActive = true
+        //        svBottom.heightAnchor.constraint(equalToConstant: (view.frame.width * 0.22) - 7 ).isActive = true
         svBottom.axis = .vertical
         svBottom.distribution = .fillEqually
-        svBottom.spacing = 2
+        svBottom.spacing = 3
         
-        let storeImage = UIImageView(image: UIImage(named: "TempImage"))
-        storeImage.widthAnchor.constraint(equalToConstant: (view.frame.width) * 0.34 ).isActive = true
-        storeImage.heightAnchor.constraint(equalTo: storeImage.widthAnchor, multiplier: 1, constant: 0).isActive = true
-        storeImage.clipsToBounds = true
-        storeImage.layer.cornerRadius = 5
-        storeImage.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        let url = URL(string: getImageURL(item["storeSn"].stringValue, item["storeImageUrlList"].arrayValue.first!.stringValue, tag: "store"))
+        let imgStore = UIImageView()
+        let data = try? Data(contentsOf: url!)
+        if data != nil {
+            imgStore.image = UIImage(data: data!)
+        } else {
+            imgStore.image = UIImage(named: "TempImage")
+        }
+        //        storeImage.widthAnchor.constraint(equalToConstant: (view.frame.width) * 0.34 ).isActive = true
+        imgStore.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        imgStore.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        //        imgStore.heightAnchor.constraint(equalTo: storeImage.widthAnchor, multiplier: 1, constant: 0).isActive = true
+        imgStore.clipsToBounds = true
+        imgStore.layer.cornerRadius = 5
+        imgStore.contentMode = .scaleAspectFill
+        imgStore.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         
         let svInfo = UIStackView(arrangedSubviews: [svTop,svBottom])
         svInfo.translatesAutoresizingMaskIntoConstraints = false
         svInfo.axis = .vertical
+        svInfo.distribution = .fill
         let uvInfo = UIView()
         uvInfo.addSubview(svInfo)
         uvInfo.translatesAutoresizingMaskIntoConstraints = false
@@ -434,7 +524,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         svInfo.heightAnchor.constraint(equalTo: uvInfo.heightAnchor, multiplier: 0.9).isActive = true
         svInfo.widthAnchor.constraint(equalTo: uvInfo.widthAnchor, multiplier: 0.9).isActive = true
         
-        let svItem = UIStackView(arrangedSubviews: [storeImage,uvInfo])
+        let svItem = UIStackView(arrangedSubviews: [imgStore,uvInfo])
         svItem.translatesAutoresizingMaskIntoConstraints = false
         svItem.axis = .horizontal
         svItem.distribution = .fill
@@ -457,26 +547,25 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     }
     
     //HashTag
-    func setHashTagList(_ svHashTag : UIStackView) {
+    func setHashTagList(_ svHashTag : UIStackView, _ listHashTag: String) {
         svHashTag.axis = .horizontal
         svHashTag.spacing = 0
-        
-        for i in listTag {
-            makeHashTag(i, svHashTag)
+        for i in listHashTag.split(separator: " ") {
+            makeHashTag(String(i), svHashTag)
         }
     }
     
     func makeHashTag(_ str: String,_ svHashTag: UIStackView){
+        let fontSize:CGFloat = 12
         let HashTagBtn = UIButton(type: .custom)
         HashTagBtn.isUserInteractionEnabled = false
-        HashTagBtn.setTitle("#" + str, for: .normal)
+        HashTagBtn.setTitle("#"+str+" ", for: .normal)
         HashTagBtn.setTitleColor(.lightGray, for: .normal)
-//        HashTagBtn.backgroundColor = .lightGray
+        //        HashTagBtn.backgroundColor = .lightGray
         HashTagBtn.titleLabel?.fontSize = fontSize
         HashTagBtn.contentHorizontalAlignment = .fill
-//        HashTagBtn.layer.cornerRadius = 10
-//        HashTagBtn.layer.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
-        
+        //        HashTagBtn.layer.cornerRadius = 10
+        //        HashTagBtn.layer.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         svHashTag.addArrangedSubview(HashTagBtn)
     }
     

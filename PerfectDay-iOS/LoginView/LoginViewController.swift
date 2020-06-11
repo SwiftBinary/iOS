@@ -92,7 +92,7 @@ class LoginViewController: UIViewController {
     // 서버정보(IP, Domain) 모델화 필요 enum 사용해서 코드 수정할 것
     @IBAction func goToLogin(_ sender: UIButton) {
         let userId = tfEmail.text!
-        let userPw = tfPassword.text! == "0000" ? "0000".sha256() : tfPassword.text!
+        let userPw = tfPassword.text! == "0000" ? "0000".sha256() : tfPassword.text!.sha256()
         if checkId(userId: userId, userPw: userPw) {
             let url = OperationIP + "/user/loginUser.do"
             let jsonHeader = JSON(["userSn":"_","deviceOS":"IOS"])
@@ -112,10 +112,9 @@ class LoginViewController: UIViewController {
                     let reponseJSON = JSON(response.value!)
                     // result값 - 1:성공, 2:실패
                     let loginResult = Int(reponseJSON["result"].stringValue)
-                    self.uds.setValue(reponseJSON.dictionaryObject, forKey: userDataKey)
                     switch loginResult {
                     case 1:
-                        self.loginSuccess()
+                        self.loginSuccess(reponseJSON)
                     case 2:
                         self.loginFail()
                     case -1:
@@ -134,7 +133,8 @@ class LoginViewController: UIViewController {
         }
         return true
     }
-    func loginSuccess(){
+    func loginSuccess(_ uData:JSON){
+        uds.setValue(uData.dictionaryObject, forKey: userDataKey)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let goToVC = storyboard.instantiateViewController(withIdentifier: "mainView")
         goToVC.modalPresentationStyle = .fullScreen
@@ -172,10 +172,9 @@ class LoginViewController: UIViewController {
                     // result값 - 1:성공, 2:실패
                     print(reponseJSON)
                     let loginResult = Int(reponseJSON["result"].stringValue)
-                    self.uds.setValue(reponseJSON.dictionaryObject, forKey: userDataKey)
                     switch loginResult {
                     case 1:
-                        self.loginSuccess()
+                        self.loginSuccess(reponseJSON)
                     case 2:
                         self.loginFail()
                     case -1:
@@ -213,10 +212,10 @@ class LoginViewController: UIViewController {
                            let reponseJSON = JSON(response.value!)
                            // result값 - 1:성공, 2:실패
                            let loginResult = Int(reponseJSON["result"].stringValue)
-                           self.uds.setValue(reponseJSON.dictionaryObject, forKey: userDataKey)
+//                           self.uds.setValue(reponseJSON.dictionaryObject, forKey: userDataKey)
                            switch loginResult {
                            case 1:
-                               self.loginSuccess()
+                               self.loginSuccess(reponseJSON)
                            case 2:
                                self.loginFail()
                            case -1:
@@ -232,9 +231,6 @@ class LoginViewController: UIViewController {
                    alertControllerDefault(title: "아이디 및 비밀번호를\n입력해주세요.", message: "")
                }
         
-    }
-    @IBAction func tempLogin2(_ sender: UIButton) {
-        loginSuccess()
     }
 
 //###########################

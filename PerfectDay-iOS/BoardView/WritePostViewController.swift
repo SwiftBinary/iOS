@@ -16,8 +16,7 @@ import Material
 class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextViewDelegate {
     
     
-    let developIP = "http://203.252.161.96:8080"
-    let OperationIP = "http://203.252.161.219:8080"
+//    let developIP = "http://203.252.161.96:8080"
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
     let userData = getUserData()
     

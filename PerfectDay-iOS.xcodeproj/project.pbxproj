@@ -11,6 +11,7 @@
 		C701C6C7243761E60079B395 /* FindPWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701C6C6243761E60079B395 /* FindPWViewController.swift */; };
 		C701C6C9243765A00079B395 /* UIFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701C6C8243765A00079B395 /* UIFunctions.swift */; };
 		C701C6CB2437884D0079B395 /* EnumValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701C6CA2437884D0079B395 /* EnumValue.swift */; };
+		C70D540D249268060044835E /* Planner.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C70D540C249268060044835E /* Planner.xcassets */; };
 		C70F4930241091F80058A61A /* LandmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70F492F241091F80058A61A /* LandmarkViewController.swift */; };
 		C70F4932241092140058A61A /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70F4931241092140058A61A /* LocationListViewController.swift */; };
 		C712AC4E24012258009BB29F /* WritePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C712AC4D24012258009BB29F /* WritePostViewController.swift */; };
@@ -90,6 +91,7 @@
 		C701C6C6243761E60079B395 /* FindPWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPWViewController.swift; sourceTree = "<group>"; };
 		C701C6C8243765A00079B395 /* UIFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFunctions.swift; sourceTree = "<group>"; };
 		C701C6CA2437884D0079B395 /* EnumValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumValue.swift; sourceTree = "<group>"; };
+		C70D540C249268060044835E /* Planner.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Planner.xcassets; sourceTree = "<group>"; };
 		C70F492F241091F80058A61A /* LandmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkViewController.swift; sourceTree = "<group>"; };
 		C70F4931241092140058A61A /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 		C712AC4D24012258009BB29F /* WritePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritePostViewController.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				C74D96D423E7B1ED000E26C3 /* Assets.xcassets */,
 				C76A0FF22484E5E4008AC74C /* CategoryIcon.xcassets */,
 				C76A0FF02484E56E008AC74C /* Temp.xcassets */,
+				C70D540C249268060044835E /* Planner.xcassets */,
 				C74D96D623E7B1ED000E26C3 /* LaunchScreen.storyboard */,
 				C74D96D923E7B1ED000E26C3 /* Info.plist */,
 			);
@@ -399,6 +402,7 @@
 				C74D96D823E7B1ED000E26C3 /* LaunchScreen.storyboard in Resources */,
 				C74D96D523E7B1ED000E26C3 /* Assets.xcassets in Resources */,
 				C77D1A452467EC6C0015A449 /* Search.storyboard in Resources */,
+				C70D540D249268060044835E /* Planner.xcassets in Resources */,
 				C74D96D323E7B1E9000E26C3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
