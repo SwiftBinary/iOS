@@ -47,6 +47,10 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
     func setNavigationBar(){
         let backItem = UIBarButtonItem()
         backItem.title = " "
@@ -54,7 +58,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     }
     
     func requestPost(){
-        let url = developIP + "/pick/selectPickInfoList.do"
+        let url = OperationIP + "/pick/selectPickInfoList.do"
         let jsonHeader = JSON(["userSn":(userData["userSn"] as? String)!])
         let parameter = JSON([
             "bReverse": true
@@ -152,7 +156,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         uvLocation.layer.cornerRadius = 5
         uvLocation.layer.borderWidth = 0.5
         uvLocation.layer.borderColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
-        uvLocation.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tempFunc)))
+        uvLocation.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToStoreInfo(_:))))
         uvLocation.accessibilityIdentifier = DibsLocData["storeSn"].string
         
         // 나중에 얘기는 클래스 단위로 따로 설계할 필요가 있음
@@ -286,7 +290,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         let uvLocation = UIView()
         uvLocation.translatesAutoresizingMaskIntoConstraints = false
         
-        uvLocation.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tempFunc)))
+//        uvLocation.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tempFunc)))
         
         let imgItem = UIImageView()
 //        imgItem.heightAnchor.constraint(equalToConstant: view.frame.width * 0.345).isActive = true
@@ -354,7 +358,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     // ##################### 찜 삭제 ######################
     // ##################################################
     func deletePick(_ strStoreSn: String){
-        let url = developIP + "/pick/deletePickInfo.do"
+        let url = OperationIP + "/pick/deletePickInfo.do"
         let jsonHeader = JSON(["userSn":getString(userData["userSn"])])
         let parameter = JSON([
             "storeSn": strStoreSn
@@ -386,8 +390,35 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         deletePick(sender.accessibilityIdentifier!)
     }
     
-    @objc func tempFunc(){
-        print("debug")
+    @objc func goToStoreInfo(_ sender: UITapGestureRecognizer){
+        let storeSn = sender.view?.accessibilityIdentifier
+//        UserDefaults.standard.setValue(storeSn, forKey: locationSnKey)
+        getLocationInfo(storeSn!)
+    }
+    func getLocationInfo(_ locationSn : String) {
+        //        let locationSn = UserDefaults.standard.string(forKey: locationSnKey)!
+        let url = OperationIP + "/store/selectStoreInfo.do"
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let parameter = JSON([
+            "storeSn": locationSn,
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            //                  debugPrint(response)
+            if response.value != nil {
+                let reponseJSON = JSON(response.value!)
+                print(reponseJSON)
+                //                    self.uds.set(reponseJSON.dictionaryObject, forKey: locationDataKey)
+                locationData = reponseJSON
+
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let goToVC = storyboard.instantiateViewController(withIdentifier: "locationInfoView")
+                self.navigationController?.pushViewController(goToVC, animated: true)
+            }
+        }
+        //            if (UserDefaults.standard.string(forKey: locationSnKey) != nil) {
+        //
+        //            }
     }
     
     // MARK: - ViewDidAppear

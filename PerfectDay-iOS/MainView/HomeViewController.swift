@@ -432,7 +432,7 @@ class HomeViewController: UIViewController {
     
     @objc func gotoLocationInfo(_ sender: UITapGestureRecognizer){
         let locationSn = sender.view!.accessibilityIdentifier
-        UserDefaults.standard.setValue(locationSn, forKey: locationSnKey)
+//        UserDefaults.standard.setValue(locationSn, forKey: locationSnKey)
         getLocationInfo(locationSn!)
     }
     

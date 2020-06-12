@@ -242,22 +242,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3B3557D9-7E28-4B41-8591-207D6BD20D23"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PerfectDay-iOS/DibsView/DibsCourseViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "inputLoaction(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "FCCDFD63-D07F-42DC-A71C-0D09349712B1"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -340,8 +324,8 @@
             filePath = "PerfectDay-iOS/UIFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "getImageURL(_:_:tag:)"
             landmarkType = "9">
          </BreakpointContent>
@@ -356,8 +340,8 @@
             filePath = "PerfectDay-iOS/UIFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "getImageURL(_:_:tag:)"
             landmarkType = "9">
          </BreakpointContent>

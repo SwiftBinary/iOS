@@ -192,7 +192,7 @@ class LoginViewController: UIViewController {
     }
     @IBAction func tempLogin3(_ sender: UIButton) {
                let userId = "testemail0@test.com"
-               let userPw = "passw0rd!!"
+        let userPw = "passw0rd@@".sha256()
                if checkId(userId: userId, userPw: userPw) {
                    let url = OperationIP + "/user/loginUser.do"
                    let jsonHeader = JSON(["userSn":"_","deviceOS":"IOS"])

@@ -13,7 +13,7 @@ import Alamofire
 class ShowInfoViewController: UIViewController {
     
     @IBOutlet var btnBack: UIButton!
-    @IBOutlet var tvInfo: UITextView!
+    @IBOutlet var lblUserInfo: UILabel!
     
     var userName: String = ""
     var userEmail: String = ""
@@ -34,10 +34,10 @@ class ShowInfoViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: false)
         btnBack.backgroundColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
         btnBack.layer.cornerRadius = 5
-//        print(userName)
-//        print(userEmail)
-//        print(userBirth)
-//        print(userGender)
+        //        print(userName)
+        //        print(userEmail)
+        //        print(userBirth)
+        //        print(userGender)
         findEmail ? findUserEmail(name: userName, birth: userBirth, gender: userGender) : findUserPw(name: userName, email: userEmail, birth: userBirth, gender: userGender)
     }
     
@@ -60,10 +60,31 @@ class ShowInfoViewController: UIViewController {
         let httpHeaders: HTTPHeaders = ["json":convertedHeaderString]
         //        , encoder: JSONParameterEncoder.default
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-//            debugPrint(response)
-//            print("##")
-            self.tvInfo.text = String(JSON(response.value!).rawString()!)
+            let responseJSON = JSON(response.value!)
+            debugPrint(response)
+            if response.response?.statusCode == 200{
+                if responseJSON["userEmail"].stringValue == "null"{
+                    self.lblUserInfo.text = "해당 정보로 가입된 내역이 없습니다.\n다시 한 번 확인해 주세요."
+                    self.lblUserInfo.numberOfLines = 2
+                } else {
+                    let crytoEmail = self.RegexEmail(responseJSON["userEmail"].stringValue)
+                    let attributedcrytoEmail: NSMutableAttributedString = NSMutableAttributedString(string: "회원님의 아이디(ID)는 " + crytoEmail + "입니다.")
+                    attributedcrytoEmail.setColor(color: #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1), forText: crytoEmail)
+                    self.lblUserInfo.attributedText = attributedcrytoEmail
+                }
+            } else {
+                self.lblUserInfo.text = "해당 정보로 가입된 내역이 없습니다.\n다시 한 번 확인해 주세요."
+                self.lblUserInfo.numberOfLines = 2
+            }
         }
+    }
+    
+    func RegexEmail(_ userEmail: String) -> String{
+        let emailID = String(userEmail.split(separator: "@")[0])
+        let emailDomain = String(userEmail.split(separator: "@").last!)
+        let cryptoEmail = String(emailID.substring(to: emailID.index(emailID.startIndex, offsetBy: emailID.count-3)))+"***"
+        let str = cryptoEmail + "@" + emailDomain
+        return str
     }
     
     func findUserPw(name: String, email: String, birth: String, gender: String){
@@ -85,9 +106,21 @@ class ShowInfoViewController: UIViewController {
         let httpHeaders: HTTPHeaders = ["json":convertedHeaderString]
         //        , encoder: JSONParameterEncoder.default
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-//            debugPrint(response)
-//            print("##")
-            self.tvInfo.text = String(JSON(response.value!).rawString()!)
+            let responseJSON = JSON(response.value!)
+            if response.response?.statusCode == 200{
+                if responseJSON["result"].intValue == 0{
+                    self.lblUserInfo.text = "해당 정보로 가입된 내역이 없습니다.\n다시 한 번 확인해 주세요."
+                    self.lblUserInfo.numberOfLines = 2
+                } else {
+                    let attributedResetPw: NSMutableAttributedString = NSMutableAttributedString(string: "회원님의 비밀번호가 0000으로 변경되었습니다.\n비밀번호를 즉시 변경하시길 바랍니다")
+                    attributedResetPw.setColor(color: #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1), forText: "0000")
+                    self.lblUserInfo.attributedText = attributedResetPw
+                    self.lblUserInfo.numberOfLines = 2
+                }
+            } else {
+                self.lblUserInfo.text = "해당 정보로 가입된 내역이 없습니다.\n다시 한 번 확인해 주세요."
+                self.lblUserInfo.numberOfLines = 2
+            }
         }
     }
     

@@ -27,7 +27,6 @@ class MainViewController: UIViewController {
         print(UserDefaults.standard.value(forKey: locationDataKey))
     }
     
-    
     override func viewDidAppear(_ animated: Bool) {
         let getData = UserDefaults.standard.dictionary(forKey: userDataKey)
         if getData == nil{

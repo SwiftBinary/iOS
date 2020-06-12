@@ -41,6 +41,27 @@ public func setHashTagString(_ str: String) -> String{
     return setStr
 }
 
+public func DecimalWon(_ value: Int) -> String{
+    let numberFormatter = NumberFormatter()
+    numberFormatter.numberStyle = .decimal
+    let result = numberFormatter.string(from: NSNumber(value: value))! + "원"
+    return result
+}
+
+public func RegexTime(_ value: Int) -> String{
+    var result = ""
+    let Hour = String(value / 60)
+    let Minute = String(value % 60)
+    
+    if Hour != "0" {
+        result += (Hour + "시간")
+    }
+    if Minute != "0" {
+        result += (Minute + "분")
+    }
+    return result
+}
+
 public func setShadowCard(_ item: UIView, bgColor: UIColor, crRadius:CGFloat, shColor: UIColor, shOffsetW: CGFloat ,shOffsetH: CGFloat, shRadius: CGFloat, sdOpacity: Float){
     item.backgroundColor = bgColor
     item.layer.cornerRadius = crRadius

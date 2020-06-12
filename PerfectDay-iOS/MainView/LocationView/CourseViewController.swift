@@ -18,32 +18,47 @@ class CourseViewController: UIViewController {
     @IBOutlet var svCourse: UIStackView!
     @IBOutlet var uvDetailDescriptionPlace: UIView!
     
+    @IBOutlet var btnSaveCourse: UIButton!
+    
+    @IBOutlet var lblCourseInfo: UILabel!
+    
+    
     let userData = getUserData()
     var responseJSON:Array<JSON> = []
-//    var response : Array<JSON> = []
+    //    var response : Array<JSON> = []
     
     var resultStoreSn : Array<String>?
     var storeSnArr : Array<String> = []
+    var courseSn:String = ""
+    var totalPrice:Int = 0
+    var costTm:Int = 0
     
     var temp = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.tabBar.isHidden = true
         setNavigationBar()
         setStoreSnArray()
+        setUI()
         // Do any additional setup after loading the view.
-
+        
     }
-    
     func setStoreSnArray(){
-        resultStoreSn = self.storeSnArr
-        let n = resultStoreSn!.count-1
-        for i in 0...n {
-            if resultStoreSn![n-i] == "" {
-                resultStoreSn?.remove(at: n-i)
+        if courseSn == ""{
+            resultStoreSn = self.storeSnArr
+            let n = resultStoreSn!.count-1
+            for i in 0...n {
+                if resultStoreSn![n-i] == "" {
+                    resultStoreSn?.remove(at: n-i)
+                }
             }
+            requestStore(0)
+        } else {
+            btnSaveCourse.isHidden = true
+            getCourseInfo(courseSn)
         }
-        requestLocations()
+        
     }
     
     func setNavigationBar(){
@@ -53,74 +68,64 @@ class CourseViewController: UIViewController {
         self.navigationItem.backBarButtonItem = backItem
     }
     
-    func requestLocations(){
-        print(resultStoreSn!)
-        requestStore(0)
-//        for i in 0...resultStoreSn!.count-1 {
-//            requestStore(i)
-//        }
-    }
-    
     func requestStore(_ num : Int){
         let url = OperationIP + "/store/selectStoreInfo.do"
-            let parameter = JSON([
-                "storeSn": storeSnArr[num]
-            ])
-//            let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-            let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-            
-            let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
-            //        print(convertedHeaderString)
-            //        print(convertedParameterString)
-            
-            AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-                debugPrint(response)
-                if response.value != nil {
-//                    print("\n\n\n\n\n\n",num,"\n\n\n\n\n\n")
-                    self.responseJSON.append(JSON(response.value!))
-//                    print("############################################s\n\n\n")
-//                    print(self.responseJSON)
-//                    print("############################################f\n\n\n")
-                    self.temp += 1
-                    if num != 0 {
-                        self.nextCourse()
-                    }
-                    self.setCourse(num, self.responseJSON[num])
-                    if num != self.resultStoreSn!.count-1 {
-                        self.requestStore(num+1)
-                    } else {
-                        self.setUI()
-                    }
-//                    if num == self.storeSnArr.count - 1 {
-//
-//                        self.setUI()
-//                    }
+        let parameter = JSON([
+            "storeSn": storeSnArr[num]
+        ])
+        //            let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        //        print(convertedHeaderString)
+        //        print(convertedParameterString)
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+//            debugPrint(response)
+            if response.value != nil {
+                self.responseJSON.append(JSON(response.value!))
+                self.temp += 1
+                if num != 0 {
+                    self.nextCourse()
                 }
+                self.setCourse(num, self.responseJSON[num])
+                if num != self.resultStoreSn!.count-1 {
+                    self.requestStore(num+1)
+                } else {
+                    self.setCourseInfo(self.totalPrice,self.costTm)
+                }
+            }
         }
     }
     
     func setUI(){
         setDescription()
         svCourse.axis = .vertical
-//        svCourse.removeSubviews()
+        //        svCourse.removeSubviews()
         scvCourse.bounces = false
         scvCourse.showsVerticalScrollIndicator = false
-//        for i in 0...resultStoreSn!.count-1 {
-//            if i != 0 {
-//                nextCourse()
-//            }
-//            setCourse(i, responseJSON[i + 1])
-//        }
+        btnSaveCourse.layer.cornerRadius = 5
+        //        for i in 0...resultStoreSn!.count-1 {
+        //            if i != 0 {
+        //                nextCourse()
+        //            }
+        //            setCourse(i, responseJSON[i + 1])
+        //        }
     }
     
     func setDescription(){
         uvDetailDescriptionPlace.layer.borderWidth = 1
         uvDetailDescriptionPlace.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         uvDetailDescriptionPlace.layer.cornerRadius = 5
+        setShadowCard(uvDetailDescriptionPlace, bgColor: .white, crRadius: 5, shColor: #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1), shOffsetW: 3, shOffsetH: 3, shRadius: 2, sdOpacity:0.9)
+    }
+    
+    func setCourseInfo(_ cost:Int,_ time:Int){
+        lblCourseInfo.text = "1인 예산 - " + DecimalWon(cost) + " | 소요 시간 - " + RegexTime(time)
     }
     
     func nextCourse(){
-        print("\n\n\n\n\n\n nextCourse \n\n\n\n\n\n")
+//        print("\n\n\n\n\n\n nextCourse \n\n\n\n\n\n")
         let uvItem = UIView()
         uvItem.translatesAutoresizingMaskIntoConstraints = false
         uvItem.backgroundColor = .clear
@@ -154,7 +159,11 @@ class CourseViewController: UIViewController {
     }
     
     func setCourse(_ num: Int,_ storeData : JSON){
-        print("\n\n\n\n\n\n setCourse : ",num,"\n\n\n\n\n\n")
+//        print("\n\n\n\n\n\n setCourse : ",num,"\n\n\n\n\n\n")
+
+        costTm += storeData["storeCostTm"].intValue
+        totalPrice += storeData["reprMenuPrice"].intValue
+        
         let uvItem = UIView()
         uvItem.translatesAutoresizingMaskIntoConstraints = false
         uvItem.backgroundColor = .clear
@@ -219,7 +228,8 @@ class CourseViewController: UIViewController {
         imgStore.layer.cornerRadius = 5
         imgStore.contentMode = .scaleAspectFill
         imgStore.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-        imgStore.widthAnchor.constraint(equalToConstant: view.frame.width * 0.14).isActive = true
+//        imgStore.widthAnchor.constraint(equalToConstant: view.frame.width * 0.14).isActive = true
+        imgStore.widthAnchor.constraint(equalTo: imgStore.heightAnchor, multiplier: 1).isActive = true
         let svInfo = UIStackView(arrangedSubviews: [storeType,storeNm])
         svInfo.translatesAutoresizingMaskIntoConstraints = false
         svInfo.axis = .vertical
@@ -228,8 +238,8 @@ class CourseViewController: UIViewController {
         let uvInfo = UIView()
         uvInfo.addSubview(svInfo)
         uvInfo.translatesAutoresizingMaskIntoConstraints = false
-        uvInfo.widthAnchor.constraint(equalToConstant: view.frame.width * 0.6 - 65).isActive = true
-        uvInfo.heightAnchor.constraint(equalToConstant: view.frame.width * 0.2 - 15).isActive = true
+//        uvInfo.widthAnchor.constraint(equalToConstant: view.frame.width * 0.6 - 65).isActive = true
+//        uvInfo.heightAnchor.constraint(equalToConstant: view.frame.width * 0.2 - 15).isActive = true
         uvInfo.addConstraint(NSLayoutConstraint(item: svInfo, attribute: .centerX, relatedBy: .equal, toItem: uvInfo, attribute: .centerX, multiplier: 1, constant: 0))
         uvInfo.addConstraint(NSLayoutConstraint(item: svInfo, attribute: .centerY, relatedBy: .equal, toItem: uvInfo, attribute: .centerY, multiplier: 1, constant: 0))
         svInfo.widthAnchor.constraint(equalTo: uvInfo.widthAnchor, multiplier: 1).isActive = true
@@ -239,6 +249,7 @@ class CourseViewController: UIViewController {
         pathBtn.setImage(UIImage(named: "GoToSeePath"), for: .normal)
         pathBtn.contentHorizontalAlignment = .center
         pathBtn.translatesAutoresizingMaskIntoConstraints = false
+        pathBtn.widthAnchor.constraint(equalTo: pathBtn.heightAnchor, multiplier: 1).isActive = true
         pathBtn.layer.cornerRadius = 5
         
         let svMain = UIStackView(arrangedSubviews: [imgStore,uvInfo,pathBtn])
@@ -246,8 +257,8 @@ class CourseViewController: UIViewController {
         svMain.axis = .horizontal
         svMain.distribution = .fillProportionally
         svMain.spacing = 10
-        svMain.widthAnchor.constraint(equalToConstant: view.frame.width * 0.9 - 65).isActive = true
-        svMain.heightAnchor.constraint(equalToConstant: view.frame.width * 0.2 - 15).isActive = true
+//        svMain.widthAnchor.constraint(equalToConstant: view.frame.width * 0.9 - 65).isActive = true
+//        svMain.heightAnchor.constraint(equalToConstant: view.frame.width * 0.2 - 15).isActive = true
         
         let uvMain = UIView()
         uvMain.addSubview(svMain)
@@ -256,12 +267,13 @@ class CourseViewController: UIViewController {
         uvMain.layer.borderWidth = 1
         uvMain.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         uvMain.layer.cornerRadius = 5
-        uvMain.widthAnchor.constraint(equalToConstant: view.frame.width * 0.9 - 50).isActive = true
-        uvMain.heightAnchor.constraint(equalToConstant: view.frame.width * 0.2).isActive = true
+//        uvMain.widthAnchor.constraint(equalToConstant: view.frame.width * 0.9 - 50).isActive = true
+//        uvMain.heightAnchor.constraint(equalToConstant: view.frame.width * 0.2).isActive = true
         uvMain.addConstraint(NSLayoutConstraint(item: svMain, attribute: .centerX, relatedBy: .equal, toItem: uvMain, attribute: .centerX, multiplier: 1, constant: 0))
         uvMain.addConstraint(NSLayoutConstraint(item: svMain, attribute: .centerY, relatedBy: .equal, toItem: uvMain, attribute: .centerY, multiplier: 1, constant: 0))
         svMain.heightAnchor.constraint(equalTo: uvMain.heightAnchor, multiplier: 1, constant: -15).isActive = true
         svMain.widthAnchor.constraint(equalTo: uvMain.widthAnchor, multiplier: 1, constant:  -15).isActive = true
+        setShadowCard(uvMain, bgColor: .white, crRadius: 5, shColor: #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1), shOffsetW: 3, shOffsetH: 3, shRadius: 2, sdOpacity:0.9)
         
         let svItem = UIStackView(arrangedSubviews: [uvSequence,uvMain])
         svItem.translatesAutoresizingMaskIntoConstraints = false
@@ -269,8 +281,8 @@ class CourseViewController: UIViewController {
         svItem.distribution = .fill
         
         uvItem.addSubview(svItem)
-        uvItem.widthAnchor.constraint(equalToConstant: view.frame.width * 0.9).isActive = true
-        uvItem.heightAnchor.constraint(equalTo: uvItem.widthAnchor, multiplier: 0.2).isActive = true
+//        uvItem.widthAnchor.constraint(equalToConstant: view.frame.width * 0.9).isActive = true
+//        uvItem.heightAnchor.constraint(equalTo: uvItem.widthAnchor, multiplier: 0.2).isActive = true
         uvItem.addConstraint(NSLayoutConstraint(item: svItem, attribute: .centerX, relatedBy: .equal, toItem: uvItem, attribute: .centerX, multiplier: 1, constant: 0))
         uvItem.addConstraint(NSLayoutConstraint(item: svItem, attribute: .centerY, relatedBy: .equal, toItem: uvItem, attribute: .centerY, multiplier: 1, constant: 0))
         svItem.heightAnchor.constraint(equalTo: uvItem.heightAnchor, multiplier: 1, constant:  0).isActive = true
@@ -286,7 +298,82 @@ class CourseViewController: UIViewController {
         
     }
     
+    func getCourseInfo(_ courseSn : String) {
+        let url = OperationIP + "/course/selectCourseInfo.do"
+        let parameter = JSON([
+            "courseSn": courseSn,
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+//            debugPrint(response)
+            if response.value != nil {
+                self.responseJSON = JSON(response.value!)["courseDetailList"].arrayValue
+//                print(self.responseJSON)
+                for (index,item) in self.responseJSON.enumerated() {
+                    if index != 0 {
+                        self.nextCourse()
+                    }
+                    self.setCourse(index, item["storeDTO"])
+                }
+                self.totalPrice = JSON(response.value!)["totalPrice"].intValue
+                self.costTm = JSON(response.value!)["costTm"].intValue
+                self.setCourseInfo(self.totalPrice,self.costTm)
+            }
+        }
+    }
     
+    @IBAction func saveCourse(_ sender: UIButton) {
+        let now = Date()
+        let date = DateFormatter()
+        date.locale = Locale(identifier: "ko_kr")
+        date.timeZone = TimeZone(abbreviation: "KST") // "2018-03-21 18:07:27"
+        date.dateFormat = "yy-MM-dd"
+
+        let todayString = date.string(from: now) + " 코스"
+        let alertController = UIAlertController(title: "코스 제목을 입력해 주세요.", message: nil, preferredStyle: UIAlertController.Style.alert)
+        alertController.addTextField{ (textField) in
+            textField.placeholder = todayString
+            textField.textColor = .black
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        let saveAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
+            self.requestSaveCourse(alertController.textFields![0].text!.isEmpty ? todayString : alertController.textFields![0].text!)
+        })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(saveAction)
+        present(alertController, animated: true, completion: nil)
+        
+    }
+    func requestSaveCourse(_ courseNm : String) {
+        let url = OperationIP + "/course/insertCourseInfo.do"
+        var jsonCourseDetailList:Array<JSON> = []
+        for (i,storeSn) in resultStoreSn!.enumerated() {
+            jsonCourseDetailList.append(JSON([
+                "courseNumber": i,
+                "storeSn": storeSn
+            ]))
+        }
+        let parameter = JSON([
+            "courseNm": courseNm,
+            "courseDetailList": jsonCourseDetailList
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+//            debugPrint(response)
+            if response.value != nil {
+                let navigationVCList = self.navigationController!.viewControllers
+                //print(navigationVCList.count)
+                self.navigationController?.popToViewController(navigationVCList[navigationVCList.count-2], animated: true)
+            }
+        }
+    }
     
     
     /*

@@ -861,34 +861,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gwq-s4-DFF" userLabel="완료">
-                                <rect key="frame" x="41.5" y="812" width="331" height="30"/>
+                                <rect key="frame" x="41.5" y="800.5" width="331" height="41.5"/>
                                 <color key="backgroundColor" red="0.98823529409999999" green="0.36470588240000001" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="로그인 페이지로">
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Gwq-s4-DFF" secondAttribute="height" multiplier="8:1" id="daq-P6-Uj9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="로그인 페이지로 돌아가기">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="btnBackFunc:" destination="xUy-4n-8Id" eventType="touchUpInside" id="Rlk-eE-nfg"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text=" " textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ym5-nB-K2K">
-                                <rect key="frame" x="20.5" y="98" width="373" height="250"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="bqR-JM-TYZ"/>
-                                </constraints>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JOv-E3-1Vp">
+                                <rect key="frame" x="20.5" y="98" width="373" height="692.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="JOv-E3-1Vp" firstAttribute="centerX" secondItem="ZAr-SQ-65f" secondAttribute="centerX" id="6Aj-PB-r6g"/>
                             <constraint firstItem="Gwq-s4-DFF" firstAttribute="width" secondItem="Qav-fS-9w1" secondAttribute="width" multiplier="0.8" id="Kzv-aM-FrR"/>
-                            <constraint firstItem="Ym5-nB-K2K" firstAttribute="top" secondItem="ZAr-SQ-65f" secondAttribute="top" constant="10" id="MHS-20-Vtq"/>
                             <constraint firstItem="Gwq-s4-DFF" firstAttribute="centerX" secondItem="ZAr-SQ-65f" secondAttribute="centerX" id="N59-8Q-edS"/>
-                            <constraint firstItem="Ym5-nB-K2K" firstAttribute="width" secondItem="Qav-fS-9w1" secondAttribute="width" multiplier="0.9" id="OBh-0b-yHv"/>
-                            <constraint firstItem="Ym5-nB-K2K" firstAttribute="centerX" secondItem="ZAr-SQ-65f" secondAttribute="centerX" id="WCy-6f-NLX"/>
+                            <constraint firstItem="JOv-E3-1Vp" firstAttribute="width" secondItem="Qav-fS-9w1" secondAttribute="width" multiplier="0.9" id="TrS-hw-Ja7"/>
                             <constraint firstItem="ZAr-SQ-65f" firstAttribute="bottom" secondItem="Gwq-s4-DFF" secondAttribute="bottom" constant="20" id="gud-5e-WPP"/>
+                            <constraint firstItem="Gwq-s4-DFF" firstAttribute="top" secondItem="JOv-E3-1Vp" secondAttribute="bottom" constant="10" id="mEe-bL-ehI"/>
+                            <constraint firstItem="JOv-E3-1Vp" firstAttribute="top" secondItem="ZAr-SQ-65f" secondAttribute="top" constant="10" id="wvh-w8-ZiQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZAr-SQ-65f"/>
                     </view>
@@ -897,7 +898,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="btnBack" destination="Gwq-s4-DFF" id="Wuy-HT-Fwm"/>
-                        <outlet property="tvInfo" destination="Ym5-nB-K2K" id="Q0Q-aE-vO4"/>
+                        <outlet property="lblUserInfo" destination="JOv-E3-1Vp" id="c5f-yI-Rtr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oAI-5e-Bkw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
