@@ -10,6 +10,8 @@ import UIKit
 import XLPagerTabStrip
 import MaterialDesignWidgets
 import Material
+import Alamofire
+import SwiftyJSON
 
 class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate,IndicatorInfoProvider {
     var itemInfo: IndicatorInfo = "View"
@@ -27,12 +29,24 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
     var svPostList = UIStackView()
     var btnScrollUp = UIButton(type: .custom)
     
+    var responseJSON:JSON = []
+    let userData = getUserData()
+    var segueTitle: Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
-        setPostUI()
-        setScrollUI()
+//        setPostUI()
+//        setScrollUI()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        svPostList.removeSubviews()
+        setScrollUI()
+        requestPost()
+    }
+    
     func setSampleSegments(_ segmentedControl: MaterialSegmentedControl, _ cornerRadius: CGFloat) {
         let strList = ["게시글","생생 리뷰"]
         for str in strList {
@@ -47,6 +61,31 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool{
         return true
+    }
+    func requestPost(){
+        let url = OperationIP + "/review/selectStoreReviewInfoList.do"
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let parameter = JSON([
+            "storeSn": locationData["storeSn"].string!,
+            "filterInfo": "all",
+            "sortInfo": "registerDt",
+            "offset": locationData["offset"].intValue,
+            "limit": 20
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        print(convertedParameterString)
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            if response.value != nil {
+                self.responseJSON = JSON(response.value!)
+                let responseStr : String = self.responseJSON.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+                print("result : \n " + responseStr)
+                if responseStr != "" {
+                    self.setPostUI()
+                } else {
+                    
+                }
+            }
+        }
     }
     
     func setPostUI(){
@@ -72,8 +111,8 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
         svPostList.addArrangedSubview(makeSNSView())
         svPostList.addArrangedSubview(makeWriteBtn())
         
-        for index in 0..<10 {
-            let uvPost = makeTempUv(index)
+        for data in responseJSON.arrayValue {
+            let uvPost = makeTempUv(data)
             svPostList.addArrangedSubview(uvPost)
         }
         svPostList.translatesAutoresizingMaskIntoConstraints = false
@@ -147,11 +186,13 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
         uvWrite.addConstraint(NSLayoutConstraint(item: btnWriteReview, attribute: .centerY, relatedBy: .equal, toItem: uvWrite, attribute: .centerY, multiplier: 1, constant: 0))
         btnWriteReview.heightAnchor.constraint(equalTo: uvWrite.heightAnchor, multiplier: 1).isActive = true
         btnWriteReview.trailingAnchor.constraint(equalTo: uvWrite.trailingAnchor, constant: -20).isActive = true
+        btnWriteReview.accessibilityIdentifier = locationData["storeSn"].string
+        btnWriteReview.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gotoWriteReview(_:))))
         
         return uvWrite
     }
     
-    func makeTempUv(_ i: Int) -> UIView {
+    func makeTempUv(_ postData: JSON) -> UIView {
         let viewPost = UIView()
         viewPost.backgroundColor = .white
         viewPost.layer.cornerRadius = 15
@@ -166,13 +207,20 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
         imgProfile.widthAnchor.constraint(equalToConstant: iconSize).isActive = true
         
         let lblNickName = UILabel()
-        lblNickName.text = "닉네임 " + String(i)
+        lblNickName.text = postData["userDTO"]["userName"].string
         lblNickName.fontSize = 15
         
         let imgViewCount = UIImageView(image: UIImage(named: "viewIcon"))
-        imgViewCount.widthAnchor.constraint(equalTo: imgViewCount.heightAnchor, multiplier: 1).isActive = true
-        let lblPostInfo = UILabel()
-        lblPostInfo.text = "999+ 2020-05-21"
+          imgViewCount.widthAnchor.constraint(equalTo: imgViewCount.heightAnchor, multiplier: 1).isActive = true
+          let lblPostInfo = UILabel()
+          let strView:String = String(postData["viewCount"].intValue)
+          let strDate:String = String(postData["registerDt"].string!.split(separator: " ")[0])
+          if postData["viewCount"].intValue >= 999 {
+              lblPostInfo.text = "999+ " + strDate
+          }
+          else {
+              lblPostInfo.text = strView + " " + strDate
+          }
         lblPostInfo.fontSize = 11
         lblPostInfo.textColor = .lightGray
         
@@ -185,32 +233,35 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
         svPostInfo.spacing = 5
         
         let svStar = UIStackView()
+        let score : Int = postData["reviewScore"].intValue
         let cgSize:CGFloat = 25
-        for _ in 1...5 {
-            let imgStar = UIImageView(image: UIImage(named: "GPAIcon"))
+        for i in 1...5 {
+            let imgStar = UIImageView()
+            if i <= score {
+                imgStar.image = UIImage(named: "GPAIcon")
+            }
+            else {
+                imgStar.image = UIImage(named: "GPAIconOff")
+            }
             imgStar.contentMode = .scaleAspectFill
-//            imgStar.heightAnchor.constraint(equalToConstant: cgSize).isActive = true
+            //            imgStar.heightAnchor.constraint(equalToConstant: cgSize).isActive = true
             imgStar.widthAnchor.constraint(equalToConstant: cgSize).isActive = true
             svStar.addArrangedSubview(imgStar)
         }
         svStar.spacing = 2
         svStar.alignment = .center
         svStar.distribution = .fillEqually
-        
+
         let svTopPost = UIStackView(arrangedSubviews: [imgProfile,svPostInfo,svStar])
         svTopPost.axis = .horizontal
         svTopPost.spacing = 5
         
-        let lblLocationName = UILabel()
-        lblLocationName.text = "@" + "장소명"
-        lblLocationName.fontSize = 15
-        lblLocationName.textColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
         let lblTitle = UILabel()
-        lblTitle.text = "한 줄 리뷰 " + String(i)
+        lblTitle.text = postData["title"].string!
         lblTitle.font = UIFont.boldSystemFont(ofSize: 20)
         let lblContent = UILabel()
-        //            lblContent.isHidden = postData["content"].string == nil
-        lblContent.text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."
+        lblContent.isHidden = postData["content"].string == nil
+        lblContent.text = postData["content"].string
         lblContent.textColor = .lightGray
         lblContent.fontSize = 15
         lblContent.numberOfLines = 4 //countLabelLines(label: lblContent)
@@ -219,14 +270,21 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
         let scvTag = UIScrollView()
         scvTag.translatesAutoresizingMaskIntoConstraints = false
         let svTag = UIStackView()
-        for hashTag in strHashTag {
-            let btnHashTag = UIButton(type: .system)
-            btnHashTag.setTitle(setHashTagString(hashTag))
-            btnHashTag.layer.cornerRadius = 15
-            btnHashTag.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
-            btnHashTag.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
-            svTag.addArrangedSubview(btnHashTag)
-        }
+        
+        let listHashTag = postData["hashTag"].string?.split(separator: " ")
+         if listHashTag == nil {
+             scvTag.isHidden = true
+         } else {
+             for hashTag in listHashTag! {
+                 let btn = UIButton(type: .system)
+                 btn.setTitle(setHashTagString(String(hashTag)), for: .normal)
+                 btn.layer.cornerRadius = 15
+                 btn.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
+                 btn.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
+                 svTag.addArrangedSubview(btn)
+             }
+         }
+        
         svTag.translatesAutoresizingMaskIntoConstraints = false
         svTag.spacing = 5
         scvTag.addSubview(svTag)
@@ -240,10 +298,12 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
         let scvImg = UIScrollView()
         scvImg.translatesAutoresizingMaskIntoConstraints = false
         let svImg = UIStackView(arrangedSubviews: [UIImageView(image: UIImage(named: "TempImage")),UIImageView(image: UIImage(named: "TempImage")),UIImageView(image: UIImage(named: "TempImage")),UIImageView(image: UIImage(named: "TempImage")),UIImageView(image: UIImage(named: "TempImage"))])
+        
         svImg.translatesAutoresizingMaskIntoConstraints = false
         svImg.spacing = 5
         scvImg.addSubview(svImg)
         for img in svImg.arrangedSubviews {
+            (img as! UIImageView).contentMode = .scaleAspectFill
             img.translatesAutoresizingMaskIntoConstraints = false
             img.widthAnchor.constraint(equalToConstant: 100).isActive = true
             img.heightAnchor.constraint(equalToConstant: 100).isActive = true
@@ -255,7 +315,7 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
         svImg.leadingAnchor.constraint(equalTo: scvImg.leadingAnchor, constant: 0).isActive = true
         svImg.trailingAnchor.constraint(equalTo: scvImg.trailingAnchor, constant: 0).isActive = true
         
-        let svContent = UIStackView(arrangedSubviews: [svTopPost,lblLocationName,lblTitle,lblContent,scvTag,scvImg])
+        let svContent = UIStackView(arrangedSubviews: [svTopPost,lblTitle,lblContent,scvTag,scvImg])
         svContent.axis = .vertical
         svContent.spacing = 10
         svContent.distribution = .fill
@@ -282,14 +342,14 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
         uvLineBottom.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
         
         //            let btnLike = FlatButton(title: "String(postData["favorCount"].int!)")
-        let btnLike = FlatButton(title: "999+")
+        let btnLike = FlatButton(title: String(postData["favorCount"].int!))
         btnLike.setImage(UIImage(named: "LikeOffBtn"), for: .normal)
         btnLike.layer.cornerRadius = 5
         btnLike.titleLabel?.fontSize = 12
         //        btnLike.contentEdgeInsets.left = btnMargin
         //        btnLike.contentEdgeInsets.right = btnMargin
         btnLike.titleColor = .lightGray
-        let btnComment = FlatButton(title: "999")
+        let btnComment = FlatButton(title: String(postData["replyCount"].int!))
         btnComment.isEnabled = false
         btnComment.setImage(UIImage(named: "CommentIcon"), for: .normal)
         btnComment.titleColor = .lightGray
@@ -325,14 +385,35 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
         svMain.widthAnchor.constraint(equalTo: viewPost.widthAnchor, multiplier: 1).isActive = true
         svMain.heightAnchor.constraint(equalTo: viewPost.heightAnchor, multiplier: 1).isActive = true
         
-        //        viewPost.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gotoPost)))
+        viewPost.accessibilityIdentifier = postData["boardSn"].string
+        viewPost.accessibilityValue = String(postData["category"].intValue)
+        viewPost.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gotoPost(_:))))
         
         return viewPost
     }
     
-    @objc func gotoPost(){
-        let goToVC = UIStoryboard.init(name: "Board", bundle: Bundle.main).instantiateViewController(withIdentifier: "showPostView")
-        self.present(goToVC, animated: true, completion: nil)
+    @objc func gotoPost(_ sender : UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "Board", bundle: nil)
+        guard let rvc = storyboard.instantiateViewController(withIdentifier: "showPostView") as? ShowPostViewController else {
+            //아니면 종료
+            return
+        }
+        rvc.boardSn = sender.view!.accessibilityIdentifier!
+        rvc.category = sender.view!.accessibilityValue!
+        rvc.isLocaitonLink = true
+        self.navigationController?.pushViewController(rvc, animated: true)
+    }
+    @objc func gotoWriteReview(_ sender : UITapGestureRecognizer){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let rvc = storyboard.instantiateViewController(withIdentifier: "writeReviewView") as? WriteReviewViewController else {
+            //아니면 종료
+            return
+        }
+        rvc.storeSn = sender.view!.accessibilityIdentifier!
+        rvc.responseJSON = self.responseJSON
+        rvc.isUpdatePost = false
+        self.navigationController?.pushViewController(rvc, animated: true)
+
     }
     
     func setScrollUI(){

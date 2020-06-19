@@ -207,7 +207,6 @@ class SearchLocationViewController: UIViewController,UIGestureRecognizerDelegate
         lblName.text = "놀숲 건대점"
         lblName.font = UIFont.boldSystemFont(ofSize: 18.0)
         
-        
         let lblPrice = UILabel()
         lblPrice.text = "대표메뉴 " + String(num) + "원"
         lblPrice.fontSize = 11

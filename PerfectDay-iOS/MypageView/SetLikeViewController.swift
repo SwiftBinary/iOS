@@ -8,6 +8,8 @@
 
 import UIKit
 import MaterialDesignWidgets
+import Alamofire
+import SwiftyJSON
 
 class SetLikeViewController: UIViewController {
     
@@ -21,6 +23,8 @@ class SetLikeViewController: UIViewController {
     @IBOutlet var uvPlay: UIView!
     @IBOutlet var uvWatch: UIView!
     @IBOutlet var uvWalk: UIView!
+    
+    let userData = getUserData()
     
     //Eat
     let btnRice = MaterialVerticalButton()
@@ -64,6 +68,7 @@ class SetLikeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(userData)
         setUI()
         setUIView()
         
@@ -105,7 +110,29 @@ class SetLikeViewController: UIViewController {
         (svCategory.arrangedSubviews[viewIndex].subviews.first!.subviews.first!.subviews.last as! UIImageView).image = openList[viewIndex] ? UIImage(named: "upArrow") : UIImage(named: "downArrow")
     }
     @IBAction func gotoBack(_ sender: UIButton) {
+        updateUserPrefInfo()
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func updateUserPrefInfo(){
+        let url = OperationIP + "/user/updateUserPrefInfo.do"
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let parameter = JSON([
+            "userAvgBudget": getString(userData["userAvgBudget"]),
+            "eatPref": getString(userData["eatPref"]),
+            "drinkPref": getString(userData["drinkPref"]),
+            "playPref": getString(userData["playPref"]),
+            "watchPref": getString(userData["watchPref"]),
+            "walkPref": getString(userData["walkPref"]),
+
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            if response.value != nil {
+                let responseJSON = JSON(response.value!)
+                print(responseJSON)
+            }
+        }
     }
     
     func setEatUI(){
@@ -128,6 +155,7 @@ class SetLikeViewController: UIViewController {
         }
         
         svEat.addArrangedSubview(svSub)
+        svEat.isHidden = true
     }
     /*
      // MARK: - Navigation

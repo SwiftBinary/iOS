@@ -14,7 +14,8 @@ import Material
 
 class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISearchBarDelegate {
     let darkGray = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-    let themeColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
+    let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
+    let btnhighlightedColor = #colorLiteral(red: 1, green: 0.737254902, blue: 0.9294117647, alpha: 1)
     var segueTitle: Int = 0
     var boardSn: String = ""
     let arrayTitle = ["공지사항","코스를 공유해요","인기 게시판","자유 게시판","썸타는 게시판","조언을 구해요","실시간 장소리뷰"]
@@ -23,6 +24,8 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     
     let btnMargin:CGFloat = -10
     var reponseJSON:JSON = []
+    var postJSON = JSON()
+    var isUpdate = false
     
     let userData = getUserData()
     
@@ -39,12 +42,19 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     override func viewDidLoad() {
         super.viewDidLoad()
         getCatagoryInfo()
-        requestPost()
+//        requestPost(false)
         setBanner()
     }
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
-//        requestPost()
+                super.viewWillAppear(animated)
+        svPostList.removeSubviews()
+        if segueTitle == 6 {
+            requestReview()
+        }
+        else {
+            requestPost(false)
+        }
     }
     
     func getCatagoryInfo(){
@@ -90,11 +100,18 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         }
         
         svPostList.translatesAutoresizingMaskIntoConstraints = false
-        let endLbl = UILabel()
-        endLbl.text = " "
-        endLbl.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
-        endLbl.backgroundColor = .white
-        svPostList.addArrangedSubview(endLbl)
+        
+        //일단 비워놓을 UIView 나중에 뭐로 채울지 생각해볼것
+        let uvTemp = UIView()
+        uvTemp.heightAnchor.constraint(equalToConstant: 60).isActive = true
+//        uvTemp.heightAnchor.constraint(equalTo: btnCreatePost.heightAnchor, multiplier: 1).isActive = true
+        uvTemp.backgroundColor = .clear
+        svPostList.addArrangedSubview(uvTemp)
+        
+        let uvBottom = UIView()
+        uvBottom.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
+        uvBottom.backgroundColor = .clear
+        svPostList.addArrangedSubview(uvBottom)
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool{
@@ -122,6 +139,18 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         let lblNickName = UILabel()
         lblNickName.text = postData["userDTO"]["userName"].string
         lblNickName.fontSize = 15
+        let btnMenu = IconButton()
+        btnMenu.image = Icon.cm.moreHorizontal
+        btnMenu.tintColor = .darkGray
+        btnMenu.addTarget(self, action: #selector(menuPost(_:)), for: .touchUpInside)
+        btnMenu.accessibilityIdentifier = postData["boardSn"].string
+        btnMenu.accessibilityValue = postData["userDTO"]["userSn"].string
+        btnMenu.imageView?.contentMode = .scaleAspectFit
+//        btnMenu.widthAnchor.constraint(equalToConstant: 25).isActive = true
+//        btnMenu.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        let svPostInfoChild = UIStackView(arrangedSubviews: [lblNickName,btnMenu])
+        svPostInfoChild.axis = .horizontal
+        
         
         let imgViewCount = UIImageView(image: UIImage(named: "viewIcon"))
         imgViewCount.widthAnchor.constraint(equalTo: imgViewCount.heightAnchor, multiplier: 1).isActive = true
@@ -136,23 +165,54 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         svCountDate.axis = .horizontal
         svCountDate.spacing = 5
         
-        let svPostInfo = UIStackView(arrangedSubviews: [lblNickName,svCountDate])
+        let svPostInfo = UIStackView(arrangedSubviews: [svPostInfoChild,svCountDate])
         svPostInfo.axis = .vertical
         svPostInfo.spacing = 5
-        //
-        //         let svStar = UIStackView()
-        //         let cgSize:CGFloat = 25
-        //         for _ in 1...5 {
-        //             let imgStar = UIImageView(image: UIImage(named: "GPAIcon"))
-        //             imgStar.contentMode = .scaleAspectFit
-        //             imgStar.heightAnchor.constraint(equalToConstant: cgSize).isActive = true
-        //             imgStar.widthAnchor.constraint(equalToConstant: cgSize).isActive = true
-        //             svStar.addArrangedSubview(imgStar)
-        //         }
-        //         svStar.spacing = 2
-        let svTopPost = UIStackView(arrangedSubviews: [imgProfile,svPostInfo])
+        let svStar = UIStackView()
+        let cgSize:CGFloat = 25
+        if segueTitle == 6 {
+            svStar.isHidden = false
+            let score : Int = postData["reviewScore"].intValue
+            for i in 1...5 {
+                let imgStar = UIImageView()
+                imgStar.contentMode = .scaleAspectFill
+                imgStar.widthAnchor.constraint(equalToConstant: cgSize).isActive = true
+                if i <= score {
+                    imgStar.image = UIImage(named: "GPAIcon")
+                }
+                else {
+                    imgStar.image = UIImage(named: "GPAIconOff")
+                }
+                svStar.addArrangedSubview(imgStar)
+            }
+        }
+        else {
+            svStar.isHidden = true
+        }
+        svStar.spacing = 2
+        svStar.alignment = .center
+        svStar.distribution = .fillEqually
+
+        let svTopPost = UIStackView(arrangedSubviews: [imgProfile,svPostInfo,svStar])
         svTopPost.axis = .horizontal
         svTopPost.spacing = 5
+        
+        let btnLocationName = UIButton(type: .custom)
+        if postData["category"] == 7 {
+            btnLocationName.isHidden = false
+            btnLocationName.setTitle(postData["storeDTO"]["storeNm"].string, for: .normal)
+            btnLocationName.fontSize = 15
+            btnLocationName.setTitleColor(#colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1), for: .normal)
+            btnLocationName.setTitleColor(btnhighlightedColor, for: .highlighted)
+            btnLocationName.accessibilityIdentifier = postData["storeDTO"]["storeSn"].string
+            btnLocationName.contentHorizontalAlignment = .left
+            btnLocationName.addTarget(self, action: #selector(gotoLocationInfo(_:)), for: .touchUpInside)
+        }
+        let lbltemp = UILabel()
+        lbltemp.text = "                                      "
+        let svLocationLink = UIStackView(arrangedSubviews: [btnLocationName,lbltemp])
+        svLocationLink.axis = .horizontal
+        svLocationLink.distribution = .fillProportionally
         
         let lblTitle = UILabel()
         lblTitle.text = postData["title"].string
@@ -210,7 +270,15 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         svImg.trailingAnchor.constraint(equalTo: scvImg.trailingAnchor, constant: 0).isActive = true
         
         
-        let svContent = UIStackView(arrangedSubviews: [svTopPost,lblTitle,lblContent,scvTag,scvImg])
+        let svContent = UIStackView()
+        svContent.addArrangedSubview(svTopPost)
+        if postData["category"] == 7 {
+            svContent.addArrangedSubview(svLocationLink)
+        }
+        svContent.addArrangedSubview(lblTitle)
+        svContent.addArrangedSubview(lblContent)
+        svContent.addArrangedSubview(scvTag)
+        svContent.addArrangedSubview(scvImg)
         svContent.axis = .vertical
         svContent.spacing = 10
         svContent.distribution = .fill
@@ -230,19 +298,24 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         
         let uvLine = UIView()
         uvLine.backgroundColor = .lightGray
-        uvLine.heightAnchor.constraint(equalToConstant: 0.3).isActive = true
+        uvLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
         
         let uvLineBottom = UIView()
         uvLineBottom.backgroundColor = .none
         uvLineBottom.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
         
         let btnLike = FlatButton(title: String(postData["favorCount"].int!))
-        btnLike.setImage(UIImage(named: "LikeOffBtn"), for: .normal)
+        let checkLikePost = (postData["selectedFavor"].int != 0)
+        btnLike.setImage(UIImage(named: checkLikePost ? "LikeOnBtn" : "LikeOffBtn"), for: .normal)
+        btnLike.titleColor = checkLikePost ? themeColor : .lightGray
         btnLike.layer.cornerRadius = 5
         btnLike.titleLabel?.fontSize = 12
         //        btnLike.contentEdgeInsets.left = btnMargin
         //        btnLike.contentEdgeInsets.right = btnMargin
-        btnLike.titleColor = .lightGray
+        btnLike.accessibilityValue = String(postData["selectedFavor"].intValue)
+        btnLike.accessibilityIdentifier = postData["boardSn"].string
+        
+        btnLike.addTarget(self, action: #selector(likePost(_:)), for: .touchUpInside)
         let btnComment = FlatButton(title: String(postData["replyCount"].int!))
         btnComment.isEnabled = false
         btnComment.setImage(UIImage(named: "CommentIcon"), for: .normal)
@@ -253,10 +326,8 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         let lblTemp = UILabel()
         lblTemp.text = "                          "
         lblTemp.widthAnchor.constraint(lessThanOrEqualToConstant: 500).isActive = true
-        let btnMenu = IconButton()
-        btnMenu.image = Icon.cm.moreHorizontal
-        btnMenu.tintColor = .darkGray
-        let svFunc = UIStackView(arrangedSubviews: [btnLike,btnComment,lblTemp,btnMenu])
+//        ...
+        let svFunc = UIStackView(arrangedSubviews: [btnLike,btnComment,lblTemp])
         svFunc.axis = .horizontal
         svFunc.distribution = .fillProportionally
         svFunc.spacing = 5
@@ -278,18 +349,166 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         svMain.widthAnchor.constraint(equalTo: viewPost.widthAnchor, multiplier: 1).isActive = true
         svMain.heightAnchor.constraint(equalTo: viewPost.heightAnchor, multiplier: 1).isActive = true
         
+        viewPost.accessibilityIdentifier = postData["boardSn"].string
+        viewPost.accessibilityValue = String(postData["category"].intValue)
+        
         viewPost.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gotoPost(_:))))
         
-        viewPost.accessibilityIdentifier = postData["boardSn"].string
         
         return viewPost
     }
     
+    @objc func likePost(_ sender: FlatButton) {
+        boardSn = sender.accessibilityIdentifier!
+        (sender.accessibilityValue == "0") ? likePostOn(boardSn,sender) : likePostOff(boardSn,sender)
+    }
+    func likePostOn(_ boardSn:String,_ btn:FlatButton){
+        let url = OperationIP + "/board/insertBoardFavorInfo.do"
+        let parameter = JSON([
+            "boardSn": boardSn
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            if response.value != nil {
+                btn.setImage(UIImage(named: "LikeOnBtn"), for: .normal)
+                btn.titleColor = self.themeColor
+                btn.title = String(Int(btn.title!)! + 1)
+                btn.accessibilityValue = "1"
+            }
+        }
+    }
+    func likePostOff(_ boardSn:String,_ btn:FlatButton){
+        let url = OperationIP + "/board/deleteBoardFavorInfo.do"
+        let parameter = JSON([
+            "boardSn": boardSn
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            if response.value != nil {
+                btn.setImage(UIImage(named: "LikeOffBtn"), for: .normal)
+                btn.titleColor = .lightGray
+                btn.title = String(Int(btn.title!)! - 1)
+                btn.accessibilityValue = "0"
+            }
+        }
+    }
+    
+    @objc func menuPost(_ sender: IconButton) {
+        let alertController = UIAlertController(title: "글 메뉴", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        
+        let MyPostEditAction = UIAlertAction(title: "수정", style: .default, handler: { _ in
+            self.updatePost(sender.accessibilityIdentifier!)
+        })
+        let MyPostDeleteAction = UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
+            self.deletePostAlert(sender.accessibilityIdentifier!)
+        })
+        
+        let reportAction = UIAlertAction(title: "신고", style: .default, handler: { _ in
+            self.reportPostOrComment()
+        })
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        if getString(userData["userSn"]) == sender.accessibilityValue! {
+            alertController.addAction(MyPostEditAction)
+            alertController.addAction(MyPostDeleteAction)
+        } else {
+            alertController.addAction(reportAction)
+        }
+        
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    func updatePost(_ boardSn: String){
+        let url = OperationIP + "/board/selectBoardInfo.do"
+        let parameter = JSON([
+            "boardSn": boardSn
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        //        print(convertedParameterString)
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            //            debugPrint(response)
+            if response.value != nil {
+                self.postJSON = JSON(response.value!)
+                self.isUpdate = true
+                let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "writePostView")
+                self.navigationController?.pushViewController(goToVC!, animated: true)
+            }
+        }
+    }
+    func deletePostAlert(_ boardSn: String){
+        let alertController = UIAlertController(title: "글을 삭제하시겠습니까?", message: "삭제된 게시글은 되돌릴 수 없습니다.", preferredStyle: UIAlertController.Style.actionSheet)
+        
+        let MyPostDeleteAction = UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
+            self.deletePost(boardSn)
+        })
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alertController.addAction(MyPostDeleteAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    func deletePost(_ boardSn: String){
+        let url = OperationIP + "/board/deleteBoardInfo.do"
+        let parameter = JSON([
+            "boardSn": boardSn
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
+        
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+//            debugPrint(response)
+            if response.value != nil {
+                print(response.value!)
+                self.alertControllerDefault(title: "삭제 완료", message: "게시글이 삭제되었습니다.")
+            }
+        }
+    }
+    func reportPostOrComment(){
+        let alertController = UIAlertController(title: "신고 사유 선택", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        
+        let reportAction0 = UIAlertAction(title: "게시판에 부적절한 게시글", style: .default, handler: nil)
+        let reportAction1 = UIAlertAction(title: "음란성 게시글", style: .default, handler: nil)
+        let reportAction2 = UIAlertAction(title: "욕설", style: .default, handler: nil)
+        let reportAction3 = UIAlertAction(title: "도배", style: .default, handler: nil)
+        let reportAction4 = UIAlertAction(title: "광고/사기", style: .default, handler: nil)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alertController.addAction(reportAction0)
+        alertController.addAction(reportAction1)
+        alertController.addAction(reportAction2)
+        alertController.addAction(reportAction3)
+        alertController.addAction(reportAction4)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     @objc func gotoPost(_ sender : UITapGestureRecognizer){
-        print(sender.view!.accessibilityIdentifier!)
-        boardSn = sender.view!.accessibilityIdentifier!
-        let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "showPostView")
-        self.navigationController?.pushViewController(goToVC!, animated: true)
+                let storyboard = UIStoryboard(name: "Board", bundle: nil)
+                guard let rvc = storyboard.instantiateViewController(withIdentifier: "showPostView") as? ShowPostViewController else {
+                    //아니면 종료
+                    return
+                }
+                rvc.boardSn = sender.view!.accessibilityIdentifier!
+                rvc.category = sender.view!.accessibilityValue!
+        //        rvc.storeNm = sender.view!.accessibilityLabel!
+                self.navigationController?.pushViewController(rvc, animated: true)
+//        print(sender.view!.accessibilityIdentifier!)
+//        boardSn = sender.view!.accessibilityIdentifier!
+//        let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "showPostView")
+//        self.navigationController?.pushViewController(goToVC!, animated: true)
     }
     
     @IBAction func searchPost(_ sender: UIBarButtonItem) {
@@ -343,9 +562,9 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
      // Pass the selected object to the new view controller.
      }
      */
-    func requestPost(){
+    func requestPost(_ isUpdate: Bool){
         let url = OperationIP + "/board/selectBoardListInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         let parameter = JSON([
             "category": String(segueTitle+1),
             "filterInfo": "all",
@@ -365,7 +584,69 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
                 print("##")
                 print(self.reponseJSON)
                 print("##")
+                if !isUpdate {
+                  self.setUI()
+                }
+            }
+        }
+    }
+    
+    //######################
+    //      리뷰
+    //######################
+    func requestReview(){
+        let url = OperationIP + "/review/selectReviewListInfo.do"
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let parameter = JSON([
+            "category": 7,
+            "filterInfo": "all",
+            "sortInfo": "registerDt",
+            "offset": 0,
+            "limit": 100
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        
+        print(convertedParameterString)
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            debugPrint(response)
+            if response.value != nil {
+                self.reponseJSON = JSON(response.value!)
+                print("##")
+                print(self.reponseJSON)
+                print("##")
                 self.setUI()
+            }
+        }
+    }
+    //######################
+    //      장소상세 링크
+    //######################
+    @objc func gotoLocationInfo(_ sender: UIButton){
+        let locationSn = sender.accessibilityIdentifier
+        getLocationInfo(locationSn!)
+    }
+    func getLocationInfo(_ locationSn : String){
+        print("\n\n\n\n\n\n\n\n\n\n //////////////get storeInfo !!////////////// \n\n\n\n\n\n\n\n\n\n")
+        let url = OperationIP + "/store/selectStoreInfo.do"
+        let parameter = JSON([
+            "storeSn": locationSn
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        print(convertedParameterString)
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            if response.value != nil {
+                locationData = JSON(response.value!)
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                guard let goToVC = storyboard.instantiateViewController(withIdentifier: "locationInfoView") as? LocationViewController else {
+                    //아니면 종료
+                    return
+                }
+                self.navigationController?.pushViewController(goToVC, animated: true)
             }
         }
     }

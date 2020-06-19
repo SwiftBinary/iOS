@@ -42,7 +42,7 @@ class LocationViewController: UIViewController {
     }
     func requestDid(_ btnDids: UIBarButtonItem){
         let url = OperationIP + "/pick/selectExistPickInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         let parameter = JSON([
             "storeSn": locationSn,
         ])
@@ -70,7 +70,7 @@ class LocationViewController: UIViewController {
     }
     func insertPickInfo() {
         let url = OperationIP + "/pick/insertPickInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         let parameter = JSON([
             "storeSn": locationSn,
         ])
@@ -88,7 +88,7 @@ class LocationViewController: UIViewController {
     }
     func deletePickInfo() {
         let url = OperationIP + "/pick/deletePickInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         let parameter = JSON([
             "storeSn": locationSn,
         ])

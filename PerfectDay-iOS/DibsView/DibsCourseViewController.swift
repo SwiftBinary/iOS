@@ -49,15 +49,11 @@ class DibsCourseViewController: UIViewController,UIGestureRecognizerDelegate, In
     
     func requestCourse(){
         let url = OperationIP + "/course/selectCourseInfoList.do"
-        let jsonHeader = JSON(["userSn":(userData["userSn"] as? String)!])
         let parameter = JSON([
             "bReverse": true
         ])
-        
-        let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         
         //        print(convertedHeaderString)
         //        print(convertedParameterString)
@@ -352,7 +348,7 @@ class DibsCourseViewController: UIViewController,UIGestureRecognizerDelegate, In
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         
         print(convertedParameterString)
         

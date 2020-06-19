@@ -103,7 +103,7 @@
 		C739126B2406376900954617 /* AcceptContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptContentViewController.swift; sourceTree = "<group>"; };
 		C739126D240638C000954617 /* ContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentData.swift; sourceTree = "<group>"; };
 		C748813723FA472100E8C926 /* FilterLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterLocationViewController.swift; sourceTree = "<group>"; };
-		C74D96C823E7B1E9000E26C3 /* PerfectDay-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PerfectDay-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C74D96C823E7B1E9000E26C3 /* 완벽한 하루.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "완벽한 하루.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C74D96CB23E7B1E9000E26C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C74D96CD23E7B1E9000E26C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C74D96CF23E7B1E9000E26C3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -219,7 +219,7 @@
 		C74D96C923E7B1E9000E26C3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C74D96C823E7B1E9000E26C3 /* PerfectDay-iOS.app */,
+				C74D96C823E7B1E9000E26C3 /* 완벽한 하루.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -350,7 +350,7 @@
 			packageProductDependencies = (
 			);
 			productName = "PerfectDay-iOS";
-			productReference = C74D96C823E7B1E9000E26C3 /* PerfectDay-iOS.app */;
+			productReference = C74D96C823E7B1E9000E26C3 /* 완벽한 하루.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -658,7 +658,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Project.PerfectDay-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "완벽한 하루";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -682,7 +682,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Project.PerfectDay-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "완벽한 하루";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;

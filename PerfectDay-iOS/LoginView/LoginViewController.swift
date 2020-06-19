@@ -14,7 +14,7 @@ import NaverThirdPartyLogin
 import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
-
+    
     @IBOutlet var tfEmail: UITextField!
     @IBOutlet var tfPassword: UITextField!
     @IBOutlet var btnLogin: UIButton!
@@ -35,19 +35,19 @@ class LoginViewController: UIViewController {
     @IBOutlet var lblDataString: UITextView!
     let uds = UserDefaults.standard
     @IBAction func saveData(_ sender: UIButton) {
-//        UserDefaults.standard.set("Test String", forKey: "string")
-//        uds.setValue("T_e_s_t S_t_r_i_n_g", forKey: "string2")
+        //        UserDefaults.standard.set("Test String", forKey: "string")
+        //        uds.setValue("T_e_s_t S_t_r_i_n_g", forKey: "string2")
         print(uds.dictionaryRepresentation())
     }
     @IBAction func printData(_ sender: Any) {
-//        let data1 = UserDefaults.standard.string(forKey: "string")
+        //        let data1 = UserDefaults.standard.string(forKey: "string")
         let data2 = uds.dictionary(forKey: userDataKey)
         print("#")
         
         if data2 == nil {
             lblDataString.text = "nil"
         } else {
-//            print(data2!)
+            //            print(data2!)
             lblDataString.text = JSON(arrayLiteral: data2!).rawString()
         }
         print("#")
@@ -134,6 +134,7 @@ class LoginViewController: UIViewController {
         return true
     }
     func loginSuccess(_ uData:JSON){
+        print(uData)
         uds.setValue(uData.dictionaryObject, forKey: userDataKey)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let goToVC = storyboard.instantiateViewController(withIdentifier: "mainView")
@@ -141,7 +142,7 @@ class LoginViewController: UIViewController {
         self.present(goToVC, animated: true, completion: nil)
         
         // 로그인 시 적용
-//        self.presentingViewController?.dismiss(animated: true, completion: nil)
+        //        self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     func loginFail(){
         alertControllerDefault(title: "잘못된 입력", message: "가입되지 않은 아이디거나, 잘못된 비밀번호입니다. 다시 입력해주세요")
@@ -191,51 +192,51 @@ class LoginViewController: UIViewController {
         }
     }
     @IBAction func tempLogin3(_ sender: UIButton) {
-               let userId = "testemail0@test.com"
-        let userPw = "passw0rd@@".sha256()
-               if checkId(userId: userId, userPw: userPw) {
-                   let url = OperationIP + "/user/loginUser.do"
-                   let jsonHeader = JSON(["userSn":"_","deviceOS":"IOS"])
-                   let parameter = JSON([
-                       "userEmail":userId,
-                       "userPw":userPw,
-                       "loginType":"001",
-                   ])
-                   
-                   let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-                   let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-                   let httpHeaders: HTTPHeaders = ["json":convertedHeaderString]
-                   
-                   AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-                       debugPrint(response)
-                       if response.value != nil {
-                           let reponseJSON = JSON(response.value!)
-                           // result값 - 1:성공, 2:실패
-                           let loginResult = Int(reponseJSON["result"].stringValue)
-//                           self.uds.setValue(reponseJSON.dictionaryObject, forKey: userDataKey)
-                           switch loginResult {
-                           case 1:
-                               self.loginSuccess(reponseJSON)
-                           case 2:
-                               self.loginFail()
-                           case -1:
-                               self.networkFail()
-                           default: break
-                           }
-                       }
-                       if response.response?.statusCode != 200 {
-                           self.networkFail()
-                       }
-                   }
-               } else {
-                   alertControllerDefault(title: "아이디 및 비밀번호를\n입력해주세요.", message: "")
-               }
+        let userId = "testemail0@test.com"
+        let userPw = "0000".sha256()
+        if checkId(userId: userId, userPw: userPw) {
+            let url = OperationIP + "/user/loginUser.do"
+            let jsonHeader = JSON(["userSn":"_","deviceOS":"IOS"])
+            let parameter = JSON([
+                "userEmail":userId,
+                "userPw":userPw,
+                "loginType":"001",
+            ])
+            
+            let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+            let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+            let httpHeaders: HTTPHeaders = ["json":convertedHeaderString]
+            
+            AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+                debugPrint(response)
+                if response.value != nil {
+                    let reponseJSON = JSON(response.value!)
+                    // result값 - 1:성공, 2:실패
+                    let loginResult = Int(reponseJSON["result"].stringValue)
+                    //                           self.uds.setValue(reponseJSON.dictionaryObject, forKey: userDataKey)
+                    switch loginResult {
+                    case 1:
+                        self.loginSuccess(reponseJSON)
+                    case 2:
+                        self.loginFail()
+                    case -1:
+                        self.networkFail()
+                    default: break
+                    }
+                }
+                if response.response?.statusCode != 200 {
+                    self.networkFail()
+                }
+            }
+        } else {
+            alertControllerDefault(title: "아이디 및 비밀번호를\n입력해주세요.", message: "")
+        }
         
     }
-
-//###########################
-//        네이버 로그인
-//###########################
+    
+    //###########################
+    //        네이버 로그인
+    //###########################
     let loginNaverInstance = NaverThirdPartyLoginConnection.getSharedInstance()
     @IBAction func goToNaverLogin(_ sender: UIButton) {
         loginNaverInstance?.delegate = self
@@ -245,34 +246,34 @@ class LoginViewController: UIViewController {
         loginNaverInstance?.requestDeleteToken()
     }
     private func getNaverInfo() {
-      guard let isValidAccessToken = loginNaverInstance?.isValidAccessTokenExpireTimeNow() else { return }
-      
-      if !isValidAccessToken {
-        return
-      }
-      
-      guard let tokenType = loginNaverInstance?.tokenType else { return }
-      guard let accessToken = loginNaverInstance?.accessToken else { return }
-      let urlStr = "https://openapi.naver.com/v1/nid/me"
-      let url = URL(string: urlStr)!
-      
-      let authorization = "\(tokenType) \(accessToken)"
-      
-      let req = AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": authorization])
-      
-      req.responseJSON { response in
-        guard let result = response.value as? [String: Any] else { return }
-        guard let object = result["response"] as? [String: Any] else { return }
-        guard let name = object["name"] as? String else { return }
-        guard let nickname = object["nickname"] as? String else { return }
-        guard let email = object["email"] as? String else { return }
-        guard let id = object["id"] as? String else { return }
-        guard let gender = object["gender"] as? String else { return }
-        guard let age = object["age"] as? String else { return }
-        guard let birthday = object["birthday"] as? String else { return }
+        guard let isValidAccessToken = loginNaverInstance?.isValidAccessTokenExpireTimeNow() else { return }
         
-        print("\(name), \(email), \(nickname), \(id), \(gender), \(age), \(birthday)")
-      }
+        if !isValidAccessToken {
+            return
+        }
+        
+        guard let tokenType = loginNaverInstance?.tokenType else { return }
+        guard let accessToken = loginNaverInstance?.accessToken else { return }
+        let urlStr = "https://openapi.naver.com/v1/nid/me"
+        let url = URL(string: urlStr)!
+        
+        let authorization = "\(tokenType) \(accessToken)"
+        
+        let req = AF.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization": authorization])
+        
+        req.responseJSON { response in
+            guard let result = response.value as? [String: Any] else { return }
+            guard let object = result["response"] as? [String: Any] else { return }
+            guard let name = object["name"] as? String else { return }
+            guard let nickname = object["nickname"] as? String else { return }
+            guard let email = object["email"] as? String else { return }
+            guard let id = object["id"] as? String else { return }
+            guard let gender = object["gender"] as? String else { return }
+            guard let age = object["age"] as? String else { return }
+            guard let birthday = object["birthday"] as? String else { return }
+            
+            print("\(name), \(email), \(nickname), \(id), \(gender), \(age), \(birthday)")
+        }
     }
     
     //###########################
@@ -282,41 +283,41 @@ class LoginViewController: UIViewController {
         
         let btnFacebook = FBLoginButton()
         svSNSLogin.addArrangedSubview(btnFacebook)
-//        if let token = AccessToken.current, !token.isExpired {
-//            print("[Success] : Success Facebook Login")
-//        }
-//        btnFacebook.permissions = ["public_profile", "email"]
+        //        if let token = AccessToken.current, !token.isExpired {
+        //            print("[Success] : Success Facebook Login")
+        //        }
+        //        btnFacebook.permissions = ["public_profile", "email"]
     }
 }
 
 extension LoginViewController: NaverThirdPartyLoginConnectionDelegate {
-  // 로그인 버튼을 눌렀을 경우 열게 될 브라우저
-  func oauth20ConnectionDidOpenInAppBrowser(forOAuth request: URLRequest!) {
-//     let naverSignInVC = NLoginThirdPartyOAuth20InAppBrowserViewController(request: request)!
-//     naverSignInVC.parentOrientation = UIInterfaceOrientation(rawValue: UIDevice.current.orientation.rawValue)!
-//     present(naverSignInVC, animated: false, completion: nil)
-  }
-  
-  // 로그인에 성공했을 경우 호출
-  func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
-    print("[Success] : Success Naver Login")
-    getNaverInfo()
-  }
-  
-  // 접근 토큰 갱신
-  func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
+    // 로그인 버튼을 눌렀을 경우 열게 될 브라우저
+    func oauth20ConnectionDidOpenInAppBrowser(forOAuth request: URLRequest!) {
+        //     let naverSignInVC = NLoginThirdPartyOAuth20InAppBrowserViewController(request: request)!
+        //     naverSignInVC.parentOrientation = UIInterfaceOrientation(rawValue: UIDevice.current.orientation.rawValue)!
+        //     present(naverSignInVC, animated: false, completion: nil)
+    }
     
-  }
-  
-  // 로그아웃 할 경우 호출(토큰 삭제)
-  func oauth20ConnectionDidFinishDeleteToken() {
-    loginNaverInstance?.requestDeleteToken()
-  }
-  
-  // 모든 Error
-  func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
-    print("[Error] :", error.localizedDescription)
-  }
+    // 로그인에 성공했을 경우 호출
+    func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
+        print("[Success] : Success Naver Login")
+        getNaverInfo()
+    }
+    
+    // 접근 토큰 갱신
+    func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
+        
+    }
+    
+    // 로그아웃 할 경우 호출(토큰 삭제)
+    func oauth20ConnectionDidFinishDeleteToken() {
+        loginNaverInstance?.requestDeleteToken()
+    }
+    
+    // 모든 Error
+    func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
+        print("[Error] :", error.localizedDescription)
+    }
 }
 
 

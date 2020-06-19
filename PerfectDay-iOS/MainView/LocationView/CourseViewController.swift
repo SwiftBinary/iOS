@@ -76,7 +76,7 @@ class CourseViewController: UIViewController {
         //            let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         //        print(convertedHeaderString)
         //        print(convertedParameterString)
         
@@ -305,7 +305,7 @@ class CourseViewController: UIViewController {
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
 //            debugPrint(response)
@@ -363,7 +363,7 @@ class CourseViewController: UIViewController {
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
 //            debugPrint(response)

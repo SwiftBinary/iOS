@@ -21,13 +21,11 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var scrollMain: UIScrollView!
     @IBOutlet var uvLocationList: UIView!
     
-    
     @IBOutlet var initFilterBtn: UIButton!
     @IBOutlet var preferFilterBtn: UIButton!
     @IBOutlet var distanceFilterBtn: UIButton!
     @IBOutlet var priceFilterBtn: UIButton!
     @IBOutlet var timeFilterBtn: UIButton!
-    
     
     @IBOutlet var uvFilterPopupBack: UIView!
     @IBOutlet var uvFilterView: UIView!
@@ -37,9 +35,11 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     let testNum = 3
     let lightGray = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
+    let btnhighlightedColor = #colorLiteral(red: 1, green: 0.737254902, blue: 0.9294117647, alpha: 1)
     let backColor = #colorLiteral(red: 0.9937904477, green: 0.9502945542, blue: 0.9648948312, alpha: 1)
     
     var landmarkSn:String = ""
+    var landmarkInfo:JSON = JSON()
     var listStoreData:Array<JSON> = []
     var tempBtn : UIButton?
     
@@ -68,12 +68,12 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     //           카테고리
     //###########################
     func setKategorie(){
-        let btnAll = MaterialVerticalButton(icon: UIImage(named: "CategorieAll")!, text: "전체보기", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        let btnEat = MaterialVerticalButton(icon: UIImage(named: "CategorieEat")!, text:  "먹기", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        let btnDrink = MaterialVerticalButton(icon: UIImage(named: "CategorieDrink")!, text:  "마시기", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        let btnPlay = MaterialVerticalButton(icon: UIImage(named: "CategoriePlay")!, text: "놀기", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        let btnWatch = MaterialVerticalButton(icon: UIImage(named: "CategorieWatch")!, text: "보기", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        let btnWalk = MaterialVerticalButton(icon: UIImage(named: "CategorieWalk")!, text: "걷기", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnAll = MaterialVerticalButton(icon: UIImage(named: "CategorieAll")!, text: "전체보기", font: nil ,foregroundColor: .black, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnEat = MaterialVerticalButton(icon: UIImage(named: "CategorieEat")!, text:  "먹기", font: nil ,foregroundColor: .black, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnDrink = MaterialVerticalButton(icon: UIImage(named: "CategorieDrink")!, text:  "마시기", font: nil ,foregroundColor: .black, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnPlay = MaterialVerticalButton(icon: UIImage(named: "CategoriePlay")!, text: "놀기", font: nil ,foregroundColor: .black, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnWatch = MaterialVerticalButton(icon: UIImage(named: "CategorieWatch")!, text: "보기", font: nil ,foregroundColor: .black, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnWalk = MaterialVerticalButton(icon: UIImage(named: "CategorieWalk")!, text: "걷기", font: nil ,foregroundColor: .black, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
         
         let btnArray = [btnAll,btnEat,btnDrink,btnPlay,btnWatch,btnWalk]
         
@@ -100,6 +100,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
             btn.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
             btn.layer.shadowRadius = 2.0
             btn.layer.shadowOpacity = 0.5
+            btn.layer.borderColor = themeColor.cgColor
         }
         scrollViewDidScroll(scvFilter)
     }
@@ -118,19 +119,24 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     
     
     //filter PopUp
-    @IBAction func FilterPopup(_ sender: UIButton?) {
-        
+    @IBAction func FilterPopup(_ sender: UIButton!) {
+        let borderWidth: CGFloat = 2
         setFilterView()
         
         if sender == tempBtn {
+            sender.layer.borderWidth = uvFilterPopupBack.isHidden ? borderWidth : 0
+            uvFilterPopupBack.isHidden = uvFilterPopupBack.isHidden ? false : true
             
-            if self.uvFilterPopupBack.isHidden == false {
-                self.uvFilterPopupBack.isHidden = true
-            } else {
-                self.uvFilterPopupBack.isHidden = false
-            }
+//            if self.uvFilterPopupBack.isHidden == false {
+//                self.uvFilterPopupBack.isHidden = true
+//            } else {
+//                self.uvFilterPopupBack.isHidden = false
+//            }
         } else {
             self.uvFilterPopupBack.isHidden = false
+            tempBtn?.layer.borderWidth = 0
+            sender.layer.borderWidth = borderWidth
+            
             self.uvFilter.removeSubviews()
             if sender == initFilterBtn {
                 self.initFilterBtn.isHidden = true
@@ -147,6 +153,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         }
         
         tempBtn = sender
+        
     }
     
     func setFilterView(){
@@ -158,74 +165,47 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func preferFilter(){
-        let lbPrefer = UIButton(type: .custom)
-        lbPrefer.setTitle("선호순", for: .normal)
-        lbPrefer.setTitleColor(.darkGray, for: .normal)
-        lbPrefer.setImage(UIImage(named: "FilterCheck"), for: .normal)
-        lbPrefer.semanticContentAttribute = .forceRightToLeft
-        lbPrefer.titleLabel?.fontSize = 15
-        lbPrefer.isUserInteractionEnabled = false
-        let lbCloser = UIButton(type: .custom)
-        lbCloser.setTitle("가까운순", for: .normal)
-        lbCloser.setTitleColor(.darkGray, for: .normal)
-        lbCloser.setImage(UIImage(named: "FilterCheck"), for: .normal)
-        lbCloser.semanticContentAttribute = .forceRightToLeft
-        lbCloser.titleLabel?.fontSize = 15
-        lbCloser.isUserInteractionEnabled = false
-        let lbHigherPrice = UIButton(type: .custom)
-        lbHigherPrice.setTitle("높은 가격순", for: .normal)
-        lbHigherPrice.setTitleColor(.darkGray, for: .normal)
-        lbHigherPrice.setImage(UIImage(named: "FilterCheck"), for: .normal)
-        lbHigherPrice.semanticContentAttribute = .forceRightToLeft
-        lbHigherPrice.titleLabel?.fontSize = 15
-        lbHigherPrice.isUserInteractionEnabled = false
-        let lbLowerPrice = UIButton(type: .custom)
-        lbLowerPrice.setTitle("낮은 가격순", for: .normal)
-        lbLowerPrice.setTitleColor(.darkGray, for: .normal)
-        lbLowerPrice.setImage(UIImage(named: "FilterCheck"), for: .normal)
-        lbLowerPrice.semanticContentAttribute = .forceRightToLeft
-        lbLowerPrice.titleLabel?.fontSize = 15
-        lbLowerPrice.isUserInteractionEnabled = false
-        let lbLongStayTime = UIButton(type: .custom)
-        lbLongStayTime.setTitle("머무는 시간 ↑", for: .normal)
-        lbLongStayTime.setTitleColor(.darkGray, for: .normal)
-        lbLongStayTime.setImage(UIImage(named: "FilterCheck"), for: .normal)
-        lbLongStayTime.semanticContentAttribute = .forceRightToLeft
-        lbLongStayTime.titleLabel?.fontSize = 15
-        lbLongStayTime.isUserInteractionEnabled = false
-        let lbShortStayTime = UIButton(type: .custom)
-        lbShortStayTime.setTitle("머무는 시간 ↓", for: .normal)
-        lbShortStayTime.setTitleColor(.darkGray, for: .normal)
-        lbShortStayTime.setImage(UIImage(named: "FilterCheck"), for: .normal)
-        lbShortStayTime.semanticContentAttribute = .forceRightToLeft
-        lbShortStayTime.titleLabel?.fontSize = 15
-        //        lbShortStayTime.imageRect(forContentRect: CGRect(x: 0, y: 0, width: 35, height: 35))
-        lbShortStayTime.isUserInteractionEnabled = false
-        lbShortStayTime.adjustsImageSizeForAccessibilityContentSizeCategory = true
+        let lblButton = ["선호순","별점순","좋아요순","가까운 순","높은 가격 순","낮은 가격 순","머무는 시간 ↑","머무는 시간 ↓"]
+        let valueButton = ["USER_PREF","SCORE_DESC","FAVOR_DESC","DISTANCE_ASC","PRICE_DESC","PRICE_ASC","TIME_DESC","TIME_ASC",]
         
-        let svFilter = UIStackView(arrangedSubviews: [lbPrefer,lbCloser,lbHigherPrice,lbLowerPrice,lbLongStayTime,lbShortStayTime])
+        let svFilter = UIStackView()
+        for (index,lbl) in lblButton.enumerated() {
+            let btnFilter = UIButton(type: .custom)
+            btnFilter.setTitle("  " + lbl, for: .normal)
+            btnFilter.setTitleColor(.black, for: .normal)
+            btnFilter.setTitleColor(.lightGray, for: .highlighted)
+            btnFilter.setImage(UIImage(named: "FilterCheck"), for: .normal)
+            btnFilter.semanticContentAttribute = .forceLeftToRight
+            btnFilter.contentHorizontalAlignment = .left
+            btnFilter.titleLabel?.fontSize = 15
+            btnFilter.accessibilityIdentifier = valueButton[index]
+            btnFilter.addTarget(self, action: #selector(setSortingFilter(_:)), for: .touchUpInside)
+            svFilter.addArrangedSubview(btnFilter)
+        }
+        
         svFilter.translatesAutoresizingMaskIntoConstraints = false
         svFilter.axis = .vertical
-        svFilter.distribution = .equalSpacing
-        svFilter.widthAnchor.constraint(equalToConstant: uvFilterView.frame.width - 40).isActive = true
-        svFilter.heightAnchor.constraint(equalTo: svFilter.widthAnchor, multiplier: 0.63).isActive = true
+        svFilter.distribution = .fillEqually
+//        svFilter.widthAnchor.constraint(equalToConstant: uvFilterView.frame.width - 40).isActive = true
         
         uvFilter.addSubview(svFilter)
         uvFilter.addConstraint(NSLayoutConstraint(item: svFilter, attribute: .centerX, relatedBy: .equal, toItem: uvFilter, attribute: .centerX, multiplier: 1, constant: 0))
         uvFilter.addConstraint(NSLayoutConstraint(item: svFilter, attribute: .centerY, relatedBy: .equal, toItem: uvFilter, attribute: .centerY, multiplier: 1, constant: 0))
-        uvFilter.widthAnchor.constraint(equalTo: svFilter.widthAnchor, multiplier: 1).isActive = true
-        uvFilter.heightAnchor.constraint(equalToConstant: 35 * 6).isActive = true
-        
+        svFilter.widthAnchor.constraint(equalTo: uvFilter.widthAnchor, multiplier: 1).isActive = true
+        svFilter.heightAnchor.constraint(equalTo: uvFilter.heightAnchor, multiplier: 1).isActive = true
+    }
+    
+    @objc func setSortingFilter(_ sender:UIButton){
+        print(sender.accessibilityIdentifier!)
     }
     
     func sliderFilters(_ sender: UIButton?){
-        
-        let lbTitle = UILabel()
-        lbTitle.font = UIFont.boldSystemFont(ofSize: 17.0)
-        let lbRange = UILabel()
-        lbRange.font = UIFont.boldSystemFont(ofSize: 19.0)
-        lbRange.textColor = themeColor
-        let svLabel = UIStackView(arrangedSubviews: [lbTitle, lbRange])
+        let lblTitle = UILabel()
+        lblTitle.font = UIFont.boldSystemFont(ofSize: 17.0)
+        let lblRange = UILabel()
+        lblRange.font = UIFont.boldSystemFont(ofSize: 19.0)
+        lblRange.textColor = themeColor
+        let svLabel = UIStackView(arrangedSubviews: [lblTitle, lblRange])
         svLabel.axis = .vertical
         svLabel.distribution = .fillProportionally
         svLabel.spacing = 15
@@ -236,18 +216,18 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         slider.widthAnchor.constraint(equalToConstant: uvFilterView.frame.width - 40).isActive = true
         slider.minimumTrackTintColor = themeColor
         //
-        let minInt = UILabel()
-        let quarterInt = UILabel()
-        let threequarterInt = UILabel()
-        let maxInt = UILabel()
-        minInt.fontSize = 13
-        quarterInt.fontSize = 13
-        threequarterInt.fontSize = 13
-        maxInt.fontSize = 13
-        quarterInt.textAlignment = .center
-        threequarterInt.textAlignment = .center
-        maxInt.textAlignment = .right
-        let svRange = UIStackView(arrangedSubviews: [minInt,quarterInt,threequarterInt,maxInt])
+        let lblMinValue = UILabel()
+        let lblQuarterValue = UILabel()
+        let lblThreeQuarterValue = UILabel()
+        let lblMaxValue = UILabel()
+        lblMinValue.fontSize = 13
+        lblQuarterValue.fontSize = 13
+        lblThreeQuarterValue.fontSize = 13
+        lblMaxValue.fontSize = 13
+        lblQuarterValue.textAlignment = .center
+        lblThreeQuarterValue.textAlignment = .center
+        lblMaxValue.textAlignment = .right
+        let svRange = UIStackView(arrangedSubviews: [lblMinValue,lblQuarterValue,lblThreeQuarterValue,lblMaxValue])
         svRange.axis = .horizontal
         svRange.distribution = .fillEqually
         
@@ -255,43 +235,50 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         
         btnSetFilter.setTitle("완료", for: .normal)
         btnSetFilter.setTitleColor(.white, for: .normal)
+        btnSetFilter.setTitleColor(btnhighlightedColor, for: .highlighted)
         btnSetFilter.backgroundColor = themeColor
         btnSetFilter.contentHorizontalAlignment = .center
-        btnSetFilter.translatesAutoresizingMaskIntoConstraints = false
+//        btnSetFilter.translatesAutoresizingMaskIntoConstraints = false
         btnSetFilter.layer.cornerRadius = 5
         btnSetFilter.widthAnchor.constraint(equalToConstant: uvFilterView.frame.width - 40).isActive = true
         btnSetFilter.heightAnchor.constraint(equalTo: btnSetFilter.widthAnchor, multiplier: 40/295, constant: 1).isActive = true
-        
+        btnSetFilter.addTarget(self, action: #selector(getStoreListFilter(_:)), for: .touchUpInside)
         
         if sender == distanceFilterBtn {
-            lbTitle.text = "거리"
-            lbRange.text = String(Double(slider.value)/10) + "km"
+            lblTitle.text = "거리"
+            lblRange.text = "0km"
             slider.minimumValue = 0
             slider.maximumValue = 30
-            minInt.text = "0m"
-            quarterInt.text = "1km"
-            threequarterInt.text = "2km"
-            maxInt.text = "3km+"
+            slider.addTarget(self, action: #selector(setSliderValue(_:)), for: .valueChanged)
+            slider.accessibilityLabel = "distance"
+            lblMinValue.text = "0m"
+            lblQuarterValue.text = "1km"
+            lblThreeQuarterValue.text = "2km"
+            lblMaxValue.text = "3km+"
         }
         else if sender == priceFilterBtn {
-            lbTitle.text = "대표메뉴 가격"
-            lbRange.text = String(Double(slider.value)/10) + "만원"
+            lblTitle.text = "대표메뉴 가격"
+            lblRange.text = "0원"
             slider.minimumValue = 0
             slider.maximumValue = 70
-            minInt.text = "0원"
-            quarterInt.text = "2만원"
-            threequarterInt.text = "4만원"
-            maxInt.text = "7만원+"
+            slider.addTarget(self, action: #selector(setSliderValue(_:)), for: .valueChanged)
+            slider.accessibilityLabel = "price"
+            lblMinValue.text = "0원"
+            lblQuarterValue.text = "2만원"
+            lblThreeQuarterValue.text = "4만원"
+            lblMaxValue.text = "7만원+"
         }
         else if sender == timeFilterBtn {
-            lbTitle.text = "예상 소요시간"
-            lbRange.text = String(Double(slider.value)/6) + "시간"
+            lblTitle.text = "예상 소요시간"
+            lblRange.text = "0시간"
             slider.minimumValue = 0
             slider.maximumValue = 18
-            minInt.text = "0시간"
-            quarterInt.text = "1시간"
-            threequarterInt.text = "2시간"
-            maxInt.text = "3시간+"
+            slider.addTarget(self, action: #selector(setSliderValue(_:)), for: .valueChanged)
+            slider.accessibilityLabel = "time"
+            lblMinValue.text = "0시간"
+            lblQuarterValue.text = "1시간"
+            lblThreeQuarterValue.text = "2시간"
+            lblMaxValue.text = "3시간+"
         }
         
         let svFilter = UIStackView(arrangedSubviews: [svLabel,slider,svRange,btnSetFilter])
@@ -306,9 +293,32 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         uvFilter.addConstraint(NSLayoutConstraint(item: svFilter, attribute: .centerY, relatedBy: .equal, toItem: uvFilter, attribute: .centerY, multiplier: 1, constant: 0))
         uvFilter.widthAnchor.constraint(equalTo: svFilter.widthAnchor, multiplier: 1).isActive = true
         uvFilter.heightAnchor.constraint(equalTo: svFilter.heightAnchor, multiplier: 1).isActive = true
-        
     }
-    
+    @objc func setSliderValue(_ sender: UISlider){
+        let step: Float = 1
+        let roundedValue = round(sender.value / step) * step
+        sender.value = roundedValue
+        var lblValue = ""
+        var lblUnit = ""
+        
+        switch sender.accessibilityLabel! {
+        case "distance":
+            lblValue = (Int(sender.value) % 10 == 0 ? String(Int(sender.value/10)) : String(sender.value/10))
+            lblUnit = (sender.value == sender.maximumValue ? "km+" : "km")
+        case "price":
+            lblValue = (Int(sender.value) % 10 == 0 ? String(Int(sender.value/10)) : String(sender.value/10))
+            lblUnit = (sender.value == sender.maximumValue ? "만원+" : "만원")
+        case "time":
+            lblValue = sender.value == 0 ? "0시간" : RegexTime(Int(sender.value * 10))
+            lblUnit = (sender.value == sender.maximumValue ? "+" : "")
+        default:
+            break
+        }
+        (((sender.superview as! UIStackView).arrangedSubviews.first as! UIStackView).arrangedSubviews.last as! UILabel).text = lblValue + lblUnit
+    }
+    @objc func getStoreListFilter(_ sender:UIButton){
+        getStoreList(landmarkInfo)
+    }
     
     
     //###########################
@@ -322,41 +332,40 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         AF.request(url,method: .post, parameters: ["json":convertedParameterString]).responseJSON { response in
             if response.value != nil {
-//                print(response.value!)
-                let landmarkInfo = JSON(response.value!)
+                //                print(response.value!)
+                self.landmarkInfo = JSON(response.value!)
                 print("***")
-//                print(landmarkInfo)
-                self.getStoreList(landmarkInfo)
+                //                print(landmarkInfo)
+                self.getStoreList(self.landmarkInfo)
             }
         }
     }
-    func getStoreList(_ landmarkInfo:JSON){
+    func getStoreList(_ landmarkInfo:JSON,distanceLimit:Float = 1.5,priceLimit:Int = 70000,sortedBy:String = "USER_PREF",tmCostLimit:Int = 180){
+        
         let url = OperationIP + "/store/selectStoreInfoList.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         let parameter = JSON([
-            "distanceLimit": 3,
-            "latitude": 37.68915657,
+            "latitude": landmarkInfo["latitude"].doubleValue,
+            "longitude": landmarkInfo["longitude"].doubleValue,
+            "distanceLimit": 1.5,
             "limit": 20,
-            "longitude": 127.04546691,
             "offset": 0,
             "priceLimit": 70000,
-            "searchKeyWord": "고기",
-            "sortedBy": "DISTANCE_ASC",
+            "searchKeyWord": "",
+            "sortedBy": "USER_PREF",
             "tmCostLimit": 180,
-            
-            //            "latitude": landmarkInfo["latitude"].doubleValue,
-            //            "longitude": landmarkInfo["longitude"].doubleValue,
-            //            "limit": 20,
-            //            "offset": 0,
-            //            "priceLimit": 70000,
-            //            "searchKeyWord": "",
-            //            "sortedBy": "DISTANCE_ASC",
-            //            "tmCostLimit": 180,
-            //            "distanceLimit": 3,
+//            "distanceLimit": distanceLimit,
+//            "limit": 20,
+//            "offset": 0,
+//            "priceLimit": priceLimit,
+//            "searchKeyWord": "",
+//            "sortedBy": sortedBy,
+//            "tmCostLimit": tmCostLimit,
         ])
+        print(parameter)
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-//            debugPrint(response)
+            //            debugPrint(response)
             if response.value != nil {
                 let reponseJSON = JSON(response.value!)
                 print("^^^")
@@ -377,6 +386,12 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     func setStackView(){
         svLocation.axis = .vertical
         svLocation.spacing = 10
+        svLocation.removeSubviews()
+        let uvTop = UIView()
+        uvTop.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        svLocation.addArrangedSubview(uvTop)
+        uvTop.isHidden = true
+        
         //        svLocation.topAnchor.constraint(equalTo: svLocation.topAnchor, constant: 10).isActive = true
     }
     func setLocationListBackView(){
@@ -422,7 +437,12 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         //        svTop.heightAnchor.constraint(equalToConstant: (view.frame.width * 0.12) - 7 ).isActive = true
         
         let lblReprMenuPrice = UILabel()
-        lblReprMenuPrice.text = "대표메뉴 " + item["reprMenuPrice"].stringValue + "원"
+        if item["reprMenuPrice"].intValue == 0 {
+            lblReprMenuPrice.text = "대표메뉴 무료"
+        } else {
+            lblReprMenuPrice.text = "대표메뉴 " + DecimalWon(item["reprMenuPrice"].intValue)
+        }
+        
         lblReprMenuPrice.fontSize = fontSize
         let lblAreaDetailNm = UIButton(type: .custom)
         lblAreaDetailNm.setTitle(item["areaDetailNm"].stringValue, for: .normal)
@@ -449,7 +469,6 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         svHashTag.trailingAnchor.constraint(equalTo: scvHashTag.trailingAnchor, constant: 0).isActive = true
         
         let iconSize: CGFloat = 15
-        
         
         let imgFavor = UIImageView(image: UIImage(named: "EmptyHeart"))
         imgFavor.contentMode = .scaleAspectFit
@@ -495,13 +514,13 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         svBottom.distribution = .fillEqually
         svBottom.spacing = 3
         
-        let url = URL(string: getImageURL(item["storeSn"].stringValue, item["storeImageUrlList"].arrayValue.first!.stringValue, tag: "store"))
-        let imgStore = UIImageView()
-        let data = try? Data(contentsOf: url!)
-        if data != nil {
-            imgStore.image = UIImage(data: data!)
-        } else {
-            imgStore.image = UIImage(named: "TempImage")
+        let imgStore = UIImageView(image: UIImage(named: "TempImage"))
+        if !item["storeImageUrlList"].arrayValue.isEmpty {
+            let url = URL(string: getImageURL(item["storeSn"].stringValue, item["storeImageUrlList"].arrayValue.first!.stringValue, tag: "store"))
+            let data = try? Data(contentsOf: url!)
+            if data != nil {
+                imgStore.image = UIImage(data: data!)
+            }
         }
         //        storeImage.widthAnchor.constraint(equalToConstant: (view.frame.width) * 0.34 ).isActive = true
         imgStore.widthAnchor.constraint(equalToConstant: 120).isActive = true
@@ -536,14 +555,30 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         svItem.heightAnchor.constraint(equalTo: uvLocation.heightAnchor, multiplier: 1).isActive = true
         
         self.svLocation.addArrangedSubview(uvLocation)
-        
-        uvLocation.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gotoLocationInfo)))
+        uvLocation.accessibilityIdentifier = item["storeSn"].stringValue
+        uvLocation.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gotoLocationInfo(_:))))
     }
     
-    @objc func gotoLocationInfo(){
-        //        print("debug")
-        let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "locationInfoView")
-        self.navigationController?.pushViewController(goToVC!, animated: true)
+    @objc func gotoLocationInfo(_ sender: UITapGestureRecognizer){
+        let locationSn = sender.view!.accessibilityIdentifier
+        getLocationInfo(locationSn!)
+    }
+    func getLocationInfo(_ locationSn : String) {
+        let url = OperationIP + "/store/selectStoreInfo.do"
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let parameter = JSON([
+            "storeSn": locationSn,
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            if response.value != nil {
+                let reponseJSON = JSON(response.value!)
+                print(reponseJSON)
+                locationData = reponseJSON
+                let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "locationInfoView")
+                self.navigationController?.pushViewController(goToVC!, animated: true)
+            }
+        }
     }
     
     //HashTag
@@ -557,8 +592,8 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     
     func makeHashTag(_ str: String,_ svHashTag: UIStackView){
         let fontSize:CGFloat = 12
-        let HashTagBtn = UIButton(type: .custom)
-        HashTagBtn.isUserInteractionEnabled = false
+        let HashTagBtn = UIButton(type: .system)
+//        HashTagBtn.isUserInteractionEnabled = false
         HashTagBtn.setTitle("#"+str+" ", for: .normal)
         HashTagBtn.setTitleColor(.lightGray, for: .normal)
         //        HashTagBtn.backgroundColor = .lightGray

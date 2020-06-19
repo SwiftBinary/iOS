@@ -36,7 +36,6 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
     
     var isUpdatePost = false
     var categorySn: Int = 0
-    var uploadPost = false
     var reponseJSON: JSON = []
     @IBOutlet var btnUploadPost: UIButton!
     
@@ -51,6 +50,8 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         navigationVCList = navigationVCList.reversed()
         if type(of: navigationVCList[1]) == PostListViewController.self {
             categorySn = (navigationVCList[1] as! PostListViewController).segueTitle + 1
+            isUpdatePost = (navigationVCList[1] as! PostListViewController).isUpdate
+            self.reponseJSON = (navigationVCList[1] as! PostListViewController).postJSON
         } else {
             self.reponseJSON = (navigationVCList[1] as! ShowPostViewController).reponseJSON
             categorySn = reponseJSON["category"].intValue
@@ -72,6 +73,7 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         let content = RSKPlaceholderTextView(frame: CGRect(x: (self.view.frame.width*0.04), y: 0, width: self.view.frame.width*0.96, height: tvContentView.frame.height*0.9))
         content.placeholder = "내용을 입력하세요. (최대 1000자 까지 입력 가능)"
         content.delegate = self
+//        content.
         tvContentView.addSubview(content)
         
         print(isUpdatePost)
@@ -83,6 +85,7 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         }
         
     }
+
     
     @IBAction func gotoBack(_ sender: UIBarButtonItem) {
         let alertMessage = "정말 게시글 작성을 취소하시겠습니까?\n해당 페이지를 벗어나면\n게시글 작성 상황은 저장되지 않습니다."
@@ -137,14 +140,19 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
             alertControllerDefault(title: "업로드 실패", message: "앨범에 접근할 수 없습니다.\n권한을 확인해주세요.")
         }
     }
-    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        return updatedText.count <= 20
+    }
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         guard let rangeOfTextToReplace = Range(range, in: textView.text) else {
             return false
         }
         let substringToReplace = textView.text[rangeOfTextToReplace]
         let count = textView.text.count - substringToReplace.count + text.count
-        return count <= 20
+        return count <= 1000
     }
     
     @IBAction func uploadPost(_ sender: UIButton) {
@@ -172,7 +180,9 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         let postTitle = tfTitle.text!
         let postContent = (tvContentView.subviews[0] as! RSKPlaceholderTextView).text!
         let postHashTag = (tfHashTag.text!.isEmpty) ? " " : tfHashTag.text!
+    
         let url = OperationIP + "/board/updateBoardInfo.do"
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         let parameter = JSON([
             "boardSn": reponseJSON["boardSn"].stringValue,
             "category": categorySn,
@@ -180,10 +190,11 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
             "content": postContent,
             "hashTag": postHashTag,
         ])
-        
+        print(httpHeaders)
+        print(parameter)
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
         
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             debugPrint(response)
@@ -207,10 +218,9 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
             "content": postContent,
             "hashTag": postHashTag,
         ])
-        
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
         
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             debugPrint(response)

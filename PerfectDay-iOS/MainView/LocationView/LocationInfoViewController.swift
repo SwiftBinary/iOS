@@ -71,7 +71,7 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         if locationData["reprMenuPrice"].intValue == 0 {
             lblMainMenuPrice.text = "무료"
         } else {
-            lblMainMenuPrice.text = "₩ " + String(locationData["reprMenuPrice"].intValue) + "원"
+            lblMainMenuPrice.text = "₩ " + DecimalWon(locationData["reprMenuPrice"].intValue)
         }
         lblMainMenuPrice.font = UIFont.systemFont(ofSize: 15)
         
@@ -124,7 +124,7 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
             if menu["menuPrice"].intValue == 0 {
                 lblMenuPrice.text = "무료"
             } else {
-                lblMenuPrice.text = "₩ " + String(menu["menuPrice"].intValue) + "원"
+                lblMenuPrice.text = "₩ " + DecimalWon(menu["menuPrice"].intValue)
             }
             lblMenuPrice.textAlignment = .right
             lblMenuPrice.fontSize = 15
@@ -141,7 +141,7 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         btnMoreMenu.titleLabel?.font = UIFont.boldSystemFont(ofSize: sizeContent)
         btnMoreMenu.contentHorizontalAlignment = .right
         svMenuList.addArrangedSubview(btnMoreMenu)
-        if locationData["menuList"].arrayValue.count > 3 {
+        if locationData["menuList"].arrayValue.count < 4 {
             btnMoreMenu.isHidden = true
         }
         

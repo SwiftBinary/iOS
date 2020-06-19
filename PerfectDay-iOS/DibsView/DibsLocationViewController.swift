@@ -59,15 +59,12 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     
     func requestPost(){
         let url = OperationIP + "/pick/selectPickInfoList.do"
-        let jsonHeader = JSON(["userSn":(userData["userSn"] as? String)!])
         let parameter = JSON([
             "bReverse": true
         ])
-        let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         //
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
-        print(convertedHeaderString)
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -185,7 +182,11 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         
         
         let lblPrice = UILabel()
-        lblPrice.text = "대표메뉴 " + String(DibsLocData["storeDTO"]["reprMenuPrice"].intValue) + "원"
+        if DibsLocData["storeDTO"]["reprMenuPrice"].intValue == 0 {
+            lblPrice.text = "대표메뉴 무료"
+        } else {
+            lblPrice.text = "대표메뉴 " + DecimalWon(DibsLocData["storeDTO"]["reprMenuPrice"].intValue)
+        }
         lblPrice.fontSize = 11
         lblPrice.textColor = .darkGray
         
@@ -359,17 +360,14 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     // ##################################################
     func deletePick(_ strStoreSn: String){
         let url = OperationIP + "/pick/deletePickInfo.do"
-        let jsonHeader = JSON(["userSn":getString(userData["userSn"])])
         let parameter = JSON([
             "storeSn": strStoreSn
         ])
         
-        let convertedHeaderString = jsonHeader.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         
-        print(convertedHeaderString)
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -398,7 +396,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     func getLocationInfo(_ locationSn : String) {
         //        let locationSn = UserDefaults.standard.string(forKey: locationSnKey)!
         let url = OperationIP + "/store/selectStoreInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         let parameter = JSON([
             "storeSn": locationSn,
         ])

@@ -16,10 +16,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="ex) 동 검색 : 화양동, 키워드 검색 : 치킨 ..." translatesAutoresizingMaskIntoConstraints="NO" id="PfM-xr-Xy8">
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="ex) 동 검색 : 화양동, 키워드 검색 : 치킨 ..." showsSearchResultsButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PfM-xr-Xy8">
                                 <rect key="frame" x="0.0" y="44" width="414" height="56"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardAppearance="light" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                             </searchBar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjn-DH-9g7">
                                 <rect key="frame" x="20.5" y="100" width="373" height="0.0"/>
@@ -44,7 +44,7 @@
                                 </constraints>
                             </scrollView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k0m-6N-QtU">
-                                <rect key="frame" x="0.0" y="110" width="414" height="703"/>
+                                <rect key="frame" x="0.0" y="100" width="414" height="713"/>
                                 <connections>
                                     <segue destination="0lS-ea-nt3" kind="embed" id="fjv-xb-yrc"/>
                                 </connections>
@@ -55,7 +55,7 @@
                             <constraint firstItem="PfM-xr-Xy8" firstAttribute="top" secondItem="M0Y-v7-d98" secondAttribute="top" id="0w0-ao-QfU"/>
                             <constraint firstItem="jjn-DH-9g7" firstAttribute="top" secondItem="PfM-xr-Xy8" secondAttribute="bottom" symbolic="YES" id="2MF-Vb-8Xd"/>
                             <constraint firstItem="M0Y-v7-d98" firstAttribute="trailing" secondItem="k0m-6N-QtU" secondAttribute="trailing" id="GOb-kH-qYd"/>
-                            <constraint firstItem="k0m-6N-QtU" firstAttribute="top" secondItem="jjn-DH-9g7" secondAttribute="bottom" constant="10" id="aRj-gB-5vd"/>
+                            <constraint firstItem="k0m-6N-QtU" firstAttribute="top" secondItem="jjn-DH-9g7" secondAttribute="bottom" id="aRj-gB-5vd"/>
                             <constraint firstItem="PfM-xr-Xy8" firstAttribute="leading" secondItem="M0Y-v7-d98" secondAttribute="leading" id="gGr-Rn-gzo"/>
                             <constraint firstItem="PfM-xr-Xy8" firstAttribute="trailing" secondItem="M0Y-v7-d98" secondAttribute="trailing" id="gxF-pF-50P"/>
                             <constraint firstItem="jjn-DH-9g7" firstAttribute="width" secondItem="M0Y-v7-d98" secondAttribute="width" multiplier="0.9" id="hWf-VE-zKF"/>
@@ -69,6 +69,8 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="svHashTag" destination="0AN-lt-3KP" id="AhF-2L-vMr"/>
+                        <outlet property="uiSearchBar" destination="PfM-xr-Xy8" id="COa-NR-5Bb"/>
+                        <outlet property="uvTapView" destination="k0m-6N-QtU" id="hON-xj-r18"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pjs-IF-QaE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

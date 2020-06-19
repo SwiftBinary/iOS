@@ -30,8 +30,8 @@
             filePath = "PerfectDay-iOS/BoardView/WritePostViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "setUI()"
             landmarkType = "7">
          </BreakpointContent>
@@ -233,8 +233,8 @@
             filePath = "PerfectDay-iOS/BoardView/PostListViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
+            startingLineNumber = "336"
+            endingLineNumber = "336"
             landmarkName = "makePostUv(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -275,15 +275,15 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E9CCCC8A-444D-4970-83BE-870E7594089C"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PerfectDay-iOS/BoardView/ShowPostViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "545"
-            endingLineNumber = "545"
-            landmarkName = "requestComment(_:)"
+            startingLineNumber = "548"
+            endingLineNumber = "548"
+            landmarkName = "deleteComment(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -344,6 +344,54 @@
             endingLineNumber = "101"
             landmarkName = "getImageURL(_:_:tag:)"
             landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C2541ADF-DA27-470A-BC38-63A481169687"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PerfectDay-iOS/DibsView/DibsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "setUI()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C2541ADF-DA27-470A-BC38-63A481169687 - 16cb5708c76a991f"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PerfectDay_iOS.DibsViewController.setUI() -&gt; ()"
+                  moduleName = "PerfectDay-iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/moonjs/PerfectDay/PerfectDay-iOS/PerfectDay-iOS/DibsView/DibsViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "1576">
+               </Location>
+               <Location
+                  uuid = "C2541ADF-DA27-470A-BC38-63A481169687 - e34ddcedc6efd123"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;XLPagerTabStrip.ButtonBarViewCell&gt;, Swift.Optional&lt;XLPagerTabStrip.ButtonBarViewCell&gt;, CoreGraphics.CGFloat, Swift.Bool, Swift.Bool) -&gt; () in PerfectDay_iOS.DibsViewController.setUI() -&gt; ()"
+                  moduleName = "PerfectDay-iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/moonjs/PerfectDay/PerfectDay-iOS/PerfectDay-iOS/DibsView/DibsViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "84">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

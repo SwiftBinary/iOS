@@ -129,7 +129,7 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
     }
     
     func tempFunc(){
-        for index in 1..<20 {
+        for index in 1..<5 {
             let tempView = makeTempUv(index)
             svPostList.addArrangedSubview(tempView)
         }

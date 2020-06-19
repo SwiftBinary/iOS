@@ -29,7 +29,7 @@ class LandmarkViewController: UIViewController {
     
     func getLandmarkInfo(){
         let url = OperationIP + "/landmark/selectLandmarkInfoList.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         let parameter = JSON([
             "areaSdCode" : SeoulSn,
             "areaDetailCode" : areaSdDetailCode,

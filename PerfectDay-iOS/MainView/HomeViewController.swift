@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
     @IBOutlet var svFuncButton: UIStackView!
     @IBOutlet var svThemeLocation: UIStackView!
     
-    let listTag = ["홍대맛집","잠실야경","VR데이트","산책데이트", "수제햄버거","미친가격","너무맛있다","건대", "홍대", "강남", "이색", "고궁", "tv방영", "가성비", "고급진", "국밥", "방탈출", "야식", "비오는날", "100일데이트코스", "커플100%되는곳", "킬링타임코스", "호불호없는"]
+//    let listTag = ["홍대맛집","잠실야경","VR데이트","산책데이트", "수제햄버거","미친가격","너무맛있다","건대", "홍대", "강남", "이색", "고궁", "tv방영", "가성비", "고급진", "국밥", "방탈출", "야식", "비오는날", "100일데이트코스", "커플100%되는곳", "킬링타임코스", "호불호없는"]
     let userData = getUserData()
     var listOneDayPickInfo = JSON()
     var listHotStoreInfo = JSON()
@@ -82,14 +82,7 @@ class HomeViewController: UIViewController {
         let scvTag = UIScrollView()
         scvTag.translatesAutoresizingMaskIntoConstraints = false
         let svTag = UIStackView()
-        for hashTag in listTag {
-            let btnHashTag = UIButton(type: .system)
-            btnHashTag.setTitle(setHashTagString(hashTag))
-            btnHashTag.layer.cornerRadius = 15
-            btnHashTag.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
-            btnHashTag.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
-            svTag.addArrangedSubview(btnHashTag)
-        }
+        getHashTag(svTag)
         svTag.translatesAutoresizingMaskIntoConstraints = false
         svTag.spacing = 10
         scvTag.addSubview(svTag)
@@ -104,6 +97,25 @@ class HomeViewController: UIViewController {
         uvLandmark.addConstraint(NSLayoutConstraint(item: scvTag, attribute: .centerX, relatedBy: .equal, toItem: uvLandmark, attribute: .centerX, multiplier: 1, constant: 0))
         scvTag.bottomAnchor.constraint(equalTo: uvLandmark.bottomAnchor, constant: -15).isActive = true
         scvTag.widthAnchor.constraint(equalTo: uvLandmark.widthAnchor, multiplier: 0.9).isActive = true
+    }
+    func getHashTag(_ svTag: UIStackView){
+        let url = OperationIP + "/tag/selectHashTagList.do"
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        AF.request(url,method: .post,headers: httpHeaders).responseJSON { response in
+            if response.value != nil {
+                self.setHashTag(svTag,JSON(response.value!).arrayValue)
+            }
+        }
+    }
+    func setHashTag(_ svTag:UIStackView, _ listTag: [JSON]){
+        for hashTag in listTag {
+            let btnHashTag = UIButton(type: .system)
+            btnHashTag.setTitle(setHashTagString(hashTag["tag"].stringValue))
+            btnHashTag.layer.cornerRadius = 15
+            btnHashTag.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
+            btnHashTag.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
+            svTag.addArrangedSubview(btnHashTag)
+        }
     }
     
     @objc func getLandmarkList(_ sender:UIButton){
@@ -132,6 +144,7 @@ class HomeViewController: UIViewController {
         let btnFindAroundLocation = MaterialVerticalButton(icon: UIImage(named: "SearchLocationIcon")!, text: "내 주변 장소 찾기", font: nil ,foregroundColor: .black, bgColor: .white, useOriginalImg: true, cornerRadius: 15.0)
         btnFindAroundLocation.label.font = UIFont.boldSystemFont(ofSize: fontSize)
         btnFindAroundLocation.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+        btnFindAroundLocation.addTarget(self, action: #selector(getFindAroundLocation(_:)), for: .touchUpInside)
         
         svFuncButton.addArrangedSubview(btnOneClickCourse)
         svFuncButton.addArrangedSubview(btnFindAroundLocation)
@@ -139,9 +152,7 @@ class HomeViewController: UIViewController {
     
     @objc func getOneClickCourseRecommand(_ sender: UIButton){
         let url = OperationIP + "/oneClick/selectOneClickInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
-        //        let parameter = JSON([])
-        //        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         AF.request(url,method: .post, headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
             if response.value != nil {
@@ -151,6 +162,22 @@ class HomeViewController: UIViewController {
             }
         }
     }
+    @objc func getFindAroundLocation(_ sender: UIButton){
+        let url = OperationIP + "/search/selectLocationInfo.do"
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let parameter = JSON([
+            "searchKeyword": "건대",
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            if response.value != nil {
+                print("~~~~~~~~~~~~~~~~~~~~~~~내주변장소")
+                print(JSON(response.value!))
+                print("~~~~~~~~~~~~~~~~~~~~~~~")
+            }
+        }
+    }
+    
     
     //###########################
     //           테마장소
@@ -161,9 +188,9 @@ class HomeViewController: UIViewController {
             //            debugPrint(response)
             if response.value != nil {
                 self.listHotStoreInfo = JSON(response.value!)
-                print("~~~~~~~~~~~~~~~~~~~~~~~핫플레이스")
+//                print("~~~~~~~~~~~~~~~~~~~~~~~핫플레이스")
                 //                print(self.listHotStoreInfo)
-                print("~~~~~~~~~~~~~~~~~~~~~~~")
+//                print("~~~~~~~~~~~~~~~~~~~~~~~")
                 self.scvHotPlace = self.makeScrollView(Theme: "HotPlace")
                 self.getOneDayPickInfo()
             }
@@ -171,14 +198,14 @@ class HomeViewController: UIViewController {
     }
     func getOneDayPickInfo(){
         let url = OperationIP + "/store/selectOneDayPickInfoList.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         AF.request(url,method: .post,headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
             if response.value != nil {
                 self.listOneDayPickInfo = JSON(response.value!)
-                print("~~~~~~~~~~~~~~~~~~~~~~~00세의 하루")
+//                print("~~~~~~~~~~~~~~~~~~~~~~~00세의 하루")
                 //                print(self.listOneDayPickInfo)
-                print("~~~~~~~~~~~~~~~~~~~~~~~")
+//                print("~~~~~~~~~~~~~~~~~~~~~~~")
                 self.scvOneDayPick = self.makeScrollView(Theme: "OneDayPick")
                 self.setThemeLocation()
             }
@@ -439,7 +466,7 @@ class HomeViewController: UIViewController {
     func getLocationInfo(_ locationSn : String) {
         //        let locationSn = UserDefaults.standard.string(forKey: locationSnKey)!
         let url = OperationIP + "/store/selectStoreInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         let parameter = JSON([
             "storeSn": locationSn,
         ])

@@ -15,6 +15,7 @@ class ShowPostViewController: UIViewController {
     
     let darkGray = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1)
+    let btnhighlightedColor = #colorLiteral(red: 1, green: 0.737254902, blue: 0.9294117647, alpha: 1)
     
     let btnLike = FlatButton()
     let btnComment = FlatButton()
@@ -27,6 +28,7 @@ class ShowPostViewController: UIViewController {
     @IBOutlet var scvHashTag: UIScrollView!
     @IBOutlet var svimage: UIStackView!
     @IBOutlet var scvImage: UIScrollView!
+    @IBOutlet var svScore: UIStackView!
     
     @IBOutlet var svComment: UIStackView!
     @IBOutlet var lblTemp: UILabel!
@@ -42,6 +44,7 @@ class ShowPostViewController: UIViewController {
     let commentInfoFontSize: CGFloat = 10
     
     @IBOutlet var lblUserNickName: UILabel!
+    @IBOutlet var btnLocationName: UIButton!
     @IBOutlet var lblPostInfo: UILabel!
     @IBOutlet var lblContentTitle: UILabel!
     @IBOutlet var lblContent: UILabel!
@@ -52,11 +55,25 @@ class ShowPostViewController: UIViewController {
     var reponseJSON: JSON = []
     var boardSn = ""
     var replySn = ""
+    var category:String = ""
+    var isLocaitonLink = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getBoardSn()
-        requestPostFirst()
+//        getBoardSn()
+        //        requestPostFirst()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        uvFunc.removeSubviews()
+        svScore.removeSubviews()
+        svHashTag.removeSubviews()
+        if category == "7" {
+            requestReviewFirst()
+        }
+        else {
+            requestPostFirst()
+        }
     }
     
     //###########################
@@ -65,9 +82,31 @@ class ShowPostViewController: UIViewController {
     func getBoardSn(){
         let navigationVCList = self.navigationController!.viewControllers
         boardSn = (navigationVCList[1] as! PostListViewController).boardSn
+        print(self.boardSn)
     }
     func requestPostFirst(){
         let url = OperationIP + "/board/selectBoardInfo.do"
+        let parameter = JSON([
+            "boardSn": boardSn
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        //        print(convertedParameterString)
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            //            debugPrint(response)
+            if response.value != nil {
+                self.reponseJSON = JSON(response.value!)
+                print("##")
+                print(self.reponseJSON)
+                print("##")
+                self.setUI()
+            }
+        }
+    }
+    func requestReviewFirst(){
+        let url = OperationIP + "/review/selectReviewInfo.do"
         let parameter = JSON([
             "boardSn": boardSn
         ])
@@ -89,15 +128,47 @@ class ShowPostViewController: UIViewController {
     }
     func setUI(){
         self.tabBarController?.tabBar.isHidden = true
-        //        let navigationVCList = self.navigationController!.viewControllers
-        //        let navigationTitle = navigationVCList[1].navigationItem.title
-        //        self.navigationItem.title = navigationTitle
+        let navigationVCList = self.navigationController!.viewControllers
+        let navigationTitle = navigationVCList[1].navigationItem.title
+        self.navigationItem.title = navigationTitle
         let postData = reponseJSON
         
         lblUserNickName.text = postData["userDTO"]["userName"].string
         let strView:String = String(postData["viewCount"].intValue)
         let strDate:String = String(postData["registerDt"].string!.split(separator: " ")[0])
         lblPostInfo.text = strView + "  " + strDate
+        
+        if category == "7" {
+            svScore.isHidden = false
+            let score : Int = postData["reviewScore"].intValue
+            for i in 1...5 {
+                let imgStar = UIImageView()
+                //                imgStar.contentMode = .scaleAspectFill
+                if i <= score {
+                    imgStar.image = UIImage(named: "GPAIcon")
+                }
+                else {
+                    imgStar.image = UIImage(named: "GPAIcon-1")
+                }
+                svScore.addArrangedSubview(imgStar)
+            }
+        }
+        else {
+            svScore.isHidden = true
+        }
+        if category == "7" {
+            btnLocationName.isHidden = false
+            btnLocationName.setTitle(postData["storeDTO"]["storeNm"].string, for: .normal)
+            btnLocationName.fontSize = 15
+            btnLocationName.setTitleColor(#colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1), for: .normal)
+            btnLocationName.setTitleColor(btnhighlightedColor, for: .highlighted)
+            btnLocationName.accessibilityIdentifier = postData["storeDTO"]["storeSn"].string
+            btnLocationName.contentHorizontalAlignment = .left
+            btnLocationName.addTarget(self, action: #selector(gotoLocationInfo(_:)), for: .touchUpInside)
+        }
+        else {
+            btnLocationName.isHidden = true
+        }
         
         lblContentTitle.text = postData["title"].string
         lblContent.isHidden = (postData["content"].string == nil)
@@ -182,7 +253,7 @@ class ShowPostViewController: UIViewController {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -198,7 +269,7 @@ class ShowPostViewController: UIViewController {
             "boardSn": boardSn
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
@@ -218,7 +289,7 @@ class ShowPostViewController: UIViewController {
             self.deletePostAlert()
         })
         
-        let PostAction = UIAlertAction(title: "신고", style: .default, handler: { _ in
+        let reportAction = UIAlertAction(title: "신고", style: .default, handler: { _ in
             self.reportPostOrComment()
         })
         
@@ -228,7 +299,7 @@ class ShowPostViewController: UIViewController {
             alertController.addAction(MyPostEditAction)
             alertController.addAction(MyPostDeleteAction)
         } else {
-            alertController.addAction(PostAction)
+            alertController.addAction(reportAction)
         }
         
         alertController.addAction(cancelAction)
@@ -259,7 +330,7 @@ class ShowPostViewController: UIViewController {
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
         
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             debugPrint(response)
@@ -446,7 +517,7 @@ class ShowPostViewController: UIViewController {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -462,7 +533,7 @@ class ShowPostViewController: UIViewController {
             "replySn": replySn
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -491,7 +562,7 @@ class ShowPostViewController: UIViewController {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
@@ -521,7 +592,7 @@ class ShowPostViewController: UIViewController {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
             if response.value != nil {
@@ -547,7 +618,7 @@ class ShowPostViewController: UIViewController {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -575,6 +646,24 @@ class ShowPostViewController: UIViewController {
     //######################
     func requestPost(_ isPost : Bool, _ btn: UIButton? = nil){
         let url = OperationIP + "/board/selectBoardInfo.do"
+        let parameter = JSON([
+            "boardSn": boardSn
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        print(convertedParameterString)
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            //            debugPrint(response)
+            if response.value != nil {
+                self.reponseJSON = JSON(response.value!)
+                isPost ? self.updatePostUI() : self.updateCommentUI(btn!)
+            }
+        }
+    }
+    func requestReview(_ isPost : Bool, _ btn: UIButton? = nil){
+        let url = OperationIP + "/review/selectReviewInfo.do"
         let parameter = JSON([
             "boardSn": boardSn
         ])
@@ -614,4 +703,34 @@ class ShowPostViewController: UIViewController {
             }
         }
     }
+    //######################
+    //      장소상세 링크
+    //######################
+    @objc func gotoLocationInfo(_ sender: UIButton){
+        let locationSn = sender.self.accessibilityIdentifier
+        getLocationInfo(locationSn!)
+    }
+    func getLocationInfo(_ locationSn : String){
+        let url = OperationIP + "/store/selectStoreInfo.do"
+        let parameter = JSON([
+            "storeSn": locationSn
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        print(convertedParameterString)
+        
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            if response.value != nil {
+                locationData = JSON(response.value!)
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                guard let goToVC = storyboard.instantiateViewController(withIdentifier: "locationInfoView") as? LocationViewController else {
+                    //아니면 종료
+                    return
+                }
+                self.navigationController?.pushViewController(goToVC, animated: true)
+            }
+        }
+    }
+    
 }
