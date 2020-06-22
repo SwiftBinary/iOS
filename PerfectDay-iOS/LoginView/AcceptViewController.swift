@@ -33,6 +33,10 @@ class AcceptViewController: UIViewController {
         setViewBorder(bgMarketingAccept)
         // Do any additional setup after loading the view.
     }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "joinIdentifier" {

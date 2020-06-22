@@ -75,7 +75,9 @@ class LandmarkViewController: UIViewController {
         let uvItem = UIView()
         uvItem.translatesAutoresizingMaskIntoConstraints = false
         
+        // 나중 - UIFunction에 있는 함수로 바꿈
         let lblTitle = UILabel()
+        lblTitle.textColor = .darkText
         lblTitle.text = item["landmarkName"].stringValue
         lblTitle.fontSize = 15
         let lblContent = UILabel()
@@ -99,6 +101,7 @@ class LandmarkViewController: UIViewController {
         uvMid.heightAnchor.constraint(greaterThanOrEqualToConstant: 1).isActive = true
         //        midUI.heightAnchor.constraint(equalToConstant: view.frame.width / 33 ).isActive = true
         let lblTouch = UILabel()
+        lblTouch.textColor = .darkText
         lblTouch.text = "클릭수 " + item["landmarkViewCount"].stringValue
         lblTouch.fontSize = 12
         

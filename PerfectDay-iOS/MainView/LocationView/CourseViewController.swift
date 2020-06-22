@@ -207,13 +207,14 @@ class CourseViewController: UIViewController {
         sequenceBtn.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0, constant: 21).isActive = true
         
         
-        let storeType = UILabel()
-        setPref(storeType,storeData["prefSn"].string!,storeData["prefData"].string!)
-        storeType.fontSize = 13
-        storeType.textColor = .systemBlue
-        let storeNm = UILabel()
-        storeNm.text = storeData["storeNm"].string
-        storeNm.font = UIFont.boldSystemFont(ofSize: 19.0)
+        let lblStoreType = UILabel()
+        setPref(lblStoreType,storeData["prefSn"].string!,storeData["prefData"].string!)
+        lblStoreType.fontSize = 13
+        lblStoreType.textColor = .systemBlue
+        let lblStoreNm = UILabel()
+        lblStoreNm.textColor = .darkText
+        lblStoreNm.text = storeData["storeNm"].string
+        lblStoreNm.font = UIFont.boldSystemFont(ofSize: 19.0)
         //
         let url = URL(string: getImageURL(storeData["storeSn"].stringValue, storeData["storeImageUrlList"].arrayValue.first!.stringValue, tag: "store"))
         let imgStore = UIImageView()
@@ -230,7 +231,7 @@ class CourseViewController: UIViewController {
         imgStore.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
 //        imgStore.widthAnchor.constraint(equalToConstant: view.frame.width * 0.14).isActive = true
         imgStore.widthAnchor.constraint(equalTo: imgStore.heightAnchor, multiplier: 1).isActive = true
-        let svInfo = UIStackView(arrangedSubviews: [storeType,storeNm])
+        let svInfo = UIStackView(arrangedSubviews: [lblStoreType,lblStoreNm])
         svInfo.translatesAutoresizingMaskIntoConstraints = false
         svInfo.axis = .vertical
         svInfo.distribution = .fillProportionally

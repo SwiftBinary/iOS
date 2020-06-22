@@ -14,6 +14,7 @@ import SwiftyJSON
 class SetUserInfoViewController: UIViewController {
     
     
+    @IBOutlet var tfNewNickName: UITextField!
     @IBOutlet var tfCurrentPw: UITextField!
     @IBOutlet var tfNewPw: UITextField!
     @IBOutlet var tfNewPwCheck: UITextField!
@@ -27,6 +28,10 @@ class SetUserInfoViewController: UIViewController {
     }
     func setUI(){
         self.tabBarController?.tabBar.isHidden = true
+        setField(tfNewNickName, "한글, 영문, 숫자 10자 이내")
+        setField(tfCurrentPw, "현재 사용중인 비밀번호 입력")
+        setField(tfNewPw, "영문,숫자,특수문자 8 - 10자")
+        setField(tfNewPwCheck, "영문,숫자,특수문자 8 - 10자")
     }
     
     @IBAction func gotoBack(_ sender: UIButton) {

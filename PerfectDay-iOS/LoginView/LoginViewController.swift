@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 import CryptoSwift
 import NaverThirdPartyLogin
-import FBSDKLoginKit
+//import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
     
@@ -30,6 +30,9 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     @IBOutlet var lblDataString: UITextView!
@@ -281,8 +284,8 @@ class LoginViewController: UIViewController {
     //###########################
     func goToFacebookLogin(){
         
-        let btnFacebook = FBLoginButton()
-        svSNSLogin.addArrangedSubview(btnFacebook)
+//        let btnFacebook = FBLoginButton()
+//        svSNSLogin.addArrangedSubview(btnFacebook)
         //        if let token = AccessToken.current, !token.isExpired {
         //            print("[Success] : Success Facebook Login")
         //        }

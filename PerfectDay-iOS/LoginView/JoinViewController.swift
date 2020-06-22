@@ -100,6 +100,7 @@ class JoinViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         btnJoin.backgroundColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
         btnJoin.layer.cornerRadius = 5
         setField(fieldEmail, "이메일")
+        setField(fieldDomain, "직접입력")
         setField(fieldPw, "영문, 숫자 포함 8 - 16자")
         setField(fieldPwCheck, "영문, 숫자 포함 8 - 16자")
         setField(fieldName,"홍길동")

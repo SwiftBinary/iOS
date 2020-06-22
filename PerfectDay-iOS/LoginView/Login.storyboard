@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,7 +11,7 @@
         <!--로그인-->
         <scene sceneID="0Sl-Ft-pEQ">
             <objects>
-                <viewController id="bQ5-80-Ob3" customClass="LoginViewController" customModule="PerfectDay_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="bQ5-80-Ob3" customClass="LoginViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VK8-Fl-Esl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -213,7 +213,7 @@
         <!--Accept Content View Controller-->
         <scene sceneID="39C-1N-vmY">
             <objects>
-                <viewController storyboardIdentifier="acceptContentView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EJg-fo-eOp" customClass="AcceptContentViewController" customModule="PerfectDay_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="acceptContentView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EJg-fo-eOp" customClass="AcceptContentViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t6p-tH-5Ic">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -270,7 +270,7 @@
         <!--이용약관-->
         <scene sceneID="hqS-6K-oaw">
             <objects>
-                <viewController storyboardIdentifier="acceptView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jHK-cE-s2D" customClass="AcceptViewController" customModule="PerfectDay_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="acceptView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jHK-cE-s2D" customClass="AcceptViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lAn-cC-nNF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -506,7 +506,7 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="wCo-Zn-Xek" firstAttribute="width" secondItem="lAn-cC-nNF" secondAttribute="width" multiplier="0.8" id="0eR-Gn-xwh"/>
                             <constraint firstItem="j2D-oU-rA7" firstAttribute="width" secondItem="lAn-cC-nNF" secondAttribute="width" multiplier="0.903382" id="8cn-7O-gMi"/>
@@ -566,7 +566,7 @@
         <!--회원가입-->
         <scene sceneID="b3Y-jt-TBL">
             <objects>
-                <viewController storyboardIdentifier="joinView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sHE-6M-hR5" customClass="JoinViewController" customModule="PerfectDay_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="joinView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sHE-6M-hR5" customClass="JoinViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aQl-7z-Clt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -589,7 +589,7 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Uf-Zi-q6Q">
                                                         <rect key="frame" x="0.0" y="0.0" width="145" height="34"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <connections>
@@ -604,6 +604,8 @@
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="직접입력" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Rb-gC-F2K">
                                                         <rect key="frame" x="189" y="0.0" width="145" height="34"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <connections>
@@ -855,7 +857,7 @@
         <!--아이디/비밀번호 찾기-->
         <scene sceneID="K7h-AO-geX">
             <objects>
-                <viewController id="xUy-4n-8Id" customClass="ShowInfoViewController" customModule="PerfectDay_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="xUy-4n-8Id" customClass="ShowInfoViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qav-fS-9w1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -881,7 +883,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="JOv-E3-1Vp" firstAttribute="centerX" secondItem="ZAr-SQ-65f" secondAttribute="centerX" id="6Aj-PB-r6g"/>
                             <constraint firstItem="Gwq-s4-DFF" firstAttribute="width" secondItem="Qav-fS-9w1" secondAttribute="width" multiplier="0.8" id="Kzv-aM-FrR"/>
@@ -908,7 +910,7 @@
         <!--아이디/비밀번호 찾기-->
         <scene sceneID="2ju-zY-J8J">
             <objects>
-                <viewController id="Omx-v2-zM8" customClass="FindBackViewController" customModule="PerfectDay_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Omx-v2-zM8" customClass="FindBackViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HHE-OH-Xec">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -930,7 +932,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="uLV-rv-tUd" firstAttribute="top" secondItem="V2e-cH-eJk" secondAttribute="bottom" constant="20" id="Pam-UH-PX2"/>
                             <constraint firstItem="V2e-cH-eJk" firstAttribute="width" secondItem="HHE-OH-Xec" secondAttribute="width" id="c0b-09-z5J"/>
@@ -954,7 +956,7 @@
         <!--아이디/비밀번호 찾기-->
         <scene sceneID="W8i-q9-Gwi">
             <objects>
-                <viewController id="tfd-IY-Gwq" customClass="FindViewController_temp" customModule="PerfectDay_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="tfd-IY-Gwq" customClass="FindViewController_temp" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9Dt-G9-IDN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1097,7 +1099,7 @@
         <!--Find View Controller-->
         <scene sceneID="OKa-ZY-8La">
             <objects>
-                <viewController id="42t-ch-mOO" customClass="FindViewController" customModule="PerfectDay_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="42t-ch-mOO" customClass="FindViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="57n-iC-Gs2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1113,6 +1115,6 @@
     <resources>
         <image name="LoginLogo" width="78" height="76"/>
         <image name="check_circle_off" width="21" height="21"/>
-        <image name="chevron.down" catalog="system" width="64" height="36"/>
+        <image name="chevron.down" catalog="system" width="128" height="72"/>
     </resources>
 </document>

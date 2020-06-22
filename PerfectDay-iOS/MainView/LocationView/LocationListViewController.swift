@@ -201,6 +201,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     
     func sliderFilters(_ sender: UIButton?){
         let lblTitle = UILabel()
+        lblTitle.textColor = .darkText
         lblTitle.font = UIFont.boldSystemFont(ofSize: 17.0)
         let lblRange = UILabel()
         lblRange.font = UIFont.boldSystemFont(ofSize: 19.0)
@@ -224,6 +225,10 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         lblQuarterValue.fontSize = 13
         lblThreeQuarterValue.fontSize = 13
         lblMaxValue.fontSize = 13
+        lblMinValue.textColor = .darkText
+        lblQuarterValue.textColor = .darkText
+        lblThreeQuarterValue.textColor = .darkText
+        lblMaxValue.textColor = .darkText
         lblQuarterValue.textAlignment = .center
         lblThreeQuarterValue.textAlignment = .center
         lblMaxValue.textAlignment = .right
@@ -420,6 +425,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         lblStoreType.fontSize = fontSize
         lblStoreType.textColor = .systemBlue
         let lblStoreNm = UILabel()
+        lblStoreNm.textColor = .darkText
         lblStoreNm.text = item["storeNm"].stringValue
         lblStoreNm.font = UIFont.boldSystemFont(ofSize: fontSize+3)
         let svUpperLeft = UIStackView(arrangedSubviews: [lblStoreType,lblStoreNm])

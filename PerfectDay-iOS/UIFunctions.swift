@@ -12,6 +12,7 @@ import SwiftyJSON
 
 public func makeUILabel(_ text: String) -> UILabel {
     let uiLabel = UILabel()
+    uiLabel.textColor = .darkText
     uiLabel.text = text
     return uiLabel
 }
@@ -19,6 +20,9 @@ public func makeUILabel(_ text: String) -> UILabel {
 public func makeUITextField(_ placeholder: String) -> UITextField {
     let uiTextField = UITextField()
     uiTextField.placeholder = placeholder
+    uiTextField.textColor = .black
+    
+    uiTextField.attributedPlaceholder = NSAttributedString(string:placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
     uiTextField.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     uiTextField.layer.borderWidth = 1.0
     uiTextField.layer.cornerRadius = 5
@@ -216,6 +220,7 @@ extension UIViewController
         field.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         field.layer.borderWidth = 1.0
         field.layer.cornerRadius = 5
+        field.backgroundColor = .white
         field.attributedPlaceholder = NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)])
     }
     

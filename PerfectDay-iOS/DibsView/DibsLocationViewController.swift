@@ -177,6 +177,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         lblvar.fontSize = 11
         lblvar.textColor = .systemBlue
         let lblName = UILabel()
+        lblName.textColor = .darkText
         lblName.text = DibsLocData["storeDTO"]["storeNm"].string
         lblName.font = UIFont.boldSystemFont(ofSize: 18.0)
         

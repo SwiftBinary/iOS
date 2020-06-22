@@ -28,6 +28,7 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
     var scrollPostList = UIScrollView()
     var svPostList = UIStackView()
     var btnScrollUp = UIButton(type: .custom)
+    let segmentControl = MaterialSegmentedControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +63,7 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
         //Label Setting
         let intFontSize:CGFloat = 13
         lblCountPostGuide.fontSize = intFontSize
+        lblCountPostGuide.textColor = .darkText
         lblCountPostGuide.text = "조건에 해당하는 게시물: "
         lblCountPostGuide.textAlignment = .right
         lblCountPost.fontSize = intFontSize
@@ -69,11 +71,12 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
         lblCountPost.text = "000"
         lblCountPost.textAlignment = .center
         lblCountPostEnd.fontSize = intFontSize
+        lblCountPostEnd.textColor = .darkText
         lblCountPostEnd.text = " 개"
         lblCountPostEnd.textAlignment = .left
         
         //segmentControl
-        let segmentControl = MaterialSegmentedControl()
+//        let segmentControl = MaterialSegmentedControl()
         segmentControl.selectorStyle = .fill
         segmentControl.foregroundColor = .white
         segmentControl.selectedForegroundColor = .white
@@ -151,8 +154,10 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
         viewPost.layer.shadowOpacity = 0.9
         
         let lblTitle = UILabel()
+        lblTitle.textColor = .darkText
         lblTitle.text = "게시글 " + String(i)
         let lblContent = UILabel()
+        lblContent.textColor = .darkText
         //            lblContent.isHidden = postData["content"].string == nil
         lblContent.text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."
         lblContent.numberOfLines = 4 //countLabelLines(label: lblContent)

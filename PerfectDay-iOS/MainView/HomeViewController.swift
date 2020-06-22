@@ -218,6 +218,7 @@ class HomeViewController: UIViewController {
         
         let lblHotPlace = UILabel()
         lblHotPlace.font = UIFont.boldSystemFont(ofSize: 17)
+        lblHotPlace.textColor = .darkText
         let attributedHotPlaceString: NSMutableAttributedString = NSMutableAttributedString(string: "금주의 핫 플레이스")
         attributedHotPlaceString.setColor(color: #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1), forText: "핫 플레이스")
         lblHotPlace.attributedText = attributedHotPlaceString
@@ -242,6 +243,7 @@ class HomeViewController: UIViewController {
         
         let lblOneDayPick = UILabel()
         lblOneDayPick.font = UIFont.boldSystemFont(ofSize: 17)
+        lblOneDayPick.textColor = .darkText
         let attributedOneDayPickString: NSMutableAttributedString = NSMutableAttributedString(string: "20세의 오늘")
         attributedOneDayPickString.setColor(color: #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1), forText: "오늘")
         lblOneDayPick.attributedText = attributedOneDayPickString
@@ -314,11 +316,15 @@ class HomeViewController: UIViewController {
             imgLocation.clipsToBounds = true
             imgLocation.layer.cornerRadius = 5
             
+            // 나중 - UIFunction에 있는 함수로 교체
             let lblLocationName = UILabel()
+            lblLocationName.textColor = .darkText
             lblLocationName.text = item["storeNm"].stringValue
             lblLocationName.font = UIFont.boldSystemFont(ofSize: 16)
             
+            // 나중 - UIFunction에 있는 함수로 교체
             let lblLocationAddress = UILabel()
+            lblLocationAddress.textColor = .darkText
             lblLocationAddress.text = item["areaDetailNm"].stringValue
             lblLocationAddress.fontSize = 13
             
@@ -374,6 +380,7 @@ class HomeViewController: UIViewController {
         btnADLabel.contentHorizontalAlignment = .center
         
         let lblLocationName = UILabel()
+        lblLocationName.textColor = .darkText
         lblLocationName.text = item["storeNm"].stringValue
         lblLocationName.font = UIFont.boldSystemFont(ofSize: 16)
         
@@ -390,6 +397,7 @@ class HomeViewController: UIViewController {
         svLocationName.spacing = 3
         
         let lblLocationAddress = UILabel()
+        lblLocationAddress.textColor = .darkText
         lblLocationAddress.text = item["areaDetailNm"].stringValue
         lblLocationAddress.fontSize = 13
         
@@ -441,10 +449,12 @@ class HomeViewController: UIViewController {
         lblLocationRank.leadingAnchor.constraint(equalTo: imgLocation.leadingAnchor, constant:0).isActive = true
         
         let lblLocationName = UILabel()
+        lblLocationName.textColor = .darkText
         lblLocationName.text = item["storeNm"].stringValue
         lblLocationName.font = UIFont.boldSystemFont(ofSize: 16)
         
         let lblLocationAddress = UILabel()
+        lblLocationAddress.textColor = .darkText
         lblLocationAddress.text = item["areaDetailNm"].stringValue
         lblLocationAddress.fontSize = 13
         

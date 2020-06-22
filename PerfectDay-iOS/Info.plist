@@ -2,15 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 	<key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>naversearchapp</string>
-        <string>naversearchthirdlogin</string>
-    </array>
-    <key>FacebookAppID</key>
-    <string>254070435921756</string>
-    <key>FacebookDisplayName</key>
-    <string>perfectDay-ios</string>
+	<array>
+		<string>naversearchapp</string>
+		<string>naversearchthirdlogin</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -34,12 +32,8 @@
 			<string>naverlogin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>naverlogin</string>
+				<string>fb254070435921756</string>
 			</array>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>fb254070435921756</string>
-            </array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>

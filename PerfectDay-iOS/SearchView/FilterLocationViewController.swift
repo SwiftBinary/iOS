@@ -11,6 +11,8 @@ import MaterialDesignWidgets
 
 class FilterLocationViewController: UIViewController {
     
+    @IBOutlet var nvbFilter: UINavigationBar!
+    @IBOutlet var bbtnResetFilter: UIBarButtonItem!
     //Button
     @IBOutlet var btnDistance: MaterialButton!
     @IBOutlet var btnGPA: MaterialButton!
@@ -29,7 +31,7 @@ class FilterLocationViewController: UIViewController {
     }
     
     func setUI(){
-        
+        nvbFilter.barStyle = .default
     }
     func setBtn(){
         listBtn = [btnDistance,btnGPA,btnTimeLong,btnTimeShort,btnPriceHigh,btnPriceLow]

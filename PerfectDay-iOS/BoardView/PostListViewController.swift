@@ -137,6 +137,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         imgProfile.widthAnchor.constraint(equalToConstant: iconSize).isActive = true
         
         let lblNickName = UILabel()
+        lblNickName.textColor = .darkText
         lblNickName.text = postData["userDTO"]["userName"].string
         lblNickName.fontSize = 15
         let btnMenu = IconButton()
@@ -215,6 +216,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         svLocationLink.distribution = .fillProportionally
         
         let lblTitle = UILabel()
+        lblTitle.textColor = .darkText
         lblTitle.text = postData["title"].string
         lblTitle.font = UIFont.boldSystemFont(ofSize: 17)
         let lblContent = UILabel()

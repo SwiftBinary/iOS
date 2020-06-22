@@ -68,7 +68,7 @@ class ShowInfoViewController: UIViewController {
                     self.lblUserInfo.numberOfLines = 2
                 } else {
                     let crytoEmail = self.RegexEmail(responseJSON["userEmail"].stringValue)
-                    let attributedcrytoEmail: NSMutableAttributedString = NSMutableAttributedString(string: "회원님의 아이디(ID)는 " + crytoEmail + "입니다.")
+                    let attributedcrytoEmail: NSMutableAttributedString = NSMutableAttributedString(string: "회원님의 아이디(ID)는\n" + crytoEmail + "입니다.")
                     attributedcrytoEmail.setColor(color: #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1), forText: crytoEmail)
                     self.lblUserInfo.attributedText = attributedcrytoEmail
                 }

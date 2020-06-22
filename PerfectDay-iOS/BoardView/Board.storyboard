@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qfm-mP-fts">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qfm-mP-fts">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,14 +12,14 @@
         <!--완벽한 하루 게시판-->
         <scene sceneID="2S8-4c-mjc">
             <objects>
-                <viewController id="ABX-RA-9Le" customClass="BoardListViewController" customModule="PerfectDay_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ABX-RA-9Le" customClass="BoardListViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ngr-XT-v7S">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ec4-3D-mB2" userLabel="Banner" customClass="ImageSlideshow" customModule="ImageSlideshow">
                                 <rect key="frame" x="0.0" y="88" width="414" height="92"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Ec4-3D-mB2" secondAttribute="height" multiplier="4.5:1" id="0gj-Rq-skj"/>
                                 </constraints>
@@ -52,7 +52,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="공지사항" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPt-8W-vep">
                                                         <rect key="frame" x="39" y="0.0" width="315" height="28.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="vCX-4K-TeE">
@@ -64,7 +64,7 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="J4f-Z6-eLt" firstAttribute="height" secondItem="Sq1-Da-vsj" secondAttribute="height" multiplier="0.5" id="2E6-ag-HAF"/>
                                             <constraint firstItem="J4f-Z6-eLt" firstAttribute="width" secondItem="Sq1-Da-vsj" secondAttribute="width" multiplier="0.9" id="6dE-ol-iBH"/>
@@ -87,7 +87,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="코스를 공유해요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXz-bi-1pa">
                                                         <rect key="frame" x="39" y="0.0" width="315" height="28.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Jnr-g3-DTm">
@@ -99,7 +99,7 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="0bE-ta-aIf" firstAttribute="height" secondItem="rGF-z9-t2E" secondAttribute="height" multiplier="0.5" id="K8y-oJ-2Qv"/>
                                             <constraint firstItem="0bE-ta-aIf" firstAttribute="width" secondItem="rGF-z9-t2E" secondAttribute="width" multiplier="0.9" id="R5a-vd-q5E"/>
@@ -122,7 +122,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인기 게시판" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nXJ-Dy-ogM">
                                                         <rect key="frame" x="39" y="0.0" width="315" height="28.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Y7f-Fb-FtY">
@@ -134,7 +134,7 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="orV-29-nzh" firstAttribute="width" secondItem="I03-4I-JUL" secondAttribute="width" multiplier="0.9" id="YKa-MR-gqJ"/>
                                             <constraint firstItem="orV-29-nzh" firstAttribute="height" secondItem="I03-4I-JUL" secondAttribute="height" multiplier="0.5" id="oYV-MX-hU4"/>
@@ -157,7 +157,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="자유 게시판" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z4Z-xL-tbz">
                                                         <rect key="frame" x="39" y="0.0" width="315" height="28.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="cty-pu-BZA">
@@ -169,7 +169,7 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="NHF-UO-gx0" firstAttribute="height" secondItem="tym-2l-Q1K" secondAttribute="height" multiplier="0.5" id="DJV-4I-Y47"/>
                                             <constraint firstItem="NHF-UO-gx0" firstAttribute="width" secondItem="tym-2l-Q1K" secondAttribute="width" multiplier="0.9" id="afl-4W-QBa"/>
@@ -192,7 +192,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="썸타는 게시판" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UUw-ZK-KIB">
                                                         <rect key="frame" x="39" y="0.0" width="315" height="28.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="8pz-Ht-G8F">
@@ -204,7 +204,7 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="u3J-XV-3cn" firstAttribute="centerY" secondItem="adT-6P-6P7" secondAttribute="centerY" id="0Hp-ar-uNh"/>
                                             <constraint firstItem="u3J-XV-3cn" firstAttribute="width" secondItem="adT-6P-6P7" secondAttribute="width" multiplier="0.9" id="CaE-1I-qlF"/>
@@ -227,7 +227,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="조언을 구해요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="so5-w9-3jg">
                                                         <rect key="frame" x="39" y="0.0" width="315" height="28.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="qOt-w2-oma">
@@ -239,7 +239,7 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="pWW-7n-Rci" firstAttribute="height" secondItem="eZ3-Jb-Szd" secondAttribute="height" multiplier="0.5" id="Oju-9a-lh8"/>
                                             <constraint firstItem="pWW-7n-Rci" firstAttribute="centerX" secondItem="eZ3-Jb-Szd" secondAttribute="centerX" id="V1r-md-e0a"/>
@@ -262,7 +262,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="실시간 장소리뷰" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0l1-Lx-buE">
                                                         <rect key="frame" x="39" y="0.0" width="315" height="28.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="wZ1-ov-fXc">
@@ -274,7 +274,7 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="8vW-gT-tOK" firstAttribute="height" secondItem="vxh-ui-Rhv" secondAttribute="height" multiplier="0.5" id="76H-X0-8Se"/>
                                             <constraint firstItem="8vW-gT-tOK" firstAttribute="centerX" secondItem="vxh-ui-Rhv" secondAttribute="centerX" id="X28-ex-wPG"/>
@@ -340,7 +340,7 @@
         <!--Post List View Controller-->
         <scene sceneID="qfT-UV-ncb">
             <objects>
-                <viewController storyboardIdentifier="postListView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YoN-EV-L0K" customClass="PostListViewController" customModule="PerfectDay_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="postListView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YoN-EV-L0K" customClass="PostListViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QC2-ut-geo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -419,7 +419,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ioi-0T-Gwh" firstAttribute="width" secondItem="QC2-ut-geo" secondAttribute="width" id="82h-al-jqR"/>
                             <constraint firstItem="ioi-0T-Gwh" firstAttribute="centerX" secondItem="9hJ-iS-wSv" secondAttribute="centerX" id="92V-be-G4g"/>
@@ -472,7 +472,7 @@
         <!--게시글 작성하기-->
         <scene sceneID="ca6-SS-FK2">
             <objects>
-                <viewController storyboardIdentifier="writePostView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="elY-2H-xwr" customClass="WritePostViewController" customModule="PerfectDay_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="writePostView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="elY-2H-xwr" customClass="WritePostViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="B9A-sm-WM6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -742,7 +742,7 @@
         <!--Show Post View Controller-->
         <scene sceneID="meq-qh-Kut">
             <objects>
-                <viewController storyboardIdentifier="showPostView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="N94-fF-vs9" customClass="ShowPostViewController" customModule="PerfectDay_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="showPostView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="N94-fF-vs9" customClass="ShowPostViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2An-3t-6fH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -777,16 +777,16 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9f7-Ir-nEI">
-                                                                                <rect key="frame" x="45" y="0.0" width="107" height="35"/>
+                                                                                <rect key="frame" x="45" y="0.0" width="185" height="35"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rmo-cV-x8P">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="107" height="22"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="185" height="22"/>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                        <nil key="textColor"/>
+                                                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
                                                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="Jla-eQ-rGg">
-                                                                                        <rect key="frame" x="0.0" y="22" width="107" height="13"/>
+                                                                                        <rect key="frame" x="0.0" y="22" width="185" height="13"/>
                                                                                         <subviews>
                                                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="viewIcon" translatesAutoresizingMaskIntoConstraints="NO" id="hJ2-Xq-Qxz">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="13" height="13"/>
@@ -796,7 +796,7 @@
                                                                                                 </constraints>
                                                                                             </imageView>
                                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999+   2020-05-10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fr-Ib-ige">
-                                                                                                <rect key="frame" x="13" y="0.0" width="94" height="13"/>
+                                                                                                <rect key="frame" x="13" y="0.0" width="172" height="13"/>
                                                                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                 <nil key="highlightedColor"/>
@@ -806,17 +806,18 @@
                                                                                 </subviews>
                                                                             </stackView>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5YA-G8-vDY">
-                                                                                <rect key="frame" x="162" y="0.0" width="211" height="35"/>
+                                                                                <rect key="frame" x="240" y="0.0" width="133" height="35"/>
                                                                                 <subviews>
                                                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="ERM-1e-u1F">
-                                                                                        <rect key="frame" x="78" y="5" width="133" height="25"/>
+                                                                                        <rect key="frame" x="0.0" y="5" width="133" height="25"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="width" secondItem="ERM-1e-u1F" secondAttribute="height" multiplier="5:1" constant="8" id="1JI-pu-Ote"/>
                                                                                         </constraints>
                                                                                     </stackView>
                                                                                 </subviews>
-                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <constraints>
+                                                                                    <constraint firstItem="ERM-1e-u1F" firstAttribute="width" secondItem="5YA-G8-vDY" secondAttribute="width" id="4kx-dM-pgz"/>
                                                                                     <constraint firstItem="ERM-1e-u1F" firstAttribute="centerY" secondItem="5YA-G8-vDY" secondAttribute="centerY" id="A5P-Qk-Hfj"/>
                                                                                     <constraint firstAttribute="bottom" secondItem="ERM-1e-u1F" secondAttribute="bottom" constant="5" id="FSk-KW-VH7"/>
                                                                                     <constraint firstAttribute="trailing" secondItem="ERM-1e-u1F" secondAttribute="trailing" id="GPV-8n-K3y"/>
@@ -834,13 +835,13 @@
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="게시글 제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9go-AH-N1W">
                                                                         <rect key="frame" x="0.0" y="85" width="373" height="20.5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <nil key="textColor"/>
+                                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="게시글 내용" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJf-jA-ztl">
                                                                         <rect key="frame" x="0.0" y="115.5" width="373" height="18"/>
                                                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
-                                                                        <nil key="textColor"/>
+                                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJD-mr-klW" userLabel="HashTag Scroll">
@@ -893,7 +894,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                         </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="QeL-Gy-sTe" firstAttribute="height" secondItem="Btq-qF-yWX" secondAttribute="height" id="70e-L2-HAs"/>
                                                             <constraint firstItem="QeL-Gy-sTe" firstAttribute="width" secondItem="Btq-qF-yWX" secondAttribute="width" multiplier="0.9" id="ViG-dP-ykS"/>
@@ -915,7 +916,7 @@
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="evb-Ze-nVn" userLabel="Func View">
                                                                 <rect key="frame" x="0.0" y="2.5" width="414" height="30"/>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="ujH-WT-UHi"/>
                                                                 </constraints>
@@ -944,7 +945,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                         </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="dgi-2O-tc8" firstAttribute="centerX" secondItem="ytG-MG-tbe" secondAttribute="centerX" id="A4s-PH-Ico"/>
                                                             <constraint firstItem="dgi-2O-tc8" firstAttribute="width" secondItem="ytG-MG-tbe" secondAttribute="width" multiplier="0.9" id="UIq-5I-qbA"/>
@@ -983,6 +984,8 @@
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="댓글을 입력해주세요." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="s3g-I4-7gv">
                                                 <rect key="frame" x="0.0" y="0.0" width="309" height="34"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="webSearch"/>
                                             </textField>
@@ -996,7 +999,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="KbH-32-447" firstAttribute="centerY" secondItem="Avv-xW-9z8" secondAttribute="centerY" id="Nbf-Ro-iyb"/>
                                     <constraint firstAttribute="height" constant="80" id="PB7-Q1-Ind"/>
@@ -1047,6 +1050,7 @@
             <point key="canvasLocation" x="4940.579710144928" y="714.50892857142856"/>
         </scene>
     </scenes>
+    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
         <image name="AddPhotoBtn" width="71" height="71"/>
         <image name="AdviceBoardIcon" width="120" height="120"/>
@@ -1059,10 +1063,9 @@
         <image name="SomethingBoardIcon" width="120" height="120"/>
         <image name="WritePostBtnpdf" width="62" height="62"/>
         <image name="arrow_up" width="28" height="28"/>
-        <image name="chevron.right" catalog="system" width="48" height="64"/>
-        <image name="slider.horizontal.3" catalog="system" width="64" height="50"/>
+        <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="slider.horizontal.3" catalog="system" width="128" height="100"/>
         <image name="tempProfile" width="95" height="95"/>
         <image name="viewIcon" width="13" height="13"/>
     </resources>
-    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

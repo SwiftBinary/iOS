@@ -9,24 +9,27 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import XLPagerTabStrip
+import MaterialDesignWidgets
 
-class SearchViewController: UIViewController{//}, UISearchBarDelegate {
+class SearchViewController: UIViewController, UISearchBarDelegate {
     
     @IBOutlet var uiSearchBar: UISearchBar!
     @IBOutlet var svHashTag: UIStackView!
     @IBOutlet var uvTapView: UIView!
     
     let userData = getUserData()
+    var resultSearchView: SearchResultViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        hideKeyboard()
         setUI()
     }
     func setUI() {
         getHashTag(svHashTag)
+                hideKeyboard()
         svHashTag.translatesAutoresizingMaskIntoConstraints = false
-//        uiSearchBar.delegate = self
+        uiSearchBar.delegate = self
     }
     func getHashTag(_ svTag: UIStackView){
         let url = OperationIP + "/tag/selectHashTagList.do"
@@ -47,30 +50,71 @@ class SearchViewController: UIViewController{//}, UISearchBarDelegate {
             svTag.addArrangedSubview(btnHashTag)
         }
     }
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
-////        print(uvTapView.subviews.first!.subviews.last!.subviews)
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
+        //        print((((uvTapView.subviews.first!.subviews.last! as! XLPagerTabStrip.ButtonBarView).dataSource as! SearchResultViewController).viewControllers))
+//        print(resultSearchView?.viewControllers)
+        print(resultSearchView!.currentIndex)
+        resultSearchView!.currentIndex == 0 ? searchStoreInfo(searchBar) : searchPostInfo(searchBar)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "resultSearchView" {
+            let connectContainerViewController = segue.destination as! SearchResultViewController
+            resultSearchView = connectContainerViewController
+        }
+    }
+    
+    func searchStoreInfo(_ searchBar: UISearchBar) {
+        let url = OperationIP + "/store/selectSearchStoreInfoList.do"
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let parameter = JSON([
+            "distanceLimit": 3,
+            "latitude": 37.68915657,
+            "longitude": 127.04546691,
+            "limit": 20,
+            "offset": 0,
+            "priceLimit": 70000,
+            "searchKeyWord": searchBar.text!,
+            "sortedBy": "DISTANCE_ASC",
+            "tmCostLimit": 180
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            if response.value != nil {
+                let responseJSON = JSON(response.value!)
+                print(responseJSON)
+                print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+            }
+        }
+    }
+    func searchPostInfo(_ searchBar: UISearchBar) {
+        let selectedBoard = (resultSearchView?.viewControllers.last as! SearchPostViewController).segmentControl.selectedSegmentIndex
+        let requeatURL = (selectedBoard == 0) ? "/board/selectBoardSearchListInfo.do" : "/review/selectReviewSearchListInfo.do"
+        
+        print(selectedBoard)
+        print(requeatURL)
+        
+        let url = OperationIP + requeatURL
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let parameter = JSON([
+            "searchKeyword": searchBar.text!,
+            "filterInfo": "all",
+            "sortInfo": "viewCnt",
+            "offset": 0,
+            "limit": 20
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            if response.value != nil {
+                let responseJSON = JSON(response.value!)
+                print(responseJSON)
+                print("########################################")
+            }
+        }
+        
+        
 //
-//        let url = OperationIP + "/store/selectSearchStoreInfoList.do"
-//        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
-//        let parameter = JSON([
-//            "distanceLimit": 3,
-//            "latitude": 37.68915657,
-//            "longitude": 127.04546691,
-//            "limit": 20,
-//            "offset": 0,
-//            "priceLimit": 70000,
-//            "searchKeyWord": searchBar.text!,
-//            "sortedBy": "DISTANCE_ASC",
-//            "tmCostLimit": 180
-//        ])
-//        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-//        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-//            if response.value != nil {
-//                let responseJSON = JSON(response.value!)
-////                print(responseJSON)
-//            }
-//        }
-//    }
+    }
+    
 }
 
 //[<UIScrollView: 0x7f9908093200;

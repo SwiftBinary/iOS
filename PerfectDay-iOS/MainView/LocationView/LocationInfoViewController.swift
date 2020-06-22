@@ -65,9 +65,11 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
     
     func setTopInfoUI(){
         let lblMainMenuName = UILabel()
+        lblMainMenuName.textColor = .darkText
         lblMainMenuName.text = locationData["menuList"].arrayValue[0]["menuNm"].stringValue
         lblMainMenuName.font = UIFont.boldSystemFont(ofSize: 20)
         let lblMainMenuPrice = UILabel()
+        lblMainMenuPrice.textColor = .darkText
         if locationData["reprMenuPrice"].intValue == 0 {
             lblMainMenuPrice.text = "무료"
         } else {
@@ -112,15 +114,18 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         uvLine1.backgroundColor = .lightGray
         
         let lblMenu = UILabel()
+        lblMenu.textColor = .darkText
         lblMenu.text = "메뉴"
         lblMenu.font = UIFont.boldSystemFont(ofSize: 20)
         
         let svMenuList = UIStackView()
         for menu in locationData["menuList"].arrayValue {
             let lblMenuName = UILabel()
+            lblMenuName.textColor = .darkText
             lblMenuName.text = menu["menuNm"].stringValue
             lblMenuName.fontSize = 15
             let lblMenuPrice = UILabel()
+            lblMenuPrice.textColor = .darkText
             if menu["menuPrice"].intValue == 0 {
                 lblMenuPrice.text = "무료"
             } else {
@@ -151,6 +156,7 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         
         let lblMapTitle = UILabel()
         lblMapTitle.text = "지도정보"
+        lblMapTitle.textColor = .darkText
         lblMapTitle.font = UIFont.boldSystemFont(ofSize: sizeTitle)
         
         let svInfo = UIStackView(arrangedSubviews: [svMainMenu,lblLocationDetail,scvTag,uvLine1,lblMenu,svMenuList,uvLine2,lblMapTitle])
@@ -231,6 +237,7 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         svFuncBtn.spacing = 10
         
         let lblOfficeHours = UILabel()
+        lblOfficeHours.textColor = .darkText
         lblOfficeHours.text = "영업시간"
         lblOfficeHours.font = UIFont.boldSystemFont(ofSize: sizeTitle)
         
@@ -239,6 +246,7 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         for str in listHours {
             let lblHours = UILabel()
             lblHours.text = str
+            lblHours.textColor = .darkText
             lblHours.font = UIFont.systemFont(ofSize: sizeContent)
             svOfficeHours.addArrangedSubview(lblHours)
         }

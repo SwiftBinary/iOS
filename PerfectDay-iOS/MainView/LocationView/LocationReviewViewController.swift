@@ -207,6 +207,7 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
         imgProfile.widthAnchor.constraint(equalToConstant: iconSize).isActive = true
         
         let lblNickName = UILabel()
+        lblNickName.textColor = .darkText
         lblNickName.text = postData["userDTO"]["userName"].string
         lblNickName.fontSize = 15
         
@@ -257,6 +258,7 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
         svTopPost.spacing = 5
         
         let lblTitle = UILabel()
+        lblTitle.textColor = .darkText
         lblTitle.text = postData["title"].string!
         lblTitle.font = UIFont.boldSystemFont(ofSize: 20)
         let lblContent = UILabel()

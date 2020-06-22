@@ -71,12 +71,15 @@ class SearchLocationViewController: UIViewController,UIGestureRecognizerDelegate
         let btnFilter = UIButton(type: .custom)
         
         //Label Setting
+        lblLocation.textColor = .darkText
         lblLocation.text = " 위치 정보 없음"
         lblLocation.textAlignment = .left
+        lblLocationDistance.textColor = .darkText
         lblLocationDistance.text = " 1.5km 이내"
         lblLocationDistance.textAlignment = .right
         lblLocationCount.text = " n"
         lblLocationCount.textColor = #colorLiteral(red: 1, green: 0.3921568627, blue: 0.568627451, alpha: 1)
+        lblEnd.textColor = .darkText
         lblEnd.text = "곳"
         
         //Button Setting
@@ -204,6 +207,7 @@ class SearchLocationViewController: UIViewController,UIGestureRecognizerDelegate
         lblvar.fontSize = 11
         lblvar.textColor = .systemBlue
         let lblName = UILabel()
+        lblName.textColor = .darkText
         lblName.text = "놀숲 건대점"
         lblName.font = UIFont.boldSystemFont(ofSize: 18.0)
         

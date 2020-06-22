@@ -9,7 +9,7 @@
 import UIKit
 import XLPagerTabStrip
 
-class SearchResultViewController: ButtonBarPagerTabStripViewController {
+class SearchResultViewController: ButtonBarPagerTabStripViewController{
 
     let colorPink = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
     
@@ -35,6 +35,7 @@ class SearchResultViewController: ButtonBarPagerTabStripViewController {
             guard changeCurrentIndex == true else { return }
             oldCell?.label.textColor = .black
             newCell?.label.textColor = self?.colorPink
+            print(self?.currentIndex)
         }
     }
     

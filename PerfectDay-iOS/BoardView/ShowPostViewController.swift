@@ -60,6 +60,8 @@ class ShowPostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboard()
+        setField(tfComment, "댓글을 입력해주세요.")
 //        getBoardSn()
         //        requestPostFirst()
     }
@@ -361,10 +363,12 @@ class ShowPostViewController: UIViewController {
     }
     func makeCommentView(_ comment: JSON,_ backComment: UIView){
         let lblUserNickName = UILabel()
+        lblUserNickName.textColor = .darkText
         lblUserNickName.text = String(comment["userDTO"]["userName"].string!)
         lblUserNickName.font = UIFont.systemFont(ofSize: commentFontSize)
         
         let lblUserComment = UILabel()
+        lblUserComment.textColor = .darkText
         lblUserComment.text = String(comment["content"].string!)
         lblUserComment.font = UIFont.systemFont(ofSize: commentFontSize-1)
         //        userComment.numberOfLines = 0
@@ -446,10 +450,12 @@ class ShowPostViewController: UIViewController {
     }
     func makeDeleteCommentView(_ comment: JSON,_ backComment: UIView){
         let lblDeleteGuide = UILabel()
+        lblDeleteGuide.textColor = .darkText
         lblDeleteGuide.text = "삭제된 댓글입니다."
         lblDeleteGuide.font = UIFont.systemFont(ofSize: commentFontSize)
         
         let lblDeleteGuide2 = UILabel()
+        lblDeleteGuide2.textColor = .darkText
         lblDeleteGuide2.text = "삭제된 댓글입니다."
         lblDeleteGuide2.font = UIFont.systemFont(ofSize: commentFontSize-2)
         //        userComment.numberOfLines = 0
