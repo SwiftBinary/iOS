@@ -23,10 +23,13 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     let scvLocationInfo = UIScrollView()
     let svLocationInfo = UIStackView()
+    
     let sizeTitle:CGFloat = 20
     let sizeContent:CGFloat = 14
+    let svMenuList = UIStackView()
     
     let userData = getUserData() // Dictionary<String,Any>
     
@@ -45,7 +48,7 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         var localSource:Array<ImageSource> = []
         for imageURL in locationData["storeImageUrlList"].arrayValue {
             let url = URL(string: getImageURL(locationData["storeSn"].stringValue,
-            imageURL.stringValue,tag: "store"))
+                                              imageURL.stringValue,tag: "store"))
             let data = try? Data(contentsOf: url!)
             if data != nil {
                 localSource.append(ImageSource(image: UIImage(data: data!)!))
@@ -118,24 +121,10 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         lblMenu.text = "메뉴"
         lblMenu.font = UIFont.boldSystemFont(ofSize: 20)
         
-        let svMenuList = UIStackView()
-        for menu in locationData["menuList"].arrayValue {
-            let lblMenuName = UILabel()
-            lblMenuName.textColor = .darkText
-            lblMenuName.text = menu["menuNm"].stringValue
-            lblMenuName.fontSize = 15
-            let lblMenuPrice = UILabel()
-            lblMenuPrice.textColor = .darkText
-            if menu["menuPrice"].intValue == 0 {
-                lblMenuPrice.text = "무료"
-            } else {
-                lblMenuPrice.text = "₩ " + DecimalWon(menu["menuPrice"].intValue)
-            }
-            lblMenuPrice.textAlignment = .right
-            lblMenuPrice.fontSize = 15
-            let svMenu = UIStackView(arrangedSubviews: [lblMenuName,lblMenuPrice])
-            svMenuList.axis = .horizontal
-            svMenuList.addArrangedSubview(svMenu)
+        
+        for (index,menu) in locationData["menuList"].arrayValue.enumerated() {
+            svMenuList.addArrangedSubview(addMenu(menu))
+            if index == 2 { break }
         }
         svMenuList.axis = .vertical
         svMenuList.spacing = 3
@@ -143,12 +132,15 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         let btnMoreMenu = UIButton(type: .custom)
         btnMoreMenu.setTitle("더보기", for: .normal)
         btnMoreMenu.setTitleColor(#colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1), for: .normal)
+        btnMoreMenu.setTitleColor(#colorLiteral(red: 1, green: 0.737254902, blue: 0.9294117647, alpha: 1), for: .highlighted)
         btnMoreMenu.titleLabel?.font = UIFont.boldSystemFont(ofSize: sizeContent)
         btnMoreMenu.contentHorizontalAlignment = .right
         svMenuList.addArrangedSubview(btnMoreMenu)
         if locationData["menuList"].arrayValue.count < 4 {
             btnMoreMenu.isHidden = true
         }
+        btnMoreMenu.accessibilityValue = "off"
+        btnMoreMenu.addTarget(self, action: #selector(showMoreMenu(_:)), for: .touchUpInside)
         
         let uvLine2 = UIView()
         uvLine2.heightAnchor.constraint(equalToConstant: 0.3).isActive = true
@@ -174,6 +166,49 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         svInfo.heightAnchor.constraint(equalTo: uvBack.heightAnchor, multiplier: 1).isActive = true
         
         svLocationInfo.addArrangedSubview(uvBack)
+    }
+    func addMenu(_ menu:JSON) -> UIStackView {
+        let lblMenuName = UILabel()
+        lblMenuName.textColor = .darkText
+        lblMenuName.text = menu["menuNm"].stringValue
+        lblMenuName.fontSize = 15
+        let lblMenuPrice = UILabel()
+        lblMenuPrice.textColor = .darkText
+        if menu["menuPrice"].intValue == 0 {
+            lblMenuPrice.text = "무료"
+        } else {
+            lblMenuPrice.text = "₩ " + DecimalWon(menu["menuPrice"].intValue)
+        }
+        lblMenuPrice.textAlignment = .right
+        lblMenuPrice.fontSize = 15
+        let svMenu = UIStackView(arrangedSubviews: [lblMenuName,lblMenuPrice])
+        svMenu.axis = .horizontal
+        
+        return svMenu
+    }
+    @objc func showMoreMenu(_ sender: UIButton){
+        if sender.accessibilityValue == "off" {
+            svMenuList.removeArrangedSubview(svMenuList.arrangedSubviews[svMenuList.arrangedSubviews.count-1])
+            for index in 3..<locationData["menuList"].arrayValue.count {
+                svMenuList.addArrangedSubview(addMenu(locationData["menuList"].arrayValue[index]))
+            }
+            svMenuList.addArrangedSubview(sender)
+            sender.setTitle("숨기기", for: .normal)
+            sender.accessibilityValue = "on"
+        } else {
+            svMenuList.removeSubviews()
+            for (index,menu) in locationData["menuList"].arrayValue.enumerated() {
+                svMenuList.addArrangedSubview(addMenu(menu))
+                if index == 2 { break }
+            }
+            //            while svMenuList.arrangedSubviews.count > 3 {
+            //                svMenuList.removeArrangedSubview(svMenuList.arrangedSubviews[svMenuList.arrangedSubviews.endIndex])
+            //            }
+            svMenuList.addArrangedSubview(sender)
+            sender.setTitle("더보기", for: .normal)
+            sender.accessibilityValue = "off"
+        }
+        
     }
     
     func setMapUI() {

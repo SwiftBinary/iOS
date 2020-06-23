@@ -55,6 +55,7 @@ class WriteReviewViewController: UIViewController, UITextFieldDelegate, UIImageP
     override func viewDidLoad() {
         super.viewDidLoad()
 //        getCategorySn()
+        hideKeyboard()
         setUI()
         // Do any additional setup after loading the view.
     }

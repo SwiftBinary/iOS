@@ -54,6 +54,7 @@
 		C77D1A472467ECD80015A449 /* Board.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C77D1A462467ECD80015A449 /* Board.storyboard */; };
 		C77D1A492467ED2F0015A449 /* Dibs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C77D1A482467ED2F0015A449 /* Dibs.storyboard */; };
 		C7824799243CB65A003D690F /* FindBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7824798243CB65A003D690F /* FindBackViewController.swift */; };
+		C78271CA24A2137D00290505 /* MainLandmarkMap.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C78271C924A2137D00290505 /* MainLandmarkMap.xcassets */; };
 		C7B0D2A92417E71700BF1467 /* WriteReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B0D2A82417E71700BF1467 /* WriteReviewViewController.swift */; };
 		C7C1FE6D23EC14060022C957 /* SearchSetLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C1FE6C23EC14060022C957 /* SearchSetLocationViewController.swift */; };
 		C7C6811B23F131A10016412B /* PostListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C6811A23F131A10016412B /* PostListViewController.swift */; };
@@ -134,6 +135,7 @@
 		C77D1A462467ECD80015A449 /* Board.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Board.storyboard; sourceTree = "<group>"; };
 		C77D1A482467ED2F0015A449 /* Dibs.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dibs.storyboard; sourceTree = "<group>"; };
 		C7824798243CB65A003D690F /* FindBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindBackViewController.swift; sourceTree = "<group>"; };
+		C78271C924A2137D00290505 /* MainLandmarkMap.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MainLandmarkMap.xcassets; sourceTree = "<group>"; };
 		C7B0D2A82417E71700BF1467 /* WriteReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewController.swift; sourceTree = "<group>"; };
 		C7B4B9F923F4F8930066B66A /* PerfectDay-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "PerfectDay-iOS.entitlements"; sourceTree = "<group>"; };
 		C7C1FE6C23EC14060022C957 /* SearchSetLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSetLocationViewController.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				C701C6CA2437884D0079B395 /* EnumValue.swift */,
 				C74D96D123E7B1E9000E26C3 /* Main.storyboard */,
 				C74D96D423E7B1ED000E26C3 /* Assets.xcassets */,
+				C78271C924A2137D00290505 /* MainLandmarkMap.xcassets */,
 				C76A0FF22484E5E4008AC74C /* CategoryIcon.xcassets */,
 				C76A0FF02484E56E008AC74C /* Temp.xcassets */,
 				C70D540C249268060044835E /* Planner.xcassets */,
@@ -394,6 +397,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C77D1A492467ED2F0015A449 /* Dibs.storyboard in Resources */,
+				C78271CA24A2137D00290505 /* MainLandmarkMap.xcassets in Resources */,
 				C7EFBFCB23E907130034966C /* Login.storyboard in Resources */,
 				C77D1A432467E90E0015A449 /* MyPage.storyboard in Resources */,
 				C76A0FF12484E56E008AC74C /* Temp.xcassets in Resources */,

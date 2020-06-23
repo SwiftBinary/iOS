@@ -44,5 +44,4 @@ class DibsViewController: ButtonBarPagerTabStripViewController {
             let child_2 = DibsCourseViewController(itemInfo: "코스")
             return [child_1, child_2]
         }
-
     }

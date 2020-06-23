@@ -19,7 +19,6 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     var segueTitle: Int = 0
     var boardSn: String = ""
     let arrayTitle = ["공지사항","코스를 공유해요","인기 게시판","자유 게시판","썸타는 게시판","조언을 구해요","실시간 장소리뷰"]
-    let strHashTag = ["건대", "홍대", "강남", "이색", "고궁", "tv방영", "가성비", "고급진", "국밥", "방탈출", "야식", "비오는날", "100일데이트코스", "커플100%되는곳", "킬링타임코스", "호불호없는"]
     let arrayHiddenCreate = [0,2,6]
     
     let btnMargin:CGFloat = -10
@@ -38,6 +37,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     
     @IBOutlet var scrollPostList: UIScrollView!
     @IBOutlet var svPostList: UIStackView!
+    @IBOutlet var indicLoading: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,11 +94,10 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     
     func setData(_ reponseData: JSON){
         let arrayData = reponseData.arrayValue
-        for data in arrayData.reversed() {
+        for data in arrayData {
             let tempView = makePostUv(data)
             svPostList.addArrangedSubview(tempView)
         }
-        
         svPostList.translatesAutoresizingMaskIntoConstraints = false
         
         //일단 비워놓을 UIView 나중에 뭐로 채울지 생각해볼것
@@ -112,6 +111,8 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         uvBottom.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
         uvBottom.backgroundColor = .clear
         svPostList.addArrangedSubview(uvBottom)
+        
+        indicLoading.stopAnimating()
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool{
@@ -140,17 +141,8 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         lblNickName.textColor = .darkText
         lblNickName.text = postData["userDTO"]["userName"].string
         lblNickName.fontSize = 15
-        let btnMenu = IconButton()
-        btnMenu.image = Icon.cm.moreHorizontal
-        btnMenu.tintColor = .darkGray
-        btnMenu.addTarget(self, action: #selector(menuPost(_:)), for: .touchUpInside)
-        btnMenu.accessibilityIdentifier = postData["boardSn"].string
-        btnMenu.accessibilityValue = postData["userDTO"]["userSn"].string
-        btnMenu.imageView?.contentMode = .scaleAspectFit
 //        btnMenu.widthAnchor.constraint(equalToConstant: 25).isActive = true
 //        btnMenu.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        let svPostInfoChild = UIStackView(arrangedSubviews: [lblNickName,btnMenu])
-        svPostInfoChild.axis = .horizontal
         
         
         let imgViewCount = UIImageView(image: UIImage(named: "viewIcon"))
@@ -166,7 +158,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         svCountDate.axis = .horizontal
         svCountDate.spacing = 5
         
-        let svPostInfo = UIStackView(arrangedSubviews: [svPostInfoChild,svCountDate])
+        let svPostInfo = UIStackView(arrangedSubviews: [lblNickName,svCountDate])
         svPostInfo.axis = .vertical
         svPostInfo.spacing = 5
         let svStar = UIStackView()
@@ -328,8 +320,17 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         let lblTemp = UILabel()
         lblTemp.text = "                          "
         lblTemp.widthAnchor.constraint(lessThanOrEqualToConstant: 500).isActive = true
-//        ...
-        let svFunc = UIStackView(arrangedSubviews: [btnLike,btnComment,lblTemp])
+        
+        
+        let btnMenu = IconButton()
+        btnMenu.image = Icon.cm.moreHorizontal
+        btnMenu.tintColor = .darkGray
+        btnMenu.addTarget(self, action: #selector(menuPost(_:)), for: .touchUpInside)
+        btnMenu.accessibilityIdentifier = postData["boardSn"].string
+        btnMenu.accessibilityValue = postData["userDTO"]["userSn"].string
+        btnMenu.imageView?.contentMode = .scaleAspectFit
+        
+        let svFunc = UIStackView(arrangedSubviews: [btnLike,btnComment,lblTemp,btnMenu])
         svFunc.axis = .horizontal
         svFunc.distribution = .fillProportionally
         svFunc.spacing = 5
@@ -570,7 +571,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         let parameter = JSON([
             "category": String(segueTitle+1),
             "filterInfo": "all",
-            "sortInfo": "viewCnt",
+            "sortInfo": "registerDt",
             "offset": 0,
             "limit": 20
         ])

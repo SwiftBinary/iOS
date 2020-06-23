@@ -15,6 +15,7 @@ class LandmarkViewController: UIViewController {
     @IBOutlet var svHashTag: UIStackView!
     @IBOutlet var scLandmark: UIScrollView!
     @IBOutlet var svLandmark: UIStackView!
+    @IBOutlet var indicLoading: UIActivityIndicatorView!
     
     var areaSdDetailCode = ""
     let userData = getUserData()
@@ -24,7 +25,27 @@ class LandmarkViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getHashTag(svHashTag)
         getLandmarkInfo()
+    }
+    func getHashTag(_ svTag: UIStackView){
+        let url = OperationIP + "/tag/selectHashTagList.do"
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        AF.request(url,method: .post,headers: httpHeaders).responseJSON { response in
+            if response.value != nil {
+                self.setHashTag(svTag,JSON(response.value!).arrayValue)
+            }
+        }
+    }
+    func setHashTag(_ svTag:UIStackView, _ listTag: [JSON]){
+        for hashTag in listTag {
+            let btnHashTag = UIButton(type: .system)
+            btnHashTag.setTitle(setHashTagString(hashTag["tag"].stringValue))
+            btnHashTag.layer.cornerRadius = 15
+            btnHashTag.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
+            btnHashTag.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
+            svTag.addArrangedSubview(btnHashTag)
+        }
     }
     
     func getLandmarkInfo(){
@@ -59,6 +80,7 @@ class LandmarkViewController: UIViewController {
         let bottomUI = UIView()
         bottomUI.frame.size.height = 20
         svLandmark.addArrangedSubview(bottomUI)
+        indicLoading.stopAnimating()
     }
     
     func setStackView(){

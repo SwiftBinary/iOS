@@ -37,6 +37,7 @@ class LocationViewController: UIViewController {
         btnLike = UIBarButtonItem(image: UIImage(named: isDisLocation ? "DibsOnBtn" : "DibsBtn"), style: .plain, target: self, action: #selector(setPickInfo(_:)))
         btnLike.tintColor = isDisLocation ? #colorLiteral(red: 1, green: 0.3921568627, blue: 0.568627451, alpha: 1) : #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         btnLike.style = .plain
+        self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.title = locationData["storeNm"].stringValue
         self.navigationItem.rightBarButtonItem = btnLike
     }

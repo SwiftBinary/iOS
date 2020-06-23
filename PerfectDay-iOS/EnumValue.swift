@@ -17,6 +17,8 @@ enum Gender {
 public let userDataKey = "userData"
 public let locationSnKey = "locationSn"
 public let locationDataKey = "locationData"
+public let plannerKey = "plannerKey"
+
 public let developIP = "http://203.252.161.96:8080"
 public let OperationIP = "http://203.252.161.219:8080"
 public let StoreImageURL = OperationIP + "/images/store/"

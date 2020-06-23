@@ -154,7 +154,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         uvLocation.layer.borderWidth = 0.5
         uvLocation.layer.borderColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
         uvLocation.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToStoreInfo(_:))))
-        uvLocation.accessibilityIdentifier = DibsLocData["storeSn"].string
+        uvLocation.accessibilityIdentifier = DibsLocData["storeSn"].stringValue
         
         // 나중에 얘기는 클래스 단위로 따로 설계할 필요가 있음
         let url = URL(string: getImageURL(DibsLocData["storeSn"].stringValue, DibsLocData["storeDTO"]["storeImageUrlList"].arrayValue.first!.stringValue, tag: "store"))
@@ -178,7 +178,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         lblvar.textColor = .systemBlue
         let lblName = UILabel()
         lblName.textColor = .darkText
-        lblName.text = DibsLocData["storeDTO"]["storeNm"].string
+        lblName.text = DibsLocData["storeDTO"]["storeNm"].stringValue
         lblName.font = UIFont.boldSystemFont(ofSize: 18.0)
         
         
@@ -459,8 +459,19 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     // ##################################################
     // ################## 체크박스 이벤트 ###################
     // ##################################################
+    func EndCreateCourse(){
+        for i in 1...self.responseJSON.arrayValue.capacity {
+            self.svMain.viewWithTag(i*10)?.isHidden = true
+        }
+        self.btnCreateCourse.isHidden = true
+        self.btnStartCreateCourse.isHidden = false
+    }
     @objc func startCreateCourse(_ sender: UIButton) {
         sender.isHidden = true
+        let searchView = self.parent?.parent as! DibsNavigationViewController
+        searchView.bbtnCancelCreateCourse.isEnabled = true
+        searchView.bbtnCancelCreateCourse.title = "취소"
+        
         btnCreateCourse.isHidden = false
         for i in 1...responseJSON.arrayValue.capacity {
             self.svMain.viewWithTag(i*10)?.isHidden = false
@@ -560,15 +571,11 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         print(selectedStoresn)
     }
     
-    
-    
-    
-    
     // 코스 산출 페이지
     @objc func gotoCouresView(){
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let goToVC = storyboard.instantiateViewController(withIdentifier: "courseView")
+//        let goToVC = storyboard.instantiateViewController(withIdentifier: "courseView")
         //        self.present(goToVC, animated: true, completion: nil)
         //rvc 가 옵셔널 타입이므로 guard 구문을 통해서 옵셔널 바인딩 처리
         guard let rvc = storyboard.instantiateViewController(withIdentifier: "courseView") as? CourseViewController else {

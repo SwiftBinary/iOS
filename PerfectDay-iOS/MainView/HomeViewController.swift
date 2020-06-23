@@ -19,10 +19,11 @@ class HomeViewController: UIViewController {
     @IBOutlet var uvFuncButton: UIView!
     @IBOutlet var uvThemeLocation: UIView!
     
+    @IBOutlet var svLandmark: UIStackView!
     @IBOutlet var svFuncButton: UIStackView!
     @IBOutlet var svThemeLocation: UIStackView!
     
-//    let listTag = ["홍대맛집","잠실야경","VR데이트","산책데이트", "수제햄버거","미친가격","너무맛있다","건대", "홍대", "강남", "이색", "고궁", "tv방영", "가성비", "고급진", "국밥", "방탈출", "야식", "비오는날", "100일데이트코스", "커플100%되는곳", "킬링타임코스", "호불호없는"]
+    //    let listTag = ["홍대맛집","잠실야경","VR데이트","산책데이트", "수제햄버거","미친가격","너무맛있다","건대", "홍대", "강남", "이색", "고궁", "tv방영", "가성비", "고급진", "국밥", "방탈출", "야식", "비오는날", "100일데이트코스", "커플100%되는곳", "킬링타임코스", "호불호없는"]
     let userData = getUserData()
     var listOneDayPickInfo = JSON()
     var listHotStoreInfo = JSON()
@@ -31,8 +32,14 @@ class HomeViewController: UIViewController {
     var scvOneDayPick = UIScrollView()
     var areaSdDetailCode = ""
     
-    @IBOutlet var svTempLandmark: UIStackView!
+    @IBOutlet var uvLoading: UIView!
+    @IBOutlet var indicLoading: UIActivityIndicatorView!
     
+    @IBOutlet var uvLandmarkMap: UIView!
+    var imgBackMap = UIImageView()
+    var imgMainThemeMap = UIImageView()
+    var imgEmphasizeloc = UIImageView()
+    var landmarkKey : String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +47,7 @@ class HomeViewController: UIViewController {
         setLandmarkMap()
         setFuncButtonView()
         getHotPlaceInfo()
+        
         //        setThemeLocation()
     }
     
@@ -51,6 +59,7 @@ class HomeViewController: UIViewController {
         // Navigation Bar
         self.tabBarController?.tabBar.backgroundColor = .white
         view.backgroundColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
+        indicLoading.startAnimating()
     }
     
     //###########################
@@ -59,24 +68,31 @@ class HomeViewController: UIViewController {
     func setLandmarkMap(){
         setShadowCard(uvLandmark, bgColor: .white, crRadius: 15, shColor: .lightGray, shOffsetW: 0.0, shOffsetH: 2.0, shRadius: 2.0, sdOpacity: 0.9)
         uvLandmark.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        var count = 0
-        for i in 0...4{
-            let stackView = UIStackView()
-            stackView.axis = .vertical
-            stackView.distribution = .fillEqually
-            for f in 1...5{
-//                print(i*5+f)
-                let landmarkKey = String(format: "%02d", i*5+f)
-                let btnLandmark = UIButton(type: .system)
-                btnLandmark.setTitle(landmarkInfoDictionary[landmarkKey], for: .normal)
-                btnLandmark.contentHorizontalAlignment = .center
-                btnLandmark.accessibilityIdentifier = landmarkKey
-                btnLandmark.addTarget(self, action: #selector(getLandmarkList(_:)), for: .touchUpInside)
-                stackView.addArrangedSubview(btnLandmark)
-                count += 1
-            }
-            svTempLandmark.addArrangedSubview(stackView)
-        }
+        imgBackMap.isUserInteractionEnabled = true
+        //        let imgBackMap = UIImageView(image: UIImage(named: "MaskingMap"))
+        imgBackMap.image = UIImage(named: "MaskingMap")
+        imgBackMap.translatesAutoresizingMaskIntoConstraints = false
+        imgBackMap.contentMode = .scaleToFill
+        imgBackMap.contentMode = .scaleAspectFit
+        uvLandmarkMap.addSubview(imgBackMap)
+        imgBackMap.topAnchor.constraint(equalTo: uvLandmarkMap.topAnchor, constant: 0).isActive = true
+        imgBackMap.leftAnchor.constraint(equalTo: uvLandmarkMap.leftAnchor, constant: 0).isActive = true
+        imgBackMap.rightAnchor.constraint(equalTo: uvLandmarkMap.rightAnchor, constant: 0).isActive = true
+        imgBackMap.bottomAnchor.constraint(equalTo: uvLandmarkMap.bottomAnchor, constant: 0).isActive = true
+        let tap = UILongPressGestureRecognizer(target: self, action: #selector(touch(_:)))
+        tap.minimumPressDuration = 0
+        uvLandmarkMap.addGestureRecognizer(tap)
+        
+        imgMainThemeMap.image = UIImage(named: "MainThemeMap")
+        imgMainThemeMap.translatesAutoresizingMaskIntoConstraints = false
+        imgBackMap.contentMode = .scaleToFill
+        imgBackMap.contentMode = .scaleAspectFit
+        uvLandmarkMap.addSubview(imgMainThemeMap)
+        imgMainThemeMap.contentMode = .scaleAspectFit
+        imgMainThemeMap.topAnchor.constraint(equalTo: uvLandmarkMap.topAnchor, constant: 0).isActive = true
+        imgMainThemeMap.leftAnchor.constraint(equalTo: uvLandmarkMap.leftAnchor, constant: 0).isActive = true
+        imgMainThemeMap.rightAnchor.constraint(equalTo: uvLandmarkMap.rightAnchor, constant: 0).isActive = true
+        imgMainThemeMap.bottomAnchor.constraint(equalTo: uvLandmarkMap.bottomAnchor, constant: 0).isActive = true
         
         // 해시태그
         let scvTag = UIScrollView()
@@ -93,10 +109,147 @@ class HomeViewController: UIViewController {
         svTag.leadingAnchor.constraint(equalTo: scvTag.leadingAnchor, constant: 0).isActive = true
         svTag.trailingAnchor.constraint(equalTo: scvTag.trailingAnchor, constant: 0).isActive = true
         
-        uvLandmark.addSubview(scvTag)
-        uvLandmark.addConstraint(NSLayoutConstraint(item: scvTag, attribute: .centerX, relatedBy: .equal, toItem: uvLandmark, attribute: .centerX, multiplier: 1, constant: 0))
-        scvTag.bottomAnchor.constraint(equalTo: uvLandmark.bottomAnchor, constant: -15).isActive = true
-        scvTag.widthAnchor.constraint(equalTo: uvLandmark.widthAnchor, multiplier: 0.9).isActive = true
+        svLandmark.addArrangedSubview(scvTag)
+        //        uvLandmark.addSubview(scvTag)
+        //        uvLandmark.addConstraint(NSLayoutConstraint(item: scvTag, attribute: .centerX, relatedBy: .equal, toItem: uvLandmark, attribute: .centerX, multiplier: 1, constant: 0))
+        //        scvTag.bottomAnchor.constraint(equalTo: uvLandmark.bottomAnchor, constant: -15).isActive = true
+        //        scvTag.widthAnchor.constraint(equalTo: uvLandmark.widthAnchor, multiplier: 0.9).isActive = true
+    }
+    @objc func touch(_ sender: UILongPressGestureRecognizer){
+        let point = sender.location(in: imgBackMap)
+        let color : UIColor! = imgBackMap.getPixelColorAt(point: point)
+        if color != UIColor(red: 0, green: 0, blue: 0, alpha: 100) {
+            if sender.state == .began {
+                setLocation(color)
+            }
+            if sender.state == .ended && landmarkKey != "00" {
+                imgMainThemeMap.animationDuration = 0.3
+                UIView.transition(from: imgEmphasizeloc, to: self.imgMainThemeMap, duration: 0.5, options: .transitionCrossDissolve) { (finished) in
+                    self.getLandmarkList(self.landmarkKey)
+                }
+            }
+        }
+    }
+    
+    func setLocation(_ color: UIColor){
+        imgEmphasizeloc.translatesAutoresizingMaskIntoConstraints = false
+        imgEmphasizeloc.contentMode = .scaleToFill
+        imgEmphasizeloc.contentMode = .scaleAspectFit
+        switch color {
+        case UIColor(red: 10/255, green: 10/255, blue: 10/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 01)
+            imgEmphasizeloc.image = UIImage(named: "rkdskarn")
+            break
+        case UIColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 2)
+            imgEmphasizeloc.image = UIImage(named: "rkdehdrn")
+            break
+        case UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 3)
+            imgEmphasizeloc.image = UIImage(named: "rkdqnrrn")
+            break
+        case UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 4)
+            imgEmphasizeloc.image = UIImage(named: "rkdtjrn")
+            break
+        case UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 5)
+            imgEmphasizeloc.image = UIImage(named: "rhksdkrrn")
+            break
+        case UIColor(red: 60/255, green: 60/255, blue: 60/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 6)
+            imgEmphasizeloc.image = UIImage(named: "rhkdwlsrn")
+            break
+        case UIColor(red: 70/255, green: 70/255, blue: 70/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 7)
+            imgEmphasizeloc.image = UIImage(named: "rnfhrn")
+            break
+        case UIColor(red: 80/255, green: 80/255, blue: 80/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 8)
+            imgEmphasizeloc.image = UIImage(named: "rmacjsrn")
+            break
+        case UIColor(red: 90/255, green: 90/255, blue: 90/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 9)
+            imgEmphasizeloc.image = UIImage(named: "shdnjsrn")
+            break
+        case UIColor(red: 100/255, green: 100/255, blue: 100/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 10)
+            imgEmphasizeloc.image = UIImage(named: "ehqhdrn")
+            break
+        case UIColor(red: 110/255, green: 110/255, blue: 110/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 11)
+            imgEmphasizeloc.image = UIImage(named: "ehdeoansrn")
+            break
+        case UIColor(red: 120/255, green: 120/255, blue: 120/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 12)
+            imgEmphasizeloc.image = UIImage(named: "ehdwkrrn")
+            break
+        case UIColor(red: 130/255, green: 130/255, blue: 130/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 13)
+            imgEmphasizeloc.image = UIImage(named: "akvhrn")
+            break
+        case UIColor(red: 140/255, green: 140/255, blue: 140/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 14)
+            imgEmphasizeloc.image = UIImage(named: "tjeoansrn")
+            break
+        case UIColor(red: 150/255, green: 150/255, blue: 150/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 15)
+            imgEmphasizeloc.image = UIImage(named: "tjchrn")
+            break
+        case UIColor(red: 160/255, green: 160/255, blue: 160/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 16)
+            imgEmphasizeloc.image = UIImage(named: "tjdehdrn")
+            break
+        case UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 17)
+            imgEmphasizeloc.image = UIImage(named: "tjdqnrrn")
+            break
+        case UIColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 18)
+            imgEmphasizeloc.image = UIImage(named: "thdvkrn")
+            break
+        case UIColor(red: 190/255, green: 190/255, blue: 190/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 19)
+            imgEmphasizeloc.image = UIImage(named: "didcjsrn")
+            break
+        case UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 20)
+            imgEmphasizeloc.image = UIImage(named: "dudemdvhrn")
+            break
+        case UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 21)
+            imgEmphasizeloc.image = UIImage(named: "dydtksrn")
+            break
+        case UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 22)
+            imgEmphasizeloc.image = UIImage(named: "dmsvudrn")
+            break
+        case UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 23)
+            imgEmphasizeloc.image = UIImage(named: "whdfhrn")
+            break
+        case UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 24)
+            imgEmphasizeloc.image = UIImage(named: "wndrn")
+            break
+        case UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 100) :
+            landmarkKey = String(format: "%02d", 25)
+            imgEmphasizeloc.image = UIImage(named: "wndfkdrn")
+            break
+        case UIColor(red: 0, green: 0, blue: 0, alpha: 100) :
+            landmarkKey = String(format: "%02d", 0)
+            imgEmphasizeloc.image = UIImage(named: "MainThemeMap")
+            break
+        default :
+            landmarkKey = String(format: "%02d", 0)
+            imgEmphasizeloc.image = UIImage(named: "MainThemeMap")
+            break
+        }
+        uvLandmarkMap.addSubview(imgEmphasizeloc)
+        imgEmphasizeloc.topAnchor.constraint(equalTo: uvLandmarkMap.topAnchor, constant: 0).isActive = true
+        imgEmphasizeloc.leftAnchor.constraint(equalTo: uvLandmarkMap.leftAnchor, constant: 0).isActive = true
+        imgEmphasizeloc.rightAnchor.constraint(equalTo: uvLandmarkMap.rightAnchor, constant: 0).isActive = true
+        imgEmphasizeloc.bottomAnchor.constraint(equalTo: uvLandmarkMap.bottomAnchor, constant: 0).isActive = true
     }
     func getHashTag(_ svTag: UIStackView){
         let url = OperationIP + "/tag/selectHashTagList.do"
@@ -108,6 +261,18 @@ class HomeViewController: UIViewController {
         }
     }
     func setHashTag(_ svTag:UIStackView, _ listTag: [JSON]){
+        let lblStart: UILabel = {
+            let label = UILabel()
+            label.text = " "
+            return label
+        }()
+        let lblEnd: UILabel = {
+            let label = UILabel()
+            label.text = " "
+            return label
+        }()
+        
+        svTag.addArrangedSubview(lblStart)
         for hashTag in listTag {
             let btnHashTag = UIButton(type: .system)
             btnHashTag.setTitle(setHashTagString(hashTag["tag"].stringValue))
@@ -116,13 +281,14 @@ class HomeViewController: UIViewController {
             btnHashTag.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
             svTag.addArrangedSubview(btnHashTag)
         }
+        svTag.addArrangedSubview(lblEnd)
     }
     
-    @objc func getLandmarkList(_ sender:UIButton){
-        areaSdDetailCode = sender.accessibilityIdentifier!
-//        print(areaSdDetailCode)
+    func getLandmarkList(_ areaSdDetailCode:String){
+        //        areaSdDetailCode = sender.accessibilityIdentifier!
+        //        print(areaSdDetailCode)
         let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "landmarkListView") as! LandmarkViewController
-        goToVC.areaSdDetailCode = self.areaSdDetailCode
+        goToVC.areaSdDetailCode = areaSdDetailCode
         self.navigationController?.pushViewController(goToVC, animated: true)
         
     }
@@ -188,9 +354,9 @@ class HomeViewController: UIViewController {
             //            debugPrint(response)
             if response.value != nil {
                 self.listHotStoreInfo = JSON(response.value!)
-//                print("~~~~~~~~~~~~~~~~~~~~~~~핫플레이스")
+                //                print("~~~~~~~~~~~~~~~~~~~~~~~핫플레이스")
                 //                print(self.listHotStoreInfo)
-//                print("~~~~~~~~~~~~~~~~~~~~~~~")
+                //                print("~~~~~~~~~~~~~~~~~~~~~~~")
                 self.scvHotPlace = self.makeScrollView(Theme: "HotPlace")
                 self.getOneDayPickInfo()
             }
@@ -203,9 +369,9 @@ class HomeViewController: UIViewController {
             //            debugPrint(response)
             if response.value != nil {
                 self.listOneDayPickInfo = JSON(response.value!)
-//                print("~~~~~~~~~~~~~~~~~~~~~~~00세의 하루")
+                //                print("~~~~~~~~~~~~~~~~~~~~~~~00세의 하루")
                 //                print(self.listOneDayPickInfo)
-//                print("~~~~~~~~~~~~~~~~~~~~~~~")
+                //                print("~~~~~~~~~~~~~~~~~~~~~~~")
                 self.scvOneDayPick = self.makeScrollView(Theme: "OneDayPick")
                 self.setThemeLocation()
             }
@@ -273,6 +439,8 @@ class HomeViewController: UIViewController {
         
         svThemeLocation.addArrangedSubview(svTheme)
         svThemeLocation.addArrangedSubview(uvBottom)
+        indicLoading.stopAnimating()
+        uvLoading.isHidden = true
     }
     
     func makeScrollView(Theme:String) -> UIScrollView {
@@ -469,7 +637,7 @@ class HomeViewController: UIViewController {
     
     @objc func gotoLocationInfo(_ sender: UITapGestureRecognizer){
         let locationSn = sender.view!.accessibilityIdentifier
-//        UserDefaults.standard.setValue(locationSn, forKey: locationSnKey)
+        //        UserDefaults.standard.setValue(locationSn, forKey: locationSnKey)
         getLocationInfo(locationSn!)
     }
     

@@ -23,6 +23,7 @@ class SetUserInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboard()
         setUI()
         // Do any additional setup after loading the view.
     }

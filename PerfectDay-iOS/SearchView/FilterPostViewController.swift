@@ -25,8 +25,15 @@ class FilterPostViewController: UIViewController {
     
     var listBtnPeriod: [MaterialButton] = []
     var listBtnSorting: [MaterialButton] = []
+    
     var selectedPeriod = 0
     var selectedSorting = 0
+    
+    let listFilterPeriod = ["all","1w","1m","3m","6m",]
+    let listFilterSorting = ["registerDt","viewCnt","replyCnt","favorCnt",]
+    
+//    var periodValue = "all"
+//    var sortingValue = "registerDt"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,11 +43,11 @@ class FilterPostViewController: UIViewController {
     func setUI(){
         listBtnPeriod = [btnAll,btnOneWeek,btnOneMonth,btnThreeMonths,btnSixMonths]
         listBtnSorting = [btnLatest,btnView,btnComment,btnLike]
-        setBtn(listBtnPeriod)
-        setBtn(listBtnSorting)
+        setBtn(listBtnPeriod,selectedPeriod)
+        setBtn(listBtnSorting,selectedSorting)
     }
     
-    func setBtn(_ listBtn : [MaterialButton]){
+    func setBtn(_ listBtn : [MaterialButton],_ index:Int){
         for btn in listBtn {
             btn.setTextStyles(textColor: .black, font: .systemFont(ofSize: 17))
             btn.cornerRadius = 5
@@ -51,8 +58,8 @@ class FilterPostViewController: UIViewController {
             btn.heightAnchor.constraint(equalToConstant: 40).isActive = true
             btn.addTarget(self, action: #selector(btnAction(_:)), for: .touchUpInside)
         }
-        listBtn[0].setTextStyles(textColor: .white, font: .none)
-        listBtn[0].backgroundColor = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 1)
+        listBtn[index].setTextStyles(textColor: .white, font: .none)
+        listBtn[index].backgroundColor = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 1)
     }
     
     @objc func btnAction(_ sender: MaterialButton) {
@@ -74,6 +81,11 @@ class FilterPostViewController: UIViewController {
     }
     
     @IBAction func setOption(_ sender: UIButton) {
+        print(listFilterPeriod[selectedPeriod])
+        print(listFilterSorting[selectedSorting])
+        let searchView = (self.presentingViewController?.children[1] as! UINavigationController).viewControllers.first as! SearchViewController
+        searchView.periodValue = listFilterPeriod[selectedPeriod]
+        searchView.sortingValue = listFilterSorting[selectedSorting]
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func allClear(_ sender: UIBarButtonItem) {
@@ -82,10 +94,10 @@ class FilterPostViewController: UIViewController {
         listBtnSorting[selectedSorting].setTextStyles(textColor: .black, font: .none)
         listBtnSorting[selectedSorting].backgroundColor = .white
         
-        listBtnPeriod[0].setTextStyles(textColor: .white, font: .none)
-        listBtnPeriod[0].backgroundColor = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 1)
-        listBtnSorting[0].setTextStyles(textColor: .white, font: .none)
-        listBtnSorting[0].backgroundColor = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 1)
+        listBtnPeriod.first!.setTextStyles(textColor: .white, font: .none)
+        listBtnPeriod.first!.backgroundColor = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 1)
+        listBtnSorting.first!.setTextStyles(textColor: .white, font: .none)
+        listBtnSorting.first!.backgroundColor = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 1)
         selectedPeriod = 0
         selectedSorting = 0
     }

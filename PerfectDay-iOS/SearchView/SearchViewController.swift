@@ -18,16 +18,36 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet var svHashTag: UIStackView!
     @IBOutlet var uvTapView: UIView!
     
+    @IBOutlet var indicLoading: UIActivityIndicatorView!
+    
     let userData = getUserData()
     var resultSearchView: SearchResultViewController?
     
+    // Post Filter Value
+    var periodValue = "all"
+    var sortingValue = "registerDt"
+    
+    // Location Filter Value
+    var selectedValue = "DISTANCE_ASC"
+    var priceValue: Int = 70000
+    var timeValue: Int = 180
+    var distanceValue: Float = 3.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboard()
         setUI()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
     func setUI() {
         getHashTag(svHashTag)
-                hideKeyboard()
         svHashTag.translatesAutoresizingMaskIntoConstraints = false
         uiSearchBar.delegate = self
     }
@@ -53,7 +73,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
         //        print((((uvTapView.subviews.first!.subviews.last! as! XLPagerTabStrip.ButtonBarView).dataSource as! SearchResultViewController).viewControllers))
 //        print(resultSearchView?.viewControllers)
-        print(resultSearchView!.currentIndex)
+//        print(resultSearchView!.currentIndex)
+        view.endEditing(true)
         resultSearchView!.currentIndex == 0 ? searchStoreInfo(searchBar) : searchPostInfo(searchBar)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -64,18 +85,21 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     }
     
     func searchStoreInfo(_ searchBar: UISearchBar) {
+        (self.resultSearchView?.viewControllers[0] as! SearchLocationViewController).uvMain.isHidden = true
+        indicLoading.startAnimating()
+        
         let url = OperationIP + "/store/selectSearchStoreInfoList.do"
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
         let parameter = JSON([
-            "distanceLimit": 3,
+            "distanceLimit": distanceValue,
             "latitude": 37.68915657,
             "longitude": 127.04546691,
             "limit": 20,
             "offset": 0,
-            "priceLimit": 70000,
+            "priceLimit": priceValue,
             "searchKeyWord": searchBar.text!,
-            "sortedBy": "DISTANCE_ASC",
-            "tmCostLimit": 180
+            "sortedBy": selectedValue,
+            "tmCostLimit": timeValue
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -83,10 +107,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
                 let responseJSON = JSON(response.value!)
                 print(responseJSON)
                 print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+                (self.resultSearchView?.viewControllers.first as! SearchLocationViewController).searchData = responseJSON
+                (self.resultSearchView?.viewControllers.first as! SearchLocationViewController).setLocatoinData()
+                (self.resultSearchView?.viewControllers.first as! SearchLocationViewController).lblLocationDistance.text = String(self.distanceValue) + "km 이내 "
             }
         }
     }
     func searchPostInfo(_ searchBar: UISearchBar) {
+        indicLoading.startAnimating()
+        
         let selectedBoard = (resultSearchView?.viewControllers.last as! SearchPostViewController).segmentControl.selectedSegmentIndex
         let requeatURL = (selectedBoard == 0) ? "/board/selectBoardSearchListInfo.do" : "/review/selectReviewSearchListInfo.do"
         
@@ -97,8 +126,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
         let parameter = JSON([
             "searchKeyword": searchBar.text!,
-            "filterInfo": "all",
-            "sortInfo": "viewCnt",
+            "filterInfo": periodValue,
+            "sortInfo": sortingValue,
             "offset": 0,
             "limit": 20
         ])
@@ -108,6 +137,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
                 let responseJSON = JSON(response.value!)
                 print(responseJSON)
                 print("########################################")
+                (self.resultSearchView?.viewControllers.last as! SearchPostViewController).searchData = responseJSON
+                (self.resultSearchView?.viewControllers.last as! SearchPostViewController).setPostList()
+//                (self.resultSearchView?.viewControllers.last as! SearchPostViewController)
             }
         }
         

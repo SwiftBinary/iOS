@@ -10,8 +10,14 @@ import UIKit
 
 class DibsNavigationViewController: UIViewController {
     
+    @IBOutlet var bbtnCancelCreateCourse: UIBarButtonItem!
+    var dibsView: DibsViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        bbtnCancelCreateCourse.title = " "
+        bbtnCancelCreateCourse.isEnabled = false
+        
         // NavigationBar 아래 선 지우는 코드
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
@@ -26,14 +32,21 @@ class DibsNavigationViewController: UIViewController {
         
     }
     
-    /*
+    @IBAction func cancelEdit(_ sender: UIBarButtonItem) {
+        sender.title = " "
+        sender.isEnabled = false
+//        print(self.dibsView?.viewControllers)
+        (self.dibsView?.viewControllers.first as! DibsLocationViewController).EndCreateCourse()
+    }
      // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "dibsView" {
+            let connectContainerViewController = segue.destination as! DibsViewController
+            dibsView = connectContainerViewController
+        }
     }
-    */
+
 
 }

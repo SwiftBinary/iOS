@@ -63,9 +63,6 @@ class LoginViewController: UIViewController {
         print(uds.dictionaryRepresentation())
     }
     
-    
-    
-    
     func setUI(){
         hideKeyboard()
         // Navigation Bar

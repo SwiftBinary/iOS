@@ -12,7 +12,8 @@ import Alamofire
 import SwiftyJSON
 
 class SetLikeViewController: UIViewController {
-    
+
+    let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
     
     @IBOutlet var svCategory: UIStackView!
     
@@ -141,21 +142,21 @@ class SetLikeViewController: UIViewController {
         svSub.spacing = 10
         svSub.distribution = .fillEqually
 
-        let btnCompany = MaterialVerticalButton(icon: UIImage(named: "GrayCircle")!, text: "GrayCircle", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        let btnInsta = MaterialVerticalButton(icon: UIImage(named: "GrayCircle")!, text: "GrayCircle", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        let btnNaver =  MaterialVerticalButton(icon: UIImage(named: "GrayCircle")!, text: "GrayCircle", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        let btnKakao =  MaterialVerticalButton(icon: UIImage(named: "GrayCircle")!, text: "GrayCircle", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnCompany = MaterialVerticalButton(icon: UIImage(named: "RiceOff")!, text: "밥", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnInsta = MaterialVerticalButton(icon: UIImage(named: "MeatOff")!, text: "고기", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnNaver =  MaterialVerticalButton(icon: UIImage(named: "NoodleOff")!, text: "면", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let btnKakao =  MaterialVerticalButton(icon: UIImage(named: "SeaFoodOff")!, text: "해산물", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
         let arrayServiceBtn = [btnCompany,btnInsta,btnNaver,btnKakao]
         for btn in arrayServiceBtn {
             svSub.addArrangedSubview(btn)
             btn.label.textColor = .black
             btn.label.font = .systemFont(ofSize: 13)
             btn.rippleLayerColor = .lightGray
-            btn.label.topAnchor.constraint(equalTo: btn.imageView.bottomAnchor, constant: 0).isActive = true
+            btn.rippleEnabled = false
         }
         
         svEat.addArrangedSubview(svSub)
-        svEat.isHidden = true
+        svEat.isHidden = false
     }
     /*
      // MARK: - Navigation

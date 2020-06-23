@@ -19,7 +19,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6YZ-3B-oXD">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <connections>
-                                    <segue destination="Eed-b8-NbS" kind="embed" id="aTc-pH-XLm"/>
+                                    <segue destination="Eed-b8-NbS" kind="embed" identifier="dibsView" id="aTc-pH-XLm"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -32,7 +32,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3eq-1a-WEG"/>
                     </view>
-                    <navigationItem key="navigationItem" title="찜 목록" id="uay-eC-Mjf"/>
+                    <navigationItem key="navigationItem" title="찜 목록" id="uay-eC-Mjf">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="취소" id="PW6-iI-fI6">
+                            <connections>
+                                <action selector="cancelEdit:" destination="cnb-A1-8Xl" id="CIJ-Ba-EYb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="bbtnCancelCreateCourse" destination="PW6-iI-fI6" id="Py3-zC-5h7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vcC-uP-FHP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

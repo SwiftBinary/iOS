@@ -60,6 +60,7 @@ class ShowPostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = false
         hideKeyboard()
         setField(tfComment, "댓글을 입력해주세요.")
 //        getBoardSn()

@@ -41,6 +41,7 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboard()
         getCategorySn()
         setUI()
     }

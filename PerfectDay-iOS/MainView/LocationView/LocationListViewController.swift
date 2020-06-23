@@ -31,6 +31,10 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var uvFilterView: UIView!
     @IBOutlet var uvFilter: UIView!
     
+    @IBOutlet var indicLoading: UIActivityIndicatorView!
+    @IBOutlet var btnPlanner: UIButton!
+    
+    
     let userData = getUserData()
     let testNum = 3
     let lightGray = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
@@ -48,6 +52,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         setNavigationBar()
         setKategorie()
         setFilterBtnList()
+        setPlanner()
         getLandmarkInfo()
     }
     
@@ -127,11 +132,11 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
             sender.layer.borderWidth = uvFilterPopupBack.isHidden ? borderWidth : 0
             uvFilterPopupBack.isHidden = uvFilterPopupBack.isHidden ? false : true
             
-//            if self.uvFilterPopupBack.isHidden == false {
-//                self.uvFilterPopupBack.isHidden = true
-//            } else {
-//                self.uvFilterPopupBack.isHidden = false
-//            }
+            //            if self.uvFilterPopupBack.isHidden == false {
+            //                self.uvFilterPopupBack.isHidden = true
+            //            } else {
+            //                self.uvFilterPopupBack.isHidden = false
+            //            }
         } else {
             self.uvFilterPopupBack.isHidden = false
             tempBtn?.layer.borderWidth = 0
@@ -186,7 +191,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         svFilter.translatesAutoresizingMaskIntoConstraints = false
         svFilter.axis = .vertical
         svFilter.distribution = .fillEqually
-//        svFilter.widthAnchor.constraint(equalToConstant: uvFilterView.frame.width - 40).isActive = true
+        //        svFilter.widthAnchor.constraint(equalToConstant: uvFilterView.frame.width - 40).isActive = true
         
         uvFilter.addSubview(svFilter)
         uvFilter.addConstraint(NSLayoutConstraint(item: svFilter, attribute: .centerX, relatedBy: .equal, toItem: uvFilter, attribute: .centerX, multiplier: 1, constant: 0))
@@ -243,7 +248,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         btnSetFilter.setTitleColor(btnhighlightedColor, for: .highlighted)
         btnSetFilter.backgroundColor = themeColor
         btnSetFilter.contentHorizontalAlignment = .center
-//        btnSetFilter.translatesAutoresizingMaskIntoConstraints = false
+        //        btnSetFilter.translatesAutoresizingMaskIntoConstraints = false
         btnSetFilter.layer.cornerRadius = 5
         btnSetFilter.widthAnchor.constraint(equalToConstant: uvFilterView.frame.width - 40).isActive = true
         btnSetFilter.heightAnchor.constraint(equalTo: btnSetFilter.widthAnchor, multiplier: 40/295, constant: 1).isActive = true
@@ -325,6 +330,32 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         getStoreList(landmarkInfo)
     }
     
+    //###########################
+    //         플래너 버튼
+    //###########################
+    func setPlanner(){
+        let imageSize:CGFloat = 15
+        let lblLoationIndex = UILabel()
+        lblLoationIndex.translatesAutoresizingMaskIntoConstraints = false
+        lblLoationIndex.text = "1"
+        lblLoationIndex.textColor = .white
+        lblLoationIndex.textAlignment = .center
+        //        lblLoationIndex.fontSize = 10
+        lblLoationIndex.font = UIFont.boldSystemFont(ofSize: 10)
+        lblLoationIndex.backgroundColor = .systemBlue
+        lblLoationIndex.widthAnchor.constraint(equalToConstant: imageSize).isActive = true
+        lblLoationIndex.heightAnchor.constraint(equalToConstant: imageSize).isActive = true
+        lblLoationIndex.layer.masksToBounds = true
+        lblLoationIndex.layer.cornerRadius = imageSize * (1/3)
+        btnPlanner.addSubview(lblLoationIndex)
+        lblLoationIndex.centerXAnchor.constraint(equalTo: btnPlanner.leadingAnchor, constant: imageSize*0.5).isActive = true
+        lblLoationIndex.centerYAnchor.constraint(equalTo: btnPlanner.topAnchor, constant:  imageSize*0.5).isActive = true
+    }
+    @IBAction func gotoPlanner(_ sender: UIButton) {
+        let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "plannerView")
+        self.navigationController?.pushViewController(goToVC!, animated: true)
+    }
+    
     
     //###########################
     //         장소 리스트
@@ -359,13 +390,13 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
             "searchKeyWord": "",
             "sortedBy": "USER_PREF",
             "tmCostLimit": 180,
-//            "distanceLimit": distanceLimit,
-//            "limit": 20,
-//            "offset": 0,
-//            "priceLimit": priceLimit,
-//            "searchKeyWord": "",
-//            "sortedBy": sortedBy,
-//            "tmCostLimit": tmCostLimit,
+            //            "distanceLimit": distanceLimit,
+            //            "limit": 20,
+            //            "offset": 0,
+            //            "priceLimit": priceLimit,
+            //            "searchKeyWord": "",
+            //            "sortedBy": sortedBy,
+            //            "tmCostLimit": tmCostLimit,
         ])
         print(parameter)
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
@@ -386,6 +417,8 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         for i in listStore {
             makeItem(i)
         }
+        indicLoading.stopAnimating()
+        uvLocationList.isHidden = false
     }
     
     func setStackView(){
@@ -599,7 +632,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     func makeHashTag(_ str: String,_ svHashTag: UIStackView){
         let fontSize:CGFloat = 12
         let HashTagBtn = UIButton(type: .system)
-//        HashTagBtn.isUserInteractionEnabled = false
+        //        HashTagBtn.isUserInteractionEnabled = false
         HashTagBtn.setTitle("#"+str+" ", for: .normal)
         HashTagBtn.setTitleColor(.lightGray, for: .normal)
         //        HashTagBtn.backgroundColor = .lightGray
