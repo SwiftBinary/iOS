@@ -63,6 +63,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setNavigationBar(){
+        indicLoading.center = view.center
         self.navigationItem.title = "완벽한 하루"
         let backItem = UIBarButtonItem()
         backItem.title = " "

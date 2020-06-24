@@ -25,6 +25,7 @@ class LandmarkViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        indicLoading.center = view.center
         getHashTag(svHashTag)
         getLandmarkInfo()
     }

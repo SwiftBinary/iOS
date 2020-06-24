@@ -11,7 +11,7 @@ import SwiftyJSON
 import Alamofire
 import Material
 
-class ShowPostViewController: UIViewController {
+class ShowPostViewController: UIViewController, TextFieldDelegate {
     
     let darkGray = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1)
@@ -60,10 +60,12 @@ class ShowPostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         self.navigationController?.navigationBar.isHidden = false
         hideKeyboard()
         setField(tfComment, "댓글을 입력해주세요.")
-//        getBoardSn()
+        
+        //        getBoardSn()
         //        requestPostFirst()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -78,6 +80,39 @@ class ShowPostViewController: UIViewController {
             requestPostFirst()
         }
     }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        animateViewMoving(up: true, moveValue: 100)
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        animateViewMoving(up: false, moveValue: 100)
+    }
+    func animateViewMoving (up:Bool, moveValue :CGFloat){
+        let movementDuration:TimeInterval = 0.3
+        let movement:CGFloat = ( up ? -moveValue : moveValue)
+        UIView.beginAnimations( "animateView", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(movementDuration )
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
+    }
+//    @objc internal func keyboardWillShow(_ notification : Notification?) -> Void {
+//        var _kbSize:CGSize!
+//        if let info = notification?.userInfo {
+//            let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
+//            if let kbFrame = info[frameEndUserInfoKey] as? CGRect {
+//                let screenSize = UIScreen.main.bounds
+//                let intersectRect = kbFrame.intersection(screenSize)
+//                if intersectRect.isNull {
+//                    _kbSize = CGSize(width: screenSize.size.width, height: 0)
+//                } else {
+//                    _kbSize = intersectRect.size
+//                }
+//                uvComment.translatesAutoresizingMaskIntoConstraints = false
+//                uvComment.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: _kbSize.height).isActive = true
+//                print("Your Keyboard Size \(_kbSize.height)")
+//            }
+//        }
+//    }
     
     //###########################
     //          게시글

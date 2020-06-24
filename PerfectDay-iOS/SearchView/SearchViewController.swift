@@ -47,6 +47,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     }
     
     func setUI() {
+        indicLoading.center = view.center
         getHashTag(svHashTag)
         svHashTag.translatesAutoresizingMaskIntoConstraints = false
         uiSearchBar.delegate = self

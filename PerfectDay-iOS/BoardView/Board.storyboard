@@ -12,7 +12,7 @@
         <!--완벽한 하루 게시판-->
         <scene sceneID="2S8-4c-mjc">
             <objects>
-                <viewController id="ABX-RA-9Le" customClass="BoardListViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ABX-RA-9Le" customClass="BoardListViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ngr-XT-v7S">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -340,7 +340,7 @@
         <!--Post List View Controller-->
         <scene sceneID="qfT-UV-ncb">
             <objects>
-                <viewController storyboardIdentifier="postListView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YoN-EV-L0K" customClass="PostListViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="postListView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YoN-EV-L0K" customClass="PostListViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QC2-ut-geo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -477,7 +477,7 @@
         <!--게시글 작성하기-->
         <scene sceneID="ca6-SS-FK2">
             <objects>
-                <viewController storyboardIdentifier="writePostView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="elY-2H-xwr" customClass="WritePostViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="writePostView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="elY-2H-xwr" customClass="WritePostViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="B9A-sm-WM6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -747,17 +747,17 @@
         <!--Show Post View Controller-->
         <scene sceneID="meq-qh-Kut">
             <objects>
-                <viewController storyboardIdentifier="showPostView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="N94-fF-vs9" customClass="ShowPostViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="showPostView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="N94-fF-vs9" customClass="ShowPostViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2An-3t-6fH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mqT-Rd-ok3" userLabel="BackView">
-                                <rect key="frame" x="0.0" y="84" width="414" height="738"/>
+                                <rect key="frame" x="0.0" y="84" width="414" height="748"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XnW-0P-Ia5">
-                                <rect key="frame" x="0.0" y="44" width="414" height="738"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="758"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T4z-Tc-9Mj">
                                         <rect key="frame" x="0.0" y="15" width="414" height="536.5"/>
@@ -982,32 +982,35 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Avv-xW-9z8">
-                                <rect key="frame" x="0.0" y="782" width="414" height="80"/>
+                                <rect key="frame" x="0.0" y="802" width="414" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="KbH-32-447">
-                                        <rect key="frame" x="20.5" y="23" width="373" height="34"/>
+                                        <rect key="frame" x="20.5" y="13" width="373" height="34"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="댓글을 입력해주세요." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="s3g-I4-7gv">
-                                                <rect key="frame" x="0.0" y="0.0" width="309" height="34"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="317" height="34"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="webSearch"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MYz-Tx-PAo">
-                                                <rect key="frame" x="309" y="0.0" width="64" height="34"/>
+                                                <rect key="frame" x="317" y="0.0" width="56" height="34"/>
                                                 <state key="normal" title="등록"/>
                                                 <connections>
                                                     <action selector="sendComment:" destination="N94-fF-vs9" eventType="touchUpInside" id="Hys-R3-BGX"/>
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="s3g-I4-7gv" firstAttribute="width" secondItem="KbH-32-447" secondAttribute="width" multiplier="0.85" id="ryt-mL-nEm"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="KbH-32-447" firstAttribute="centerY" secondItem="Avv-xW-9z8" secondAttribute="centerY" id="Nbf-Ro-iyb"/>
-                                    <constraint firstAttribute="height" constant="80" id="PB7-Q1-Ind"/>
+                                    <constraint firstAttribute="height" constant="60" id="PB7-Q1-Ind"/>
                                     <constraint firstItem="KbH-32-447" firstAttribute="width" secondItem="Avv-xW-9z8" secondAttribute="width" multiplier="0.9" id="WHB-Az-TxR"/>
                                     <constraint firstItem="KbH-32-447" firstAttribute="centerX" secondItem="Avv-xW-9z8" secondAttribute="centerX" id="rJb-9g-n7w"/>
                                 </constraints>

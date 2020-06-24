@@ -40,7 +40,7 @@
 		C759B54F247F3F760080E150 /* LocationViewTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C759B54E247F3F760080E150 /* LocationViewTabController.swift */; };
 		C76626C9241726BB002B3DD6 /* FilterPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */; };
 		C76A0FF12484E56E008AC74C /* Temp.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C76A0FF02484E56E008AC74C /* Temp.xcassets */; };
-		C76A0FF32484E5E4008AC74C /* CategoryIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C76A0FF22484E5E4008AC74C /* CategoryIcon.xcassets */; };
+		C76A0FF32484E5E4008AC74C /* CategoryCircleIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C76A0FF22484E5E4008AC74C /* CategoryCircleIcon.xcassets */; };
 		C76B37EC23EA6F2900B05A45 /* ShowInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76B37EB23EA6F2900B05A45 /* ShowInfoViewController.swift */; };
 		C76B37EF23EAC27000B05A45 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76B37EE23EAC27000B05A45 /* HomeViewController.swift */; };
 		C76ED01A24037607003E21F1 /* ShowPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76ED01924037607003E21F1 /* ShowPostViewController.swift */; };
@@ -104,7 +104,7 @@
 		C739126B2406376900954617 /* AcceptContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptContentViewController.swift; sourceTree = "<group>"; };
 		C739126D240638C000954617 /* ContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentData.swift; sourceTree = "<group>"; };
 		C748813723FA472100E8C926 /* FilterLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterLocationViewController.swift; sourceTree = "<group>"; };
-		C74D96C823E7B1E9000E26C3 /* 완벽한 하루.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "완벽한 하루.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C74D96C823E7B1E9000E26C3 /* PerfectDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PerfectDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C74D96CB23E7B1E9000E26C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C74D96CD23E7B1E9000E26C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C74D96CF23E7B1E9000E26C3 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 		C759B54E247F3F760080E150 /* LocationViewTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewTabController.swift; sourceTree = "<group>"; };
 		C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPostViewController.swift; sourceTree = "<group>"; };
 		C76A0FF02484E56E008AC74C /* Temp.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Temp.xcassets; sourceTree = "<group>"; };
-		C76A0FF22484E5E4008AC74C /* CategoryIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CategoryIcon.xcassets; sourceTree = "<group>"; };
+		C76A0FF22484E5E4008AC74C /* CategoryCircleIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CategoryCircleIcon.xcassets; sourceTree = "<group>"; };
 		C76B37EB23EA6F2900B05A45 /* ShowInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowInfoViewController.swift; sourceTree = "<group>"; };
 		C76B37EE23EAC27000B05A45 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C76ED01924037607003E21F1 /* ShowPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPostViewController.swift; sourceTree = "<group>"; };
@@ -221,7 +221,7 @@
 		C74D96C923E7B1E9000E26C3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C74D96C823E7B1E9000E26C3 /* 완벽한 하루.app */,
+				C74D96C823E7B1E9000E26C3 /* PerfectDay.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -243,7 +243,7 @@
 				C74D96D123E7B1E9000E26C3 /* Main.storyboard */,
 				C74D96D423E7B1ED000E26C3 /* Assets.xcassets */,
 				C78271C924A2137D00290505 /* MainLandmarkMap.xcassets */,
-				C76A0FF22484E5E4008AC74C /* CategoryIcon.xcassets */,
+				C76A0FF22484E5E4008AC74C /* CategoryCircleIcon.xcassets */,
 				C76A0FF02484E56E008AC74C /* Temp.xcassets */,
 				C70D540C249268060044835E /* Planner.xcassets */,
 				C74D96D623E7B1ED000E26C3 /* LaunchScreen.storyboard */,
@@ -353,7 +353,7 @@
 			packageProductDependencies = (
 			);
 			productName = "PerfectDay-iOS";
-			productReference = C74D96C823E7B1E9000E26C3 /* 완벽한 하루.app */;
+			productReference = C74D96C823E7B1E9000E26C3 /* PerfectDay.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -401,7 +401,7 @@
 				C7EFBFCB23E907130034966C /* Login.storyboard in Resources */,
 				C77D1A432467E90E0015A449 /* MyPage.storyboard in Resources */,
 				C76A0FF12484E56E008AC74C /* Temp.xcassets in Resources */,
-				C76A0FF32484E5E4008AC74C /* CategoryIcon.xcassets in Resources */,
+				C76A0FF32484E5E4008AC74C /* CategoryCircleIcon.xcassets in Resources */,
 				C77D1A472467ECD80015A449 /* Board.storyboard in Resources */,
 				C74D96D823E7B1ED000E26C3 /* LaunchScreen.storyboard in Resources */,
 				C74D96D523E7B1ED000E26C3 /* Assets.xcassets in Resources */,
@@ -662,7 +662,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Project.PerfectDay-iOS";
-				PRODUCT_NAME = "완벽한 하루";
+				PRODUCT_NAME = PerfectDay;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -686,7 +686,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Project.PerfectDay-iOS";
-				PRODUCT_NAME = "완벽한 하루";
+				PRODUCT_NAME = PerfectDay;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;

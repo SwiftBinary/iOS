@@ -58,6 +58,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     }
     
     func getCatagoryInfo(){
+        indicLoading.center = view.center
         let navigationVCList = self.navigationController!.viewControllers
         segueTitle = (navigationVCList[0] as! BoardListViewController).segueTag
         self.navigationItem.title = arrayTitle[segueTitle]

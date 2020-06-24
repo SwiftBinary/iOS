@@ -202,6 +202,7 @@ extension UIViewController
     {
         view.endEditing(true)
     }
+
     
     // 로그인 화면 SNS 로그인 버튼 속성 지정
     // 버튼에 넣을 이미지명과 문구를 받음
