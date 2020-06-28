@@ -32,9 +32,6 @@ class HomeViewController: UIViewController {
     var scvOneDayPick = UIScrollView()
     var areaSdDetailCode = ""
     
-    @IBOutlet var uvLoading: UIView!
-    @IBOutlet var indicLoading: UIActivityIndicatorView!
-    
     @IBOutlet var uvLandmarkMap: UIView!
     var imgBackMap = UIImageView()
     var imgMainThemeMap = UIImageView()
@@ -48,19 +45,20 @@ class HomeViewController: UIViewController {
         setFuncButtonView()
         getHotPlaceInfo()
         
+        UserDefaults.standard.removeObject(forKey: hotStoreKey)
+        UserDefaults.standard.removeObject(forKey: oneDayPickKey)
         //        setThemeLocation()
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     func setUI(){
         // Navigation Bar
         self.tabBarController?.tabBar.backgroundColor = .white
         view.backgroundColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
-        indicLoading.center = view.center
-        indicLoading.startAnimating()
+ 
     }
     
     //###########################
@@ -350,33 +348,44 @@ class HomeViewController: UIViewController {
     //           테마장소
     //###########################
     func getHotPlaceInfo(){
-        let url = OperationIP + "/store/selectHotStoreInfoList.do"
-        AF.request(url,method: .post).responseJSON { response in
-            //            debugPrint(response)
-            if response.value != nil {
-                self.listHotStoreInfo = JSON(response.value!)
-                //                print("~~~~~~~~~~~~~~~~~~~~~~~핫플레이스")
-                //                print(self.listHotStoreInfo)
-                //                print("~~~~~~~~~~~~~~~~~~~~~~~")
-                self.scvHotPlace = self.makeScrollView(Theme: "HotPlace")
-                self.getOneDayPickInfo()
-            }
-        }
+        listHotStoreInfo = JSON(UserDefaults.standard.value(forKey: hotStoreKey)!)
+        scvHotPlace = self.makeScrollView(Theme: hotStoreKey)
+        getOneDayPickInfo()
+        
+//        let url = OperationIP + "/store/selectHotStoreInfoList.do"
+//        AF.request(url,method: .post).responseJSON { response in
+//            //            debugPrint(response)
+//            if response.value != nil {
+////                self.listHotStoreInfo = JSON(response.value!)
+////                print(UserDefaults.standard.value(forKey: "hotStore")!)
+//                self.listHotStoreInfo = JSON(UserDefaults.standard.value(forKey: "hotStore")!)
+//                //                print("~~~~~~~~~~~~~~~~~~~~~~~핫플레이스")
+//                //                print(self.listHotStoreInfo)
+//                //                print("~~~~~~~~~~~~~~~~~~~~~~~")
+//                self.scvHotPlace = self.makeScrollView(Theme: "HotPlace")
+//                self.getOneDayPickInfo()
+//            }
+//        }
     }
     func getOneDayPickInfo(){
-        let url = OperationIP + "/store/selectOneDayPickInfoList.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
-        AF.request(url,method: .post,headers: httpHeaders).responseJSON { response in
-            //            debugPrint(response)
-            if response.value != nil {
-                self.listOneDayPickInfo = JSON(response.value!)
-                //                print("~~~~~~~~~~~~~~~~~~~~~~~00세의 하루")
-                //                print(self.listOneDayPickInfo)
-                //                print("~~~~~~~~~~~~~~~~~~~~~~~")
-                self.scvOneDayPick = self.makeScrollView(Theme: "OneDayPick")
-                self.setThemeLocation()
-            }
-        }
+        listOneDayPickInfo = JSON(UserDefaults.standard.value(forKey: oneDayPickKey)!)
+        scvOneDayPick = self.makeScrollView(Theme: oneDayPickKey)
+        setThemeLocation()
+        
+//        let url = OperationIP + "/store/selectOneDayPickInfoList.do"
+//        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+//        AF.request(url,method: .post,headers: httpHeaders).responseJSON { response in
+//            //            debugPrint(response)
+//            if response.value != nil {
+//                self.listOneDayPickInfo = JSON(response.value!)
+////                self.listOneDayPickInfo = JSON(UserDefaults.standard.value(forKey: "oneDayPick")!)
+//                //                print("~~~~~~~~~~~~~~~~~~~~~~~00세의 하루")
+//                //                print(self.listOneDayPickInfo)
+//                //                print("~~~~~~~~~~~~~~~~~~~~~~~")
+//                self.scvOneDayPick = self.makeScrollView(Theme: "OneDayPick")
+//                self.setThemeLocation()
+//            }
+//        }
     }
     
     func setThemeLocation(){
@@ -440,8 +449,6 @@ class HomeViewController: UIViewController {
         
         svThemeLocation.addArrangedSubview(svTheme)
         svThemeLocation.addArrangedSubview(uvBottom)
-        indicLoading.stopAnimating()
-        uvLoading.isHidden = true
     }
     
     func makeScrollView(Theme:String) -> UIScrollView {
@@ -449,9 +456,9 @@ class HomeViewController: UIViewController {
         scvPlace.translatesAutoresizingMaskIntoConstraints = false
         let svPlaceItem = UIStackView()
         switch Theme {
-        case "HotPlace":
+        case hotStoreKey:
             addHotPlaceItem(svPlaceItem, listHotStoreInfo)
-        case "OneDayPick":
+        case oneDayPickKey:
             filterOneDayPickInfo(svPlaceItem, listOneDayPickInfo)
         default:
             print("Error")
@@ -653,10 +660,10 @@ class HomeViewController: UIViewController {
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //                  debugPrint(response)
             if response.value != nil {
-                let reponseJSON = JSON(response.value!)
-                print(reponseJSON)
-                //                    self.uds.set(reponseJSON.dictionaryObject, forKey: locationDataKey)
-                locationData = reponseJSON
+                let responseJSON = JSON(response.value!)
+//                print(responseJSON)
+                //                    self.uds.set(responseJSON.dictionaryObject, forKey: locationDataKey)
+                locationData = responseJSON
                 let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "locationInfoView")
                 self.navigationController?.pushViewController(goToVC!, animated: true)
             }

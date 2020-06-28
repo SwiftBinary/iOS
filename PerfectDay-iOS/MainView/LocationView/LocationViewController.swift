@@ -51,9 +51,9 @@ class LocationViewController: UIViewController {
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
 //            debugPrint(response)
             if response.value != nil {
-                let reponseJSON = JSON(response.value!)
-                print(reponseJSON)
-                if reponseJSON["result"].stringValue == "0" {
+                let responseJSON = JSON(response.value!)
+                print(responseJSON)
+                if responseJSON["result"].stringValue == "0" {
                     self.isDisLocation = false
                 } else {
                     self.isDisLocation = true
@@ -79,8 +79,8 @@ class LocationViewController: UIViewController {
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             debugPrint(response)
             if response.value != nil {
-                let reponseJSON = JSON(response.value!)
-                if reponseJSON["result"].stringValue == "1" {
+                let responseJSON = JSON(response.value!)
+                if responseJSON["result"].stringValue == "1" {
                     self.isDisLocation = true
                 }
                 self.setDibsBtn()
@@ -97,8 +97,8 @@ class LocationViewController: UIViewController {
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             debugPrint(response)
             if response.value != nil {
-                let reponseJSON = JSON(response.value!)
-                if reponseJSON["result"].stringValue == "1" {
+                let responseJSON = JSON(response.value!)
+                if responseJSON["result"].stringValue == "1" {
                     self.isDisLocation = false
                 }
                 self.setDibsBtn()

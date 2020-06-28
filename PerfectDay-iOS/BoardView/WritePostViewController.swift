@@ -36,7 +36,7 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
     
     var isUpdatePost = false
     var categorySn: Int = 0
-    var reponseJSON: JSON = []
+    var responseJSON: JSON = []
     @IBOutlet var btnUploadPost: UIButton!
     
     override func viewDidLoad() {
@@ -52,10 +52,10 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         if type(of: navigationVCList[1]) == PostListViewController.self {
             categorySn = (navigationVCList[1] as! PostListViewController).segueTitle + 1
             isUpdatePost = (navigationVCList[1] as! PostListViewController).isUpdate
-            self.reponseJSON = (navigationVCList[1] as! PostListViewController).postJSON
+            self.responseJSON = (navigationVCList[1] as! PostListViewController).postJSON
         } else {
-            self.reponseJSON = (navigationVCList[1] as! ShowPostViewController).reponseJSON
-            categorySn = reponseJSON["category"].intValue
+            self.responseJSON = (navigationVCList[1] as! ShowPostViewController).responseJSON
+            categorySn = responseJSON["category"].intValue
             isUpdatePost = true
         }
     }
@@ -80,9 +80,9 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         print(isUpdatePost)
         if isUpdatePost {
             btnUploadPost.setTitle("게시글 수정하기", for: .normal)
-            tfTitle.text = reponseJSON["title"].stringValue
-            content.text = reponseJSON["content"].stringValue
-            tfHashTag.text = reponseJSON["hashTag"].stringValue
+            tfTitle.text = responseJSON["title"].stringValue
+            content.text = responseJSON["content"].stringValue
+            tfHashTag.text = responseJSON["hashTag"].stringValue
         }
         
     }
@@ -185,7 +185,7 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         let url = OperationIP + "/board/updateBoardInfo.do"
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         let parameter = JSON([
-            "boardSn": reponseJSON["boardSn"].stringValue,
+            "boardSn": responseJSON["boardSn"].stringValue,
             "category": categorySn,
             "title": postTitle,
             "content": postContent,
@@ -200,8 +200,8 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             debugPrint(response)
             if response.value != nil {
-//                let reponseJSON = JSON(response.value!)
-//                print(reponseJSON)
+//                let responseJSON = JSON(response.value!)
+//                print(responseJSON)
             }
             self.navigationController?.popViewController(animated: true)
         }
@@ -226,8 +226,8 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             debugPrint(response)
             if response.value != nil {
-//                let reponseJSON = JSON(response.value!)
-//                print(reponseJSON)
+//                let responseJSON = JSON(response.value!)
+//                print(responseJSON)
             }
             self.navigationController?.popViewController(animated: true)
         }

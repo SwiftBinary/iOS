@@ -11,7 +11,7 @@ import SwiftyJSON
 import Alamofire
 import Material
 
-class ShowPostViewController: UIViewController, TextFieldDelegate {
+class ShowPostViewController: UIViewController, UITextFieldDelegate {
     
     let darkGray = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1)
@@ -20,6 +20,10 @@ class ShowPostViewController: UIViewController, TextFieldDelegate {
     let btnLike = FlatButton()
     let btnComment = FlatButton()
     
+    
+    @IBOutlet var uvBack: UIView!
+    
+    @IBOutlet var scvPost: UIScrollView!
     @IBOutlet var uvPost: UIView!
     @IBOutlet var uvComment: UIView!
     
@@ -36,6 +40,7 @@ class ShowPostViewController: UIViewController, TextFieldDelegate {
     var checkLikePost = false
     var isMyPost = false
     var isCommentUpdate = false
+
     
     let userData = getUserData()
     
@@ -52,21 +57,25 @@ class ShowPostViewController: UIViewController, TextFieldDelegate {
     @IBOutlet var tfComment: UITextField!
     @IBOutlet var btnSendComment: UIButton!
     
-    var reponseJSON: JSON = []
+    var responseJSON: JSON = []
     var boardSn = ""
     var replySn = ""
     var category:String = ""
     var isLocaitonLink = false
+    var bottomY:CGFloat = 0
+    var scrollHeight:CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
         self.navigationController?.navigationBar.isHidden = false
-        hideKeyboard()
+        bottomY = uvComment.frame.origin.y
+        scrollHeight = scvPost.frame.origin.y
+//        bottomY = uvComment.frame.origin.y
+        tfComment.delegate = self
         setField(tfComment, "댓글을 입력해주세요.")
-        
-        //        getBoardSn()
-        //        requestPostFirst()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -80,39 +89,43 @@ class ShowPostViewController: UIViewController, TextFieldDelegate {
             requestPostFirst()
         }
     }
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        animateViewMoving(up: true, moveValue: 100)
-    }
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        animateViewMoving(up: false, moveValue: 100)
-    }
-    func animateViewMoving (up:Bool, moveValue :CGFloat){
-        let movementDuration:TimeInterval = 0.3
-        let movement:CGFloat = ( up ? -moveValue : moveValue)
-        UIView.beginAnimations( "animateView", context: nil)
-        UIView.setAnimationBeginsFromCurrentState(true)
-        UIView.setAnimationDuration(movementDuration )
-        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
-        UIView.commitAnimations()
-    }
-//    @objc internal func keyboardWillShow(_ notification : Notification?) -> Void {
-//        var _kbSize:CGSize!
-//        if let info = notification?.userInfo {
-//            let frameEndUserInfoKey = UIResponder.keyboardFrameEndUserInfoKey
-//            if let kbFrame = info[frameEndUserInfoKey] as? CGRect {
-//                let screenSize = UIScreen.main.bounds
-//                let intersectRect = kbFrame.intersection(screenSize)
-//                if intersectRect.isNull {
-//                    _kbSize = CGSize(width: screenSize.size.width, height: 0)
-//                } else {
-//                    _kbSize = intersectRect.size
-//                }
-//                uvComment.translatesAutoresizingMaskIntoConstraints = false
-//                uvComment.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: _kbSize.height).isActive = true
-//                print("Your Keyboard Size \(_kbSize.height)")
+    // 키보드 올라올때
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.uvComment.frame.origin.y == bottomY {
+                self.uvComment.frame.origin.y -= keyboardSize.height
+//                self.scvPost.frame.origin.y -= keyboardSize.height
+//                scvPost.bottomAnchor.constraint(equalTo: uvComment.bottomAnchor, constant: keyboardSize.height + uvComment.frame.height).isActive = true
+            }
+//            print(self.uvMain.frame.origin.y)
+//            if self.uvMain.frame.origin.y == bottomY {
+//                scvPost.heightAnchor.constraint(equalToConstant: scrollHeight - keyboardSize.height).isActive = true
+//                self.uvMain.frame.origin.y -= keyboardSize.height
 //            }
+//            if self.view.frame.origin.y == 0 {
+//                self.view.frame.origin.y -= keyboardSize.height
+//            }
+        }
+    }
+    // 키보드 내려갈때
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.uvComment.frame.origin.y != bottomY{
+            self.uvComment.frame.origin.y = 0
+//            self.scvPost.frame.origin.y = scrollHeight
+        }
+//        if self.uvMain.frame.origin.y != bottomY {
+//            self.uvMain.frame.origin.y = bottomY
+//            scvPost.heightAnchor.constraint(equalToConstant: scrollHeight).isActive = true
 //        }
-//    }
+//        if self.view.frame.origin.y != 0 {
+//            self.view.frame.origin.y = 0
+//        }
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("1")
+        hideKeyboard()
+    }
+    
     
     //###########################
     //          게시글
@@ -135,9 +148,9 @@ class ShowPostViewController: UIViewController, TextFieldDelegate {
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
             if response.value != nil {
-                self.reponseJSON = JSON(response.value!)
+                self.responseJSON = JSON(response.value!)
                 print("##")
-                print(self.reponseJSON)
+                print(self.responseJSON)
                 print("##")
                 self.setUI()
             }
@@ -156,9 +169,9 @@ class ShowPostViewController: UIViewController, TextFieldDelegate {
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
             if response.value != nil {
-                self.reponseJSON = JSON(response.value!)
+                self.responseJSON = JSON(response.value!)
                 print("##")
-                print(self.reponseJSON)
+                print(self.responseJSON)
                 print("##")
                 self.setUI()
             }
@@ -169,7 +182,7 @@ class ShowPostViewController: UIViewController, TextFieldDelegate {
         let navigationVCList = self.navigationController!.viewControllers
         let navigationTitle = navigationVCList[1].navigationItem.title
         self.navigationItem.title = navigationTitle
-        let postData = reponseJSON
+        let postData = responseJSON
         
         lblUserNickName.text = postData["userDTO"]["userName"].string
         let strView:String = String(postData["viewCount"].intValue)
@@ -214,12 +227,16 @@ class ShowPostViewController: UIViewController, TextFieldDelegate {
         lblContent.numberOfLines = countLabelLines(label: lblContent)
         lblContent.lineBreakMode = .byCharWrapping
         
+        uvBack.clipsToBounds = true
+        uvBack.layer.cornerRadius = 30.0
+        
         uvPost.backgroundColor = .white
         uvPost.clipsToBounds = true
         uvPost.layer.cornerRadius = 30.0
         uvPost.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         uvPost.translatesAutoresizingMaskIntoConstraints = false
         
+//        uvComment.translatesAutoresizingMaskIntoConstraints = false
         uvComment.backgroundColor = .white
         uvComment.clipsToBounds = true
         uvComment.layer.cornerRadius = 30.0
@@ -280,7 +297,7 @@ class ShowPostViewController: UIViewController, TextFieldDelegate {
     }
     
     @objc func likePost(_ sender: FlatButton) {
-        let postData = reponseJSON
+        let postData = responseJSON
         checkLikePost = (postData["selectedFavor"] == 0)
         checkLikePost ? likePostOn() : likePostOff()
     }
@@ -333,7 +350,7 @@ class ShowPostViewController: UIViewController, TextFieldDelegate {
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
-        if getString(userData["userSn"]) == reponseJSON["userSn"].stringValue {
+        if getString(userData["userSn"]) == responseJSON["userSn"].stringValue {
             alertController.addAction(MyPostEditAction)
             alertController.addAction(MyPostDeleteAction)
         } else {
@@ -363,7 +380,7 @@ class ShowPostViewController: UIViewController, TextFieldDelegate {
     func deletePost(){
         let url = OperationIP + "/board/deleteBoardInfo.do"
         let parameter = JSON([
-            "boardSn": reponseJSON["boardSn"].stringValue
+            "boardSn": responseJSON["boardSn"].stringValue
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
@@ -371,7 +388,7 @@ class ShowPostViewController: UIViewController, TextFieldDelegate {
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
+//            debugPrint(response)
             if response.value != nil {
                 print(response.value!)
             }
@@ -579,7 +596,7 @@ class ShowPostViewController: UIViewController, TextFieldDelegate {
         //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
+//            debugPrint(response)
             if response.value != nil {
                 self.requestPost(false,btn)
             }
@@ -699,7 +716,7 @@ class ShowPostViewController: UIViewController, TextFieldDelegate {
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
             if response.value != nil {
-                self.reponseJSON = JSON(response.value!)
+                self.responseJSON = JSON(response.value!)
                 isPost ? self.updatePostUI() : self.updateCommentUI(btn!)
             }
         }
@@ -717,13 +734,13 @@ class ShowPostViewController: UIViewController, TextFieldDelegate {
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
             if response.value != nil {
-                self.reponseJSON = JSON(response.value!)
+                self.responseJSON = JSON(response.value!)
                 isPost ? self.updatePostUI() : self.updateCommentUI(btn!)
             }
         }
     }
     func updatePostUI(){
-        let postData = reponseJSON
+        let postData = responseJSON
         checkLikePost = (postData["selectedFavor"].int != 0)
         btnLike.setImage(UIImage(named: checkLikePost ? "LikeOnBtn" : "LikeOffBtn"), for: .normal)
         btnLike.titleColor = checkLikePost ? themeColor : .darkGray
@@ -731,7 +748,7 @@ class ShowPostViewController: UIViewController, TextFieldDelegate {
         btnComment.title = String(postData["replyCount"].int!)
     }
     func updateCommentUI(_ btn : UIButton){
-        let postData = reponseJSON
+        let postData = responseJSON
         for comment in postData["replyList"].arrayValue {
             if btn.accessibilityIdentifier! == comment["replySn"].stringValue{
                 print(comment)

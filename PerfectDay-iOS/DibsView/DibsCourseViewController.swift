@@ -93,7 +93,7 @@ class DibsCourseViewController: UIViewController,UIGestureRecognizerDelegate, In
         
     }
     
-    func setCourseStack(_ reponseData: JSON){
+    func setCourseStack(_ responseData: JSON){
         scrollMain.translatesAutoresizingMaskIntoConstraints = false
         
         svMain.translatesAutoresizingMaskIntoConstraints = false
@@ -124,7 +124,7 @@ class DibsCourseViewController: UIViewController,UIGestureRecognizerDelegate, In
         
         svMain.addArrangedSubview(topView)
         
-        let arrayData = reponseData.arrayValue
+        let arrayData = responseData.arrayValue
         for data in arrayData.reversed() {
             svMain.addArrangedSubview(createCourseView(data))
         }

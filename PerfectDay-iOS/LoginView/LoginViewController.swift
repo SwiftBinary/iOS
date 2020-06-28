@@ -107,14 +107,14 @@ class LoginViewController: UIViewController {
             let httpHeaders: HTTPHeaders = ["json":convertedHeaderString]
             
             AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-                debugPrint(response)
+//                debugPrint(response)
                 if response.value != nil {
-                    let reponseJSON = JSON(response.value!)
+                    let responseJSON = JSON(response.value!)
                     // result값 - 1:성공, 2:실패
-                    let loginResult = Int(reponseJSON["result"].stringValue)
+                    let loginResult = Int(responseJSON["result"].stringValue)
                     switch loginResult {
                     case 1:
-                        self.loginSuccess(reponseJSON)
+                        self.loginSuccess(responseJSON,response.value!)
                     case 2:
                         self.loginFail()
                     case -1:
@@ -133,14 +133,16 @@ class LoginViewController: UIViewController {
         }
         return true
     }
-    func loginSuccess(_ uData:JSON){
-        print(uData)
+    func loginSuccess(_ uData:JSON,_ string: Any){
+//        print(uData)
         uds.setValue(uData.dictionaryObject, forKey: userDataKey)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let goToVC = storyboard.instantiateViewController(withIdentifier: "mainView")
-        goToVC.modalPresentationStyle = .fullScreen
-        self.present(goToVC, animated: true, completion: nil)
-        
+        uds.set(string, forKey: "userJSONData")
+//        print(JSON(UserDefaults.standard.value(forKey: "userJSONData")!))
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let goToVC = storyboard.instantiateViewController(withIdentifier: "LoadView")
+//        goToVC.modalPresentationStyle = .fullScreen
+//        self.present(goToVC, animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
         // 로그인 시 적용
         //        self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
@@ -167,15 +169,15 @@ class LoginViewController: UIViewController {
             let httpHeaders: HTTPHeaders = ["json":convertedHeaderString]
             
             AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-                debugPrint(response)
+//                debugPrint(response)
                 if response.value != nil {
-                    let reponseJSON = JSON(response.value!)
+                    let responseJSON = JSON(response.value!)
                     // result값 - 1:성공, 2:실패
-                    print(reponseJSON)
-                    let loginResult = Int(reponseJSON["result"].stringValue)
+//                    print(responseJSON)
+                    let loginResult = Int(responseJSON["result"].stringValue)
                     switch loginResult {
                     case 1:
-                        self.loginSuccess(reponseJSON)
+                        self.loginSuccess(responseJSON,response.value!)
                     case 2:
                         self.loginFail()
                     case -1:
@@ -208,15 +210,15 @@ class LoginViewController: UIViewController {
             let httpHeaders: HTTPHeaders = ["json":convertedHeaderString]
             
             AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-                debugPrint(response)
+//                debugPrint(response)
                 if response.value != nil {
-                    let reponseJSON = JSON(response.value!)
+                    let responseJSON = JSON(response.value!)
                     // result값 - 1:성공, 2:실패
-                    let loginResult = Int(reponseJSON["result"].stringValue)
-                    //                           self.uds.setValue(reponseJSON.dictionaryObject, forKey: userDataKey)
+                    let loginResult = Int(responseJSON["result"].stringValue)
+                    //                           self.uds.setValue(responseJSON.dictionaryObject, forKey: userDataKey)
                     switch loginResult {
                     case 1:
-                        self.loginSuccess(reponseJSON)
+                        self.loginSuccess(responseJSON,response.value!)
                     case 2:
                         self.loginFail()
                     case -1:

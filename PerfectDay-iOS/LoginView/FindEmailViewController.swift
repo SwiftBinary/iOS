@@ -42,6 +42,7 @@ class FindEmailViewController: UIViewController, IndicatorInfoProvider {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboard()
         setUI()
     }
     

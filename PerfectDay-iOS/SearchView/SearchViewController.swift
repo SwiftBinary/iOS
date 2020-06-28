@@ -35,7 +35,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        hideKeyboard()
+//        hideKeyboard()
         setUI()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -126,11 +126,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
         let url = OperationIP + requeatURL
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
         let parameter = JSON([
-            "searchKeyword": searchBar.text!,
-            "filterInfo": periodValue,
-            "sortInfo": sortingValue,
-            "offset": 0,
-            "limit": 20
+            "category":7,
+            "searchKeyword":searchBar.text!,
+            "filterInfo":periodValue,
+            "sortInfo":sortingValue,
+            "offset":0,
+            "limit":20
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -143,9 +144,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 //                (self.resultSearchView?.viewControllers.last as! SearchPostViewController)
             }
         }
-        
-        
-//
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        hideKeyboard()
     }
     
 }

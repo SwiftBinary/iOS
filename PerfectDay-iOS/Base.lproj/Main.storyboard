@@ -12,7 +12,7 @@
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="LoadView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="MainViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoadView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="MainViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -20,6 +20,11 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchLogo" translatesAutoresizingMaskIntoConstraints="NO" id="a0H-eF-Hio">
                                 <rect key="frame" x="103.66666666666669" y="317.66666666666669" width="207" height="180"/>
                             </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="54w-Hk-ydd">
+                                <rect key="frame" x="189" y="404" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.95451539750000003" green="0.41538101430000002" blue="0.61850875620000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.72941176470588232" blue="0.81568627450980391" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -29,15 +34,18 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="indicLoading" destination="54w-Hk-ydd" id="1XB-kX-5UN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131.8840579710145" y="138.61607142857142"/>
+            <point key="canvasLocation" x="330" y="139"/>
         </scene>
         <!--Landmark List View Controller-->
         <scene sceneID="Xi5-Ue-Wu8">
             <objects>
-                <viewController storyboardIdentifier="landmarkListView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="m2n-gu-LlV" userLabel="Landmark List View Controller" customClass="LandmarkViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="landmarkListView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="m2n-gu-LlV" userLabel="Landmark List View Controller" customClass="LandmarkViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gzp-Bs-MaZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -107,7 +115,7 @@
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="BK3-Pk-h2i">
                                         <rect key="frame" x="168.33333333333334" y="241.66666666666669" width="37" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="color" red="0.95451539750000003" green="0.41538101430000002" blue="0.61850875620000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <constraints>
@@ -152,7 +160,7 @@
         <!--Planner View Controller-->
         <scene sceneID="oeE-LP-k1n">
             <objects>
-                <viewController storyboardIdentifier="plannerView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vTx-pB-10E" customClass="PlannerViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="plannerView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vTx-pB-10E" customClass="PlannerViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8TO-Ka-u7R">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -256,7 +264,7 @@
         <!--Location View Controller-->
         <scene sceneID="esg-e4-bvp">
             <objects>
-                <viewController storyboardIdentifier="locationInfoView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yjE-yZ-vfJ" customClass="LocationViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="locationInfoView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yjE-yZ-vfJ" customClass="LocationViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="meH-6i-RbN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -329,7 +337,7 @@
         <!--완벽한 하루-->
         <scene sceneID="1q6-lJ-8Kh">
             <objects>
-                <viewController storyboardIdentifier="homeView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CyW-Xg-7MW" customClass="HomeViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homeView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CyW-Xg-7MW" customClass="HomeViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="i4l-NM-paQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -418,27 +426,13 @@
                                     <constraint firstItem="Gpy-Td-GgX" firstAttribute="centerX" secondItem="DeQ-3W-dVy" secondAttribute="centerX" id="t5E-tG-on4"/>
                                 </constraints>
                             </scrollView>
-                            <view userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EKf-8d-2xp">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <subviews>
-                                    <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ShI-VO-56z">
-                                        <rect key="frame" x="190" y="430" width="37" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="DeQ-3W-dVy" firstAttribute="width" secondItem="ipi-oz-gWX" secondAttribute="width" id="2Rf-iV-zHd"/>
                             <constraint firstItem="DeQ-3W-dVy" firstAttribute="top" secondItem="ipi-oz-gWX" secondAttribute="top" id="2i3-8e-Ve1"/>
                             <constraint firstItem="DeQ-3W-dVy" firstAttribute="centerX" secondItem="ipi-oz-gWX" secondAttribute="centerX" id="IKx-xj-JEy"/>
-                            <constraint firstAttribute="bottom" secondItem="EKf-8d-2xp" secondAttribute="bottom" id="cZf-PX-6qI"/>
-                            <constraint firstItem="EKf-8d-2xp" firstAttribute="leading" secondItem="i4l-NM-paQ" secondAttribute="leading" id="g9d-mB-Ozc"/>
-                            <constraint firstItem="EKf-8d-2xp" firstAttribute="top" secondItem="i4l-NM-paQ" secondAttribute="top" id="h58-Ne-COJ"/>
                             <constraint firstItem="ipi-oz-gWX" firstAttribute="bottom" secondItem="DeQ-3W-dVy" secondAttribute="bottom" id="jhN-4o-xG6"/>
-                            <constraint firstAttribute="trailing" secondItem="EKf-8d-2xp" secondAttribute="trailing" id="meW-F1-XDU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ipi-oz-gWX"/>
                     </view>
@@ -451,20 +445,33 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="indicLoading" destination="ShI-VO-56z" id="odc-As-FT4"/>
                         <outlet property="svFuncButton" destination="Rdy-sM-DuL" id="AgV-Kl-Fxt"/>
                         <outlet property="svLandmark" destination="OTe-V0-MIz" id="usK-m5-HK6"/>
                         <outlet property="svThemeLocation" destination="bud-lp-ngT" id="Rgz-kD-l6S"/>
                         <outlet property="uvFuncButton" destination="6ec-eQ-aw7" id="dpY-uu-niq"/>
                         <outlet property="uvLandmark" destination="EVl-Yf-6Pq" id="Bgy-Pl-T78"/>
                         <outlet property="uvLandmarkMap" destination="mer-0O-IAZ" id="Cru-Im-Whu"/>
-                        <outlet property="uvLoading" destination="EKf-8d-2xp" id="iHc-bA-vSm"/>
                         <outlet property="uvThemeLocation" destination="po4-J7-zgI" id="y66-wA-qmS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e0B-vq-pht" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2621.739130434783" y="138.61607142857142"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="NTC-Nb-cyd">
+            <objects>
+                <viewController id="AZc-3p-BYT" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ydp-l8-0i2">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="DV6-Fb-PqO"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o31-At-Vcd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2622" y="814"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="zoD-2v-BSs">
@@ -487,7 +494,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nov-hr-rdc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1001" y="139"/>
+            <point key="canvasLocation" x="1075" y="139"/>
         </scene>
         <!--Search-->
         <scene sceneID="ezG-9h-79Q">
@@ -497,7 +504,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oSo-je-7yb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="753" y="583"/>
+            <point key="canvasLocation" x="828" y="583"/>
         </scene>
         <!--홈-->
         <scene sceneID="54H-Bq-mCl">
@@ -531,7 +538,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WSf-Yg-9QY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1225" y="583"/>
+            <point key="canvasLocation" x="1299" y="583"/>
         </scene>
         <!--Board-->
         <scene sceneID="g1Y-8a-kpo">
@@ -541,7 +548,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kX2-Ie-MIE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="916" y="583"/>
+            <point key="canvasLocation" x="991" y="583"/>
         </scene>
         <!--Dibs-->
         <scene sceneID="coX-UJ-Iv8">
@@ -551,12 +558,12 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6yx-eS-egg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1070" y="583"/>
+            <point key="canvasLocation" x="1145" y="583"/>
         </scene>
         <!--Location View Tab Controller-->
         <scene sceneID="WTY-48-kLd">
             <objects>
-                <viewController id="CQF-5L-AKH" customClass="LocationViewTabController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="CQF-5L-AKH" customClass="LocationViewTabController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lvJ-4r-V6U">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="743"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -571,7 +578,7 @@
         <!--Location List View Controller-->
         <scene sceneID="iYs-Rw-ZKx">
             <objects>
-                <viewController storyboardIdentifier="locationListView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LYx-6d-mtx" customClass="LocationListViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="locationListView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LYx-6d-mtx" customClass="LocationListViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" restorationIdentifier="locationListView" id="QeF-jn-VhB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -659,48 +666,64 @@
                                     </scrollView>
                                 </subviews>
                             </stackView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tqq-4t-Wpb" userLabel="Location Scroll">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tqq-4t-Wpb" userLabel="Location Scroll">
                                 <rect key="frame" x="0.0" y="208" width="414" height="605"/>
                                 <subviews>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J19-Uf-NXQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wit-Wa-9i8">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="37"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="coO-Eb-pdU">
-                                                <rect key="frame" x="20.666666666666657" y="15" width="372.66666666666674" height="0.0"/>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J19-Uf-NXQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                                                 <subviews>
-                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dYv-B3-p8p">
-                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="10"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="10" id="V8Y-la-tkD"/>
-                                                        </constraints>
-                                                    </view>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="coO-Eb-pdU">
+                                                        <rect key="frame" x="20.666666666666657" y="15" width="372.66666666666674" height="0.0"/>
+                                                        <subviews>
+                                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dYv-B3-p8p">
+                                                                <rect key="frame" x="0.0" y="0.0" width="373" height="10"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="10" id="V8Y-la-tkD"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
                                                 </subviews>
-                                            </stackView>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="coO-Eb-pdU" firstAttribute="centerX" secondItem="J19-Uf-NXQ" secondAttribute="centerX" id="64N-yc-1gg"/>
+                                                    <constraint firstItem="coO-Eb-pdU" firstAttribute="top" secondItem="J19-Uf-NXQ" secondAttribute="top" constant="15" id="B7W-QJ-DVM"/>
+                                                    <constraint firstItem="coO-Eb-pdU" firstAttribute="centerY" secondItem="J19-Uf-NXQ" secondAttribute="centerY" id="KeR-J2-v0O"/>
+                                                    <constraint firstAttribute="bottom" secondItem="coO-Eb-pdU" secondAttribute="bottom" constant="15" id="XRl-rG-cJK"/>
+                                                    <constraint firstItem="coO-Eb-pdU" firstAttribute="width" secondItem="J19-Uf-NXQ" secondAttribute="width" multiplier="0.9" id="fsj-3E-oNp"/>
+                                                </constraints>
+                                            </view>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="lHa-SF-EoS">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="37"/>
+                                                <color key="color" red="0.95451539750000003" green="0.41538101430000002" blue="0.61850875620000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </activityIndicatorView>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="더 이상 불러올 장소가 없습니다." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noG-6J-rlS">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstItem="coO-Eb-pdU" firstAttribute="centerX" secondItem="J19-Uf-NXQ" secondAttribute="centerX" id="64N-yc-1gg"/>
-                                            <constraint firstItem="coO-Eb-pdU" firstAttribute="top" secondItem="J19-Uf-NXQ" secondAttribute="top" constant="15" id="B7W-QJ-DVM"/>
-                                            <constraint firstItem="coO-Eb-pdU" firstAttribute="centerY" secondItem="J19-Uf-NXQ" secondAttribute="centerY" id="KeR-J2-v0O"/>
-                                            <constraint firstAttribute="bottom" secondItem="coO-Eb-pdU" secondAttribute="bottom" constant="15" id="XRl-rG-cJK"/>
-                                            <constraint firstItem="coO-Eb-pdU" firstAttribute="width" secondItem="J19-Uf-NXQ" secondAttribute="width" multiplier="0.9" id="fsj-3E-oNp"/>
-                                        </constraints>
-                                    </view>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.99379044770000002" green="0.95029455419999997" blue="0.96489483119999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="J19-Uf-NXQ" secondAttribute="bottom" constant="20" symbolic="YES" id="UpR-0u-XFc"/>
-                                    <constraint firstAttribute="trailing" secondItem="J19-Uf-NXQ" secondAttribute="trailing" id="VsR-sw-TxK"/>
-                                    <constraint firstItem="J19-Uf-NXQ" firstAttribute="top" secondItem="tqq-4t-Wpb" secondAttribute="top" id="bwf-Lq-IdY"/>
-                                    <constraint firstItem="J19-Uf-NXQ" firstAttribute="leading" secondItem="tqq-4t-Wpb" secondAttribute="leading" id="dpU-Kh-YQg"/>
-                                    <constraint firstItem="J19-Uf-NXQ" firstAttribute="centerX" secondItem="tqq-4t-Wpb" secondAttribute="centerX" id="k4T-eH-98h"/>
-                                    <constraint firstItem="J19-Uf-NXQ" firstAttribute="width" secondItem="tqq-4t-Wpb" secondAttribute="width" id="mmf-2o-UQg"/>
+                                    <constraint firstItem="wit-Wa-9i8" firstAttribute="top" secondItem="tqq-4t-Wpb" secondAttribute="top" id="0sN-wj-emZ"/>
+                                    <constraint firstItem="wit-Wa-9i8" firstAttribute="centerX" secondItem="tqq-4t-Wpb" secondAttribute="centerX" id="5bC-Hn-Z6H"/>
+                                    <constraint firstItem="wit-Wa-9i8" firstAttribute="width" secondItem="tqq-4t-Wpb" secondAttribute="width" id="bsq-VG-czP"/>
+                                    <constraint firstItem="wit-Wa-9i8" firstAttribute="leading" secondItem="tqq-4t-Wpb" secondAttribute="leading" id="kbU-e7-MZF"/>
+                                    <constraint firstAttribute="trailing" secondItem="wit-Wa-9i8" secondAttribute="trailing" id="p2d-RS-25O"/>
+                                    <constraint firstAttribute="bottom" secondItem="wit-Wa-9i8" secondAttribute="bottom" id="tFe-up-3Nz"/>
                                 </constraints>
                             </scrollView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="MLx-DD-vMg">
                                 <rect key="frame" x="188" y="429" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.95451539750000003" green="0.41538101430000002" blue="0.61850875620000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uh3-IB-a7d">
                                 <rect key="frame" x="344" y="743" width="50" height="50"/>
@@ -783,7 +806,9 @@
                         <outlet property="btnPlanner" destination="uh3-IB-a7d" id="TYD-yh-G07"/>
                         <outlet property="distanceFilterBtn" destination="fyZ-MB-fca" id="Jud-o5-ldm"/>
                         <outlet property="indicLoading" destination="MLx-DD-vMg" id="dSv-Ri-Z9N"/>
+                        <outlet property="indicStoreLoading" destination="lHa-SF-EoS" id="9Z3-oe-B9X"/>
                         <outlet property="initFilterBtn" destination="aiM-A8-HAa" id="W9m-SP-J7a"/>
+                        <outlet property="lblGuide" destination="noG-6J-rlS" id="xh5-jn-Ami"/>
                         <outlet property="preferFilterBtn" destination="j0u-Ox-wdR" id="6ov-ZL-vhw"/>
                         <outlet property="priceFilterBtn" destination="bwW-Jr-rUT" id="Ya9-Wc-cX7"/>
                         <outlet property="scrollMain" destination="tqq-4t-Wpb" id="VQR-Qe-x9U"/>
@@ -806,7 +831,7 @@
         <!--위치 검색하기-->
         <scene sceneID="99H-F0-qw3">
             <objects>
-                <viewController storyboardIdentifier="searchSetLocationView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="njh-fX-72L" customClass="SearchSetLocationViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="searchSetLocationView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="njh-fX-72L" customClass="SearchSetLocationViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dbN-qx-1R2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -930,7 +955,7 @@
         <!--위치 설정하기-->
         <scene sceneID="HOm-27-P4G">
             <objects>
-                <viewController storyboardIdentifier="setLocationView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KVn-OB-rWb" customClass="SetLocationViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="setLocationView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KVn-OB-rWb" customClass="SetLocationViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="k8U-sU-k6Z">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1037,7 +1062,7 @@
         <!--Course View Controller-->
         <scene sceneID="px8-00-IgQ">
             <objects>
-                <viewController storyboardIdentifier="courseView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Yrd-k2-4Hx" customClass="CourseViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="courseView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Yrd-k2-4Hx" customClass="CourseViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" restorationIdentifier="courseView" id="Jqf-OK-acG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1248,7 +1273,7 @@
         <!--Write Review View Controller-->
         <scene sceneID="kRP-06-uiR">
             <objects>
-                <viewController storyboardIdentifier="writeReviewView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cpn-8o-kYo" customClass="WriteReviewViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="writeReviewView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cpn-8o-kYo" customClass="WriteReviewViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="w2j-4T-Xfh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

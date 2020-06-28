@@ -375,7 +375,7 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
+//            debugPrint(response)
             if response.value != nil {
                 btn.setImage(UIImage(named: "LikeOnBtn"), for: .normal)
                 btn.titleColor = self.themeColor
@@ -393,7 +393,7 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
+//            debugPrint(response)
             if response.value != nil {
                 btn.setImage(UIImage(named: "LikeOffBtn"), for: .normal)
                 btn.titleColor = .lightGray

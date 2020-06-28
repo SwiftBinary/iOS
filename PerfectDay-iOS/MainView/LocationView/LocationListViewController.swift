@@ -31,7 +31,15 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var uvFilterView: UIView!
     @IBOutlet var uvFilter: UIView!
     
+    
+    let lblRange = UILabel()
+    
+    
     @IBOutlet var indicLoading: UIActivityIndicatorView!
+    @IBOutlet var indicStoreLoading: UIActivityIndicatorView!
+    @IBOutlet var lblGuide: UILabel!
+    
+    
     @IBOutlet var btnPlanner: UIButton!
     
     
@@ -46,6 +54,8 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     var landmarkInfo:JSON = JSON()
     var listStoreData:Array<JSON> = []
     var tempBtn : UIButton?
+    var totalCnt = 0
+    var currentCnt = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,8 +65,6 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         setPlanner()
         getLandmarkInfo()
     }
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
@@ -112,7 +120,25 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        scrollView.bounces = false
+//        scrollView.bounces = false
+        scrollView.bounces = scrollView.contentOffset.y > 0
+    }
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+
+        // Change 10.0 to adjust the distance from bottom
+        if maximumOffset - currentOffset <= 200.0 {
+            self.loadMore()
+        }
+    }
+    func loadMore() {
+        if currentCnt < totalCnt {
+            indicStoreLoading.startAnimating()
+            getStoreList(landmarkInfo,offset: currentCnt)
+        } else {
+            lblGuide.isHidden = false
+        }
     }
     
     @IBAction func changeForm(_ sender: UISegmentedControl) {
@@ -209,7 +235,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         let lblTitle = UILabel()
         lblTitle.textColor = .darkText
         lblTitle.font = UIFont.boldSystemFont(ofSize: 17.0)
-        let lblRange = UILabel()
+//        let lblRange = UILabel()
         lblRange.font = UIFont.boldSystemFont(ofSize: 19.0)
         lblRange.textColor = themeColor
         let svLabel = UIStackView(arrangedSubviews: [lblTitle, lblRange])
@@ -257,7 +283,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         
         if sender == distanceFilterBtn {
             lblTitle.text = "거리"
-            lblRange.text = "0km"
+            lblRange.text = "3km+"
             slider.minimumValue = 0
             slider.maximumValue = 30
             slider.addTarget(self, action: #selector(setSliderValue(_:)), for: .valueChanged)
@@ -269,7 +295,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         }
         else if sender == priceFilterBtn {
             lblTitle.text = "대표메뉴 가격"
-            lblRange.text = "0원"
+            lblRange.text = "7만원+"
             slider.minimumValue = 0
             slider.maximumValue = 70
             slider.addTarget(self, action: #selector(setSliderValue(_:)), for: .valueChanged)
@@ -281,16 +307,18 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         }
         else if sender == timeFilterBtn {
             lblTitle.text = "예상 소요시간"
-            lblRange.text = "0시간"
+            lblRange.text = "3시간+"
             slider.minimumValue = 0
             slider.maximumValue = 18
             slider.addTarget(self, action: #selector(setSliderValue(_:)), for: .valueChanged)
+            
             slider.accessibilityLabel = "time"
             lblMinValue.text = "0시간"
             lblQuarterValue.text = "1시간"
             lblThreeQuarterValue.text = "2시간"
             lblMaxValue.text = "3시간+"
         }
+        slider.setValue(slider.maximumValue, animated: false)
         
         let svFilter = UIStackView(arrangedSubviews: [svLabel,slider,svRange,btnSetFilter])
         svFilter.translatesAutoresizingMaskIntoConstraints = false
@@ -325,7 +353,8 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         default:
             break
         }
-        (((sender.superview as! UIStackView).arrangedSubviews.first as! UIStackView).arrangedSubviews.last as! UILabel).text = lblValue + lblUnit
+//        (((sender.superview as! UIStackView).arrangedSubviews.first as! UIStackView).arrangedSubviews.last as! UILabel).text = lblValue + lblUnit
+        lblRange.text = lblValue + lblUnit
     }
     @objc func getStoreListFilter(_ sender:UIButton){
         getStoreList(landmarkInfo)
@@ -371,13 +400,14 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
             if response.value != nil {
                 //                print(response.value!)
                 self.landmarkInfo = JSON(response.value!)
-                print("***")
+//                print("***")
                 //                print(landmarkInfo)
+                self.setStackView()
                 self.getStoreList(self.landmarkInfo)
             }
         }
     }
-    func getStoreList(_ landmarkInfo:JSON,distanceLimit:Float = 1.5,priceLimit:Int = 70000,sortedBy:String = "USER_PREF",tmCostLimit:Int = 180){
+    func getStoreList(_ landmarkInfo:JSON,distanceLimit:Float = 1.5,priceLimit:Int = 70000,sortedBy:String = "USER_PREF",tmCostLimit:Int = 180,offset:Int = 0){
         
         let url = OperationIP + "/store/selectStoreInfoList.do"
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
@@ -386,7 +416,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
             "longitude": landmarkInfo["longitude"].doubleValue,
             "distanceLimit": 1.5,
             "limit": 20,
-            "offset": 0,
+            "offset": offset,
             "priceLimit": 70000,
             "searchKeyWord": "",
             "sortedBy": "USER_PREF",
@@ -399,28 +429,34 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
             //            "sortedBy": sortedBy,
             //            "tmCostLimit": tmCostLimit,
         ])
-        print(parameter)
+//        print(parameter)
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            //            debugPrint(response)
+                        debugPrint(response)
             if response.value != nil {
-                let reponseJSON = JSON(response.value!)
+                let responseJSON = JSON(response.value!)
                 print("^^^")
-                print(reponseJSON)
-                self.setLocationList(reponseJSON.arrayValue)
+//                print(responseJSON)
+                self.currentCnt += responseJSON.arrayValue.count
+                self.setLocationList(responseJSON.arrayValue)
             }
         }
     }
     
     func setLocationList(_ listStore:[JSON]){
         setLocationListBackView()
-        setStackView()
+        totalCnt = listStore.first!["totalCnt"].intValue
         for i in listStore {
             makeItem(i)
         }
         indicLoading.stopAnimating()
         uvLocationList.isHidden = false
+        indicStoreLoading.stopAnimating()
+        
+        self.scrollMain.delegate = self
+//        scrollMain.showsVerticalScrollIndicator = true
     }
+//    func scroll
     
     func setStackView(){
         svLocation.axis = .vertical
@@ -612,9 +648,9 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             if response.value != nil {
-                let reponseJSON = JSON(response.value!)
-                print(reponseJSON)
-                locationData = reponseJSON
+                let responseJSON = JSON(response.value!)
+//                print(responseJSON)
+                locationData = responseJSON
                 let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "locationInfoView")
                 self.navigationController?.pushViewController(goToVC!, animated: true)
             }

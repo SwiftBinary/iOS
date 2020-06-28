@@ -435,9 +435,9 @@ class SearchLocationViewController: UIViewController,UIGestureRecognizerDelegate
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             if response.value != nil {
-                let reponseJSON = JSON(response.value!)
-                print(reponseJSON)
-                locationData = reponseJSON
+                let responseJSON = JSON(response.value!)
+                print(responseJSON)
+                locationData = responseJSON
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let goToVC = storyboard.instantiateViewController(withIdentifier: "locationInfoView")
                 self.navigationController?.pushViewController(goToVC, animated: true)

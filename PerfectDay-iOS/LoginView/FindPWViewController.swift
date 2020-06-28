@@ -45,6 +45,7 @@ class FindPWViewController: UIViewController, IndicatorInfoProvider {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboard()
         setUI()
     }
     

@@ -22,7 +22,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     let arrayHiddenCreate = [0,2,6]
     
     let btnMargin:CGFloat = -10
-    var reponseJSON:JSON = []
+    var responseJSON:JSON = []
     var postJSON = JSON()
     var isUpdate = false
     
@@ -68,7 +68,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         if arrayHiddenCreate.contains(segueTitle) { // 실시간 장소리뷰, 공지사항
             btnCreatePost.isHidden = true
         }
-        setData(reponseJSON)
+        setData(responseJSON)
         
         let panGestureRecongnizer = UIPanGestureRecognizer(target: self, action: #selector(panAction(_ :)))
         panGestureRecongnizer.delegate = self
@@ -93,8 +93,8 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         return resultStr
     }
     
-    func setData(_ reponseData: JSON){
-        let arrayData = reponseData.arrayValue
+    func setData(_ responseData: JSON){
+        let arrayData = responseData.arrayValue
         for data in arrayData {
             let tempView = makePostUv(data)
             svPostList.addArrangedSubview(tempView)
@@ -582,11 +582,11 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
+//            debugPrint(response)
             if response.value != nil {
-                self.reponseJSON = JSON(response.value!)
+                self.responseJSON = JSON(response.value!)
                 print("##")
-                print(self.reponseJSON)
+                print(self.responseJSON)
                 print("##")
                 if !isUpdate {
                   self.setUI()
@@ -614,11 +614,11 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
+//            debugPrint(response)
             if response.value != nil {
-                self.reponseJSON = JSON(response.value!)
+                self.responseJSON = JSON(response.value!)
                 print("##")
-                print(self.reponseJSON)
+                print(self.responseJSON)
                 print("##")
                 self.setUI()
             }

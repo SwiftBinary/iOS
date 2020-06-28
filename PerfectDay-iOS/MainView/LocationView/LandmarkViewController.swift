@@ -60,9 +60,9 @@ class LandmarkViewController: UIViewController {
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
             if response.value != nil {
-                let reponseJSON = JSON(response.value!)
-                self.listLandmarkData = reponseJSON.arrayValue
-                //                print(reponseJSON)
+                let responseJSON = JSON(response.value!)
+                self.listLandmarkData = responseJSON.arrayValue
+                //                print(responseJSON)
                 self.setUI()
             }
         }

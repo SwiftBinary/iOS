@@ -64,7 +64,7 @@ class SetUserInfoViewController: UIViewController {
         AF.request(url,method: .post, parameters: ["json":convertedParameterString]).responseJSON { response in
             debugPrint(response)
 //            if response.value != nil {
-//                let reponseJSON = JSON(response.value!)
+//                let responseJSON = JSON(response.value!)
 //                // result값 - 1:성공, 2:실패
 //            }
         }

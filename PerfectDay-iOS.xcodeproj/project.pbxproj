@@ -49,10 +49,13 @@
 		C7707F9823F290C5007BCCD3 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7707F9723F290C5007BCCD3 /* SearchResultViewController.swift */; };
 		C7707F9A23F29126007BCCD3 /* SearchLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7707F9923F29126007BCCD3 /* SearchLocationViewController.swift */; };
 		C7707F9C23F2917D007BCCD3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7707F9B23F2917D007BCCD3 /* SearchViewController.swift */; };
+		C773ECB024A6428600794F87 /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C773ECAF24A6428600794F87 /* UserDTO.swift */; };
 		C77D1A432467E90E0015A449 /* MyPage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C77D1A422467E90E0015A449 /* MyPage.storyboard */; };
 		C77D1A452467EC6C0015A449 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C77D1A442467EC6C0015A449 /* Search.storyboard */; };
 		C77D1A472467ECD80015A449 /* Board.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C77D1A462467ECD80015A449 /* Board.storyboard */; };
 		C77D1A492467ED2F0015A449 /* Dibs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C77D1A482467ED2F0015A449 /* Dibs.storyboard */; };
+		C77D691D24A709E900320903 /* CommonDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77D691C24A709E900320903 /* CommonDTO.swift */; };
+		C77D691F24A70B9200320903 /* StoreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77D691E24A70B9200320903 /* StoreDTO.swift */; };
 		C7824799243CB65A003D690F /* FindBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7824798243CB65A003D690F /* FindBackViewController.swift */; };
 		C78271CA24A2137D00290505 /* MainLandmarkMap.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C78271C924A2137D00290505 /* MainLandmarkMap.xcassets */; };
 		C7B0D2A92417E71700BF1467 /* WriteReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B0D2A82417E71700BF1467 /* WriteReviewViewController.swift */; };
@@ -130,10 +133,13 @@
 		C7707F9723F290C5007BCCD3 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		C7707F9923F29126007BCCD3 /* SearchLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationViewController.swift; sourceTree = "<group>"; };
 		C7707F9B23F2917D007BCCD3 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		C773ECAF24A6428600794F87 /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		C77D1A422467E90E0015A449 /* MyPage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPage.storyboard; sourceTree = "<group>"; };
 		C77D1A442467EC6C0015A449 /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		C77D1A462467ECD80015A449 /* Board.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Board.storyboard; sourceTree = "<group>"; };
 		C77D1A482467ED2F0015A449 /* Dibs.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dibs.storyboard; sourceTree = "<group>"; };
+		C77D691C24A709E900320903 /* CommonDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDTO.swift; sourceTree = "<group>"; };
+		C77D691E24A70B9200320903 /* StoreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDTO.swift; sourceTree = "<group>"; };
 		C7824798243CB65A003D690F /* FindBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindBackViewController.swift; sourceTree = "<group>"; };
 		C78271C924A2137D00290505 /* MainLandmarkMap.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MainLandmarkMap.xcassets; sourceTree = "<group>"; };
 		C7B0D2A82417E71700BF1467 /* WriteReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewController.swift; sourceTree = "<group>"; };
@@ -236,6 +242,7 @@
 				C758EAD923F0FF2C00033E29 /* BoardView */,
 				C76B37ED23EAC1D300B05A45 /* MainView */,
 				C74F973023E973F300E75058 /* LoginView */,
+				C773ECAE24A641A200794F87 /* DTO */,
 				C74D96CD23E7B1E9000E26C3 /* SceneDelegate.swift */,
 				C74D96CB23E7B1E9000E26C3 /* AppDelegate.swift */,
 				C701C6C8243765A00079B395 /* UIFunctions.swift */,
@@ -305,6 +312,16 @@
 				C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */,
 			);
 			path = SearchView;
+			sourceTree = "<group>";
+		};
+		C773ECAE24A641A200794F87 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				C773ECAF24A6428600794F87 /* UserDTO.swift */,
+				C77D691E24A70B9200320903 /* StoreDTO.swift */,
+				C77D691C24A709E900320903 /* CommonDTO.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 		C7CD9D8323F143F100D26F62 /* DibsView */ = {
@@ -468,6 +485,7 @@
 				C74D96D023E7B1E9000E26C3 /* MainViewController.swift in Sources */,
 				C701C6C9243765A00079B395 /* UIFunctions.swift in Sources */,
 				C712AC4E24012258009BB29F /* WritePostViewController.swift in Sources */,
+				C77D691D24A709E900320903 /* CommonDTO.swift in Sources */,
 				C74D96CC23E7B1E9000E26C3 /* AppDelegate.swift in Sources */,
 				C76B37EF23EAC27000B05A45 /* HomeViewController.swift in Sources */,
 				C7D8263C241629C0005A9D5A /* PlannerViewController.swift in Sources */,
@@ -486,10 +504,12 @@
 				C701C6C524372EA10079B395 /* FindViewController.swift in Sources */,
 				C74F972F23E953E300E75058 /* JoinViewController.swift in Sources */,
 				C718CE5A243CAF6800F544BF /* FindEmailViewController.swift in Sources */,
+				C77D691F24A70B9200320903 /* StoreDTO.swift in Sources */,
 				C759B54F247F3F760080E150 /* LocationViewTabController.swift in Sources */,
 				C76ED01A24037607003E21F1 /* ShowPostViewController.swift in Sources */,
 				C76ED01C2403D1F2003E21F1 /* SetUserInfoViewController.swift in Sources */,
 				C76B37EC23EA6F2900B05A45 /* ShowInfoViewController.swift in Sources */,
+				C773ECB024A6428600794F87 /* UserDTO.swift in Sources */,
 				C76626C9241726BB002B3DD6 /* FilterPostViewController.swift in Sources */,
 				C7707F9823F290C5007BCCD3 /* SearchResultViewController.swift in Sources */,
 				C701C6C7243761E60079B395 /* FindPWViewController.swift in Sources */,

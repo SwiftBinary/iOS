@@ -190,17 +190,19 @@ extension UITextView
 // UIViewController 확장
 extension UIViewController
 {
+
     //화면터치로 키보드 내리는 함수
     func hideKeyboard()
     {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(
-            target: self,
-            action: #selector(UIViewController.dismissKeyboard))
+        target: self,
+        action: #selector(UIViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
     @objc func dismissKeyboard()
     {
         view.endEditing(true)
+        view.removeGestureRecognizer(view.gestureRecognizers!.last!)
     }
 
     

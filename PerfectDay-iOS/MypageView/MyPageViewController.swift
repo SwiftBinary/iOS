@@ -29,12 +29,12 @@ class MyPageViewController: UIViewController {
     }
     
     func setProfileUI() {
-        let userData = getUserData()
-        print(userData)
-        lblUserNickName.text  = userData["userName"] as? String
-        lblUserEmail.text = userData["userEmail"] as? String
+        let userDTO = UserDTO(jsonData: JSON(UserDefaults.standard.value(forKey: "userJSONData")!))
+        lblUserNickName.text  = userDTO.userName
+        lblUserEmail.text = userDTO.userEmail
         lblUserEmail.font = UIFont.systemFont(ofSize: 15)
     }
+    
     func setServiceCenter(){
         let btnCompany = MaterialVerticalButton(icon: UIImage(named: "IntroBtn")!, text: "소개페이지", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
         let btnInsta = MaterialVerticalButton(icon: UIImage(named: "InstaBtn")!, text: "회사 SNS", font: nil ,foregroundColor: .white, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)

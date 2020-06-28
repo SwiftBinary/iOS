@@ -23,7 +23,6 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     let scvLocationInfo = UIScrollView()
     let svLocationInfo = UIStackView()
     
@@ -67,9 +66,12 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
     }
     
     func setTopInfoUI(){
+//        let json = StoreDTO(jsonData: locationData)
+//        json.getAllData()
+        
         let lblMainMenuName = UILabel()
         lblMainMenuName.textColor = .darkText
-        lblMainMenuName.text = locationData["menuList"].arrayValue[0]["menuNm"].stringValue
+        lblMainMenuName.text = getReprMenuName(locationData["menuList"].arrayValue)
         lblMainMenuName.font = UIFont.boldSystemFont(ofSize: 20)
         let lblMainMenuPrice = UILabel()
         lblMainMenuPrice.textColor = .darkText
@@ -167,6 +169,10 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         
         svLocationInfo.addArrangedSubview(uvBack)
     }
+    func getReprMenuName(_ menuList: [JSON]) -> String{
+        menuList.filter{ $0["isRepr"].stringValue == "001" }[0]["menuNm"].stringValue
+    }
+    
     func addMenu(_ menu:JSON) -> UIStackView {
         let lblMenuName = UILabel()
         lblMenuName.textColor = .darkText

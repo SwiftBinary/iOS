@@ -243,18 +243,18 @@ class SetLikeViewController: UIViewController {
     }
     
     func setStackView(_ mainStack: UIStackView,_ arrayBtn: [MaterialVerticalButton]) {
-        for floor in 0...(arrayBtn.count-1)/4 {
+        for floor in 0...(arrayBtn.count-1)/6 {
             let svSub = UIStackView()
             svSub.axis = .horizontal
             svSub.spacing = 10
             svSub.distribution = .fillEqually
-            for index in (floor*4)...(floor*4)+3 {
+            for index in (floor*6)...(floor*6)+5 {
                 if index < arrayBtn.endIndex {
                     svSub.addArrangedSubview(arrayBtn[index])
                     arrayBtn[index].label.textColor = .black
-                    arrayBtn[index].label.font = .systemFont(ofSize: 13)
+                    arrayBtn[index].label.font = .systemFont(ofSize: 7)
                     arrayBtn[index].rippleLayerColor = .lightGray
-                    arrayBtn[index].rippleEnabled = false
+                    arrayBtn[index].rippleEnabled = true
                     print(arrayBtn[index].accessibilityIdentifier)
 //                    arrayBtn[index].accessibilityLabel = arrayBtn[index].imageView.image
                 } else {

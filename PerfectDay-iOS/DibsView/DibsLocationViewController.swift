@@ -79,7 +79,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         }
     }
     
-    func setLocationStack(_ reponseData: JSON){
+    func setLocationStack(_ responseData: JSON){
         scrollMain.translatesAutoresizingMaskIntoConstraints = false
         svMain.translatesAutoresizingMaskIntoConstraints = false
         svMain.distribution = .fill
@@ -109,11 +109,11 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         bottomView.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
         
         svMain.addArrangedSubview(topView)
-        let arrayData = reponseData.arrayValue
-        var arrNum = reponseData.arrayValue.capacity - 1
+        let arrayData = responseData.arrayValue
+        var arrNum = responseData.arrayValue.capacity - 1
         if arrNum > 0 {
-            for i in 0...reponseData.arrayValue.capacity - 1 {
-                if (reponseData.arrayValue.capacity - 1) % 2 == 1{
+            for i in 0...responseData.arrayValue.capacity - 1 {
+                if (responseData.arrayValue.capacity - 1) % 2 == 1{
                     if arrNum % 2 == 1{
                         addLocationItem(i, i+1, arrayData[arrNum], arrayData[arrNum - 1], svMain)
                     }
@@ -405,10 +405,10 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //                  debugPrint(response)
             if response.value != nil {
-                let reponseJSON = JSON(response.value!)
-                print(reponseJSON)
-                //                    self.uds.set(reponseJSON.dictionaryObject, forKey: locationDataKey)
-                locationData = reponseJSON
+                let responseJSON = JSON(response.value!)
+                print(responseJSON)
+                //                    self.uds.set(responseJSON.dictionaryObject, forKey: locationDataKey)
+                locationData = responseJSON
 
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let goToVC = storyboard.instantiateViewController(withIdentifier: "locationInfoView")

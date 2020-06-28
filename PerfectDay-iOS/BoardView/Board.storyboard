@@ -752,8 +752,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mqT-Rd-ok3" userLabel="BackView">
-                                <rect key="frame" x="0.0" y="84" width="414" height="748"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOH-ug-iDi">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XnW-0P-Ia5">
@@ -992,7 +992,7 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="webSearch"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" enablesReturnKeyAutomatically="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MYz-Tx-PAo">
                                                 <rect key="frame" x="317" y="0.0" width="56" height="34"/>
@@ -1018,17 +1018,22 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.94901960780000005" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Nox-rC-84l" firstAttribute="top" secondItem="mqT-Rd-ok3" secondAttribute="top" constant="-40" id="2Id-IJ-lBs"/>
-                            <constraint firstItem="Nox-rC-84l" firstAttribute="bottom" secondItem="Avv-xW-9z8" secondAttribute="bottom" id="Amy-ch-hTQ"/>
-                            <constraint firstItem="mqT-Rd-ok3" firstAttribute="width" secondItem="2An-3t-6fH" secondAttribute="width" id="HhF-Y8-BTe"/>
-                            <constraint firstItem="Avv-xW-9z8" firstAttribute="top" secondItem="XnW-0P-Ia5" secondAttribute="bottom" id="RcH-x7-nEC"/>
-                            <constraint firstItem="Avv-xW-9z8" firstAttribute="width" secondItem="2An-3t-6fH" secondAttribute="width" id="XSO-4D-QFu"/>
-                            <constraint firstItem="Avv-xW-9z8" firstAttribute="centerY" secondItem="mqT-Rd-ok3" secondAttribute="bottom" id="cRX-7C-1eh"/>
-                            <constraint firstItem="XnW-0P-Ia5" firstAttribute="top" secondItem="Nox-rC-84l" secondAttribute="top" id="fe7-iB-Dya"/>
-                            <constraint firstItem="XnW-0P-Ia5" firstAttribute="width" secondItem="2An-3t-6fH" secondAttribute="width" id="huC-hH-jZe"/>
-                            <constraint firstItem="Avv-xW-9z8" firstAttribute="centerX" secondItem="Nox-rC-84l" secondAttribute="centerX" id="n93-xm-9PQ"/>
-                            <constraint firstItem="mqT-Rd-ok3" firstAttribute="centerX" secondItem="Nox-rC-84l" secondAttribute="centerX" id="oxI-vY-EgW"/>
-                            <constraint firstItem="XnW-0P-Ia5" firstAttribute="centerX" secondItem="Nox-rC-84l" secondAttribute="centerX" id="v43-mL-p0E"/>
+                            <constraint firstItem="Avv-xW-9z8" firstAttribute="top" secondItem="XnW-0P-Ia5" secondAttribute="bottom" id="11u-8k-srp"/>
+                            <constraint firstItem="XnW-0P-Ia5" firstAttribute="width" secondItem="2An-3t-6fH" secondAttribute="width" id="1RD-RC-MWH"/>
+                            <constraint firstItem="XnW-0P-Ia5" firstAttribute="top" secondItem="Nox-rC-84l" secondAttribute="top" id="3hp-1s-Aem"/>
+                            <constraint firstItem="Avv-xW-9z8" firstAttribute="width" secondItem="2An-3t-6fH" secondAttribute="width" id="6BF-bF-8UL"/>
+                            <constraint firstItem="Avv-xW-9z8" firstAttribute="centerX" secondItem="Nox-rC-84l" secondAttribute="centerX" id="7qP-IC-RLs"/>
+                            <constraint firstItem="XnW-0P-Ia5" firstAttribute="leading" secondItem="Nox-rC-84l" secondAttribute="leading" id="8CS-y0-K7d"/>
+                            <constraint firstItem="XnW-0P-Ia5" firstAttribute="trailing" secondItem="Nox-rC-84l" secondAttribute="trailing" id="DHt-g2-Uyr"/>
+                            <constraint firstItem="lOH-ug-iDi" firstAttribute="bottom" secondItem="Avv-xW-9z8" secondAttribute="bottom" id="ITv-JN-mUf"/>
+                            <constraint firstItem="Avv-xW-9z8" firstAttribute="trailing" secondItem="Nox-rC-84l" secondAttribute="trailing" id="Rrh-6J-5gU"/>
+                            <constraint firstItem="XnW-0P-Ia5" firstAttribute="centerX" secondItem="Nox-rC-84l" secondAttribute="centerX" id="UPH-hY-rul"/>
+                            <constraint firstItem="Avv-xW-9z8" firstAttribute="leading" secondItem="Nox-rC-84l" secondAttribute="leading" id="Vgz-98-xkH"/>
+                            <constraint firstItem="Nox-rC-84l" firstAttribute="bottom" secondItem="Avv-xW-9z8" secondAttribute="bottom" id="fcg-9F-Xgi"/>
+                            <constraint firstItem="lOH-ug-iDi" firstAttribute="trailing" secondItem="Nox-rC-84l" secondAttribute="trailing" id="hUy-Ha-s5A"/>
+                            <constraint firstItem="lOH-ug-iDi" firstAttribute="centerX" secondItem="Nox-rC-84l" secondAttribute="centerX" id="iED-JE-ru9"/>
+                            <constraint firstItem="lOH-ug-iDi" firstAttribute="leading" secondItem="Nox-rC-84l" secondAttribute="leading" id="qDb-PG-Bws"/>
+                            <constraint firstItem="lOH-ug-iDi" firstAttribute="top" secondItem="XnW-0P-Ia5" secondAttribute="top" id="wki-0t-OUt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Nox-rC-84l"/>
                     </view>
@@ -1043,11 +1048,13 @@
                         <outlet property="lblUserNickName" destination="rmo-cV-x8P" id="iTK-hm-bYe"/>
                         <outlet property="scvHashTag" destination="UJD-mr-klW" id="mBs-iS-01s"/>
                         <outlet property="scvImage" destination="mYZ-Os-kub" id="D2Y-d8-ofa"/>
+                        <outlet property="scvPost" destination="XnW-0P-Ia5" id="R4k-uB-QQn"/>
                         <outlet property="svComment" destination="dgi-2O-tc8" id="B91-GS-Ws0"/>
                         <outlet property="svHashTag" destination="ZW0-Ty-BHG" id="JxV-q5-hc1"/>
                         <outlet property="svScore" destination="ERM-1e-u1F" id="rAP-0C-8Bj"/>
                         <outlet property="svimage" destination="03b-Up-k7W" id="zgP-zC-DK9"/>
                         <outlet property="tfComment" destination="s3g-I4-7gv" id="jPo-XK-WuB"/>
+                        <outlet property="uvBack" destination="lOH-ug-iDi" id="xar-EA-ekI"/>
                         <outlet property="uvComment" destination="Avv-xW-9z8" id="8P6-EN-qRR"/>
                         <outlet property="uvFunc" destination="evb-Ze-nVn" id="EYe-ty-87I"/>
                         <outlet property="uvPost" destination="T4z-Tc-9Mj" id="y77-Cq-HgX"/>
