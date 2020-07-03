@@ -5,6 +5,7 @@ ${BUILT_PRODUCTS_DIR}/ImageSlideshow/ImageSlideshow.framework
 ${BUILT_PRODUCTS_DIR}/Material/Material.framework
 ${BUILT_PRODUCTS_DIR}/MaterialDesignWidgets/MaterialDesignWidgets.framework
 ${BUILT_PRODUCTS_DIR}/Motion/Motion.framework
+${PODS_ROOT}/NMapsMap/framework/NMapsMap.framework
 ${BUILT_PRODUCTS_DIR}/RSKPlaceholderTextView/RSKPlaceholderTextView.framework
 ${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework
 ${BUILT_PRODUCTS_DIR}/XLPagerTabStrip/XLPagerTabStrip.framework

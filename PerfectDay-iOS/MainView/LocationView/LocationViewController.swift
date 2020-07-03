@@ -31,9 +31,12 @@ class LocationViewController: UIViewController {
         setPlannerUI()
         // Do any additional setup after loading the view.
     }
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+    }
 
     func setNavigationUI(){
-        self.tabBarController?.tabBar.isHidden = true
+        
         btnLike = UIBarButtonItem(image: UIImage(named: isDisLocation ? "DibsOnBtn" : "DibsBtn"), style: .plain, target: self, action: #selector(setPickInfo(_:)))
         btnLike.tintColor = isDisLocation ? #colorLiteral(red: 1, green: 0.3921568627, blue: 0.568627451, alpha: 1) : #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         btnLike.style = .plain

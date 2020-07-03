@@ -28,6 +28,7 @@ public let LandmarkImageURL = OperationIP + "/images/landmark/"
 
 public var locationData = JSON()
 public var landmarkSn:String = ""
+public var selectedTag = ""
 
 public let SeoulSn = "01"
 public let landmarkInfoDictionary = [

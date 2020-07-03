@@ -58,7 +58,7 @@ class HomeViewController: UIViewController {
         // Navigation Bar
         self.tabBarController?.tabBar.backgroundColor = .white
         view.backgroundColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
- 
+        
     }
     
     //###########################
@@ -278,6 +278,7 @@ class HomeViewController: UIViewController {
             btnHashTag.layer.cornerRadius = 15
             btnHashTag.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
             btnHashTag.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
+            btnHashTag.addTarget(self, action: #selector(searchByTag(_:)), for: .touchUpInside)
             svTag.addArrangedSubview(btnHashTag)
         }
         svTag.addArrangedSubview(lblEnd)
@@ -289,7 +290,11 @@ class HomeViewController: UIViewController {
         let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "landmarkListView") as! LandmarkViewController
         goToVC.areaSdDetailCode = areaSdDetailCode
         self.navigationController?.pushViewController(goToVC, animated: true)
-        
+    }
+    @objc func searchByTag(_ sender: UIButton){
+        let strTag = sender.titleLabel!.text!.trimmingCharacters(in: ["#"," "])
+        selectedTag = strTag
+        self.tabBarController?.selectedViewController = self.tabBarController?.children[1]
     }
     
     
@@ -316,31 +321,37 @@ class HomeViewController: UIViewController {
     }
     
     @objc func getOneClickCourseRecommand(_ sender: UIButton){
-        let url = OperationIP + "/oneClick/selectOneClickInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
-        AF.request(url,method: .post, headers: httpHeaders).responseJSON { response in
-            //            debugPrint(response)
-            if response.value != nil {
-                print("~~~~~~~~~~~~~~~~~~~~~~~원클릭코스")
-                print(JSON(response.value!))
-                print("~~~~~~~~~~~~~~~~~~~~~~~")
-            }
-        }
+        let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "oneClickCouseView")
+        self.navigationController?.pushViewController(goToVC!, animated: true)
+        //        let url = OperationIP + "/oneClick/selectOneClickInfo.do"
+        //        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        //        AF.request(url,method: .post, headers: httpHeaders).responseJSON { response in
+        //            //            debugPrint(response)
+        //            if response.value != nil {
+        //                print("~~~~~~~~~~~~~~~~~~~~~~~원클릭코스")
+        //                print(JSON(response.value!))
+        //                print("~~~~~~~~~~~~~~~~~~~~~~~")
+        //                let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "oneClickCouseView")
+        //                self.navigationController?.pushViewController(goToVC!, animated: true)
+        //            }
+        //        }
     }
     @objc func getFindAroundLocation(_ sender: UIButton){
-        let url = OperationIP + "/search/selectLocationInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
-        let parameter = JSON([
-            "searchKeyword": "건대",
-        ])
-        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            if response.value != nil {
-                print("~~~~~~~~~~~~~~~~~~~~~~~내주변장소")
-                print(JSON(response.value!))
-                print("~~~~~~~~~~~~~~~~~~~~~~~")
-            }
-        }
+        let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "searchSetLocationView")
+        self.navigationController?.pushViewController(goToVC!, animated: true)
+//        let url = OperationIP + "/search/selectLocationInfo.do"
+//        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+//        let parameter = JSON([
+//            "searchKeyword": "건대",
+//        ])
+//        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+//        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+//            if response.value != nil {
+//                print("~~~~~~~~~~~~~~~~~~~~~~~내주변장소")
+//                print(JSON(response.value!))
+//                print("~~~~~~~~~~~~~~~~~~~~~~~")
+//            }
+//        }
     }
     
     
@@ -352,40 +363,40 @@ class HomeViewController: UIViewController {
         scvHotPlace = self.makeScrollView(Theme: hotStoreKey)
         getOneDayPickInfo()
         
-//        let url = OperationIP + "/store/selectHotStoreInfoList.do"
-//        AF.request(url,method: .post).responseJSON { response in
-//            //            debugPrint(response)
-//            if response.value != nil {
-////                self.listHotStoreInfo = JSON(response.value!)
-////                print(UserDefaults.standard.value(forKey: "hotStore")!)
-//                self.listHotStoreInfo = JSON(UserDefaults.standard.value(forKey: "hotStore")!)
-//                //                print("~~~~~~~~~~~~~~~~~~~~~~~핫플레이스")
-//                //                print(self.listHotStoreInfo)
-//                //                print("~~~~~~~~~~~~~~~~~~~~~~~")
-//                self.scvHotPlace = self.makeScrollView(Theme: "HotPlace")
-//                self.getOneDayPickInfo()
-//            }
-//        }
+        //        let url = OperationIP + "/store/selectHotStoreInfoList.do"
+        //        AF.request(url,method: .post).responseJSON { response in
+        //            //            debugPrint(response)
+        //            if response.value != nil {
+        ////                self.listHotStoreInfo = JSON(response.value!)
+        ////                print(UserDefaults.standard.value(forKey: "hotStore")!)
+        //                self.listHotStoreInfo = JSON(UserDefaults.standard.value(forKey: "hotStore")!)
+        //                //                print("~~~~~~~~~~~~~~~~~~~~~~~핫플레이스")
+        //                //                print(self.listHotStoreInfo)
+        //                //                print("~~~~~~~~~~~~~~~~~~~~~~~")
+        //                self.scvHotPlace = self.makeScrollView(Theme: "HotPlace")
+        //                self.getOneDayPickInfo()
+        //            }
+        //        }
     }
     func getOneDayPickInfo(){
         listOneDayPickInfo = JSON(UserDefaults.standard.value(forKey: oneDayPickKey)!)
         scvOneDayPick = self.makeScrollView(Theme: oneDayPickKey)
         setThemeLocation()
         
-//        let url = OperationIP + "/store/selectOneDayPickInfoList.do"
-//        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
-//        AF.request(url,method: .post,headers: httpHeaders).responseJSON { response in
-//            //            debugPrint(response)
-//            if response.value != nil {
-//                self.listOneDayPickInfo = JSON(response.value!)
-////                self.listOneDayPickInfo = JSON(UserDefaults.standard.value(forKey: "oneDayPick")!)
-//                //                print("~~~~~~~~~~~~~~~~~~~~~~~00세의 하루")
-//                //                print(self.listOneDayPickInfo)
-//                //                print("~~~~~~~~~~~~~~~~~~~~~~~")
-//                self.scvOneDayPick = self.makeScrollView(Theme: "OneDayPick")
-//                self.setThemeLocation()
-//            }
-//        }
+        //        let url = OperationIP + "/store/selectOneDayPickInfoList.do"
+        //        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        //        AF.request(url,method: .post,headers: httpHeaders).responseJSON { response in
+        //            //            debugPrint(response)
+        //            if response.value != nil {
+        //                self.listOneDayPickInfo = JSON(response.value!)
+        ////                self.listOneDayPickInfo = JSON(UserDefaults.standard.value(forKey: "oneDayPick")!)
+        //                //                print("~~~~~~~~~~~~~~~~~~~~~~~00세의 하루")
+        //                //                print(self.listOneDayPickInfo)
+        //                //                print("~~~~~~~~~~~~~~~~~~~~~~~")
+        //                self.scvOneDayPick = self.makeScrollView(Theme: "OneDayPick")
+        //                self.setThemeLocation()
+        //            }
+        //        }
     }
     
     func setThemeLocation(){
@@ -661,8 +672,8 @@ class HomeViewController: UIViewController {
             //                  debugPrint(response)
             if response.value != nil {
                 let responseJSON = JSON(response.value!)
-//                print(responseJSON)
-                //                    self.uds.set(responseJSON.dictionaryObject, forKey: locationDataKey)
+                //              print(responseJSON)
+                //              self.uds.set(responseJSON.dictionaryObject, forKey: locationDataKey)
                 locationData = responseJSON
                 let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "locationInfoView")
                 self.navigationController?.pushViewController(goToVC!, animated: true)
@@ -676,13 +687,14 @@ class HomeViewController: UIViewController {
     
     
     //      In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //        if segue.destination {
-        //            let landmarkViewController = segue.destination as! LandmarkViewController
-        //            landmarkViewController.areaSdDetailCode = self.areaSdDetailCode
-        //        }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let searchViewController = (segue.destination as? UINavigationController)//.viewControllers[0] as! SearchViewController
+//        print(searchViewController)
+//        if searchViewController != nil {
+//            searchViewController.uiSearchBar.text = self.selectedTag
+//        }
         //      Get the new view controller using segue.destination.
         //      Pass the selected object to the new view controller.
-    }
+//    }
     
 }

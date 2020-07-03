@@ -11,7 +11,7 @@
         <!--찜 목록-->
         <scene sceneID="f7c-Y8-JED">
             <objects>
-                <viewController storyboardIdentifier="dibsNavigationView" id="cnb-A1-8Xl" customClass="DibsNavigationViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="dibsNavigationView" id="cnb-A1-8Xl" customClass="DibsNavigationViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gb8-os-ZRq">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -22,6 +22,11 @@
                                     <segue destination="Eed-b8-NbS" kind="embed" identifier="dibsView" id="aTc-pH-XLm"/>
                                 </connections>
                             </containerView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="IBC-DU-Je6">
+                                <rect key="frame" x="189" y="430" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.95451539750000003" green="0.41538101430000002" blue="0.61850875620000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -41,6 +46,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bbtnCancelCreateCourse" destination="PW6-iI-fI6" id="Py3-zC-5h7"/>
+                        <outlet property="indicLoading" destination="IBC-DU-Je6" id="TyX-Mk-k2w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vcC-uP-FHP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -123,7 +129,7 @@
         <!--Dibs View Controller-->
         <scene sceneID="vUu-Gk-uaY">
             <objects>
-                <viewController id="Eed-b8-NbS" customClass="DibsViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Eed-b8-NbS" customClass="DibsViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qJP-MY-Oaf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

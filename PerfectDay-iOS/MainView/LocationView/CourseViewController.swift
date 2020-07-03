@@ -10,20 +10,21 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import Material
+import NMapsMap
 
-class CourseViewController: UIViewController {
+class CourseViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet var scvCourse: UIScrollView!
-    
     @IBOutlet var svCourse: UIStackView!
     @IBOutlet var uvDetailDescriptionPlace: UIView!
-    
     @IBOutlet var btnSaveCourse: UIButton!
-    
     @IBOutlet var lblCourseInfo: UILabel!
-    
+    @IBOutlet var naverMapView: NMFMapView!
+    var pathMap = NMFPath(points: [])
+    var arrayNMGLatLng: Array<NMGLatLng> = []
     
     let userData = getUserData()
+
     var responseJSON:Array<JSON> = []
     //    var response : Array<JSON> = []
     
@@ -32,8 +33,14 @@ class CourseViewController: UIViewController {
     var courseSn:String = ""
     var totalPrice:Int = 0
     var costTm:Int = 0
+    var courseNm:String = ""
     
     var temp = 0
+    
+    var lat_min:Double = 0.0
+    var lat_max:Double = 0.0
+    var lng_min:Double = 0.0
+    var lng_max:Double = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,14 +65,53 @@ class CourseViewController: UIViewController {
             btnSaveCourse.isHidden = true
             getCourseInfo(courseSn)
         }
-        
     }
     
     func setNavigationBar(){
         self.navigationItem.title = "완벽한 하루"
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        self.navigationItem.backBarButtonItem = backItem
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "편집", style: .plain, target: self, action: #selector(updateCourseNm(_:)))
+        //        let backItem = UIBarButtonItem()
+        //        backItem.title = ""
+        //        self.navigationItem.backBarButtonItem = backItem
+    }
+    @objc func updateCourseNm(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: "코스 제목을 입력해 주세요.", message: nil, preferredStyle: UIAlertController.Style.alert)
+        alertController.addTextField{ (textField) in
+            textField.textColor = .black
+            textField.text = self.courseNm
+            textField.isEnabled = true
+            textField.addTarget(self, action: #selector(self.alertTextFieldDidChange(field:)), for:  .editingChanged)
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        let saveAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
+            self.requestUpdateCourse(alertController.textFields![0].text!)
+        })
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(saveAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    @objc func alertTextFieldDidChange(field: UITextField){
+        let alertController:UIAlertController = self.presentedViewController as! UIAlertController;
+        //        let textField :UITextField = alertController.textFields![0];
+        let addAction: UIAlertAction = alertController.actions[1];
+        addAction.isEnabled = (field.text != "")
+    }
+    func requestUpdateCourse(_ courseNm: String){
+        let url = OperationIP + "/course/updateCourseInfo.do"
+        let parameter = JSON([
+            "courseSn": self.courseSn,
+            "courseNm": courseNm
+        ])
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
+        
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            //                    debugPrint(response)
+            if response.value != nil {
+                self.navigationItem.title = courseNm
+            }
+        }
     }
     
     func requestStore(_ num : Int){
@@ -81,12 +127,17 @@ class CourseViewController: UIViewController {
         //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-//            debugPrint(response)
+            //            debugPrint(response)
             if response.value != nil {
                 self.responseJSON.append(JSON(response.value!))
                 self.temp += 1
                 if num != 0 {
                     self.nextCourse()
+                } else {
+                    self.lat_min = self.responseJSON[num]["latitude"].doubleValue
+                    self.lng_min = self.responseJSON[num]["longitude"].doubleValue
+                    print("\(self.lat_min), \(self.lng_min)")
+                    print("33")
                 }
                 self.setCourse(num, self.responseJSON[num])
                 if num != self.resultStoreSn!.count-1 {
@@ -105,6 +156,10 @@ class CourseViewController: UIViewController {
         scvCourse.bounces = false
         scvCourse.showsVerticalScrollIndicator = false
         btnSaveCourse.layer.cornerRadius = 5
+        
+        naverMapView.maxZoomLevel = 20
+        naverMapView.minZoomLevel = 10
+        naverMapView.zoomLevel = 15
         //        for i in 0...resultStoreSn!.count-1 {
         //            if i != 0 {
         //                nextCourse()
@@ -122,10 +177,15 @@ class CourseViewController: UIViewController {
     
     func setCourseInfo(_ cost:Int,_ time:Int){
         lblCourseInfo.text = "1인 예산 - " + DecimalWon(cost) + " | 소요 시간 - " + RegexTime(time)
+        pathMap = NMFPath(points: arrayNMGLatLng)
+        pathMap?.outlineWidth = 0
+        pathMap?.width = 4
+        pathMap?.color = #colorLiteral(red: 0.9545153975, green: 0.4153810143, blue: 0.6185087562, alpha: 1)
+        pathMap?.mapView = naverMapView
     }
     
     func nextCourse(){
-//        print("\n\n\n\n\n\n nextCourse \n\n\n\n\n\n")
+        //        print("\n\n\n\n\n\n nextCourse \n\n\n\n\n\n")
         let uvItem = UIView()
         uvItem.translatesAutoresizingMaskIntoConstraints = false
         uvItem.backgroundColor = .clear
@@ -159,8 +219,8 @@ class CourseViewController: UIViewController {
     }
     
     func setCourse(_ num: Int,_ storeData : JSON){
-//        print("\n\n\n\n\n\n setCourse : ",num,"\n\n\n\n\n\n")
-
+        //        print("\n\n\n\n\n\n setCourse : ",num,"\n\n\n\n\n\n")
+        
         costTm += storeData["storeCostTm"].intValue
         totalPrice += storeData["reprMenuPrice"].intValue
         
@@ -229,7 +289,7 @@ class CourseViewController: UIViewController {
         imgStore.layer.cornerRadius = 5
         imgStore.contentMode = .scaleAspectFill
         imgStore.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-//        imgStore.widthAnchor.constraint(equalToConstant: view.frame.width * 0.14).isActive = true
+        //        imgStore.widthAnchor.constraint(equalToConstant: view.frame.width * 0.14).isActive = true
         imgStore.widthAnchor.constraint(equalTo: imgStore.heightAnchor, multiplier: 1).isActive = true
         let svInfo = UIStackView(arrangedSubviews: [lblStoreType,lblStoreNm])
         svInfo.translatesAutoresizingMaskIntoConstraints = false
@@ -239,8 +299,8 @@ class CourseViewController: UIViewController {
         let uvInfo = UIView()
         uvInfo.addSubview(svInfo)
         uvInfo.translatesAutoresizingMaskIntoConstraints = false
-//        uvInfo.widthAnchor.constraint(equalToConstant: view.frame.width * 0.6 - 65).isActive = true
-//        uvInfo.heightAnchor.constraint(equalToConstant: view.frame.width * 0.2 - 15).isActive = true
+        //        uvInfo.widthAnchor.constraint(equalToConstant: view.frame.width * 0.6 - 65).isActive = true
+        //        uvInfo.heightAnchor.constraint(equalToConstant: view.frame.width * 0.2 - 15).isActive = true
         uvInfo.addConstraint(NSLayoutConstraint(item: svInfo, attribute: .centerX, relatedBy: .equal, toItem: uvInfo, attribute: .centerX, multiplier: 1, constant: 0))
         uvInfo.addConstraint(NSLayoutConstraint(item: svInfo, attribute: .centerY, relatedBy: .equal, toItem: uvInfo, attribute: .centerY, multiplier: 1, constant: 0))
         svInfo.widthAnchor.constraint(equalTo: uvInfo.widthAnchor, multiplier: 1).isActive = true
@@ -258,8 +318,8 @@ class CourseViewController: UIViewController {
         svMain.axis = .horizontal
         svMain.distribution = .fillProportionally
         svMain.spacing = 10
-//        svMain.widthAnchor.constraint(equalToConstant: view.frame.width * 0.9 - 65).isActive = true
-//        svMain.heightAnchor.constraint(equalToConstant: view.frame.width * 0.2 - 15).isActive = true
+        //        svMain.widthAnchor.constraint(equalToConstant: view.frame.width * 0.9 - 65).isActive = true
+        //        svMain.heightAnchor.constraint(equalToConstant: view.frame.width * 0.2 - 15).isActive = true
         
         let uvMain = UIView()
         uvMain.addSubview(svMain)
@@ -268,8 +328,8 @@ class CourseViewController: UIViewController {
         uvMain.layer.borderWidth = 1
         uvMain.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         uvMain.layer.cornerRadius = 5
-//        uvMain.widthAnchor.constraint(equalToConstant: view.frame.width * 0.9 - 50).isActive = true
-//        uvMain.heightAnchor.constraint(equalToConstant: view.frame.width * 0.2).isActive = true
+        //        uvMain.widthAnchor.constraint(equalToConstant: view.frame.width * 0.9 - 50).isActive = true
+        //        uvMain.heightAnchor.constraint(equalToConstant: view.frame.width * 0.2).isActive = true
         uvMain.addConstraint(NSLayoutConstraint(item: svMain, attribute: .centerX, relatedBy: .equal, toItem: uvMain, attribute: .centerX, multiplier: 1, constant: 0))
         uvMain.addConstraint(NSLayoutConstraint(item: svMain, attribute: .centerY, relatedBy: .equal, toItem: uvMain, attribute: .centerY, multiplier: 1, constant: 0))
         svMain.heightAnchor.constraint(equalTo: uvMain.heightAnchor, multiplier: 1, constant: -15).isActive = true
@@ -282,8 +342,8 @@ class CourseViewController: UIViewController {
         svItem.distribution = .fill
         
         uvItem.addSubview(svItem)
-//        uvItem.widthAnchor.constraint(equalToConstant: view.frame.width * 0.9).isActive = true
-//        uvItem.heightAnchor.constraint(equalTo: uvItem.widthAnchor, multiplier: 0.2).isActive = true
+        //        uvItem.widthAnchor.constraint(equalToConstant: view.frame.width * 0.9).isActive = true
+        //        uvItem.heightAnchor.constraint(equalTo: uvItem.widthAnchor, multiplier: 0.2).isActive = true
         uvItem.addConstraint(NSLayoutConstraint(item: svItem, attribute: .centerX, relatedBy: .equal, toItem: uvItem, attribute: .centerX, multiplier: 1, constant: 0))
         uvItem.addConstraint(NSLayoutConstraint(item: svItem, attribute: .centerY, relatedBy: .equal, toItem: uvItem, attribute: .centerY, multiplier: 1, constant: 0))
         svItem.heightAnchor.constraint(equalTo: uvItem.heightAnchor, multiplier: 1, constant:  0).isActive = true
@@ -297,6 +357,30 @@ class CourseViewController: UIViewController {
         
         svCourse.addArrangedSubview(uvItem)
         
+        
+        //setStoreMarker
+        let storeLatLng = NMGLatLng(lat: storeData["latitude"].doubleValue, lng: storeData["longitude"].doubleValue)
+        arrayNMGLatLng.append(storeLatLng)
+//        print(storeLatLng)
+        let marker = NMFMarker()
+        marker.position = storeLatLng
+        marker.mapView = naverMapView
+        marker.iconImage = NMFOverlayImage(name: "markerPin")
+        //set Map Camera
+        if lat_min > storeData["latitude"].doubleValue {
+            lat_min = storeData["latitude"].doubleValue
+        } else if lat_max < storeData["latitude"].doubleValue {
+            lat_max = storeData["latitude"].doubleValue
+        }
+        if lng_min > storeData["longitude"].doubleValue {
+            lng_min = storeData["longitude"].doubleValue
+        } else if lng_max < storeData["longitude"].doubleValue {
+            lng_max = storeData["longitude"].doubleValue
+        }
+        
+        let centerLatLng = NMGLatLng(lat: (lat_min+lat_max)/2, lng: (lng_min+lng_max)/2)
+//        print(centerLatLng)
+        naverMapView.moveCamera(NMFCameraUpdate(scrollTo: centerLatLng))
     }
     
     func getCourseInfo(_ courseSn : String) {
@@ -309,19 +393,26 @@ class CourseViewController: UIViewController {
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-//            debugPrint(response)
+            //            debugPrint(response)
             if response.value != nil {
                 self.responseJSON = JSON(response.value!)["courseDetailList"].arrayValue
-//                print(self.responseJSON)
+                //                print(self.responseJSON)
                 for (index,item) in self.responseJSON.enumerated() {
                     if index != 0 {
                         self.nextCourse()
+                    } else {
+                        self.lat_min = item["storeDTO"]["latitude"].doubleValue
+                        self.lng_min = item["storeDTO"]["longitude"].doubleValue
+//                        print("\(self.lat_min), \(self.lng_min)")
                     }
                     self.setCourse(index, item["storeDTO"])
                 }
+                
+                self.courseNm = JSON(response.value!)["courseNm"].stringValue
                 self.totalPrice = JSON(response.value!)["totalPrice"].intValue
                 self.costTm = JSON(response.value!)["costTm"].intValue
                 self.setCourseInfo(self.totalPrice,self.costTm)
+                self.navigationItem.title = self.courseNm
             }
         }
     }
@@ -332,7 +423,7 @@ class CourseViewController: UIViewController {
         date.locale = Locale(identifier: "ko_kr")
         date.timeZone = TimeZone(abbreviation: "KST") // "2018-03-21 18:07:27"
         date.dateFormat = "yy-MM-dd"
-
+        
         let todayString = date.string(from: now) + " 코스"
         let alertController = UIAlertController(title: "코스 제목을 입력해 주세요.", message: nil, preferredStyle: UIAlertController.Style.alert)
         alertController.addTextField{ (textField) in
@@ -367,7 +458,7 @@ class CourseViewController: UIViewController {
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-//            debugPrint(response)
+            //            debugPrint(response)
             if response.value != nil {
                 let navigationVCList = self.navigationController!.viewControllers
                 //print(navigationVCList.count)

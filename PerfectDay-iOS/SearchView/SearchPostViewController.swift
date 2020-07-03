@@ -24,13 +24,13 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    let strHashTag = ["건대", "홍대", "강남", "이색", "고궁", "tv방영", "가성비", "고급진", "국밥", "방탈출", "야식", "비오는날", "100일데이트코스", "커플100%되는곳", "킬링타임코스", "호불호없는"]
+
     let btnMargin:CGFloat = -10
     var scrollPostList = UIScrollView()
     var svPostList = UIStackView()
     var btnScrollUp = UIButton(type: .custom)
     let lblCountPost = UILabel()
+    let svEmptyGuide = UIStackView()
     let segmentControl = MaterialSegmentedControl()
     let userData = getUserData()
     var boardSn: String = ""
@@ -46,6 +46,7 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
         //        setScroll(UIScrollView())
         setPostUI()
         setScrollUI()
+         setEmptyUI()
     }
     override func viewWillAppear(_ animated: Bool) {
         view.endEditing(true)
@@ -154,16 +155,21 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
     func setPostList(){
         svPostList.removeSubviews()
         lblCountPost.text = String(searchData.arrayValue.count)
-        for post in searchData.arrayValue {
-            let postView = makeTempUv(post)
-            svPostList.addArrangedSubview(postView)
+        if searchData.arrayValue.isEmpty {
+            svEmptyGuide.isHidden = false
+        } else {
+            svEmptyGuide.isHidden = true
+            for post in searchData.arrayValue {
+                let postView = makeTempUv(post)
+                svPostList.addArrangedSubview(postView)
+            }
+            svPostList.translatesAutoresizingMaskIntoConstraints = false
+            let endLbl = UILabel()
+            endLbl.text = " "
+            endLbl.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
+            endLbl.backgroundColor = .white
+            svPostList.addArrangedSubview(endLbl)
         }
-        svPostList.translatesAutoresizingMaskIntoConstraints = false
-        let endLbl = UILabel()
-        endLbl.text = " "
-        endLbl.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
-        endLbl.backgroundColor = .white
-        svPostList.addArrangedSubview(endLbl)
         let searchView = self.parent?.parent as! SearchViewController
         searchView.indicLoading.stopAnimating()
     }
@@ -236,6 +242,7 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
                 btn.layer.cornerRadius = 15
                 btn.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
                 btn.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
+                btn.addTarget(self, action: #selector(searchByTag(_:)), for: .touchUpInside)
                 svTag.addArrangedSubview(btn)
             }
         }
@@ -359,6 +366,12 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
         
         
         return viewPost
+    }
+    @objc func searchByTag(_ sender: UIButton){
+        let strTag = sender.titleLabel!.text!.trimmingCharacters(in: ["#"," "])
+        selectedTag = strTag
+        self.tabBarController?.selectedViewController = self.tabBarController?.children[1]
+        
     }
     
     @objc func likePost(_ sender: FlatButton) {
@@ -534,6 +547,37 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
         svPostList.widthAnchor.constraint(equalTo: scrollPostList.widthAnchor, multiplier: 1).isActive = true
         svPostList.topAnchor.constraint(equalTo: scrollPostList.topAnchor, constant: 0).isActive = true
         svPostList.bottomAnchor.constraint(equalTo: scrollPostList.bottomAnchor, constant: 0).isActive = true
+    }
+    
+    func setEmptyUI(){
+        let imageView = UIImageView(image: UIImage(named: "EmptyDataGuide"))
+        imageView.contentMode = .scaleAspectFit
+        let lblFirst: UILabel = {
+            let label = UILabel()
+            label.text = "검색 결과가 없습니다."
+            label.textAlignment = .center
+            label.font = UIFont.boldSystemFont(ofSize: 17)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        let lblSecond: UILabel = {
+            let label = UILabel()
+            label.text = "다른 키워드를 입력해주세요."
+            label.textAlignment = .center
+            label.fontSize = 15
+            label.textColor = .darkGray
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        svEmptyGuide.addArrangedSubview(imageView)
+        svEmptyGuide.addArrangedSubview(lblFirst)
+        svEmptyGuide.addArrangedSubview(lblSecond)
+        svEmptyGuide.axis = .vertical
+        svEmptyGuide.isHidden = true
+        view.addSubview(svEmptyGuide)
+        svEmptyGuide.translatesAutoresizingMaskIntoConstraints = false
+        svEmptyGuide.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        svEmptyGuide.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
     // MARK: - IndicatorInfoProvider

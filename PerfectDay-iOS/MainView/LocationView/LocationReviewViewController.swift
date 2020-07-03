@@ -22,9 +22,6 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    let strHashTag = ["건대", "홍대", "강남", "이색", "고궁", "tv방영", "가성비", "고급진", "국밥", "방탈출", "야식", "비오는날", "100일데이트코스", "커플100%되는곳", "킬링타임코스", "호불호없는"]
-
     var scvList = UIScrollView()
     var svPostList = UIStackView()
     var btnScrollUp = UIButton(type: .custom)
@@ -283,6 +280,7 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
                  btn.layer.cornerRadius = 15
                  btn.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
                  btn.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
+                btn.addTarget(self, action: #selector(searchByTag(_:)), for: .touchUpInside)
                  svTag.addArrangedSubview(btn)
              }
          }
@@ -392,6 +390,11 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
         viewPost.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gotoPost(_:))))
         
         return viewPost
+    }
+    @objc func searchByTag(_ sender: UIButton){
+        let strTag = sender.titleLabel!.text!.trimmingCharacters(in: ["#"," "])
+        selectedTag = strTag
+        self.tabBarController?.selectedViewController = self.tabBarController?.children[1]
     }
     
     @objc func gotoPost(_ sender : UITapGestureRecognizer){

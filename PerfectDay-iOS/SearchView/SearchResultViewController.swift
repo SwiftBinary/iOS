@@ -35,7 +35,7 @@ class SearchResultViewController: ButtonBarPagerTabStripViewController{
             guard changeCurrentIndex == true else { return }
             oldCell?.label.textColor = .black
             newCell?.label.textColor = self?.colorPink
-            print(self?.currentIndex)
+//            print(self?.currentIndex)
         }
     }
     

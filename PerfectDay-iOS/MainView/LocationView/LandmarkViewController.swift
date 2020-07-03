@@ -12,6 +12,7 @@ import Alamofire
 
 class LandmarkViewController: UIViewController {
     
+    @IBOutlet var imgLandMark: UIImageView!
     @IBOutlet var svHashTag: UIStackView!
     @IBOutlet var scLandmark: UIScrollView!
     @IBOutlet var svLandmark: UIStackView!
@@ -25,9 +26,92 @@ class LandmarkViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        indicLoading.center = view.center
+//        indicLoading.center = view.center
+        setLandmarkMapImg()
         getHashTag(svHashTag)
         getLandmarkInfo()
+    }
+    func setLandmarkMapImg() {
+        switch areaSdDetailCode {
+        case "01" :
+            imgLandMark.image = UIImage(named: "Landmark_Gangnam")
+            break
+        case "02" :
+            imgLandMark.image = UIImage(named: "Landmark_Gangdong")
+            break
+        case "03" :
+            imgLandMark.image = UIImage(named: "Landmark_Gangbuk")
+            break
+        case "04" :
+            imgLandMark.image = UIImage(named: "Landmark_Gangseo")
+            break
+        case "05" :
+            imgLandMark.image = UIImage(named: "Landmark_Gwanak")
+            break
+        case "06" :
+            imgLandMark.image = UIImage(named: "Landmark_Gwangjin")
+            break
+        case "07" :
+            imgLandMark.image = UIImage(named: "Landmark_Guro")
+            break
+        case "08" :
+            imgLandMark.image = UIImage(named: "Landmark_Geumcheon")
+            break
+        case "09" :
+            imgLandMark.image = UIImage(named: "Landmark_Nowon")
+            break
+        case "10" :
+            imgLandMark.image = UIImage(named: "Landmark_Dobong")
+            break
+        case "11" :
+            imgLandMark.image = UIImage(named: "Landmark_Dongdaemun")
+            break
+        case "12" :
+            imgLandMark.image = UIImage(named: "Landmark_Dongjak")
+            break
+        case "13" :
+            imgLandMark.image = UIImage(named: "Landmark_Mapo")
+            break
+        case "14" :
+            imgLandMark.image = UIImage(named: "Landmark_Seodaemun")
+            break
+        case "15" :
+            imgLandMark.image = UIImage(named: "Landmark_Seocho")
+            break
+        case "16" :
+            imgLandMark.image = UIImage(named: "Landmark_Seongdong")
+            break
+        case "17" :
+            imgLandMark.image = UIImage(named: "Landmark_Seongbuk")
+            break
+        case "18" :
+            imgLandMark.image = UIImage(named: "Landmark_Songpa")
+            break
+        case "19" :
+            imgLandMark.image = UIImage(named: "Landmark_Yangcheon")
+            break
+        case "20" :
+            imgLandMark.image = UIImage(named: "Landmark_Yeongdeungpo")
+            break
+        case "21" :
+            imgLandMark.image = UIImage(named: "Landmark_Yongsan")
+            break
+        case "22" :
+            imgLandMark.image = UIImage(named: "Landmark_Eunpyeong")
+            break
+        case "23" :
+            imgLandMark.image = UIImage(named: "Landmark_Jongro")
+            break
+        case "24" :
+            imgLandMark.image = UIImage(named: "Landmark_Jung")
+            break
+        case "25" :
+            imgLandMark.image = UIImage(named: "Landmark_Jungnang")
+            break
+        default :
+            imgLandMark.image = UIImage(named: "")
+            break
+        }
     }
     func getHashTag(_ svTag: UIStackView){
         let url = OperationIP + "/tag/selectHashTagList.do"
@@ -45,8 +129,14 @@ class LandmarkViewController: UIViewController {
             btnHashTag.layer.cornerRadius = 15
             btnHashTag.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
             btnHashTag.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
+            btnHashTag.addTarget(self, action: #selector(searchByTag(_:)), for: .touchUpInside)
             svTag.addArrangedSubview(btnHashTag)
         }
+    }
+    @objc func searchByTag(_ sender: UIButton){
+        let strTag = sender.titleLabel!.text!.trimmingCharacters(in: ["#"," "])
+        selectedTag = strTag
+        self.tabBarController?.selectedViewController = self.tabBarController?.children[1]
     }
     
     func getLandmarkInfo(){

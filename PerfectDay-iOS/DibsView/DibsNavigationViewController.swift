@@ -12,12 +12,15 @@ class DibsNavigationViewController: UIViewController {
     
     @IBOutlet var bbtnCancelCreateCourse: UIBarButtonItem!
     var dibsView: DibsViewController?
+    @IBOutlet var indicLoading: UIActivityIndicatorView!
+    //    var indicLoading: UIActivityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         bbtnCancelCreateCourse.title = " "
         bbtnCancelCreateCourse.isEnabled = false
-        
+        indicLoading.center = view.center
+        indicLoading.stopAnimating()
         // NavigationBar 아래 선 지우는 코드
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false

@@ -85,7 +85,7 @@ class WriteReviewViewController: UIViewController, UITextFieldDelegate, UIImageP
                 if index <= value {
                     starImage.image = UIImage(named: "GPAIcon")
                 }else{
-                    starImage.image = UIImage(named: "GPAIcon-1")
+                    starImage.image = UIImage(named: "GPAIconOff")
                 }
             }
         }
@@ -257,7 +257,7 @@ class WriteReviewViewController: UIViewController, UITextFieldDelegate, UIImageP
                 if index <= Int(roundValue) {
                     starImage.image = UIImage(named: "GPAIcon")
                 }else{
-                    starImage.image = UIImage(named: "GPAIcon-1")
+                    starImage.image = UIImage(named: "GPAIconOff")
                 }
             }
         }
@@ -268,7 +268,6 @@ class WriteReviewViewController: UIViewController, UITextFieldDelegate, UIImageP
     
     /*
     // MARK: - Navigation
-    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     // Get the new view controller using segue.destination.

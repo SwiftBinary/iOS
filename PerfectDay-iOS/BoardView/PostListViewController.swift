@@ -233,6 +233,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
                 btn.layer.cornerRadius = 15
                 btn.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
                 btn.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
+                btn.addTarget(self, action: #selector(searchByTag(_:)), for: .touchUpInside)
                 svTag.addArrangedSubview(btn)
             }
         }
@@ -360,6 +361,11 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         
         
         return viewPost
+    }
+    @objc func searchByTag(_ sender: UIButton){
+        let strTag = sender.titleLabel!.text!.trimmingCharacters(in: ["#"," "])
+        selectedTag = strTag
+        self.tabBarController?.selectedViewController = self.tabBarController?.children[1]        
     }
     
     @objc func likePost(_ sender: FlatButton) {

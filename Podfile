@@ -13,6 +13,7 @@ pod 'Alamofire', '~> 5.0.0-rc.3'
 pod 'CryptoSwift', '~> 1.0'
 pod 'Material', '~> 3.1.0'
 pod 'naveridlogin-sdk-ios', '~> 4.1.2'
+pod 'NMapsMap'
 #pod 'FBSDKLoginKit', '~> 7.0.0'
   # Pods for PerfectDay-iOS
 end

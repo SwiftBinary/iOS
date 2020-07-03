@@ -25,6 +25,7 @@
 		C739126C2406376900954617 /* AcceptContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C739126B2406376900954617 /* AcceptContentViewController.swift */; };
 		C739126E240638C000954617 /* ContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C739126D240638C000954617 /* ContentData.swift */; };
 		C748813823FA472100E8C926 /* FilterLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C748813723FA472100E8C926 /* FilterLocationViewController.swift */; };
+		C74AF12524AF046E0097CCE8 /* MainThemeMap.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C74AF12424AF046E0097CCE8 /* MainThemeMap.xcassets */; };
 		C74D96CC23E7B1E9000E26C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74D96CB23E7B1E9000E26C3 /* AppDelegate.swift */; };
 		C74D96CE23E7B1E9000E26C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74D96CD23E7B1E9000E26C3 /* SceneDelegate.swift */; };
 		C74D96D023E7B1E9000E26C3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74D96CF23E7B1E9000E26C3 /* MainViewController.swift */; };
@@ -57,7 +58,7 @@
 		C77D691D24A709E900320903 /* CommonDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77D691C24A709E900320903 /* CommonDTO.swift */; };
 		C77D691F24A70B9200320903 /* StoreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77D691E24A70B9200320903 /* StoreDTO.swift */; };
 		C7824799243CB65A003D690F /* FindBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7824798243CB65A003D690F /* FindBackViewController.swift */; };
-		C78271CA24A2137D00290505 /* MainLandmarkMap.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C78271C924A2137D00290505 /* MainLandmarkMap.xcassets */; };
+		C79FFB5824AB12EA00A52D0A /* OneClickCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79FFB5724AB12EA00A52D0A /* OneClickCourseViewController.swift */; };
 		C7B0D2A92417E71700BF1467 /* WriteReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B0D2A82417E71700BF1467 /* WriteReviewViewController.swift */; };
 		C7C1FE6D23EC14060022C957 /* SearchSetLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C1FE6C23EC14060022C957 /* SearchSetLocationViewController.swift */; };
 		C7C6811B23F131A10016412B /* PostListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C6811A23F131A10016412B /* PostListViewController.swift */; };
@@ -107,6 +108,7 @@
 		C739126B2406376900954617 /* AcceptContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptContentViewController.swift; sourceTree = "<group>"; };
 		C739126D240638C000954617 /* ContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentData.swift; sourceTree = "<group>"; };
 		C748813723FA472100E8C926 /* FilterLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterLocationViewController.swift; sourceTree = "<group>"; };
+		C74AF12424AF046E0097CCE8 /* MainThemeMap.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = MainThemeMap.xcassets; path = ../../../Downloads/MainThemeMap.xcassets; sourceTree = "<group>"; };
 		C74D96C823E7B1E9000E26C3 /* PerfectDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PerfectDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C74D96CB23E7B1E9000E26C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C74D96CD23E7B1E9000E26C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -141,7 +143,7 @@
 		C77D691C24A709E900320903 /* CommonDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDTO.swift; sourceTree = "<group>"; };
 		C77D691E24A70B9200320903 /* StoreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDTO.swift; sourceTree = "<group>"; };
 		C7824798243CB65A003D690F /* FindBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindBackViewController.swift; sourceTree = "<group>"; };
-		C78271C924A2137D00290505 /* MainLandmarkMap.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MainLandmarkMap.xcassets; sourceTree = "<group>"; };
+		C79FFB5724AB12EA00A52D0A /* OneClickCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneClickCourseViewController.swift; sourceTree = "<group>"; };
 		C7B0D2A82417E71700BF1467 /* WriteReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewController.swift; sourceTree = "<group>"; };
 		C7B4B9F923F4F8930066B66A /* PerfectDay-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "PerfectDay-iOS.entitlements"; sourceTree = "<group>"; };
 		C7C1FE6C23EC14060022C957 /* SearchSetLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSetLocationViewController.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				C759B54A247F3DD60080E150 /* LocationInfoViewController.swift */,
 				C7D8263B241629C0005A9D5A /* PlannerViewController.swift */,
 				C7D8263D24162A09005A9D5A /* CourseViewController.swift */,
+				C79FFB5724AB12EA00A52D0A /* OneClickCourseViewController.swift */,
 			);
 			path = LocationView;
 			sourceTree = "<group>";
@@ -249,7 +252,7 @@
 				C701C6CA2437884D0079B395 /* EnumValue.swift */,
 				C74D96D123E7B1E9000E26C3 /* Main.storyboard */,
 				C74D96D423E7B1ED000E26C3 /* Assets.xcassets */,
-				C78271C924A2137D00290505 /* MainLandmarkMap.xcassets */,
+				C74AF12424AF046E0097CCE8 /* MainThemeMap.xcassets */,
 				C76A0FF22484E5E4008AC74C /* CategoryCircleIcon.xcassets */,
 				C76A0FF02484E56E008AC74C /* Temp.xcassets */,
 				C70D540C249268060044835E /* Planner.xcassets */,
@@ -414,8 +417,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C77D1A492467ED2F0015A449 /* Dibs.storyboard in Resources */,
-				C78271CA24A2137D00290505 /* MainLandmarkMap.xcassets in Resources */,
 				C7EFBFCB23E907130034966C /* Login.storyboard in Resources */,
+				C74AF12524AF046E0097CCE8 /* MainThemeMap.xcassets in Resources */,
 				C77D1A432467E90E0015A449 /* MyPage.storyboard in Resources */,
 				C76A0FF12484E56E008AC74C /* Temp.xcassets in Resources */,
 				C76A0FF32484E5E4008AC74C /* CategoryCircleIcon.xcassets in Resources */,
@@ -507,6 +510,7 @@
 				C77D691F24A70B9200320903 /* StoreDTO.swift in Sources */,
 				C759B54F247F3F760080E150 /* LocationViewTabController.swift in Sources */,
 				C76ED01A24037607003E21F1 /* ShowPostViewController.swift in Sources */,
+				C79FFB5824AB12EA00A52D0A /* OneClickCourseViewController.swift in Sources */,
 				C76ED01C2403D1F2003E21F1 /* SetUserInfoViewController.swift in Sources */,
 				C76B37EC23EA6F2900B05A45 /* ShowInfoViewController.swift in Sources */,
 				C773ECB024A6428600794F87 /* UserDTO.swift in Sources */,

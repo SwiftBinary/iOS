@@ -127,8 +127,10 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         let currentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
 
-        // Change 10.0 to adjust the distance from bottom
-        if maximumOffset - currentOffset <= 200.0 {
+        print(currentOffset)
+        print(maximumOffset)
+
+        if currentOffset - maximumOffset > 100.0 {
             self.loadMore()
         }
     }
@@ -148,7 +150,6 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
             print("Block")
         }
     }
-    
     
     //filter PopUp
     @IBAction func FilterPopup(_ sender: UIButton!) {
@@ -491,7 +492,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         
         let lblStoreType = UILabel()
         setPref(lblStoreType,item["prefSn"].string!,item["prefData"].string!)
-        lblStoreType.text = "장소유형"
+//        lblStoreType.text = "장소유형"
         lblStoreType.fontSize = fontSize
         lblStoreType.textColor = .systemBlue
         let lblStoreNm = UILabel()
@@ -669,7 +670,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     func makeHashTag(_ str: String,_ svHashTag: UIStackView){
         let fontSize:CGFloat = 12
         let HashTagBtn = UIButton(type: .system)
-        //        HashTagBtn.isUserInteractionEnabled = false
+        HashTagBtn.isUserInteractionEnabled = false
         HashTagBtn.setTitle("#"+str+" ", for: .normal)
         HashTagBtn.setTitleColor(.lightGray, for: .normal)
         //        HashTagBtn.backgroundColor = .lightGray

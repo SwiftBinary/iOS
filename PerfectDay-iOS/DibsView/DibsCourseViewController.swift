@@ -23,10 +23,12 @@ class DibsCourseViewController: UIViewController,UIGestureRecognizerDelegate, In
     let scrollMain = UIScrollView()
     let svMain = UIStackView()
     let btnScrollUp = UIButton(type: .custom)
+    let indicLoading = UIActivityIndicatorView(style: .whiteLarge)
+    let svEmptyGuide = UIStackView()
     
     let userData = getUserData()
     var responseJSON:JSON = []
-    
+//    var dibView: DibsNavigationViewController?
     
     init(itemInfo: IndicatorInfo) {
         self.itemInfo = itemInfo
@@ -38,11 +40,17 @@ class DibsCourseViewController: UIViewController,UIGestureRecognizerDelegate, In
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(indicLoading)
+        indicLoading.hidesWhenStopped = true
+        indicLoading.center = view.center
+        indicLoading.color = #colorLiteral(red: 0.9545153975, green: 0.4153810143, blue: 0.6185087562, alpha: 1)
+        setEmptyGuideUI()
         //        requestCourse()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
+        indicLoading.startAnimating()
         svMain.removeSubviews()
         requestCourse()
     }
@@ -63,11 +71,44 @@ class DibsCourseViewController: UIViewController,UIGestureRecognizerDelegate, In
             if response.value != nil {
                 self.responseJSON = JSON(response.value!)
                 //                print("#########################################################")
-                //                print(self.responseJSON)
+//                                print(self.responseJSON)
                 //                print("##")
+                self.svEmptyGuide.isHidden = !self.responseJSON.arrayValue.isEmpty
+//                print(self.responseJSON.arrayValue)
                 self.setUI()
             }
         }
+    }
+    
+    func setEmptyGuideUI() {
+        let imageView = UIImageView(image: UIImage(named: "EmptyDataGuide"))
+        imageView.contentMode = .scaleAspectFit
+        let lblFirst: UILabel = {
+            let label = UILabel()
+            label.text = "찜한 코스가 없습니다."
+            label.textAlignment = .center
+            label.font = UIFont.boldSystemFont(ofSize: 17)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        let lblSecond: UILabel = {
+            let label = UILabel()
+            label.text = "코스를 생성해주세요."
+            label.textAlignment = .center
+            label.fontSize = 15
+            label.textColor = .darkGray
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        svEmptyGuide.addArrangedSubview(imageView)
+        svEmptyGuide.addArrangedSubview(lblFirst)
+        svEmptyGuide.addArrangedSubview(lblSecond)
+        svEmptyGuide.axis = .vertical
+        svEmptyGuide.isHidden = true
+        view.addSubview(svEmptyGuide)
+        svEmptyGuide.translatesAutoresizingMaskIntoConstraints = false
+        svEmptyGuide.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        svEmptyGuide.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
     func setUI(){
@@ -91,6 +132,9 @@ class DibsCourseViewController: UIViewController,UIGestureRecognizerDelegate, In
         panGestureRecongnizer.delegate = self
         scrollMain.addGestureRecognizer(panGestureRecongnizer)
         
+        indicLoading.stopAnimating()
+//        let dibView = self.parent?.parent as! DibsNavigationViewController
+//        dibView.indicLoading.stopAnimating()
     }
     
     func setCourseStack(_ responseData: JSON){
@@ -174,7 +218,6 @@ class DibsCourseViewController: UIViewController,UIGestureRecognizerDelegate, In
                 }
             }
         }
-        
         
         if placeArr.count != 5 {
             for _ in placeArr.count...4 {
@@ -350,23 +393,22 @@ class DibsCourseViewController: UIViewController,UIGestureRecognizerDelegate, In
         
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         
-        print(convertedParameterString)
+//        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             if response.value != nil {
                 let requestJSON = JSON(response.value!)
-                print("##")
-                print("## " + requestJSON["result"].stringValue + " ##")
-                print("##")
+//                print("##")
+//                print("## " + requestJSON["result"].stringValue + " ##")
+//                print("##")
                 
                 for (index,view) in self.svMain.arrangedSubviews.enumerated() {
                     if view.accessibilityIdentifier == strCourseSn{
-//                        view.isHidden = true
                         self.svMain.arrangedSubviews[index].removeFromSuperview()
                     }
                 }
                 
-//                self.requestCourse()
+                self.requestCourse()
             }
         }
     }

@@ -14,21 +14,19 @@ import XLPagerTabStrip
 
 class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     
-    var itemInfo: IndicatorInfo = "View"
-    
-    let testNum = 10
-    let lightGray = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-    
     let btnCreateCourse = UIButton(type: .custom)
     let scrollMain = UIScrollView()
-    var createONOFF = false
-    
+    let testNum = 10
+    let lightGray = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     let btnStartCreateCourse = UIButton(type: .custom)
     let svMain = UIStackView()
+    let svEmptyGuide = UIStackView()
+    let userData = getUserData()
+    
+    var createONOFF = false
+    var itemInfo: IndicatorInfo = "View"
     var sequence : Int = 0
     var temp = 0
-    
-    let userData = getUserData()
     var responseJSON:JSON = []
     var selectedStoresn : Array<String> = ["","","","",""]
     
@@ -43,12 +41,14 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationBar()
-        requestPost()
+        setEmptyGuideUI()
+        
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
+        requestPost()
     }
     
     func setNavigationBar(){
@@ -58,25 +58,59 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     }
     
     func requestPost(){
+        svMain.removeSubviews()
         let url = OperationIP + "/pick/selectPickInfoList.do"
         let parameter = JSON([
             "bReverse": true
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        //
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-//            debugPrint(response)
+            //            debugPrint(response)
             if response.value != nil {
                 self.responseJSON = JSON(response.value!)
-//                print("##")
-//                print(self.responseJSON)
-//                print("##")
-                self.setUI(self.responseJSON)
+                //                print("##")
+                //                print(self.responseJSON)
+                //                print("##")
+                self.svEmptyGuide.isHidden = !self.responseJSON.arrayValue.isEmpty
+                self.btnStartCreateCourse.isHidden = self.responseJSON.arrayValue.isEmpty
+                self.btnCreateCourse.isHidden = self.responseJSON.arrayValue.isEmpty
+                if !self.responseJSON.arrayValue.isEmpty { self.setUI(self.responseJSON) }
             }
         }
+    }
+    
+    func setEmptyGuideUI() {
+        let imageView = UIImageView(image: UIImage(named: "EmptyDataGuide"))
+        imageView.contentMode = .scaleAspectFit
+        let lblFirst: UILabel = {
+            let label = UILabel()
+            label.text = "찜 목록이 비었습니다."
+            label.textAlignment = .center
+            label.font = UIFont.boldSystemFont(ofSize: 17)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        let lblSecond: UILabel = {
+            let label = UILabel()
+            label.text = "장소를 찜해주세요."
+            label.textAlignment = .center
+            label.fontSize = 15
+            label.textColor = .darkGray
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        svEmptyGuide.addArrangedSubview(imageView)
+        svEmptyGuide.addArrangedSubview(lblFirst)
+        svEmptyGuide.addArrangedSubview(lblSecond)
+        svEmptyGuide.axis = .vertical
+        svEmptyGuide.isHidden = true
+        view.addSubview(svEmptyGuide)
+        svEmptyGuide.translatesAutoresizingMaskIntoConstraints = false
+        svEmptyGuide.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        svEmptyGuide.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
     func setLocationStack(_ responseData: JSON){
@@ -111,7 +145,8 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         svMain.addArrangedSubview(topView)
         let arrayData = responseData.arrayValue
         var arrNum = responseData.arrayValue.capacity - 1
-        if arrNum > 0 {
+        print(responseData.arrayValue.capacity)
+        if arrNum >= 0 {
             for i in 0...responseData.arrayValue.capacity - 1 {
                 if (responseData.arrayValue.capacity - 1) % 2 == 1{
                     if arrNum % 2 == 1{
@@ -132,17 +167,17 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         svMain.addArrangedSubview(bottomView)
     }
     func addLocationItem(_ index1 : Int,_ index2 : Int,_ data1: JSON,_ data2: JSON,_ mainStack: UIStackView){
-    let svTwoItem = UIStackView()
-    svTwoItem.axis = .horizontal
-    svTwoItem.spacing = 15
-    
-    svTwoItem.addArrangedSubview(makeItem(data1, index1))
-    if data2 == [] { svTwoItem.addArrangedSubview(makeTempItem()) }
-    else { svTwoItem.addArrangedSubview(makeItem(data2, index2)) }
-    
-    svTwoItem.backgroundColor = .systemPink
-    svTwoItem.distribution = .fillEqually
-    mainStack.addArrangedSubview(svTwoItem)
+        let svTwoItem = UIStackView()
+        svTwoItem.axis = .horizontal
+        svTwoItem.spacing = 15
+        
+        svTwoItem.addArrangedSubview(makeItem(data1, index1))
+        if data2 == [] { svTwoItem.addArrangedSubview(makeTempItem()) }
+        else { svTwoItem.addArrangedSubview(makeItem(data2, index2)) }
+        
+        svTwoItem.backgroundColor = .systemPink
+        svTwoItem.distribution = .fillEqually
+        mainStack.addArrangedSubview(svTwoItem)
     }
     
     func makeItem(_ DibsLocData: JSON, _ index : Int) -> UIView {
@@ -265,6 +300,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         btnRemove.topAnchor.constraint(equalTo: uvLocation.topAnchor, constant: 5).isActive = true
         btnRemove.trailingAnchor.constraint(equalTo: uvLocation.trailingAnchor, constant: -5).isActive = true
         btnRemove.accessibilityIdentifier = DibsLocData["storeSn"].string
+        btnRemove.tag = -(index+1) * 10
         btnRemove.addTarget(self, action: #selector(removeDidLocation(_:)), for: .touchUpInside)
         
         let btnCheck = IconButton(image: nil)
@@ -292,11 +328,11 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         let uvLocation = UIView()
         uvLocation.translatesAutoresizingMaskIntoConstraints = false
         
-//        uvLocation.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tempFunc)))
+        //        uvLocation.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tempFunc)))
         
         let imgItem = UIImageView()
-//        imgItem.heightAnchor.constraint(equalToConstant: view.frame.width * 0.345).isActive = true
-//        imgItem.widthAnchor.constraint(equalToConstant: view.frame.width * 0.425).isActive = true
+        //        imgItem.heightAnchor.constraint(equalToConstant: view.frame.width * 0.345).isActive = true
+        //        imgItem.widthAnchor.constraint(equalToConstant: view.frame.width * 0.425).isActive = true
         imgItem.contentMode = .scaleAspectFill
         imgItem.clipsToBounds = true
         imgItem.layer.cornerRadius = 5
@@ -334,8 +370,8 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         svItemInfo.distribution = .fillProportionally
         let uvItemInfo = UIView()
         uvItemInfo.addSubview(svItemInfo)
-//        uvItemInfo.widthAnchor.constraint(equalToConstant: view.frame.width * 0.425).isActive = true
-//        uvItemInfo.heightAnchor.constraint(equalToConstant: view.frame.width * 0.185).isActive = true
+        //        uvItemInfo.widthAnchor.constraint(equalToConstant: view.frame.width * 0.425).isActive = true
+        //        uvItemInfo.heightAnchor.constraint(equalToConstant: view.frame.width * 0.185).isActive = true
         uvItemInfo.addConstraint(NSLayoutConstraint(item: svItemInfo, attribute: .centerX, relatedBy: .equal, toItem: uvItemInfo, attribute: .centerX, multiplier: 1, constant: 0))
         uvItemInfo.addConstraint(NSLayoutConstraint(item: svItemInfo, attribute: .centerY, relatedBy: .equal, toItem: uvItemInfo, attribute: .centerY, multiplier: 1, constant: 0))
         svItemInfo.widthAnchor.constraint(equalTo: uvItemInfo.widthAnchor, multiplier: 0.9).isActive = true
@@ -346,8 +382,8 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         svItem.axis = .vertical
         svItem.distribution = .fill
         uvLocation.addSubview(svItem)
-//        uvLocation.widthAnchor.constraint(equalToConstant: view.frame.width * 0.425).isActive = true
-//        uvLocation.heightAnchor.constraint(equalToConstant: view.frame.width * 0.530).isActive = true
+        //        uvLocation.widthAnchor.constraint(equalToConstant: view.frame.width * 0.425).isActive = true
+        //        uvLocation.heightAnchor.constraint(equalToConstant: view.frame.width * 0.530).isActive = true
         uvLocation.addConstraint(NSLayoutConstraint(item: svItem, attribute: .centerX, relatedBy: .equal, toItem: uvLocation, attribute: .centerX, multiplier: 1, constant: 0))
         uvLocation.addConstraint(NSLayoutConstraint(item: svItem, attribute: .centerY, relatedBy: .equal, toItem: uvLocation, attribute: .centerY, multiplier: 1, constant: 0))
         svItem.widthAnchor.constraint(equalTo: uvLocation.widthAnchor, multiplier: 1).isActive = true
@@ -391,7 +427,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     
     @objc func goToStoreInfo(_ sender: UITapGestureRecognizer){
         let storeSn = sender.view?.accessibilityIdentifier
-//        UserDefaults.standard.setValue(storeSn, forKey: locationSnKey)
+        //        UserDefaults.standard.setValue(storeSn, forKey: locationSnKey)
         getLocationInfo(storeSn!)
     }
     func getLocationInfo(_ locationSn : String) {
@@ -409,7 +445,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
                 print(responseJSON)
                 //                    self.uds.set(responseJSON.dictionaryObject, forKey: locationDataKey)
                 locationData = responseJSON
-
+                
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let goToVC = storyboard.instantiateViewController(withIdentifier: "locationInfoView")
                 self.navigationController?.pushViewController(goToVC, animated: true)
@@ -426,6 +462,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     }
     
     func setUI(_ json: JSON){
+
         setLocationStack(json)
         
         btnStartCreateCourse.setImage(UIImage(named: "StartCreateCourse"), for: .normal)
@@ -434,7 +471,6 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         btnStartCreateCourse.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
         btnStartCreateCourse.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
         btnStartCreateCourse.addTarget(self, action: #selector(startCreateCourse(_:)), for: .touchUpInside)
-        btnStartCreateCourse.isHidden = false
         
         btnCreateCourse.setTitle("확인하기", for: .normal)
         btnCreateCourse.setTitleColor(.white, for: .normal)
@@ -454,6 +490,9 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         btnCreateCourse.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15).isActive = true
         btnCreateCourse.isHidden = true
         btnCreateCourse.addTarget(self, action: #selector(createCourse(_:)), for: .touchUpInside)
+        
+        let dibView = self.parent?.parent as! DibsNavigationViewController
+        dibView.indicLoading.stopAnimating()
     }
     
     // ##################################################
@@ -462,6 +501,8 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     func EndCreateCourse(){
         for i in 1...self.responseJSON.arrayValue.capacity {
             self.svMain.viewWithTag(i*10)?.isHidden = true
+            self.svMain.viewWithTag(i*10+1)?.isHidden = true
+            self.svMain.viewWithTag(-i*10)?.isHidden = false
         }
         self.btnCreateCourse.isHidden = true
         self.btnStartCreateCourse.isHidden = false
@@ -475,7 +516,10 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         btnCreateCourse.isHidden = false
         for i in 1...responseJSON.arrayValue.capacity {
             self.svMain.viewWithTag(i*10)?.isHidden = false
+            self.svMain.viewWithTag(-i*10)?.isHidden = true
+            self.svMain.viewWithTag(i*10+1)?.isHidden = false
         }
+        
     }
     @objc func checkPick(_ sender: UIButton) {
         if sender.tag % 10 == 0 {
@@ -575,7 +619,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     @objc func gotoCouresView(){
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let goToVC = storyboard.instantiateViewController(withIdentifier: "courseView")
+        //        let goToVC = storyboard.instantiateViewController(withIdentifier: "courseView")
         //        self.present(goToVC, animated: true, completion: nil)
         //rvc 가 옵셔널 타입이므로 guard 구문을 통해서 옵셔널 바인딩 처리
         guard let rvc = storyboard.instantiateViewController(withIdentifier: "courseView") as? CourseViewController else {

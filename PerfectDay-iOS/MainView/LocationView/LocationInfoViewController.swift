@@ -12,6 +12,7 @@ import SwiftyJSON
 import XLPagerTabStrip
 import ImageSlideshow
 import Alamofire
+import NMapsMap
 
 class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,IndicatorInfoProvider,MKMapViewDelegate {
     var itemInfo: IndicatorInfo = "View"
@@ -25,12 +26,12 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
     
     let scvLocationInfo = UIScrollView()
     let svLocationInfo = UIStackView()
-    
     let sizeTitle:CGFloat = 20
     let sizeContent:CGFloat = 14
     let svMenuList = UIStackView()
-    
     let userData = getUserData() // Dictionary<String,Any>
+    
+    var naverMapView = NMFMapView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,6 +103,7 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
             btnHashTag.layer.cornerRadius = 15
             btnHashTag.layer.backgroundColor = #colorLiteral(red: 0.9606898427, green: 0.9608504176, blue: 0.9606687427, alpha: 1)
             btnHashTag.tintColor = #colorLiteral(red: 0.4588235294, green: 0.4588235294, blue: 0.4588235294, alpha: 1)
+            btnHashTag.addTarget(self, action: #selector(searchByTag(_:)), for: .touchUpInside)
             svTag.addArrangedSubview(btnHashTag)
         }
         svTag.translatesAutoresizingMaskIntoConstraints = false
@@ -169,10 +171,15 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
         
         svLocationInfo.addArrangedSubview(uvBack)
     }
+
     func getReprMenuName(_ menuList: [JSON]) -> String{
         menuList.filter{ $0["isRepr"].stringValue == "001" }[0]["menuNm"].stringValue
     }
-    
+    @objc func searchByTag(_ sender: UIButton){
+        let strTag = sender.titleLabel!.text!.trimmingCharacters(in: ["#"," "])
+        selectedTag = strTag
+        self.tabBarController?.selectedViewController = self.tabBarController?.children[1]
+    }
     func addMenu(_ menu:JSON) -> UIStackView {
         let lblMenuName = UILabel()
         lblMenuName.textColor = .darkText
@@ -218,15 +225,42 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
     }
     
     func setMapUI() {
-        let mapView = MKMapView()
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        mapView.mapType = MKMapType.standard
-        mapView.isZoomEnabled = true
-        mapView.isScrollEnabled = true
+//        let mapView = MKMapView()
+//        mapView.translatesAutoresizingMaskIntoConstraints = false
+//        mapView.mapType = MKMapType.standard
+//        mapView.isZoomEnabled = true
+//        mapView.isScrollEnabled = true
+//
+//        svLocationInfo.addArrangedSubview(mapView)
+//        mapView.heightAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: 2/3).isActive = true
+
+        let uvMap = UIView()
+        uvMap.translatesAutoresizingMaskIntoConstraints = false
+        svLocationInfo.addArrangedSubview(uvMap)
+        uvMap.heightAnchor.constraint(equalTo: uvMap.widthAnchor, multiplier: 2/3).isActive = true
         
-        svLocationInfo.addArrangedSubview(mapView)
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        mapView.heightAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: 2/3).isActive = true
+        naverMapView = NMFMapView(frame: uvMap.frame)
+//        let naverMapView = NMFNaverMapView(frame: uvMap.frame)
+        uvMap.addSubview(naverMapView)
+        naverMapView.translatesAutoresizingMaskIntoConstraints = false
+        naverMapView.topAnchor.constraint(equalTo: uvMap.topAnchor, constant: 0).isActive = true
+        naverMapView.bottomAnchor.constraint(equalTo: uvMap.bottomAnchor, constant: 0).isActive = true
+        naverMapView.trailingAnchor.constraint(equalTo: uvMap.trailingAnchor, constant: 0).isActive = true
+        naverMapView.leadingAnchor.constraint(equalTo: uvMap.leadingAnchor, constant: 0).isActive = true
+        
+        let storeLatLng = NMGLatLng(lat: locationData["latitude"].doubleValue, lng: locationData["longitude"].doubleValue)
+        print(naverMapView.cameraPosition.target)
+        naverMapView.moveCamera(NMFCameraUpdate(scrollTo: storeLatLng))
+        // 숫자 높을 수록 확대 15 ~ 20
+        naverMapView.maxZoomLevel = 20
+        naverMapView.minZoomLevel = 10
+        naverMapView.zoomLevel = 15
+        
+        let marker = NMFMarker()
+        marker.position = storeLatLng
+        marker.mapView = naverMapView
+        marker.iconImage = NMFOverlayImage(name: "markerPin")
+//        marker.iconImage = NMFOverlayImage(name: "marker_icon")
         
         //        let lblAddress = UILabel()
         //        lblAddress.text = "강남구 봉은사로 120"
