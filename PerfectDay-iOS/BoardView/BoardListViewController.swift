@@ -76,7 +76,7 @@ class BoardListViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let plViewController = segue.destination as! PostListViewController
+//        let plViewController = segue.destination as! PostListViewController
         // segue.indentifier -> 스토리보드 화살표(노드) segue Indentifier 명
 //        if segue.identifier == "notice" {
 //            plViewController.naviTitle = "공지사항"

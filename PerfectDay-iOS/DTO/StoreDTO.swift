@@ -110,7 +110,7 @@ public class StoreDTO {
         print(self.storeOpTm)
         print(self.storeTel)
         print(self.prefData)
-        self.menuList.map{ $0.getAllData() }
+        _ = self.menuList.map{ $0.getAllData() }
     }
 }
 

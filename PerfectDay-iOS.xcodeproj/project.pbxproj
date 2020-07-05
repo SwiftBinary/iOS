@@ -25,7 +25,6 @@
 		C739126C2406376900954617 /* AcceptContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C739126B2406376900954617 /* AcceptContentViewController.swift */; };
 		C739126E240638C000954617 /* ContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C739126D240638C000954617 /* ContentData.swift */; };
 		C748813823FA472100E8C926 /* FilterLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C748813723FA472100E8C926 /* FilterLocationViewController.swift */; };
-		C74AF12524AF046E0097CCE8 /* MainThemeMap.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C74AF12424AF046E0097CCE8 /* MainThemeMap.xcassets */; };
 		C74D96CC23E7B1E9000E26C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74D96CB23E7B1E9000E26C3 /* AppDelegate.swift */; };
 		C74D96CE23E7B1E9000E26C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74D96CD23E7B1E9000E26C3 /* SceneDelegate.swift */; };
 		C74D96D023E7B1E9000E26C3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74D96CF23E7B1E9000E26C3 /* MainViewController.swift */; };
@@ -72,6 +71,7 @@
 		C7D8263E24162A09005A9D5A /* CourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D8263D24162A09005A9D5A /* CourseViewController.swift */; };
 		C7EFBFCB23E907130034966C /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7EFBFCA23E907130034966C /* Login.storyboard */; };
 		C7EFBFCD23E911D90034966C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFBFCC23E911D90034966C /* LoginViewController.swift */; };
+		C7FEDC3E24B1BCB300BB1574 /* MainThemeMap.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7FEDC3D24B1BCB300BB1574 /* MainThemeMap.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -108,7 +108,6 @@
 		C739126B2406376900954617 /* AcceptContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptContentViewController.swift; sourceTree = "<group>"; };
 		C739126D240638C000954617 /* ContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentData.swift; sourceTree = "<group>"; };
 		C748813723FA472100E8C926 /* FilterLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterLocationViewController.swift; sourceTree = "<group>"; };
-		C74AF12424AF046E0097CCE8 /* MainThemeMap.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = MainThemeMap.xcassets; path = ../../../Downloads/MainThemeMap.xcassets; sourceTree = "<group>"; };
 		C74D96C823E7B1E9000E26C3 /* PerfectDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PerfectDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C74D96CB23E7B1E9000E26C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C74D96CD23E7B1E9000E26C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -158,6 +157,7 @@
 		C7D8263D24162A09005A9D5A /* CourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseViewController.swift; sourceTree = "<group>"; };
 		C7EFBFCA23E907130034966C /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		C7EFBFCC23E911D90034966C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C7FEDC3D24B1BCB300BB1574 /* MainThemeMap.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MainThemeMap.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,9 +252,9 @@
 				C701C6CA2437884D0079B395 /* EnumValue.swift */,
 				C74D96D123E7B1E9000E26C3 /* Main.storyboard */,
 				C74D96D423E7B1ED000E26C3 /* Assets.xcassets */,
-				C74AF12424AF046E0097CCE8 /* MainThemeMap.xcassets */,
 				C76A0FF22484E5E4008AC74C /* CategoryCircleIcon.xcassets */,
 				C76A0FF02484E56E008AC74C /* Temp.xcassets */,
+				C7FEDC3D24B1BCB300BB1574 /* MainThemeMap.xcassets */,
 				C70D540C249268060044835E /* Planner.xcassets */,
 				C74D96D623E7B1ED000E26C3 /* LaunchScreen.storyboard */,
 				C74D96D923E7B1ED000E26C3 /* Info.plist */,
@@ -418,12 +418,12 @@
 			files = (
 				C77D1A492467ED2F0015A449 /* Dibs.storyboard in Resources */,
 				C7EFBFCB23E907130034966C /* Login.storyboard in Resources */,
-				C74AF12524AF046E0097CCE8 /* MainThemeMap.xcassets in Resources */,
 				C77D1A432467E90E0015A449 /* MyPage.storyboard in Resources */,
 				C76A0FF12484E56E008AC74C /* Temp.xcassets in Resources */,
 				C76A0FF32484E5E4008AC74C /* CategoryCircleIcon.xcassets in Resources */,
 				C77D1A472467ECD80015A449 /* Board.storyboard in Resources */,
 				C74D96D823E7B1ED000E26C3 /* LaunchScreen.storyboard in Resources */,
+				C7FEDC3E24B1BCB300BB1574 /* MainThemeMap.xcassets in Resources */,
 				C74D96D523E7B1ED000E26C3 /* Assets.xcassets in Resources */,
 				C77D1A452467EC6C0015A449 /* Search.storyboard in Resources */,
 				C70D540D249268060044835E /* Planner.xcassets in Resources */,

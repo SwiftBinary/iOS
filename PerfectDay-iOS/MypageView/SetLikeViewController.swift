@@ -255,7 +255,7 @@ class SetLikeViewController: UIViewController {
                     arrayBtn[index].label.font = .systemFont(ofSize: 7)
                     arrayBtn[index].rippleLayerColor = .lightGray
                     arrayBtn[index].rippleEnabled = true
-                    print(arrayBtn[index].accessibilityIdentifier)
+//                    print(arrayBtn[index].accessibilityIdentifier)
 //                    arrayBtn[index].accessibilityLabel = arrayBtn[index].imageView.image
                 } else {
                     svSub.addArrangedSubview(UIView())

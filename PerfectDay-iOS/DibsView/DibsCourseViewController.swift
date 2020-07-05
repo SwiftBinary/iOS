@@ -401,7 +401,6 @@ class DibsCourseViewController: UIViewController,UIGestureRecognizerDelegate, In
 //                print("##")
 //                print("## " + requestJSON["result"].stringValue + " ##")
 //                print("##")
-                
                 for (index,view) in self.svMain.arrangedSubviews.enumerated() {
                     if view.accessibilityIdentifier == strCourseSn{
                         self.svMain.arrangedSubviews[index].removeFromSuperview()

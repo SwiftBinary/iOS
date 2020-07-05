@@ -14,6 +14,9 @@ enum Gender {
     case F
 }
 
+public let naverClientIDKey = "7fp6ljv1lv"
+public let naverClientSecretKey = "ORrwGerniDoUS3k0Ok7UHMIPspmfCOclGhvORF7r"
+
 public let userDataKey = "userData"
 public let locationSnKey = "locationSn"
 public let locationDataKey = "locationData"

@@ -39,7 +39,7 @@ class SearchSetLocationViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = true
         lblGuide.text = "찾고 싶은 위치 또는 장소를 입력하세요." // 두 줄로 표시?
         setField(tfKeyword, "ex) 건대입구 또는 홍대입구")
-        setSNSButton(btnCurrentLocation, "FocusIcon")
+        setSNSButton(btnCurrentLocation, "FocusLocation")
     }
     
     func requestSearchedLoc(){
@@ -148,7 +148,7 @@ class SearchSetLocationViewController: UIViewController {
 //        svSearchedResult.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(gotoLocationResult)))
     }
     @objc func gotoTemp(_ sender:UIButton){
-        print(sender.accessibilityIdentifier)
+        print(sender.accessibilityIdentifier!)
     }
     
     func searchResults(data: JSON){
@@ -175,7 +175,7 @@ class SearchSetLocationViewController: UIViewController {
         roadBtn.layer.cornerRadius = 5
         roadBtn.widthAnchor.constraint(equalTo: roadBtn.heightAnchor, multiplier: 3, constant: 0).isActive = true
         let lblRoadAddr = UILabel()
-        var roadStr = data["roadAddress"].string
+        let roadStr = data["roadAddress"].string
         if roadStr != "" {
             //            let startIdx = roadStr!.firstIndex(of:"구")!
             //            let endIdx = roadStr!.endIndex
