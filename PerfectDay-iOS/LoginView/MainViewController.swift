@@ -13,8 +13,9 @@
 import UIKit
 import SwiftyJSON
 import Alamofire
+import MapKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController,CLLocationManagerDelegate {
     var listOneDayPickInfo = ""
     var listHotStoreInfo = ""
     
@@ -25,24 +26,23 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setData()
+        locationAuthorization()
+        
     }
+    override func viewWillAppear(_ animated: Bool) {
+//        locationAuthorization()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        //        locationAuthorization()
+    }
+    
+    
     func setData(){
         UserDefaults.standard.removeObject(forKey: locationSnKey)
         UserDefaults.standard.removeObject(forKey: locationDataKey)
         UserDefaults.standard.removeObject(forKey: hotStoreKey)
         UserDefaults.standard.removeObject(forKey: oneDayPickKey)
         //        print(UserDefaults.standard.dictionaryRepresentation())
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        let getData = UserDefaults.standard.dictionary(forKey: userDataKey)
-        if getData == nil{
-            gotoLogin()
-        } else {
-            indicLoading.center = view.center
-            indicLoading.startAnimating()
-            gotoMain()
-        }
     }
     func gotoLogin(){
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
@@ -60,7 +60,7 @@ class MainViewController: UIViewController {
             //            debugPrint(response)
             if response.value != nil {
                 self.listHotStoreInfo = JSON(response.value!).rawString()!
-//                print(self.listHotStoreInfo)
+                //                print(self.listHotStoreInfo)
                 
                 UserDefaults.standard.set(response.value!, forKey: "hotStore")
                 self.getOneDayPickInfo()
@@ -75,8 +75,8 @@ class MainViewController: UIViewController {
         AF.request(url,method: .post,headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
             if response.value != nil {
-//                self.listOneDayPickInfo = JSON(response.value!).rawString()!
-//                print(self.listOneDayPickInfo)
+                //                self.listOneDayPickInfo = JSON(response.value!).rawString()!
+                //                print(self.listOneDayPickInfo)
                 
                 UserDefaults.standard.set(response.value!, forKey: "oneDayPick")
                 
@@ -85,6 +85,58 @@ class MainViewController: UIViewController {
                 goToVC.modalPresentationStyle = .fullScreen
                 self.indicLoading.stopAnimating()
                 self.present(goToVC, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func locationAuthorization(){
+        let locationManager = CLLocationManager()
+        locationManager.delegate = self
+        //        mapView.delegate = self
+        // desiredAccuracy -> 정확도, kCLLocationAccuracyBest: 최고 정확도
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        // 위치 정보 사용자 승인 요청
+        locationManager.requestWhenInUseAuthorization()
+        let coords = locationManager.location?.coordinate
+        // 위치 업데이트 시작
+        //        locationManager.startUpdatingLocation()
+                    locationCheck()
+    }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        //위치가 업데이트될때마다
+        if let coor = manager.location?.coordinate{
+            print("latitude" + String(coor.latitude) + "/ longitude" + String(coor.longitude))
+        }
+    }
+    
+    func locationCheck(){
+        let status = CLLocationManager.authorizationStatus()
+        
+        if status == CLAuthorizationStatus.denied || status == CLAuthorizationStatus.restricted {
+            let alter = UIAlertController(title: "위치권한 설정이 '안함'으로 되어있습니다.", message: "앱 설정 화면으로 가시겠습니까? \n '아니오'를 선택하시면 앱이 종료됩니다.", preferredStyle: UIAlertController.Style.alert)
+            let logOkAction = UIAlertAction(title: "네", style: UIAlertAction.Style.default){
+                (action: UIAlertAction) in
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(NSURL(string:UIApplication.openSettingsURLString)! as URL)
+                } else {
+                    UIApplication.shared.openURL(NSURL(string: UIApplication.openSettingsURLString)! as URL)
+                }
+            }
+            let logNoAction = UIAlertAction(title: "아니오", style: UIAlertAction.Style.destructive){
+                (action: UIAlertAction) in
+                exit(0)
+            }
+            alter.addAction(logNoAction)
+            alter.addAction(logOkAction)
+            self.present(alter, animated: true, completion: nil)
+        } else {
+            let getData = UserDefaults.standard.dictionary(forKey: userDataKey)
+            if getData == nil{
+                gotoLogin()
+            } else {
+                indicLoading.center = view.center
+                indicLoading.startAnimating()
+                gotoMain()
             }
         }
     }

@@ -40,15 +40,6 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
     }
     
     func setUI() {
-        marker.position = mapNaverView.cameraPosition.target
-        marker.mapView = mapNaverView
-        marker.iconImage = NMFOverlayImage(name: "markerPin")
-        mapNaverView.maxZoomLevel = 20
-        mapNaverView.minZoomLevel = 10
-        mapNaverView.zoomLevel = 15
-        mapNaverView.addCameraDelegate(delegate: self)
-//        mapNaverView.positionMode = .direction
-        
         locationManager.delegate = self
         //        mapView.delegate = self
         // desiredAccuracy -> 정확도, kCLLocationAccuracyBest: 최고 정확도
@@ -58,7 +49,18 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
         // 위치 업데이트 시작
         locationManager.startUpdatingLocation()
         // 사용자의 현재위치 표시
-        //        mapView.showsUserLocation = true
+        let coords = locationManager.location?.coordinate
+        
+        marker.position = mapNaverView.cameraPosition.target
+        marker.mapView = mapNaverView
+        marker.iconImage = NMFOverlayImage(name: "markerPin")
+        mapNaverView.maxZoomLevel = 20
+        mapNaverView.minZoomLevel = 10
+        mapNaverView.zoomLevel = 15
+        mapNaverView.addCameraDelegate(delegate: self)
+        print(coords)
+        let centerLatLng = NMGLatLng(lat: (coords?.latitude.binade)!, lng: (coords?.longitude.binade)!)
+        mapNaverView.moveCamera(NMFCameraUpdate(scrollTo: centerLatLng))
         
         lblCenterLocation.layer.borderWidth = 1
         lblCenterLocation.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
@@ -72,15 +74,13 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
         
         setSNSButton(setLocation, "")
         setLocation.layer.backgroundColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
+        setLocation.tintColor = .white
     }
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool){
         let currentLatLng = NMGLatLng(lat: mapView.cameraPosition.target.lat, lng: mapView.cameraPosition.target.lng)
         marker.position = currentLatLng
         marker.mapView = mapView
         getAddress(lat: mapView.cameraPosition.target.lat, lng: mapView.cameraPosition.target.lng)
-//        marker.iconImage = NMFOverlayImage(name: "markerPin")
-//        print("mapView.cameraPosition")
-//        print(mapView.cameraPosition)
     }
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int){
         let currentLatLng = NMGLatLng(lat: mapView.cameraPosition.target.lat, lng: mapView.cameraPosition.target.lng)
@@ -91,7 +91,7 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
     func getAddress(lat: Double, lng:Double) {
         let url = "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?"
         let paramCoords = "coords=" + String(lng) + "," + String(lat)
-        let paramOrders = "&orders=legalcode,addr,admcode,roadaddr"
+        let paramOrders = "&orders=admcode"
         let paramOutput = "&output=json"
         
         let httpHeaders: HTTPHeaders = [
@@ -99,11 +99,23 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
             "X-NCP-APIGW-API-KEY":naverClientSecretKey,
         ]
         let requestURL = url + paramCoords + paramOrders + paramOutput
-        print(requestURL)
+        //        print(requestURL)
         
         AF.request(requestURL,method: .get, headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
+            //            debugPrint(response)
             if response.value != nil {
+                if !JSON(response.value!)["results"].arrayValue.isEmpty {
+                    let region = JSON(response.value!)["results"].arrayValue[0]["region"]
+                    var lblAddress = ""
+                    for i in 1...4 {
+                        if region["area"+String(i)]["name"].string != nil {
+                            lblAddress += region["area"+String(i)]["name"].stringValue + " "
+                        }
+                    }
+                    self.lblCenterLocation.text = lblAddress
+                    locationDTO.setLocation(lblAddress, lat: lat, lng: lng)
+                    //                    print(lblAddress)
+                }
             }
         }
     }
@@ -190,14 +202,10 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
         }
     }
     
-    
-    
-    
     /*
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      // Get the new view controller using segue.destination.
      // Pass the selected object to the new view controller.
      }
      */
-    
 }

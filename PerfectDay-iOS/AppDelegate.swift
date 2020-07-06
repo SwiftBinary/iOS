@@ -8,6 +8,7 @@
 
 import UIKit
 import NaverThirdPartyLogin
+//import CoreLocation
 //kServiceAppUrlScheme
 //import FBSDKCoreKit
 
@@ -15,8 +16,10 @@ import NaverThirdPartyLogin
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+//    let locationManager = CLLocationManager()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         
         // 네이버 로그인 코드
         let instance = NaverThirdPartyLoginConnection.getSharedInstance()
@@ -65,5 +68,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-
+    
 }

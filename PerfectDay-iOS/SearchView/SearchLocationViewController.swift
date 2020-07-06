@@ -549,8 +549,8 @@ class SearchLocationViewController: UIViewController, UIScrollViewDelegate, UIGe
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
         let parameter = JSON([
             "distanceLimit": distanceLimit,
-            "latitude": 37.68915657,
-            "longitude": 127.04546691,
+            "latitude": locationDTO.latitude,
+            "longitude": locationDTO.longitude,
             "limit": 20,
             "offset": offset,
             "priceLimit": priceLimit,

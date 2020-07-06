@@ -10,6 +10,7 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 import MaterialDesignWidgets
+//import CoreLocation
 
 var locationString = ""
 
@@ -52,6 +53,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.isHidden = false
+        
     }
     
     func setUI(){
@@ -460,6 +462,7 @@ class HomeViewController: UIViewController {
         
         svThemeLocation.addArrangedSubview(svTheme)
         svThemeLocation.addArrangedSubview(uvBottom)
+        
     }
     
     func makeScrollView(Theme:String) -> UIScrollView {
@@ -683,7 +686,6 @@ class HomeViewController: UIViewController {
         //
         //            }
     }
-    
     
     
     //      In a storyboard-based application, you will often want to do a little preparation before navigation

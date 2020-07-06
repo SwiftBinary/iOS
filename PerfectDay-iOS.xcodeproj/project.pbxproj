@@ -38,6 +38,7 @@
 		C759B54B247F3DD60080E150 /* LocationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C759B54A247F3DD60080E150 /* LocationInfoViewController.swift */; };
 		C759B54D247F3DEC0080E150 /* LocationReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C759B54C247F3DEC0080E150 /* LocationReviewViewController.swift */; };
 		C759B54F247F3F760080E150 /* LocationViewTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C759B54E247F3F760080E150 /* LocationViewTabController.swift */; };
+		C765C67C24B2222C00AAF289 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C765C67B24B2222C00AAF289 /* LocationDTO.swift */; };
 		C76626C9241726BB002B3DD6 /* FilterPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */; };
 		C76A0FF12484E56E008AC74C /* Temp.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C76A0FF02484E56E008AC74C /* Temp.xcassets */; };
 		C76A0FF32484E5E4008AC74C /* CategoryCircleIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C76A0FF22484E5E4008AC74C /* CategoryCircleIcon.xcassets */; };
@@ -123,6 +124,7 @@
 		C759B54A247F3DD60080E150 /* LocationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfoViewController.swift; sourceTree = "<group>"; };
 		C759B54C247F3DEC0080E150 /* LocationReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationReviewViewController.swift; sourceTree = "<group>"; };
 		C759B54E247F3F760080E150 /* LocationViewTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewTabController.swift; sourceTree = "<group>"; };
+		C765C67B24B2222C00AAF289 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
 		C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPostViewController.swift; sourceTree = "<group>"; };
 		C76A0FF02484E56E008AC74C /* Temp.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Temp.xcassets; sourceTree = "<group>"; };
 		C76A0FF22484E5E4008AC74C /* CategoryCircleIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CategoryCircleIcon.xcassets; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 				C773ECAF24A6428600794F87 /* UserDTO.swift */,
 				C77D691E24A70B9200320903 /* StoreDTO.swift */,
 				C77D691C24A709E900320903 /* CommonDTO.swift */,
+				C765C67B24B2222C00AAF289 /* LocationDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 				C74F972F23E953E300E75058 /* JoinViewController.swift in Sources */,
 				C718CE5A243CAF6800F544BF /* FindEmailViewController.swift in Sources */,
 				C77D691F24A70B9200320903 /* StoreDTO.swift in Sources */,
+				C765C67C24B2222C00AAF289 /* LocationDTO.swift in Sources */,
 				C759B54F247F3F760080E150 /* LocationViewTabController.swift in Sources */,
 				C76ED01A24037607003E21F1 /* ShowPostViewController.swift in Sources */,
 				C79FFB5824AB12EA00A52D0A /* OneClickCourseViewController.swift in Sources */,
