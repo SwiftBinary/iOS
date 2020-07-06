@@ -14,28 +14,66 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 import MapKit
+import CoreLocation
 
-class MainViewController: UIViewController,CLLocationManagerDelegate {
+class MainViewController: UIViewController, CLLocationManagerDelegate {
     var listOneDayPickInfo = ""
     var listHotStoreInfo = ""
     
     var userData: Dictionary<String, Any> = Dictionary<String, Any>()
     
     @IBOutlet var indicLoading: UIActivityIndicatorView!
+    let locationManager = CLLocationManager()
+    let permissionStatus = CLLocationManager.authorizationStatus().rawValue
+    //    let permissionStatus = CLLocationManager
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setData()
-        locationAuthorization()
-        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(isNot(_:))))
+        //        let status = CLLocationManager.authorizationStatus()
+        //        if status == .notDetermined{
+        //            locationAuthorization()
+        //        }
     }
     override func viewWillAppear(_ animated: Bool) {
-//        locationAuthorization()
+        
     }
     override func viewDidAppear(_ animated: Bool) {
-        //        locationAuthorization()
+        switch CLLocationManager.authorizationStatus().rawValue {
+        case 4:
+            gotoNext()
+        case 0:
+            locationAuthorization()
+        case 2:
+            goSettingLocationPermission()
+        default:
+            break
+        }
+    }
+    func locationAuthorization(){
+        locationManager.delegate = self
+        // desiredAccuracy -> 정확도, kCLLocationAccuracyBest: 최고 정확도
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        // 위치 정보 사용자 승인 요청
+        locationManager.requestWhenInUseAuthorization()
+        // 위치 업데이트 시작
+        locationManager.startUpdatingLocation()
+    }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        gotoNext()
     }
     
+    func gotoNext() {
+        let getData = UserDefaults.standard.dictionary(forKey: userDataKey)
+        if getData == nil{
+            gotoLogin()
+        } else {
+            indicLoading.center = view.center
+            indicLoading.startAnimating()
+            gotoMain()
+        }
+    }
     
     func setData(){
         UserDefaults.standard.removeObject(forKey: locationSnKey)
@@ -89,55 +127,28 @@ class MainViewController: UIViewController,CLLocationManagerDelegate {
         }
     }
     
-    func locationAuthorization(){
-        let locationManager = CLLocationManager()
-        locationManager.delegate = self
-        //        mapView.delegate = self
-        // desiredAccuracy -> 정확도, kCLLocationAccuracyBest: 최고 정확도
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        // 위치 정보 사용자 승인 요청
-        locationManager.requestWhenInUseAuthorization()
-        let coords = locationManager.location?.coordinate
-        // 위치 업데이트 시작
-        //        locationManager.startUpdatingLocation()
-                    locationCheck()
-    }
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //위치가 업데이트될때마다
-        if let coor = manager.location?.coordinate{
-            print("latitude" + String(coor.latitude) + "/ longitude" + String(coor.longitude))
+    func goSettingLocationPermission(){
+        let alter = UIAlertController(title: "위치권한을 '앱을 사용하는 동안'으로 설정해주세요.", message: "앱 설정 화면으로 가시겠습니까? \n '아니오'를 선택하시면 앱이 종료됩니다.", preferredStyle: UIAlertController.Style.alert)
+        let logOkAction = UIAlertAction(title: "네", style: .default){
+            (action: UIAlertAction) in
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(NSURL(string:UIApplication.openSettingsURLString)! as URL)
+            } else {
+                UIApplication.shared.openURL(NSURL(string: UIApplication.openSettingsURLString)! as URL)
+            }
         }
+        let logNoAction = UIAlertAction(title: "아니오", style: .cancel){
+            (action: UIAlertAction) in
+            exit(0)
+        }
+        alter.addAction(logNoAction)
+        alter.addAction(logOkAction)
+        self.present(alter, animated: true, completion: nil)
     }
     
-    func locationCheck(){
-        let status = CLLocationManager.authorizationStatus()
-        
-        if status == CLAuthorizationStatus.denied || status == CLAuthorizationStatus.restricted {
-            let alter = UIAlertController(title: "위치권한 설정이 '안함'으로 되어있습니다.", message: "앱 설정 화면으로 가시겠습니까? \n '아니오'를 선택하시면 앱이 종료됩니다.", preferredStyle: UIAlertController.Style.alert)
-            let logOkAction = UIAlertAction(title: "네", style: UIAlertAction.Style.default){
-                (action: UIAlertAction) in
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(NSURL(string:UIApplication.openSettingsURLString)! as URL)
-                } else {
-                    UIApplication.shared.openURL(NSURL(string: UIApplication.openSettingsURLString)! as URL)
-                }
-            }
-            let logNoAction = UIAlertAction(title: "아니오", style: UIAlertAction.Style.destructive){
-                (action: UIAlertAction) in
-                exit(0)
-            }
-            alter.addAction(logNoAction)
-            alter.addAction(logOkAction)
-            self.present(alter, animated: true, completion: nil)
-        } else {
-            let getData = UserDefaults.standard.dictionary(forKey: userDataKey)
-            if getData == nil{
-                gotoLogin()
-            } else {
-                indicLoading.center = view.center
-                indicLoading.startAnimating()
-                gotoMain()
-            }
+    @objc func isNot(_ sender: UITapGestureRecognizer){
+        if CLLocationManager.authorizationStatus().rawValue == 2{
+            goSettingLocationPermission()
         }
     }
 }

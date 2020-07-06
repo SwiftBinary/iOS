@@ -7,6 +7,9 @@ ${BUILT_PRODUCTS_DIR}/MaterialDesignWidgets/MaterialDesignWidgets.framework
 ${BUILT_PRODUCTS_DIR}/Motion/Motion.framework
 ${PODS_ROOT}/NMapsMap/framework/NMapsMap.framework
 ${BUILT_PRODUCTS_DIR}/RSKPlaceholderTextView/RSKPlaceholderTextView.framework
+${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework
+${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework
+${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework
 ${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework
 ${BUILT_PRODUCTS_DIR}/XLPagerTabStrip/XLPagerTabStrip.framework
 ${PODS_ROOT}/naveridlogin-sdk-ios/NaverThirdPartyLogin.framework

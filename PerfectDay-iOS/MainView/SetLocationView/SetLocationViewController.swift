@@ -32,6 +32,7 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
     let spanValue = 0.01
     var address:String = ""
     let marker = NMFMarker()
+    var currentLatLng = NMGLatLng()
     var delegate : LocationDelegate?
     
     override func viewDidLoad() {
@@ -50,7 +51,9 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
         locationManager.startUpdatingLocation()
         // 사용자의 현재위치 표시
         let coords = locationManager.location?.coordinate
+        print(coords)
         
+        mapNaverView.positionMode = .direction
         marker.position = mapNaverView.cameraPosition.target
         marker.mapView = mapNaverView
         marker.iconImage = NMFOverlayImage(name: "markerPin")
@@ -58,9 +61,10 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
         mapNaverView.minZoomLevel = 10
         mapNaverView.zoomLevel = 15
         mapNaverView.addCameraDelegate(delegate: self)
-        print(coords)
-        let centerLatLng = NMGLatLng(lat: (coords?.latitude.binade)!, lng: (coords?.longitude.binade)!)
+        let centerLatLng = NMGLatLng(lat: Double(coords!.latitude), lng: Double(coords!.longitude))
+//        print(centerLatLng)
         mapNaverView.moveCamera(NMFCameraUpdate(scrollTo: centerLatLng))
+        mapNaverView.positionMode = .disabled
         
         lblCenterLocation.layer.borderWidth = 1
         lblCenterLocation.layer.borderColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
@@ -74,16 +78,16 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
         
         setSNSButton(setLocation, "")
         setLocation.layer.backgroundColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
-        setLocation.tintColor = .white
+        setLocation.titleLabel?.textColor = .white
     }
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool){
-        let currentLatLng = NMGLatLng(lat: mapView.cameraPosition.target.lat, lng: mapView.cameraPosition.target.lng)
+        currentLatLng = NMGLatLng(lat: mapView.cameraPosition.target.lat, lng: mapView.cameraPosition.target.lng)
         marker.position = currentLatLng
         marker.mapView = mapView
         getAddress(lat: mapView.cameraPosition.target.lat, lng: mapView.cameraPosition.target.lng)
     }
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int){
-        let currentLatLng = NMGLatLng(lat: mapView.cameraPosition.target.lat, lng: mapView.cameraPosition.target.lng)
+        currentLatLng = NMGLatLng(lat: mapView.cameraPosition.target.lat, lng: mapView.cameraPosition.target.lng)
         marker.position = currentLatLng
         marker.mapView = mapView
     }
@@ -107,7 +111,7 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
                 if !JSON(response.value!)["results"].arrayValue.isEmpty {
                     let region = JSON(response.value!)["results"].arrayValue[0]["region"]
                     var lblAddress = ""
-                    for i in 1...4 {
+                    for i in 2...4 {
                         if region["area"+String(i)]["name"].string != nil {
                             lblAddress += region["area"+String(i)]["name"].stringValue + " "
                         }
@@ -172,7 +176,8 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
     //    }
     
     @IBAction func setAndBack(_ sender: UIButton) {
-        
+        locationDTO.setLocation(lblCenterLocation.text!, lat: currentLatLng.lat, lng: currentLatLng.lng)
+        locationDTO.printAll()
         /*
          LocationInfo.locationString.str = address
          let navigationVCList = self.navigationController!.viewControllers

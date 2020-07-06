@@ -44,10 +44,6 @@
 	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>위치 기반 콘텐츠 제공을 위해 GPS정보가 반드시 필요합니다.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string></string>
-	<key>NSLocationUsageDescription</key>
-	<string></string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>

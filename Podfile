@@ -14,6 +14,8 @@ pod 'CryptoSwift', '~> 1.0'
 pod 'Material', '~> 3.1.0'
 pod 'naveridlogin-sdk-ios', '~> 4.1.2'
 pod 'NMapsMap'
+pod 'RxSwift', '~> 5'
+pod 'RxCocoa', '~> 5'
 #pod 'FBSDKLoginKit', '~> 7.0.0'
   # Pods for PerfectDay-iOS
 end

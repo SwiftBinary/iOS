@@ -29,4 +29,10 @@ public class LocationDTO {
         self.latitude = lat
         self.longitude = lng
     }
+    
+    public func printAll(){
+        print("주소: " + self.address)
+        print("위도: " + String(self.latitude))
+        print("경도: " + String(self.longitude))
+    }
 }
