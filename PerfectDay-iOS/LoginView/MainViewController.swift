@@ -37,7 +37,16 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
         //        }
     }
     override func viewWillAppear(_ animated: Bool) {
-        
+//        switch CLLocationManager.authorizationStatus().rawValue {
+//        case 4:
+//            gotoNext()
+//        case 0:
+//            locationAuthorization()
+//        case 2:
+//            goSettingLocationPermission()
+//        default:
+//            break
+//        }
     }
     override func viewDidAppear(_ animated: Bool) {
         switch CLLocationManager.authorizationStatus().rawValue {
@@ -61,13 +70,47 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let coords = manager.location?.coordinate
+        setLocationDTO(lng: Double(coords!.longitude), lat: Double(coords!.latitude))
+        locationManager.stopUpdatingLocation()
         gotoNext()
+    }
+    func setLocationDTO(lng: Double, lat:Double){
+        let url = "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?"
+        let paramCoords = "coords=" + String(lng) + "," + String(lat)
+        let paramOrders = "&orders=admcode"
+        let paramOutput = "&output=json"
+        
+        let httpHeaders: HTTPHeaders = [
+            "X-NCP-APIGW-API-KEY-ID":naverClientIDKey,
+            "X-NCP-APIGW-API-KEY":naverClientSecretKey,
+        ]
+        let requestURL = url + paramCoords + paramOrders + paramOutput
+        //        print(requestURL)
+        AF.request(requestURL,method: .get, headers: httpHeaders).responseJSON { response in
+            //            debugPrint(response)
+            if response.value != nil {
+                if !JSON(response.value!)["results"].arrayValue.isEmpty {
+                    let region = JSON(response.value!)["results"].arrayValue[0]["region"]
+                    var strAddress = ""
+                    for i in 2...4 {
+                        if region["area"+String(i)]["name"].string != nil {
+                            strAddress += region["area"+String(i)]["name"].stringValue + " "
+                        }
+                    }
+                    locationDTO.setLocation(strAddress, lat: lat, lng: lng)
+                }
+            }
+        }
     }
     
     func gotoNext() {
         let getData = UserDefaults.standard.dictionary(forKey: userDataKey)
         if getData == nil{
             gotoLogin()
+            UserDefaults.standard.set(0, forKey: "PlannerNum")
+            let arr : Array<String> = []
+            UserDefaults.standard.set(arr, forKey: "StoreSnList")
         } else {
             indicLoading.center = view.center
             indicLoading.startAnimating()

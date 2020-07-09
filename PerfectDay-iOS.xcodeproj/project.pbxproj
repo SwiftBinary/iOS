@@ -11,7 +11,6 @@
 		C701C6C7243761E60079B395 /* FindPWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701C6C6243761E60079B395 /* FindPWViewController.swift */; };
 		C701C6C9243765A00079B395 /* UIFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701C6C8243765A00079B395 /* UIFunctions.swift */; };
 		C701C6CB2437884D0079B395 /* EnumValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C701C6CA2437884D0079B395 /* EnumValue.swift */; };
-		C70D540D249268060044835E /* Planner.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C70D540C249268060044835E /* Planner.xcassets */; };
 		C70F4930241091F80058A61A /* LandmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70F492F241091F80058A61A /* LandmarkViewController.swift */; };
 		C70F4932241092140058A61A /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70F4931241092140058A61A /* LocationListViewController.swift */; };
 		C712AC4E24012258009BB29F /* WritePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C712AC4D24012258009BB29F /* WritePostViewController.swift */; };
@@ -20,7 +19,6 @@
 		C71BAEA223F39DB700D82351 /* DibsCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71BAEA123F39DB700D82351 /* DibsCourseViewController.swift */; };
 		C71BAEA623F3A3C200D82351 /* Pods_PerfectDay_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5376E469755B03439F9304C /* Pods_PerfectDay_iOS.framework */; };
 		C71BAEA723F3A3C200D82351 /* Pods_PerfectDay_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C5376E469755B03439F9304C /* Pods_PerfectDay_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C71BAEAB23F3AC7B00D82351 /* LocationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71BAEAA23F3AC7B00D82351 /* LocationInfo.swift */; };
 		C7391269240621F400954617 /* AcceptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7391268240621F400954617 /* AcceptViewController.swift */; };
 		C739126C2406376900954617 /* AcceptContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C739126B2406376900954617 /* AcceptContentViewController.swift */; };
 		C739126E240638C000954617 /* ContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C739126D240638C000954617 /* ContentData.swift */; };
@@ -73,6 +71,9 @@
 		C7EFBFCB23E907130034966C /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7EFBFCA23E907130034966C /* Login.storyboard */; };
 		C7EFBFCD23E911D90034966C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EFBFCC23E911D90034966C /* LoginViewController.swift */; };
 		C7FEDC3E24B1BCB300BB1574 /* MainThemeMap.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7FEDC3D24B1BCB300BB1574 /* MainThemeMap.xcassets */; };
+		C7FF475224B5FFC900788244 /* Planner.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7FF475124B5FFC900788244 /* Planner.xcassets */; };
+		C7FF476224B695E400788244 /* LocationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FF476024B695E400788244 /* LocationData.swift */; };
+		C7FF476324B695E400788244 /* PlannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FF476124B695E400788244 /* PlannerTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -97,14 +98,12 @@
 		C701C6C6243761E60079B395 /* FindPWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPWViewController.swift; sourceTree = "<group>"; };
 		C701C6C8243765A00079B395 /* UIFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFunctions.swift; sourceTree = "<group>"; };
 		C701C6CA2437884D0079B395 /* EnumValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumValue.swift; sourceTree = "<group>"; };
-		C70D540C249268060044835E /* Planner.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Planner.xcassets; sourceTree = "<group>"; };
 		C70F492F241091F80058A61A /* LandmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkViewController.swift; sourceTree = "<group>"; };
 		C70F4931241092140058A61A /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 		C712AC4D24012258009BB29F /* WritePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritePostViewController.swift; sourceTree = "<group>"; };
 		C718CE59243CAF6800F544BF /* FindEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindEmailViewController.swift; sourceTree = "<group>"; };
 		C71BAE9F23F39D0400D82351 /* SearchPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPostViewController.swift; sourceTree = "<group>"; };
 		C71BAEA123F39DB700D82351 /* DibsCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DibsCourseViewController.swift; sourceTree = "<group>"; };
-		C71BAEAA23F3AC7B00D82351 /* LocationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfo.swift; sourceTree = "<group>"; };
 		C7391268240621F400954617 /* AcceptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptViewController.swift; sourceTree = "<group>"; };
 		C739126B2406376900954617 /* AcceptContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptContentViewController.swift; sourceTree = "<group>"; };
 		C739126D240638C000954617 /* ContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentData.swift; sourceTree = "<group>"; };
@@ -160,6 +159,9 @@
 		C7EFBFCA23E907130034966C /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		C7EFBFCC23E911D90034966C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C7FEDC3D24B1BCB300BB1574 /* MainThemeMap.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MainThemeMap.xcassets; sourceTree = "<group>"; };
+		C7FF475124B5FFC900788244 /* Planner.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Planner.xcassets; sourceTree = "<group>"; };
+		C7FF476024B695E400788244 /* LocationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationData.swift; sourceTree = "<group>"; };
+		C7FF476124B695E400788244 /* PlannerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlannerTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,7 +198,6 @@
 			children = (
 				C7CE240D23ED00C10010C8E9 /* LocationResultViewController.swift */,
 				C7CE240F23ED28A60010C8E9 /* SetLocationViewController.swift */,
-				C71BAEAA23F3AC7B00D82351 /* LocationInfo.swift */,
 				C7C1FE6C23EC14060022C957 /* SearchSetLocationViewController.swift */,
 			);
 			path = SetLocationView;
@@ -212,6 +213,7 @@
 				C759B54E247F3F760080E150 /* LocationViewTabController.swift */,
 				C7B0D2A82417E71700BF1467 /* WriteReviewViewController.swift */,
 				C759B54A247F3DD60080E150 /* LocationInfoViewController.swift */,
+				C7FF475F24B695E400788244 /* PlannerTableView */,
 				C7D8263B241629C0005A9D5A /* PlannerViewController.swift */,
 				C7D8263D24162A09005A9D5A /* CourseViewController.swift */,
 				C79FFB5724AB12EA00A52D0A /* OneClickCourseViewController.swift */,
@@ -257,7 +259,7 @@
 				C76A0FF22484E5E4008AC74C /* CategoryCircleIcon.xcassets */,
 				C76A0FF02484E56E008AC74C /* Temp.xcassets */,
 				C7FEDC3D24B1BCB300BB1574 /* MainThemeMap.xcassets */,
-				C70D540C249268060044835E /* Planner.xcassets */,
+				C7FF475124B5FFC900788244 /* Planner.xcassets */,
 				C74D96D623E7B1ED000E26C3 /* LaunchScreen.storyboard */,
 				C74D96D923E7B1ED000E26C3 /* Info.plist */,
 			);
@@ -354,6 +356,15 @@
 			path = MypageView;
 			sourceTree = "<group>";
 		};
+		C7FF475F24B695E400788244 /* PlannerTableView */ = {
+			isa = PBXGroup;
+			children = (
+				C7FF476024B695E400788244 /* LocationData.swift */,
+				C7FF476124B695E400788244 /* PlannerTableViewCell.swift */,
+			);
+			path = PlannerTableView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -419,6 +430,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7FF475224B5FFC900788244 /* Planner.xcassets in Resources */,
 				C77D1A492467ED2F0015A449 /* Dibs.storyboard in Resources */,
 				C7EFBFCB23E907130034966C /* Login.storyboard in Resources */,
 				C77D1A432467E90E0015A449 /* MyPage.storyboard in Resources */,
@@ -429,7 +441,6 @@
 				C7FEDC3E24B1BCB300BB1574 /* MainThemeMap.xcassets in Resources */,
 				C74D96D523E7B1ED000E26C3 /* Assets.xcassets in Resources */,
 				C77D1A452467EC6C0015A449 /* Search.storyboard in Resources */,
-				C70D540D249268060044835E /* Planner.xcassets in Resources */,
 				C74D96D323E7B1E9000E26C3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -514,6 +525,7 @@
 				C765C67C24B2222C00AAF289 /* LocationDTO.swift in Sources */,
 				C759B54F247F3F760080E150 /* LocationViewTabController.swift in Sources */,
 				C76ED01A24037607003E21F1 /* ShowPostViewController.swift in Sources */,
+				C7FF476324B695E400788244 /* PlannerTableViewCell.swift in Sources */,
 				C79FFB5824AB12EA00A52D0A /* OneClickCourseViewController.swift in Sources */,
 				C76ED01C2403D1F2003E21F1 /* SetUserInfoViewController.swift in Sources */,
 				C76B37EC23EA6F2900B05A45 /* ShowInfoViewController.swift in Sources */,
@@ -522,7 +534,6 @@
 				C7707F9823F290C5007BCCD3 /* SearchResultViewController.swift in Sources */,
 				C701C6C7243761E60079B395 /* FindPWViewController.swift in Sources */,
 				C7707F9A23F29126007BCCD3 /* SearchLocationViewController.swift in Sources */,
-				C71BAEAB23F3AC7B00D82351 /* LocationInfo.swift in Sources */,
 				C759B54D247F3DEC0080E150 /* LocationReviewViewController.swift in Sources */,
 				C759B549247F3DAA0080E150 /* LocationViewController.swift in Sources */,
 				C759B54B247F3DD60080E150 /* LocationInfoViewController.swift in Sources */,
@@ -532,6 +543,7 @@
 				C739126C2406376900954617 /* AcceptContentViewController.swift in Sources */,
 				C7C1FE6D23EC14060022C957 /* SearchSetLocationViewController.swift in Sources */,
 				C76ED01E2403D227003E21F1 /* SetLikeViewController.swift in Sources */,
+				C7FF476224B695E400788244 /* LocationData.swift in Sources */,
 				C758EADB23F0FF4900033E29 /* BoardListViewController.swift in Sources */,
 				C71BAEA023F39D0400D82351 /* SearchPostViewController.swift in Sources */,
 				C71BAEA223F39DB700D82351 /* DibsCourseViewController.swift in Sources */,

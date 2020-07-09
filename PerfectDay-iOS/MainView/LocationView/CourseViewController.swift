@@ -35,12 +35,12 @@ class CourseViewController: UIViewController, UITextViewDelegate {
     var costTm:Int = 0
     var courseNm:String = ""
     
-    var temp = 0
-    
     var lat_min:Double = 0.0
     var lat_max:Double = 0.0
     var lng_min:Double = 0.0
     var lng_max:Double = 0.0
+    
+    var createCourseFlag = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,7 +130,6 @@ class CourseViewController: UIViewController, UITextViewDelegate {
             //            debugPrint(response)
             if response.value != nil {
                 self.responseJSON.append(JSON(response.value!))
-                self.temp += 1
                 if num != 0 {
                     self.nextCourse()
                 } else {

@@ -10,6 +10,7 @@ import UIKit
 import MaterialDesignWidgets
 import Alamofire
 import SwiftyJSON
+import CoreData
 
 class LocationViewController: UIViewController {
     
@@ -23,6 +24,7 @@ class LocationViewController: UIViewController {
     
     var btnLike = UIBarButtonItem()
     var isDisLocation = false
+    var flag = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +38,6 @@ class LocationViewController: UIViewController {
     }
 
     func setNavigationUI(){
-        
         btnLike = UIBarButtonItem(image: UIImage(named: isDisLocation ? "DibsOnBtn" : "DibsBtn"), style: .plain, target: self, action: #selector(setPickInfo(_:)))
         btnLike.tintColor = isDisLocation ? #colorLiteral(red: 1, green: 0.3921568627, blue: 0.568627451, alpha: 1) : #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         btnLike.style = .plain
@@ -117,7 +118,8 @@ class LocationViewController: UIViewController {
         let imageSize:CGFloat = 15
         let lblLoationIndex = UILabel()
         lblLoationIndex.translatesAutoresizingMaskIntoConstraints = false
-        lblLoationIndex.text = "1"
+        let plannerNum = UserDefaults.standard.value(forKey: "PlannerNum") as! Int
+        lblLoationIndex.text = String(plannerNum)
         lblLoationIndex.textColor = .white
         lblLoationIndex.textAlignment = .center
 //        lblLoationIndex.fontSize = 10
@@ -127,10 +129,11 @@ class LocationViewController: UIViewController {
         lblLoationIndex.heightAnchor.constraint(equalToConstant: imageSize).isActive = true
         lblLoationIndex.layer.masksToBounds = true
         lblLoationIndex.layer.cornerRadius = imageSize * (1/3)
-        btnPlanner.addSubview(lblLoationIndex)
-        lblLoationIndex.centerXAnchor.constraint(equalTo: btnPlanner.leadingAnchor, constant: imageSize*0.5).isActive = true
-        lblLoationIndex.centerYAnchor.constraint(equalTo: btnPlanner.topAnchor, constant:  imageSize*0.5).isActive = true
-
+        if plannerNum > 0 {
+            btnPlanner.addSubview(lblLoationIndex)
+            lblLoationIndex.centerXAnchor.constraint(equalTo: btnPlanner.leadingAnchor, constant: imageSize*0.5).isActive = true
+            lblLoationIndex.centerYAnchor.constraint(equalTo: btnPlanner.topAnchor, constant:  imageSize*0.5).isActive = true
+        }
         uvPlannerBack.backgroundColor = .white
         uvPlannerBack.layer.cornerRadius = 15
         uvPlannerBack.layer.shadowColor = UIColor.lightGray.cgColor
@@ -148,6 +151,33 @@ class LocationViewController: UIViewController {
     @IBAction func goToPlanner(_ sender: UIButton) {
         let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "plannerView")
         self.navigationController?.pushViewController(goToVC!, animated: true)
+    }
+    @IBAction func sendLocToPlanner(_ sender: UIButton) {
+        let str = locationData.rawString()!
+        let num =  UserDefaults.standard.value(forKey: "PlannerNum") as! Int
+        var flag = true
+        if num != 0 {
+            var storeSnList = UserDefaults.standard.value(forKey: "StoreSnList") as! Array<String>
+            for i in 0...num - 1 {
+                if locationData["storeSn"].string! == storeSnList[i] {
+                    flag = false
+                }
+            }
+            if flag {
+                print("1")
+                UserDefaults.standard.set(num+1, forKey: "PlannerNum")
+                UserDefaults.standard.set(str, forKey: "PlannerKey" + String(num))
+                storeSnList.append(locationData["storeSn"].string!)
+                UserDefaults.standard.set(storeSnList, forKey: "StoreSnList")
+            }
+        } else {
+            UserDefaults.standard.set(num+1, forKey: "PlannerNum")
+            UserDefaults.standard.set(str, forKey: "PlannerKey" + String(num))
+            var storeSnList : Array<String> = []
+            storeSnList.append(locationData["storeSn"].string!)
+            UserDefaults.standard.set(storeSnList, forKey: "StoreSnList")
+        }
+        setPlannerUI()
     }
     
     /*

@@ -583,19 +583,19 @@
                                                                             <action selector="loadImage:" destination="elY-2H-xwr" eventType="touchUpInside" id="680-k2-T9a"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LdS-oo-h2b">
+                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LdS-oo-h2b">
                                                                         <rect key="frame" x="97" y="0.0" width="82.5" height="83"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="LdS-oo-h2b" secondAttribute="height" multiplier="1:1" id="yEU-Od-zfM"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1db-Y4-ex1">
+                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1db-Y4-ex1">
                                                                         <rect key="frame" x="193.5" y="0.0" width="82.5" height="83"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="1db-Y4-ex1" secondAttribute="height" multiplier="1:1" id="qL7-9l-vBi"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qLJ-x4-DYJ">
+                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qLJ-x4-DYJ">
                                                                         <rect key="frame" x="290" y="0.0" width="83" height="83"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="qLJ-x4-DYJ" secondAttribute="height" multiplier="1:1" id="Wds-Xt-l4u"/>
@@ -604,25 +604,22 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="FNT-q7-gQT">
-                                                                <rect key="frame" x="0.0" y="96" width="373" height="80"/>
+                                                                <rect key="frame" x="0.0" y="93" width="373" height="83"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ybJ-30-vSk">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ybJ-30-vSk">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="83" height="83"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="ybJ-30-vSk" secondAttribute="height" multiplier="1:1" id="xNw-xy-QGZ"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fst-dp-Mts">
-                                                                        <rect key="frame" x="97.5" y="0.0" width="80" height="80"/>
+                                                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2IK-ae-Z39">
+                                                                        <rect key="frame" x="97" y="0.0" width="82.5" height="83"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="width" secondItem="fst-dp-Mts" secondAttribute="height" multiplier="1:1" id="ySf-G6-ShV"/>
+                                                                            <constraint firstAttribute="width" secondItem="2IK-ae-Z39" secondAttribute="height" multiplier="1:1" id="NOE-RZ-R45"/>
                                                                         </constraints>
-                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <nil key="textColor"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
+                                                                    </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ghg-mc-hnS">
-                                                                        <rect key="frame" x="195.5" y="0.0" width="80" height="80"/>
+                                                                        <rect key="frame" x="193.5" y="0.0" width="82.5" height="83"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="Ghg-mc-hnS" secondAttribute="height" multiplier="1:1" id="gX2-aj-GoC"/>
                                                                         </constraints>
@@ -631,7 +628,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uHP-3E-8gl">
-                                                                        <rect key="frame" x="293" y="0.0" width="80" height="80"/>
+                                                                        <rect key="frame" x="290" y="0.0" width="83" height="83"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="uHP-3E-8gl" secondAttribute="height" multiplier="1:1" id="o42-Dy-eVb"/>
                                                                         </constraints>
@@ -642,10 +639,14 @@
                                                                 </subviews>
                                                                 <constraints>
                                                                     <constraint firstItem="Ghg-mc-hnS" firstAttribute="width" secondItem="Ghg-mc-hnS" secondAttribute="height" multiplier="1:1" id="4SJ-tI-iGz"/>
+                                                                    <constraint firstItem="2IK-ae-Z39" firstAttribute="width" secondItem="2IK-ae-Z39" secondAttribute="height" multiplier="1:1" id="aqQ-IV-4Ic"/>
                                                                     <constraint firstItem="uHP-3E-8gl" firstAttribute="width" secondItem="uHP-3E-8gl" secondAttribute="height" multiplier="1:1" id="hc0-se-cXA"/>
                                                                 </constraints>
                                                             </stackView>
                                                         </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="FNT-q7-gQT" firstAttribute="height" secondItem="Z69-33-19s" secondAttribute="height" id="b2n-cd-n0i"/>
+                                                        </constraints>
                                                     </stackView>
                                                 </subviews>
                                             </stackView>
@@ -707,8 +708,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bbtnBack" destination="Qao-iR-wSD" id="dy4-c5-NT9"/>
+                        <outlet property="btnImageUpload" destination="gFX-zJ-4zL" id="i5Y-3E-H9T"/>
                         <outlet property="btnUploadPost" destination="eHg-SM-hRe" id="1sa-0W-gAq"/>
                         <outlet property="imgView" destination="LdS-oo-h2b" id="fnW-EY-Pep"/>
+                        <outlet property="imgView2" destination="1db-Y4-ex1" id="KY8-Hz-O4V"/>
+                        <outlet property="imgView3" destination="qLJ-x4-DYJ" id="ThN-F3-tdB"/>
+                        <outlet property="imgView4" destination="ybJ-30-vSk" id="Egk-ur-iKb"/>
+                        <outlet property="imgView5" destination="2IK-ae-Z39" id="ogl-v5-KVZ"/>
                         <outlet property="svUploadImage" destination="Z69-33-19s" id="X5x-lL-zFb"/>
                         <outlet property="svUploadImage2" destination="FNT-q7-gQT" id="sIg-lW-78B"/>
                         <outlet property="tfHashTag" destination="pFC-dg-ZTL" id="8IW-np-CpR"/>

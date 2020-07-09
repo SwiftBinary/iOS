@@ -350,7 +350,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         })
         
         let reportAction = UIAlertAction(title: "신고", style: .default, handler: { _ in
-            self.reportPostOrComment()
+            self.reportPost()
         })
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
@@ -373,7 +373,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         let alertController = UIAlertController(title: "글을 삭제하시겠습니까?", message: "삭제된 게시글은 되돌릴 수 없습니다.", preferredStyle: UIAlertController.Style.actionSheet)
         
         let MyPostDeleteAction = UIAlertAction(title: "삭제", style: .destructive, handler: { _ in
-            self.deletePost()
+            self.requestDeletePost()
         })
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
@@ -382,7 +382,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         
         present(alertController, animated: true, completion: nil)
     }
-    func deletePost(){
+    func requestDeletePost(){
         let url = OperationIP + "/board/deleteBoardInfo.do"
         let parameter = JSON([
             "boardSn": responseJSON["boardSn"].stringValue
@@ -399,6 +399,9 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
             }
             self.navigationController?.popViewController(animated: true)
         }
+    }
+    func reportPost(){
+        alertReport(responseJSON["boardSn"].stringValue, true)
     }
     
     //###########################
@@ -450,7 +453,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         btnAddComment.titleLabel!.font = UIFont.systemFont(ofSize: commentInfoFontSize)
         
         let btnReportComment = UIButton(type: .system)
-        btnReportComment.addTarget(self, action: #selector(reportPostOrComment), for: .touchUpInside)
+        btnReportComment.addTarget(self, action: #selector(reportComment(_:)), for: .touchUpInside)
         btnReportComment.setTitle("신고", for: .normal)
         btnReportComment.setTitleColor(.lightGray, for: .normal)
         btnReportComment.titleLabel!.font = UIFont.systemFont(ofSize: commentInfoFontSize)
@@ -544,24 +547,8 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         svHorizontal.heightAnchor.constraint(equalTo: backComment.heightAnchor, multiplier: 1).isActive = true
     }
     
-    @objc func reportPostOrComment(){
-        let alertController = UIAlertController(title: "신고 사유 선택", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
-        
-        let reportAction0 = UIAlertAction(title: "게시판에 부적절한 게시글", style: .default, handler: nil)
-        let reportAction1 = UIAlertAction(title: "음란성 게시글", style: .default, handler: nil)
-        let reportAction2 = UIAlertAction(title: "욕설", style: .default, handler: nil)
-        let reportAction3 = UIAlertAction(title: "도배", style: .default, handler: nil)
-        let reportAction4 = UIAlertAction(title: "광고/사기", style: .default, handler: nil)
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        
-        alertController.addAction(reportAction0)
-        alertController.addAction(reportAction1)
-        alertController.addAction(reportAction2)
-        alertController.addAction(reportAction3)
-        alertController.addAction(reportAction4)
-        alertController.addAction(cancelAction)
-        
-        self.present(alertController, animated: true, completion: nil)
+    @objc func reportComment(_ sender: UIButton){
+        alertReport(sender.accessibilityIdentifier!, false)
     }
     
     @objc func likeComment(_ sender: UIButton){
@@ -695,6 +682,52 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func alertReport(_ serialNum:String,_ isBoard:Bool){
+        let alertController = UIAlertController(title: "신고 사유 선택", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        
+        let reportAction001 = UIAlertAction(title: "게시판에 부적절한 게시글", style: .default, handler: { _ in
+            self.requestReportPostOrComment(serialNum,"001",isBoard)
+        })
+        let reportAction002 = UIAlertAction(title: "음란성 게시글", style: .default, handler: { _ in
+            self.requestReportPostOrComment(serialNum,"002",isBoard)
+        })
+        let reportAction003 = UIAlertAction(title: "욕설", style: .default, handler: { _ in
+            self.requestReportPostOrComment(serialNum,"003",isBoard)
+        })
+        let reportAction004 = UIAlertAction(title: "도배", style: .default, handler: { _ in
+            self.requestReportPostOrComment(serialNum,"004",isBoard)
+        })
+        let reportAction005 = UIAlertAction(title: "광고/사기", style: .default, handler: { _ in
+            self.requestReportPostOrComment(serialNum,"005",isBoard)
+        })
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alertController.addAction(reportAction001)
+        alertController.addAction(reportAction002)
+        alertController.addAction(reportAction003)
+        alertController.addAction(reportAction004)
+        alertController.addAction(reportAction005)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    func requestReportPostOrComment(_ serialNum:String,_ reportReason:String,_ isBoard:Bool){
+        let url = OperationIP + (isBoard ? "/board/insertBoardReportInfo.do" : "/board/insertReplyReportInfo.do")
+        let parameter = JSON([
+            (isBoard ? "boardSn" : "replySn") : boardSn,
+            "reportReason": reportReason
+        ])
+        
+        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
+        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
+            //            debugPrint(response)
+            if response.value != nil {
+                print(response.value!)
+            }
+        }
+    }
+    
     /*
      // MARK: - Navigation
      
@@ -762,8 +795,8 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
                 btn.setImage(UIImage(named: (isSelectedFavor == 0) ?  "LikeOffBtn":"LikeOnBtn"), for: .normal)
                 btn.setTitleColor((isSelectedFavor == 0) ? .lightGray: themeColor, for: .normal)
                 btn.accessibilityValue = String(isSelectedFavor)
-                print(btn.accessibilityIdentifier)
-                print(btn.accessibilityValue)
+//                print(btn.accessibilityIdentifier)
+//                print(btn.accessibilityValue)
             }
         }
     }

@@ -397,7 +397,7 @@ class DibsCourseViewController: UIViewController,UIGestureRecognizerDelegate, In
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             if response.value != nil {
-                let requestJSON = JSON(response.value!)
+//                let requestJSON = JSON(response.value!)
 //                print("##")
 //                print("## " + requestJSON["result"].stringValue + " ##")
 //                print("##")

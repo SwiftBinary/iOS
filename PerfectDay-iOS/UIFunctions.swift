@@ -35,7 +35,7 @@ public func countLabelLines(label: UILabel!) -> Int {
     let myText = label.text! as NSString
     
     let rect = CGSize(width: label.bounds.width, height: CGFloat.greatestFiniteMagnitude)
-    let labelSize = myText.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: label.font], context: nil)
+    let labelSize = myText.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: label.font!], context: nil)
     
     return Int(ceil(CGFloat(labelSize.height) / label.font.lineHeight))
 }
@@ -180,6 +180,10 @@ public func setSequenceColor(_ PrefSn : String,_ btnColor : UIButton){
     }
 }
 
+public func loadJSON(_ keyValue: String) -> JSON {
+    let defaults = UserDefaults.standard
+    return JSON.init(parseJSON: defaults.value(forKey: keyValue) as! String)
+}
 
 extension UITextView
 {

@@ -60,8 +60,8 @@ class HomeViewController: UIViewController {
         // Navigation Bar
         self.tabBarController?.tabBar.backgroundColor = .white
         view.backgroundColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
-        
     }
+    
     
     //###########################
     //           랜드마크

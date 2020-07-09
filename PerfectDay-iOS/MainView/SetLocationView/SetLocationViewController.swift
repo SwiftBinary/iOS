@@ -12,10 +12,6 @@ import NMapsMap
 import Alamofire
 import SwiftyJSON
 
-protocol LocationDelegate {
-    func didLocationDone(_ controller: SetLocationViewController, currentLocation: String)
-}
-
 class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLocationManagerDelegate {
     
     @IBOutlet var lblCenterLocation: UILabel!
@@ -33,7 +29,7 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
     var address:String = ""
     let marker = NMFMarker()
     var currentLatLng = NMGLatLng()
-    var delegate : LocationDelegate?
+//    var delegate : LocationDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +47,7 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
         locationManager.startUpdatingLocation()
         // 사용자의 현재위치 표시
         let coords = locationManager.location?.coordinate
-        print(coords)
+//        print(coords)
         
         mapNaverView.positionMode = .direction
         marker.position = mapNaverView.cameraPosition.target
@@ -78,7 +74,8 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
         
         setSNSButton(setLocation, "")
         setLocation.layer.backgroundColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
-        setLocation.titleLabel?.textColor = .white
+        setLocation.setTitleColor(.white, for: .normal)
+        setLocation.setTitleColor(.lightGray, for: .highlighted)
     }
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool){
         currentLatLng = NMGLatLng(lat: mapView.cameraPosition.target.lat, lng: mapView.cameraPosition.target.lng)

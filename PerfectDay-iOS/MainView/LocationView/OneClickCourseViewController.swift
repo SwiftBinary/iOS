@@ -357,8 +357,8 @@ class OneClickCourseViewController: UIViewController {
     }
     
     @objc func gotoCourseInfo(_ sender:UITapGestureRecognizer){
-        let courseSn = sender.view?.accessibilityIdentifier!
-        print(courseSn)
+//        let courseSn = sender.view?.accessibilityIdentifier!
+//        print(courseSn)
     }
     @IBAction func starPointChanged(_ sender: UISlider) {
         let roundValue = round(sender.value)

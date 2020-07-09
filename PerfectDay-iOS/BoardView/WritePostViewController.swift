@@ -15,29 +15,32 @@ import Material
 
 class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,UITextViewDelegate {
     
-    
-//    let developIP = "http://203.252.161.96:8080"
-    let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
-    let userData = getUserData()
-    
     @IBOutlet var tfTitle: UITextField!
     @IBOutlet var tvContentView: UIView!
-    
     @IBOutlet var tfHashTag: UITextField! //
-    
-    var naviTitle: String = ""
-    @IBOutlet var imgView: UIImageView!
-    let imagePicker: UIImagePickerController! = UIImagePickerController()
-    var captureImage: UIImage!
     @IBOutlet var svUploadImage: UIStackView!
     @IBOutlet var svUploadImage2: UIStackView!
-    
     @IBOutlet var bbtnBack: UIBarButtonItem!
+    @IBOutlet var btnUploadPost: UIButton!
+    @IBOutlet var btnImageUpload: UIButton!
     
+    @IBOutlet var imgView: UIImageView!
+    @IBOutlet var imgView2: UIImageView!
+    @IBOutlet var imgView3: UIImageView!
+    @IBOutlet var imgView4: UIImageView!
+    @IBOutlet var imgView5: UIImageView!
+    
+    var arrayImageView: Array<UIImageView> = []
+    var selectedImageCount = 0
+    
+    var naviTitle: String = ""
+    let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
+    let userData = getUserData()
+    let imagePicker: UIImagePickerController! = UIImagePickerController()
+    var selectedImage: UIImage!
     var isUpdatePost = false
     var categorySn: Int = 0
     var responseJSON: JSON = []
-    @IBOutlet var btnUploadPost: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,8 +77,13 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         let content = RSKPlaceholderTextView(frame: CGRect(x: (self.view.frame.width*0.04), y: 0, width: self.view.frame.width*0.96, height: tvContentView.frame.height*0.9))
         content.placeholder = "내용을 입력하세요. (최대 1000자 까지 입력 가능)"
         content.delegate = self
-//        content.
+        //        content.
         tvContentView.addSubview(content)
+        
+        arrayImageView = [imgView,imgView2,imgView3,imgView4,imgView5]
+        for imageView in arrayImageView{
+            
+        }
         
         print(isUpdatePost)
         if isUpdatePost {
@@ -86,7 +94,7 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         }
         
     }
-
+    
     
     @IBAction func gotoBack(_ sender: UIBarButtonItem) {
         let alertMessage = "정말 게시글 작성을 취소하시겠습니까?\n해당 페이지를 벗어나면\n게시글 작성 상황은 저장되지 않습니다."
@@ -123,9 +131,9 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         let mediaType = info[UIImagePickerController.InfoKey.mediaType] as! NSString
         
         if mediaType.isEqual(to: kUTTypeImage as NSString as String) {
-            captureImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+            selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
             //            UIImageWriteToSavedPhotosAlbum(captureImage, self, nil, nil)
-            imgView.image = captureImage
+            addImage(selectedImage)
         }
         self.dismiss(animated: true, completion: nil)
     }
@@ -141,6 +149,48 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
             alertControllerDefault(title: "업로드 실패", message: "앨범에 접근할 수 없습니다.\n권한을 확인해주세요.")
         }
     }
+    func addImage(_ image: UIImage){
+        arrayImageView[selectedImageCount].image = image
+        let _:IconButton = {
+            let btn = IconButton(image: Icon.cm.close)
+            btn.translatesAutoresizingMaskIntoConstraints = false
+            btn.tintColor = .darkGray
+            btn.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+            //            btn.widthAnchor.constraint(equalToConstant: 15).isActive = true
+            //            btn.heightAnchor.constraint(equalToConstant: 15).isActive = true
+            btn.layer.borderColor = UIColor.darkGray.cgColor
+            btn.layer.cornerRadius = Icon.cm.close!.height * 0.5
+            btn.layer.borderWidth = 1
+            btn.contentHorizontalAlignment = .center
+            btn.imageView?.contentMode = .scaleAspectFit
+            arrayImageView[selectedImageCount].addSubview(btn)
+            btn.topAnchor.constraint(equalTo: arrayImageView[selectedImageCount].topAnchor, constant: 1).isActive = true
+            btn.trailingAnchor.constraint(equalTo: arrayImageView[selectedImageCount].trailingAnchor, constant: -1).isActive = true
+            btn.tag = selectedImageCount
+            btn.addTarget(self, action: #selector(deleteImage(_:)), for: .touchUpInside)
+            return btn
+        }()
+        selectedImageCount += 1
+        print(selectedImageCount)
+        btnImageUpload.isEnabled = !(selectedImageCount == 5)
+    }
+    @objc func deleteImage(_ sender: IconButton){
+        let deleteImageIndex = sender.tag // 0,1,2,3,4
+        if deleteImageIndex == arrayImageView.count-1 {
+            arrayImageView[deleteImageIndex].image = nil
+        } else {
+            for index in deleteImageIndex..<arrayImageView.count-1 {
+                arrayImageView[index].image = arrayImageView[index+1].image
+            }
+        }
+        _ = (arrayImageView.filter { $0.image == nil }).map{$0.removeSubviews()}
+        for imageView in arrayImageView {
+            if imageView.image == nil { imageView.removeSubviews() }
+        }
+        selectedImageCount -= 1
+        btnImageUpload.isEnabled = true
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }
@@ -181,7 +231,7 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         let postTitle = tfTitle.text!
         let postContent = (tvContentView.subviews[0] as! RSKPlaceholderTextView).text!
         let postHashTag = (tfHashTag.text!.isEmpty) ? " " : tfHashTag.text!
-    
+        
         let url = OperationIP + "/board/updateBoardInfo.do"
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
         let parameter = JSON([
@@ -195,13 +245,13 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         print(parameter)
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
         
-
+        
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             debugPrint(response)
             if response.value != nil {
-//                let responseJSON = JSON(response.value!)
-//                print(responseJSON)
+                //                let responseJSON = JSON(response.value!)
+                //                print(responseJSON)
             }
             self.navigationController?.popViewController(animated: true)
         }
@@ -226,8 +276,8 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             debugPrint(response)
             if response.value != nil {
-//                let responseJSON = JSON(response.value!)
-//                print(responseJSON)
+                //                let responseJSON = JSON(response.value!)
+                //                print(responseJSON)
             }
             self.navigationController?.popViewController(animated: true)
         }

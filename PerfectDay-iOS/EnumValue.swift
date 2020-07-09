@@ -31,6 +31,7 @@ public let LandmarkImageURL = OperationIP + "/images/landmark/"
 
 public var locationData = JSON()
 public var locationDTO = LocationDTO()
+public var selectedLoc : [LocationData] = []
 public var landmarkSn:String = ""
 public var selectedTag = ""
 

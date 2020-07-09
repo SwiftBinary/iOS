@@ -368,7 +368,8 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         let imageSize:CGFloat = 15
         let lblLoationIndex = UILabel()
         lblLoationIndex.translatesAutoresizingMaskIntoConstraints = false
-        lblLoationIndex.text = "1"
+        let plannerNum = UserDefaults.standard.value(forKey: "PlannerNum") as! Int
+        lblLoationIndex.text = String(plannerNum)
         lblLoationIndex.textColor = .white
         lblLoationIndex.textAlignment = .center
         //        lblLoationIndex.fontSize = 10
@@ -378,9 +379,11 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         lblLoationIndex.heightAnchor.constraint(equalToConstant: imageSize).isActive = true
         lblLoationIndex.layer.masksToBounds = true
         lblLoationIndex.layer.cornerRadius = imageSize * (1/3)
-        btnPlanner.addSubview(lblLoationIndex)
-        lblLoationIndex.centerXAnchor.constraint(equalTo: btnPlanner.leadingAnchor, constant: imageSize*0.5).isActive = true
-        lblLoationIndex.centerYAnchor.constraint(equalTo: btnPlanner.topAnchor, constant:  imageSize*0.5).isActive = true
+        if plannerNum > 0 {
+            btnPlanner.addSubview(lblLoationIndex)
+            lblLoationIndex.centerXAnchor.constraint(equalTo: btnPlanner.leadingAnchor, constant: imageSize*0.5).isActive = true
+            lblLoationIndex.centerYAnchor.constraint(equalTo: btnPlanner.topAnchor, constant:  imageSize*0.5).isActive = true
+        }
     }
     @IBAction func gotoPlanner(_ sender: UIButton) {
         let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "plannerView")
@@ -507,6 +510,9 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         btnAddPlanner.setImage(UIImage(named: "AddPlannerBtn"), for: .normal)
         btnAddPlanner.contentHorizontalAlignment = .right
         btnAddPlanner.imageView?.contentMode = .scaleAspectFill
+        btnAddPlanner.accessibilityValue = item["storeSn"].string!
+        btnAddPlanner.accessibilityIdentifier =  item.rawString()
+        btnAddPlanner.addTarget(self, action: #selector(sendLocToPlanner(_:)), for: .touchUpInside)
         let svTop = UIStackView(arrangedSubviews: [svUpperLeft,btnAddPlanner])
         svTop.axis = .horizontal
         svTop.distribution = .fillProportionally
@@ -658,6 +664,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    
     //HashTag
     func setHashTagList(_ svHashTag : UIStackView, _ listHashTag: String) {
         svHashTag.axis = .horizontal
@@ -681,7 +688,34 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         svHashTag.addArrangedSubview(HashTagBtn)
     }
     
-    
+    @objc func sendLocToPlanner(_ sender: UIButton) {
+        let str = sender.accessibilityIdentifier!
+        let storeSn = sender.accessibilityValue!
+        let num =  UserDefaults.standard.value(forKey: "PlannerNum") as! Int
+        var flag = true
+        if num != 0 {
+            var storeSnList = UserDefaults.standard.value(forKey: "StoreSnList") as! Array<String>
+            for i in 0...num - 1 {
+                if storeSn == storeSnList[i] {
+                    flag = false
+                }
+            }
+            if flag {
+                UserDefaults.standard.set(num+1, forKey: "PlannerNum")
+                UserDefaults.standard.set(str, forKey: "PlannerKey" + String(num))
+                storeSnList.append(storeSn)
+                UserDefaults.standard.set(storeSnList, forKey: "StoreSnList")
+            }
+        }
+        else {
+            UserDefaults.standard.set(num+1, forKey: "PlannerNum")
+            UserDefaults.standard.set(str, forKey: "PlannerKey" + String(num))
+            var storeSnList : Array<String> = []
+            storeSnList.append(storeSn)
+            UserDefaults.standard.set(storeSnList, forKey: "StoreSnList")
+        }
+        setPlanner()
+    }
     
     
     /*

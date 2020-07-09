@@ -13,7 +13,7 @@ import SwiftyJSON
 import Material
 
 // UIPickerViewDelegate, UIPickerViewDataSource,
-class SearchLocationViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate, IndicatorInfoProvider, LocationDelegate {
+class SearchLocationViewController: UIViewController, UIScrollViewDelegate, UIGestureRecognizerDelegate, IndicatorInfoProvider {
     
     var optionList = ["높은 가격순","낮은 가격순","긴 소요시간순","짧은 소요시간순","높은 평점순","가까운 거리순"]
     var checkPv = true // true didSelectRow 호출됨, false didSelectRow 호출 안 됨
@@ -30,6 +30,7 @@ class SearchLocationViewController: UIViewController, UIScrollViewDelegate, UIGe
     let lblLocationDistance = UILabel()
     let lblLocationCount = UILabel()
     var lblGuide = UILabel()
+    let lblLocation = UILabel()
     let indicStoreLoading = UIActivityIndicatorView()
     var label = ""
     var searchData = JSON()
@@ -45,10 +46,6 @@ class SearchLocationViewController: UIViewController, UIScrollViewDelegate, UIGe
     var tmCostLimit: Int = 0
     var sortedBy: String = ""
     var offset: Int = 0
-    
-    func didLocationDone(_ controller: SetLocationViewController, currentLocation: String) {
-        ((view.subviews[0] as! UIStackView).arrangedSubviews[1] as! UILabel).text = currentLocation
-    }
     
     var itemInfo: IndicatorInfo = "View"
     init(itemInfo: IndicatorInfo) {
@@ -70,13 +67,14 @@ class SearchLocationViewController: UIViewController, UIScrollViewDelegate, UIGe
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if LocationInfo.locationString.str == "" {
-            label = "위치 정보 없음"
-        } else {
-            label = " " + LocationInfo.locationString.str
-        }
+//
+//        if LocationInfo.locationString.str == "" {
+//            label = "위치 정보 없음"
+//        } else {
+//            label = " " + LocationInfo.locationString.str
+//        }
         // 뷰의 서브뷰[0] -> 세로 스택[0] -> 가로 스택[0] -> 위치 표시 라벨
-        ((view.subviews.first as! UIStackView).arrangedSubviews[1] as! UILabel).text = label
+        lblLocation.text = locationDTO.address
         view.endEditing(true)
         // 뷰의 서브뷰[0] -> 세로 스택[1] -> 가로 스택[0] -> 장소 개수 라벨
         //(((view.subviews[0] as! UIStackView).arrangedSubviews[1] as! UIStackView).arrangedSubviews[0] as! UILabel).text = {"곳"}
@@ -87,7 +85,7 @@ class SearchLocationViewController: UIViewController, UIScrollViewDelegate, UIGe
         // 세로 스택뷰[ 가로 스택 뷰1{선택한 위치 라벨, 위치 설정 버튼} , 가로 스택 뷰2{결과 장소 수 라벨, 필터 버튼, 정렬조건 버튼} ]
         let svHorizontal = UIStackView()
         let btnSetLocation = UIButton(type: .custom)
-        let lblLocation = UILabel()
+        
         //        let lblLocationDistance = UILabel()
         //        let lblLocationCount = UILabel()
         let lblEnd = UILabel()
@@ -602,8 +600,8 @@ class SearchLocationViewController: UIViewController, UIScrollViewDelegate, UIGe
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let locationViewController = segue.destination as! SetLocationViewController
-        locationViewController.delegate = self
+//        let locationViewController = segue.destination as! SetLocationViewController
+//        locationViewController.delegate = self
     }
     
     // MARK: - IndicatorInfoProvider

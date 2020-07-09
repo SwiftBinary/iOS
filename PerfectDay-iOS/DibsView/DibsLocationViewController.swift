@@ -28,7 +28,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     var sequence : Int = 0
     var temp = 0
     var responseJSON:JSON = []
-    var selectedStoresn : Array<String> = ["","","","",""]
+    var selectedStoreSn : Array<String> = ["","","","",""]
     
     init(itemInfo: IndicatorInfo) {
         self.itemInfo = itemInfo
@@ -42,8 +42,6 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         super.viewDidLoad()
         setNavigationBar()
         setEmptyGuideUI()
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -524,7 +522,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     @objc func checkPick(_ sender: UIButton) {
         if sender.tag % 10 == 0 {
             let storesn = String(sender.accessibilityIdentifier!)
-            selectedStoresn[sequence] = "\(storesn)"
+            selectedStoreSn[sequence] = "\(storesn)"
             sender.tag += 1
             sequence += 1
             sender.accessibilityValue = String(sequence)
@@ -538,7 +536,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
             resetStoreSn(Int(sender.accessibilityValue!)!)
             sequence -= 1
             sender.accessibilityValue = ""
-            selectedStoresn[sequence] = ""
+            selectedStoreSn[sequence] = ""
             sender.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             sender.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
             deleteSequence(sender,_num: sequence)
@@ -605,14 +603,14 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     func resetStoreSn(_ num: Int){
         if num != sequence{
             for i in num...sequence - 1{
-                selectedStoresn[i - 1] = selectedStoresn[i]
+                selectedStoreSn[i - 1] = selectedStoreSn[i]
             }
-            selectedStoresn[sequence - 1] = ""
+            selectedStoreSn[sequence - 1] = ""
         }
         else{
-            selectedStoresn[num - 1] = ""
+            selectedStoreSn[num - 1] = ""
         }
-        print(selectedStoresn)
+        print(selectedStoreSn)
     }
     
     // 코스 산출 페이지
@@ -626,8 +624,8 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
             //아니면 종료
             return
         }
-        rvc.storeSnArr.append(contentsOf: self.selectedStoresn)
-        print("rcv = ", self.selectedStoresn)
+        rvc.storeSnArr.append(contentsOf: self.selectedStoreSn)
+        print("rcv = ", self.selectedStoreSn)
         self.navigationController?.pushViewController(rvc, animated: true)
         //화면전환
         //        self.present(goToVC, animated: true)
