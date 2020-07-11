@@ -17,12 +17,15 @@ enum Gender {
 public let naverClientIDKey = "7fp6ljv1lv"
 public let naverClientSecretKey = "ORrwGerniDoUS3k0Ok7UHMIPspmfCOclGhvORF7r"
 
+//UserDefaults Key
 public let userDataKey = "userData"
 public let locationSnKey = "locationSn"
 public let locationDataKey = "locationData"
-public let plannerKey = "plannerKey"
 public let hotStoreKey = "hotStore"
 public let oneDayPickKey = "oneDayPick"
+public let plannerKey = "plannerKey"
+public let plannerNumKey = "PlannerNum"
+public let recentlyStoreKey = "RecentlyStore"
 
 public let developIP = "http://203.252.161.96:8080"
 public let OperationIP = "http://203.252.161.219:8080"

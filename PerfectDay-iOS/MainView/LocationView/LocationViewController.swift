@@ -31,12 +31,27 @@ class LocationViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 1, green: 0.9490196078, blue: 0.9647058824, alpha: 1)
         requestDid(btnLike)
         setPlannerUI()
+        addRecentlyStore()
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = true
     }
-
+    
+    func addRecentlyStore() {
+        var recentlyStoreData = UserDefaults.standard.value(forKey: recentlyStoreKey) as! Array<String>
+//        let arrRecentlyStoreSn = recentlyStoreData.map { $0.split(separator: " ")[0] }
+//        for store in arrRecentlyStoreSn {
+//
+//        }
+        let urlImage = locationData["storeImageUrlList"].arrayValue.isEmpty ? ".": getImageURL(locationData["storeSn"].stringValue, locationData["storeImageUrlList"].arrayValue.first!.stringValue, tag: "store")
+        let strSave = locationSn + " " + urlImage
+        if !recentlyStoreData.contains(strSave) {
+            recentlyStoreData.append(strSave)
+            UserDefaults.standard.set(recentlyStoreData, forKey: recentlyStoreKey)
+        }
+    }
+    
     func setNavigationUI(){
         btnLike = UIBarButtonItem(image: UIImage(named: isDisLocation ? "DibsOnBtn" : "DibsBtn"), style: .plain, target: self, action: #selector(setPickInfo(_:)))
         btnLike.tintColor = isDisLocation ? #colorLiteral(red: 1, green: 0.3921568627, blue: 0.568627451, alpha: 1) : #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
@@ -118,7 +133,7 @@ class LocationViewController: UIViewController {
         let imageSize:CGFloat = 15
         let lblLoationIndex = UILabel()
         lblLoationIndex.translatesAutoresizingMaskIntoConstraints = false
-        let plannerNum = UserDefaults.standard.value(forKey: "PlannerNum") as! Int
+        let plannerNum = UserDefaults.standard.value(forKey: plannerNumKey) as! Int
         lblLoationIndex.text = String(plannerNum)
         lblLoationIndex.textColor = .white
         lblLoationIndex.textAlignment = .center
@@ -154,7 +169,7 @@ class LocationViewController: UIViewController {
     }
     @IBAction func sendLocToPlanner(_ sender: UIButton) {
         let str = locationData.rawString()!
-        let num =  UserDefaults.standard.value(forKey: "PlannerNum") as! Int
+        let num =  UserDefaults.standard.value(forKey: plannerNumKey) as! Int
         var flag = true
         if num != 0 {
             var storeSnList = UserDefaults.standard.value(forKey: "StoreSnList") as! Array<String>
@@ -165,13 +180,13 @@ class LocationViewController: UIViewController {
             }
             if flag {
                 print("1")
-                UserDefaults.standard.set(num+1, forKey: "PlannerNum")
+                UserDefaults.standard.set(num+1, forKey: plannerNumKey)
                 UserDefaults.standard.set(str, forKey: "PlannerKey" + String(num))
                 storeSnList.append(locationData["storeSn"].string!)
                 UserDefaults.standard.set(storeSnList, forKey: "StoreSnList")
             }
         } else {
-            UserDefaults.standard.set(num+1, forKey: "PlannerNum")
+            UserDefaults.standard.set(num+1, forKey: plannerNumKey)
             UserDefaults.standard.set(str, forKey: "PlannerKey" + String(num))
             var storeSnList : Array<String> = []
             storeSnList.append(locationData["storeSn"].string!)

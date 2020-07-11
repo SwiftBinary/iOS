@@ -173,7 +173,9 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
     }
 
     func getReprMenuName(_ menuList: [JSON]) -> String{
-        menuList.filter{ $0["isRepr"].stringValue == "001" }[0]["menuNm"].stringValue
+        print(menuList)
+        print(menuList.filter{ $0["isRepr"].stringValue == "001" })
+        return menuList.filter{ $0["isRepr"].stringValue == "001" }[0]["menuNm"].stringValue
     }
     @objc func searchByTag(_ sender: UIButton){
         let strTag = sender.titleLabel!.text!.trimmingCharacters(in: ["#"," "])

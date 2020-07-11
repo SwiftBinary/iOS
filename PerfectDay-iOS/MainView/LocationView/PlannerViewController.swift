@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import NMapsMap
 
 class PlannerViewController: UIViewController, UITableViewDelegate {
     
@@ -62,11 +63,11 @@ class PlannerViewController: UIViewController, UITableViewDelegate {
         self.navigationItem.setRightBarButtonItems([btnEdit], animated: true)
     }
     @objc func deleteAllPlannerLoc(_ sender: Any){
-        let num = UserDefaults.standard.value(forKey: "PlannerNum") as! Int
+        let num = UserDefaults.standard.value(forKey: plannerNumKey) as! Int
         for i in 0...num {
             UserDefaults.standard.removeObject(forKey: "PlannerKey" + String(i))
         }
-        UserDefaults.standard.set(0, forKey: "PlannerNum")
+        UserDefaults.standard.set(0, forKey: plannerNumKey)
         let arr : Array<String> = []
         UserDefaults.standard.set(arr, forKey: "StoreSnList")
         resetUpperUI()
@@ -103,7 +104,7 @@ class PlannerViewController: UIViewController, UITableViewDelegate {
     }
     
     func setPlaceList(){
-        let num = UserDefaults.standard.value(forKey: "PlannerNum") as! Int
+        let num = UserDefaults.standard.value(forKey: plannerNumKey) as! Int
         if num > 0 {
             svPlaceList.removeSubviews()
             for i in 0...num - 1 {
@@ -248,7 +249,7 @@ class PlannerViewController: UIViewController, UITableViewDelegate {
     
     // 상단 장소 리스트 편집모드
     func deleteMode(){
-        let num = UserDefaults.standard.value(forKey: "PlannerNum") as! Int
+        let num = UserDefaults.standard.value(forKey: plannerNumKey) as! Int
         if num != 0 {
             for i in 1...num {
                 self.svPlaceList.viewWithTag(i)?.isHidden = true
@@ -257,7 +258,7 @@ class PlannerViewController: UIViewController, UITableViewDelegate {
         }
     }
     func defaultMode(){
-        let num = UserDefaults.standard.value(forKey: "PlannerNum") as! Int
+        let num = UserDefaults.standard.value(forKey: plannerNumKey) as! Int
         if num != 0 {
             for i in 1...num {
                 self.svPlaceList.viewWithTag(i)?.isHidden = false
@@ -266,7 +267,7 @@ class PlannerViewController: UIViewController, UITableViewDelegate {
         }
     }
     @objc func removePlannerLoc(_ sender: UIButton){
-        let num = UserDefaults.standard.value(forKey: "PlannerNum") as! Int
+        let num = UserDefaults.standard.value(forKey: plannerNumKey) as! Int
         let index = Int(sender.accessibilityValue!)!
         let storeSn : String = sender.accessibilityIdentifier!
         for i in index...num - 1 {
@@ -277,7 +278,7 @@ class PlannerViewController: UIViewController, UITableViewDelegate {
                 UserDefaults.standard.set(nextLoc, forKey: "PlannerKey" + String(i))
             }
         }
-        UserDefaults.standard.set(num-1, forKey: "PlannerNum")
+        UserDefaults.standard.set(num-1, forKey: plannerNumKey)
         
         var flag = false
         var n : Int = 0
@@ -316,7 +317,7 @@ class PlannerViewController: UIViewController, UITableViewDelegate {
     @objc func addLocation(_ sender: UITapGestureRecognizer){
         //선택된 장소 리스트에 넣는 함수
         let index = sender.view!.accessibilityValue!
-        let num = UserDefaults.standard.value(forKey: "PlannerNum") as! Int
+        let num = UserDefaults.standard.value(forKey: plannerNumKey) as! Int
         let storeSn : String = sender.view!.accessibilityIdentifier!
         var flag = true
         if selectedLoc.count != 0 {
@@ -444,6 +445,7 @@ extension PlannerViewController: UITableViewDataSource {
         selectedLoc.remove(at: sourceIndexPath.row)
         selectedLoc.insert(movedObject, at: destinationIndexPath.row)
         self.tableView.reloadData()
+        print(selectedLoc)
     }
     
 }

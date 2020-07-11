@@ -108,9 +108,11 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
         let getData = UserDefaults.standard.dictionary(forKey: userDataKey)
         if getData == nil{
             gotoLogin()
-            UserDefaults.standard.set(0, forKey: "PlannerNum")
-            let arr : Array<String> = []
-            UserDefaults.standard.set(arr, forKey: "StoreSnList")
+            UserDefaults.standard.set(0, forKey: plannerNumKey)
+            let arrStoreSnList : Array<String> = []
+            UserDefaults.standard.set(arrStoreSnList, forKey: "StoreSnList")
+            let arrRecentlyStore : Array<String> = []
+            UserDefaults.standard.set(arrRecentlyStore, forKey: recentlyStoreKey)
         } else {
             indicLoading.center = view.center
             indicLoading.startAnimating()
@@ -192,6 +194,8 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
     @objc func isNot(_ sender: UITapGestureRecognizer){
         if CLLocationManager.authorizationStatus().rawValue == 2{
             goSettingLocationPermission()
+        } else {
+            locationAuthorization()
         }
     }
 }

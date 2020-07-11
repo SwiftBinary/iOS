@@ -80,11 +80,12 @@ class SetLikeViewController: UIViewController {
     var prefValue = [
         "1111110000", // Eat
         "1111111000", // Drink
-        "1111100000", // Play
-        "1111110000", // Watch
-        "1110000000", // Walk
+        "1111110000", // Play
+        "1111100000", // Watch
+        "1111000000", // Walk
     ]
-    
+    var categoryName = [["Rice","Meat","Noodle","SeaFood","StreetFood","FastFood","","","",""],["Coffee","Tea","Dessert","Beer","Soju","Makgeolli","Cocktail","","",""],["Game","VR","IndoorActivity","OutdoorActivity","Healing","Making","","","",""],["Movie","Sport","Exhibition","Performance","BookStore","","","","",""],["Market","Park","ThemeStreet","Landscape","","","","","",""]]
+    var OnOffString = [["Off","Off","Off","Off","Off","Off","Off","Off","Off","Off"],["Off","Off","Off","Off","Off","Off","Off","Off","Off","Off"],["Off","Off","Off","Off","Off","Off","Off","Off","Off","Off"],["Off","Off","Off","Off","Off","Off","Off","Off","Off","Off"],["Off","Off","Off","Off","Off","Off","Off","Off","Off","Off"],["Off","Off","Off","Off","Off","Off","Off","Off","Off","Off"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,14 +99,46 @@ class SetLikeViewController: UIViewController {
         setWatchUI()
         setWalkUI()
         arrayBtn = [arrayBtnEating,arrayBtnDrinking,arrayBtnPlaying,arrayBtnWatching,arrayBtnWalking]
-        for array in arrayBtn{
-            for btn in array{
+        for (i, array) in arrayBtn.enumerated(){
+            for (j, btn) in array.enumerated(){
+                btn.accessibilityIdentifier = String(i)
+                btn.accessibilityHint = String(j)
+                btn.accessibilityValue = OnOffString[i][j]
                 btn.addTarget(self, action: #selector(touchEvent(_:)), for: .touchUpInside)
             }
         }
     }
+    
     @objc func touchEvent(_ sender: MaterialVerticalButton){
-        print("touch")
+        let onoffStr = sender.accessibilityValue
+        let firstIndex = Int(sender.accessibilityIdentifier!)!
+        let secondIndex = Int(sender.accessibilityHint!)!
+        switch onoffStr {
+        case "On" :
+            sender.accessibilityValue = "Off"
+            OnOffString[firstIndex][secondIndex] = "Off"
+            let i = prefValue[firstIndex].index(prefValue[firstIndex].startIndex, offsetBy: secondIndex)
+            prefValue[firstIndex].remove(at: i)
+            prefValue[firstIndex].insert("0", at: i)
+            sender.imageView.image = UIImage(named: categoryName[firstIndex][secondIndex] + "Off")
+            break
+        case "Off" :
+            sender.accessibilityValue = "On"
+            OnOffString[firstIndex][secondIndex] = "On"
+            let i = prefValue[firstIndex].index(prefValue[firstIndex].startIndex, offsetBy: secondIndex)
+            prefValue[firstIndex].remove(at: i)
+            prefValue[firstIndex].insert("1", at: i)
+            sender.imageView.image = UIImage(named: categoryName[firstIndex][secondIndex] + "On")
+            break
+        default :
+            sender.accessibilityValue = "Off"
+            OnOffString[firstIndex][secondIndex] = "Off"
+            let i = prefValue[firstIndex].index(prefValue[firstIndex].startIndex, offsetBy: secondIndex)
+            prefValue[firstIndex].remove(at: i)
+            prefValue[firstIndex].insert("0", at: i)
+            sender.imageView.image = UIImage(named: categoryName[firstIndex][secondIndex] + "Off")
+            break
+        }
     }
     
     func setUI(){
@@ -161,16 +194,16 @@ class SetLikeViewController: UIViewController {
     }
     
     func updateUserPrefInfo(){
+        print(userData)
         let url = OperationIP + "/user/updateUserPrefInfo.do"
         let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
         let parameter = JSON([
             "userAvgBudget": getString(userData["userAvgBudget"]),
-            "eatPref": getString(userData["eatPref"]),
-            "drinkPref": getString(userData["drinkPref"]),
-            "playPref": getString(userData["playPref"]),
-            "watchPref": getString(userData["watchPref"]),
-            "walkPref": getString(userData["walkPref"]),
-            
+            "eatPref": prefValue[0],
+            "drinkPref": prefValue[1],
+            "playPref": prefValue[2],
+            "watchPref": prefValue[3],
+            "walkPref": prefValue[4],
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -179,6 +212,15 @@ class SetLikeViewController: UIViewController {
                 print(responseJSON)
             }
         }
+        
+        var prevUserDataJSON = JSON(UserDefaults.standard.value(forKey: userDataKey))
+        prevUserDataJSON["eatPref"].string = prefValue[0]
+        prevUserDataJSON["drinkPref"].string = prefValue[1]
+        prevUserDataJSON["playPref"].string = prefValue[2]
+        prevUserDataJSON["watchPref"].string = prefValue[3]
+        prevUserDataJSON["walkPref"].string = prefValue[4]
+        UserDefaults.standard.setValue(prevUserDataJSON.dictionaryObject, forKey: userDataKey)
+        UserDefaults.standard.set(prevUserDataJSON.stringValue, forKey: "userJSONData")
     }
     
     
@@ -186,12 +228,30 @@ class SetLikeViewController: UIViewController {
     //         버튼 초기화
     // ###########################
     func setEatUI(){
-        btnRice = MaterialVerticalButton(icon: UIImage(named: "RiceOn")!, text: "밥", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnMeat = MaterialVerticalButton(icon: UIImage(named: "MeatOn")!, text: "고기", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnNoodle =  MaterialVerticalButton(icon: UIImage(named: "NoodleOn")!, text: "면", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnSeafood =  MaterialVerticalButton(icon: UIImage(named: "SeaFoodOn")!, text: "해산물", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnStreetfood =  MaterialVerticalButton(icon: UIImage(named: "StreetFoodOn")!, text: "길거리", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnFastfood =  MaterialVerticalButton(icon: UIImage(named: "FastFoodOn")!, text: "피자/버거", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let LikeData = prefValue[0]
+        var i : Int = 0
+        
+        for index in LikeData.indices {
+            switch LikeData[index] {
+            case "0":
+                OnOffString[0][i] = "Off"
+                break
+            case "1":
+                OnOffString[0][i] = "On"
+                break
+            default:
+                break
+            }
+            i += 1
+        }
+        
+        btnRice = MaterialVerticalButton(icon: UIImage(named: categoryName[0][0] + OnOffString[0][0])!, text: "밥", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnMeat = MaterialVerticalButton(icon: UIImage(named: categoryName[0][1] + OnOffString[0][1])!, text: "고기", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnNoodle =  MaterialVerticalButton(icon: UIImage(named: categoryName[0][2] + OnOffString[0][2])!, text: "면", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnSeafood =  MaterialVerticalButton(icon: UIImage(named: categoryName[0][3] + OnOffString[0][3])!, text: "해산물", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnStreetfood =  MaterialVerticalButton(icon: UIImage(named: categoryName[0][4] + OnOffString[0][4])!, text: "길거리", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnFastfood =  MaterialVerticalButton(icon: UIImage(named: categoryName[0][5] + OnOffString[0][5])!, text: "피자/버거", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        
         arrayBtnEating = [btnRice,btnMeat,btnNoodle,btnSeafood,btnStreetfood,btnFastfood]
         setStackView(svEat, arrayBtnEating)
         for view in svEat.subviews {
@@ -200,44 +260,104 @@ class SetLikeViewController: UIViewController {
     }
     
     func setDrinkUI(){
-        btnCoffee = MaterialVerticalButton(icon: UIImage(named: "CoffeeOff")!, text: "커피", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnTea = MaterialVerticalButton(icon: UIImage(named: "TeaOff")!, text: "차/음료", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnDessert =  MaterialVerticalButton(icon: UIImage(named: "DessertOff")!, text: "디저트", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnBeer =  MaterialVerticalButton(icon: UIImage(named: "BeerOff")!, text: "맥주", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnSoju =  MaterialVerticalButton(icon: UIImage(named: "SojuOff")!, text: "소주", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnMakgeolli =  MaterialVerticalButton(icon: UIImage(named: "MakgeolliOff")!, text: "막걸리", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnCocktail =  MaterialVerticalButton(icon: UIImage(named: "CocktailOff")!, text: "칵테일/와인", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let LikeData = prefValue[1]
+        var i : Int = 0
+        for index in LikeData.indices {
+            switch LikeData[index] {
+            case "0":
+                OnOffString[1][i] = "Off"
+                break
+            case "1":
+                OnOffString[1][i] = "On"
+                break
+            default:
+                break
+            }
+            i += 1
+        }
+        btnCoffee = MaterialVerticalButton(icon: UIImage(named: categoryName[1][0] + OnOffString[1][0])!, text: "커피", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnTea = MaterialVerticalButton(icon: UIImage(named: categoryName[1][1] + OnOffString[1][1])!, text: "차/음료", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnDessert =  MaterialVerticalButton(icon: UIImage(named: categoryName[1][2] + OnOffString[1][2])!, text: "디저트", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnBeer =  MaterialVerticalButton(icon: UIImage(named: categoryName[1][3] + OnOffString[1][3])!, text: "맥주", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnSoju =  MaterialVerticalButton(icon: UIImage(named: categoryName[1][4] + OnOffString[1][4])!, text: "소주", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnMakgeolli =  MaterialVerticalButton(icon: UIImage(named: categoryName[1][5] + OnOffString[1][5])!, text: "막걸리", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnCocktail =  MaterialVerticalButton(icon: UIImage(named: categoryName[1][6] + OnOffString[1][6])!, text: "칵테일/와인", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
         
         arrayBtnDrinking = [btnCoffee,btnTea,btnDessert,btnBeer,btnSoju,btnMakgeolli,btnCocktail]
         setStackView(svDrink, arrayBtnDrinking)
     }
     func setPlayUI(){
-        btnGame = MaterialVerticalButton(icon: UIImage(named: "GameOff")!, text: "게임/오락", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnVR = MaterialVerticalButton(icon: UIImage(named: "VROff")!, text: "VR/방탈출", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnIndoorActivity =  MaterialVerticalButton(icon: UIImage(named: "IndoorActivityOff")!, text: "실내 활동", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnOutdoorActivity =  MaterialVerticalButton(icon: UIImage(named: "OutdoorActivityOff")!, text: "실외 활동", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnHealing =  MaterialVerticalButton(icon: UIImage(named: "HealingOff")!, text: "힐링", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnMaking =  MaterialVerticalButton(icon: UIImage(named: "MakingOff")!, text: "만들기", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let LikeData = prefValue[2]
+        var i : Int = 0
+        for index in LikeData.indices {
+            switch LikeData[index] {
+            case "0":
+                OnOffString[2][i] = "Off"
+                break
+            case "1":
+                OnOffString[2][i] = "On"
+                break
+            default:
+                break
+            }
+            i += 1
+        }
+        btnGame = MaterialVerticalButton(icon: UIImage(named: categoryName[2][0] + OnOffString[2][0])!, text: "게임/오락", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnVR = MaterialVerticalButton(icon: UIImage(named: categoryName[2][1] + OnOffString[2][1])!, text: "VR/방탈출", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnIndoorActivity =  MaterialVerticalButton(icon: UIImage(named: categoryName[2][2] + OnOffString[2][2])!, text: "실내 활동", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnOutdoorActivity =  MaterialVerticalButton(icon: UIImage(named: categoryName[2][3] + OnOffString[2][3])!, text: "실외 활동", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnHealing =  MaterialVerticalButton(icon: UIImage(named: categoryName[2][4] + OnOffString[2][4])!, text: "힐링", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnMaking =  MaterialVerticalButton(icon: UIImage(named: categoryName[2][5] + OnOffString[2][5])!, text: "만들기", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
         
         arrayBtnPlaying = [btnGame,btnVR,btnIndoorActivity,btnOutdoorActivity,btnHealing,btnMaking]
         setStackView(svPlay, arrayBtnPlaying)
     }
     func setWatchUI(){
-        btnMovie = MaterialVerticalButton(icon: UIImage(named: "MovieOff")!, text: "영화", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnSport = MaterialVerticalButton(icon: UIImage(named: "SportOff")!, text: "스포츠 경기", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnExhibition =  MaterialVerticalButton(icon: UIImage(named: "ExhibitionOff")!, text: "전시회", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnPerformance =  MaterialVerticalButton(icon: UIImage(named: "PerformanceOff")!, text: "공연", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnReading =  MaterialVerticalButton(icon: UIImage(named: "BookStoreOff")!, text: "책방", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        let LikeData = prefValue[3]
+        var i : Int = 0
+        for index in LikeData.indices {
+            switch LikeData[index] {
+            case "0":
+                OnOffString[3][i] = "Off"
+                break
+            case "1":
+                OnOffString[3][i] = "On"
+                break
+            default:
+                break
+            }
+            i += 1
+        }
+        btnMovie = MaterialVerticalButton(icon: UIImage(named: categoryName[3][0] + OnOffString[3][0])!, text: "영화", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnSport = MaterialVerticalButton(icon: UIImage(named: categoryName[3][1] + OnOffString[3][1])!, text: "스포츠 경기", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnExhibition =  MaterialVerticalButton(icon: UIImage(named: categoryName[3][2] + OnOffString[3][2])!, text: "전시회", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnPerformance =  MaterialVerticalButton(icon: UIImage(named: categoryName[3][3] + OnOffString[3][3])!, text: "공연", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnReading =  MaterialVerticalButton(icon: UIImage(named: categoryName[3][4] + OnOffString[3][4])!, text: "책방", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
         
         arrayBtnWatching = [btnMovie,btnSport,btnExhibition,btnPerformance,btnReading]
         setStackView(svWatch, arrayBtnWatching)
     }
     func setWalkUI(){
-        btnMarket = MaterialVerticalButton(icon: UIImage(named: "MarketOff")!, text: "시장", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnPark = MaterialVerticalButton(icon: UIImage(named: "ParkOff")!, text: "공원", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnThemeStreet =  MaterialVerticalButton(icon: UIImage(named: "ThemeStreetOff")!, text: "테마거리", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-        btnLandscape =  MaterialVerticalButton(icon: UIImage(named: "LandscapeOff")!, text: "야경/풍경", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
-    
+        let LikeData = prefValue[4]
+        var i : Int = 0
+        for index in LikeData.indices {
+            switch LikeData[index] {
+            case "0":
+                OnOffString[4][i] = "Off"
+                break
+            case "1":
+                OnOffString[4][i] = "On"
+                break
+            default:
+                break
+            }
+            i += 1
+        }
+        btnMarket = MaterialVerticalButton(icon: UIImage(named: categoryName[4][0] + OnOffString[4][0])!, text: "시장", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnPark = MaterialVerticalButton(icon: UIImage(named: categoryName[4][1] + OnOffString[4][1])!, text: "공원", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnThemeStreet =  MaterialVerticalButton(icon: UIImage(named: categoryName[4][2] + OnOffString[4][2])!, text: "테마거리", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        btnLandscape =  MaterialVerticalButton(icon: UIImage(named: categoryName[4][3] + OnOffString[4][3])!, text: "야경/풍경", font: nil ,foregroundColor: themeColor, bgColor: .white, useOriginalImg: true,cornerRadius: 10.0)
+        
         arrayBtnWalking = [btnMarket,btnPark,btnThemeStreet,btnLandscape]
         setStackView(svWalk, arrayBtnWalking)
     }
@@ -255,8 +375,8 @@ class SetLikeViewController: UIViewController {
                     arrayBtn[index].label.font = .systemFont(ofSize: 7)
                     arrayBtn[index].rippleLayerColor = .lightGray
                     arrayBtn[index].rippleEnabled = true
-//                    print(arrayBtn[index].accessibilityIdentifier)
-//                    arrayBtn[index].accessibilityLabel = arrayBtn[index].imageView.image
+                    //                    print(arrayBtn[index].accessibilityIdentifier)
+                    //                    arrayBtn[index].accessibilityLabel = arrayBtn[index].imageView.image
                 } else {
                     svSub.addArrangedSubview(UIView())
                 }

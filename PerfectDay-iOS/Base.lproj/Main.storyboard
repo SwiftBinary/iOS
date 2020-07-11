@@ -714,7 +714,7 @@
                                         <rect key="frame" x="60" y="0.0" width="312.66666666666669" height="30"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="G70-fE-G5o">
-                                                <rect key="frame" x="0.0" y="0.0" width="308" height="28"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="294" height="28"/>
                                                 <subviews>
                                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aiM-A8-HAa">
                                                         <rect key="frame" x="0.0" y="0.0" width="0.0" height="28"/>
@@ -731,21 +731,21 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fyZ-MB-fca">
-                                                        <rect key="frame" x="67.999999999999986" y="0.0" width="86.000000000000014" height="28"/>
-                                                        <state key="normal" title="  1.5km 이내  "/>
+                                                        <rect key="frame" x="67.999999999999986" y="0.0" width="72.000000000000014" height="28"/>
+                                                        <state key="normal" title="  거리 전체  "/>
                                                         <connections>
                                                             <action selector="FilterPopup:" destination="LYx-6d-mtx" eventType="touchUpInside" id="tKn-3f-9hO"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bwW-Jr-rUT">
-                                                        <rect key="frame" x="159" y="0.0" width="72" height="28"/>
+                                                        <rect key="frame" x="145" y="0.0" width="72" height="28"/>
                                                         <state key="normal" title="  가격 전체  "/>
                                                         <connections>
                                                             <action selector="FilterPopup:" destination="LYx-6d-mtx" eventType="touchUpInside" id="pER-rM-9eB"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mGb-yR-2cu">
-                                                        <rect key="frame" x="236" y="0.0" width="72" height="28"/>
+                                                        <rect key="frame" x="222" y="0.0" width="72" height="28"/>
                                                         <state key="normal" title="  시간 전체  "/>
                                                         <connections>
                                                             <action selector="FilterPopup:" destination="LYx-6d-mtx" eventType="touchUpInside" id="w5P-3h-e1F"/>
@@ -861,12 +861,10 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="hQb-Kd-ODO" secondAttribute="trailing" constant="20" id="3bH-AW-H0M"/>
                                             <constraint firstItem="hQb-Kd-ODO" firstAttribute="width" secondItem="MfR-Uu-GSF" secondAttribute="width" constant="-40" id="9TA-3o-Jz4"/>
                                             <constraint firstItem="hQb-Kd-ODO" firstAttribute="centerX" secondItem="MfR-Uu-GSF" secondAttribute="centerX" id="A1H-0T-MJ8"/>
                                             <constraint firstItem="hQb-Kd-ODO" firstAttribute="top" secondItem="MfR-Uu-GSF" secondAttribute="top" constant="20" id="Kvv-hi-Fv3"/>
                                             <constraint firstAttribute="bottom" secondItem="hQb-Kd-ODO" secondAttribute="bottom" constant="20" id="LEA-Me-F6N"/>
-                                            <constraint firstItem="hQb-Kd-ODO" firstAttribute="leading" secondItem="MfR-Uu-GSF" secondAttribute="leading" constant="20" id="fak-5n-WeZ"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1822,14 +1820,15 @@
                                     <constraint firstItem="1Qe-qj-grP" firstAttribute="top" secondItem="fWV-XJ-KtQ" secondAttribute="top" id="yYI-ZV-s2e"/>
                                 </constraints>
                             </scrollView>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ZjB-9j-2R4">
-                                <rect key="frame" x="0.0" y="64" width="414" height="250"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="meR-fY-h8G" customClass="NMFMapView">
+                                <rect key="frame" x="0.0" y="64" width="414" height="276"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="e8Z-HA-C85"/>
+                                    <constraint firstAttribute="width" secondItem="meR-fY-h8G" secondAttribute="height" multiplier="3:2" id="PsZ-5p-pui"/>
                                 </constraints>
-                            </mapView>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PoE-A1-jVT">
-                                <rect key="frame" x="0.0" y="324" width="414" height="461.33333333333326"/>
+                                <rect key="frame" x="0.0" y="350" width="414" height="435.33333333333326"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y0h-TE-PaE" userLabel="완료">
@@ -1850,16 +1849,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="LS8-vM-AcA" firstAttribute="trailing" secondItem="PoE-A1-jVT" secondAttribute="trailing" id="3AV-3y-uYZ"/>
-                            <constraint firstItem="ZjB-9j-2R4" firstAttribute="top" secondItem="fWV-XJ-KtQ" secondAttribute="bottom" constant="10" id="3lQ-IO-MCE"/>
                             <constraint firstItem="Y0h-TE-PaE" firstAttribute="width" secondItem="5gN-zG-H9H" secondAttribute="width" multiplier="0.9" id="4P0-n5-hfw"/>
-                            <constraint firstItem="PoE-A1-jVT" firstAttribute="top" secondItem="ZjB-9j-2R4" secondAttribute="bottom" constant="10" id="BB8-uT-tkK"/>
                             <constraint firstItem="fWV-XJ-KtQ" firstAttribute="centerX" secondItem="LS8-vM-AcA" secondAttribute="centerX" id="K98-nG-XRm"/>
+                            <constraint firstItem="PoE-A1-jVT" firstAttribute="top" secondItem="meR-fY-h8G" secondAttribute="bottom" constant="10" id="Qk2-Gb-GVB"/>
                             <constraint firstItem="PoE-A1-jVT" firstAttribute="leading" secondItem="LS8-vM-AcA" secondAttribute="leading" id="TSs-nu-EgF"/>
                             <constraint firstItem="LS8-vM-AcA" firstAttribute="bottom" secondItem="Y0h-TE-PaE" secondAttribute="bottom" constant="20" id="VII-Py-hBb"/>
-                            <constraint firstItem="ZjB-9j-2R4" firstAttribute="leading" secondItem="LS8-vM-AcA" secondAttribute="leading" id="Wd6-ig-a8q"/>
                             <constraint firstItem="Y0h-TE-PaE" firstAttribute="centerX" secondItem="LS8-vM-AcA" secondAttribute="centerX" id="XYk-kN-lC5"/>
-                            <constraint firstItem="LS8-vM-AcA" firstAttribute="trailing" secondItem="ZjB-9j-2R4" secondAttribute="trailing" id="ddR-mZ-Fq3"/>
+                            <constraint firstItem="meR-fY-h8G" firstAttribute="centerX" secondItem="LS8-vM-AcA" secondAttribute="centerX" id="ZOL-1e-SHR"/>
+                            <constraint firstItem="meR-fY-h8G" firstAttribute="top" secondItem="fWV-XJ-KtQ" secondAttribute="bottom" constant="10" id="hLs-1g-gVN"/>
+                            <constraint firstItem="meR-fY-h8G" firstAttribute="leading" secondItem="LS8-vM-AcA" secondAttribute="leading" id="hOr-Kb-f6F"/>
+                            <constraint firstItem="meR-fY-h8G" firstAttribute="width" secondItem="5gN-zG-H9H" secondAttribute="width" id="mUo-fK-MPX"/>
                             <constraint firstItem="fWV-XJ-KtQ" firstAttribute="width" secondItem="5gN-zG-H9H" secondAttribute="width" multiplier="0.9" id="p9R-U8-qpo"/>
+                            <constraint firstItem="LS8-vM-AcA" firstAttribute="trailing" secondItem="meR-fY-h8G" secondAttribute="trailing" id="pgN-8c-jc8"/>
                             <constraint firstItem="Y0h-TE-PaE" firstAttribute="top" secondItem="PoE-A1-jVT" secondAttribute="bottom" constant="10" id="ri2-zc-M6i"/>
                             <constraint firstItem="fWV-XJ-KtQ" firstAttribute="top" secondItem="LS8-vM-AcA" secondAttribute="top" constant="10" id="si6-go-Lqu"/>
                         </constraints>
