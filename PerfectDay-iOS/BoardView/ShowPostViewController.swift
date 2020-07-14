@@ -40,9 +40,6 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
     var checkLikePost = false
     var isMyPost = false
     var isCommentUpdate = false
-
-    
-    let userData = getUserData()
     
     let commentProfileSize: CGFloat = 30
     let commentFontSize: CGFloat = 15
@@ -142,7 +139,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -163,7 +160,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn]
         //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -224,7 +221,9 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         lblContentTitle.text = postData["title"].string
         lblContent.isHidden = (postData["content"].string == nil)
         lblContent.text = postData["content"].string
-        lblContent.numberOfLines = countLabelLines(label: lblContent)
+        if lblContent.text != nil {
+            lblContent.numberOfLines = countLabelLines(label: lblContent)
+        }
         lblContent.lineBreakMode = .byCharWrapping
         
         uvBack.clipsToBounds = true
@@ -313,7 +312,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -329,7 +328,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
             "boardSn": boardSn
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
@@ -355,7 +354,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
-        if getString(userData["userSn"]) == responseJSON["userSn"].stringValue {
+        if userDTO.userSn == responseJSON["userSn"].stringValue {
             alertController.addAction(MyPostEditAction)
             alertController.addAction(MyPostDeleteAction)
         } else {
@@ -390,7 +389,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
         
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
 //            debugPrint(response)
@@ -477,7 +476,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         lblSpace.text = ""
         lblSpace.widthAnchor.constraint(lessThanOrEqualToConstant: 500).isActive = true
         
-        let listCommentInfo = (comment["userSn"].stringValue == getString(userData["userSn"])) ? [lblTime,btnLikeComment,btnAddComment,btnUpdateComment,btnDeleteComment,lblSpace] : [lblTime,btnLikeComment,btnAddComment,btnReportComment,lblSpace]
+        let listCommentInfo = (comment["userSn"].stringValue == userDTO.userSn) ? [lblTime,btnLikeComment,btnAddComment,btnUpdateComment,btnDeleteComment,lblSpace] : [lblTime,btnLikeComment,btnAddComment,btnReportComment,lblSpace]
         let svCommentInfo = UIStackView(arrangedSubviews: listCommentInfo)
         svCommentInfo.spacing = 5
         svCommentInfo.axis = .horizontal
@@ -568,7 +567,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -584,7 +583,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
             "replySn": replySn
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -613,7 +612,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
@@ -643,7 +642,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
             if response.value != nil {
@@ -669,7 +668,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -719,7 +718,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
             if response.value != nil {
@@ -748,7 +747,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -766,7 +765,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn]
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -814,7 +813,7 @@ class ShowPostViewController: UIViewController, UITextFieldDelegate {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn]
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in

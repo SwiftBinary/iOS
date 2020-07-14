@@ -19,8 +19,6 @@ class SetUserInfoViewController: UIViewController {
     @IBOutlet var tfNewPw: UITextField!
     @IBOutlet var tfNewPwCheck: UITextField!
     
-    let userData = getUserData()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboard()
@@ -36,26 +34,25 @@ class SetUserInfoViewController: UIViewController {
     }
     
     @IBAction func gotoBack(_ sender: UIButton) {
-        let userJSON = JSON(userData)
 //        print(userJSON)
         let url = OperationIP + "/user/updateUserInfo.do"
         let parameter = JSON([
-            "userSn": userJSON["userSn"].stringValue,
-            "userType": userJSON["userType"].stringValue,
-            "userRealName": userJSON["userRealName"].stringValue,
-            "userName": userJSON["userName"].stringValue,
-            "userEmail": userJSON["userEmail"].stringValue,
+            "userSn": userDTO.userSn,
+            "userType": userDTO.userType,
+            "userRealName": userDTO.userRealName,
+            "userName": userDTO.userName,
+            "userEmail": userDTO.userEmail,
             "userPw": tfNewPw.text!,//.sha256(),
-            "userGender": userJSON["userGender"].stringValue,
-            "birthDt": userJSON["birthDt"].stringValue,
-            "userAvgBudget": userJSON["userAvgBudget"].stringValue,
-            "loginType": userJSON["loginType"].stringValue,
-            "eatPref": userJSON["eatPref"].stringValue,
-            "drinkPref": userJSON["drinkPref"].stringValue,
-            "playPref": userJSON["playPref"].stringValue,
-            "watchPref": userJSON["watchPref"].stringValue,
-            "walkPref": userJSON["walkPref"].stringValue,
-            "setting": userJSON["setting"].stringValue,
+            "userGender": userDTO.userGender,
+            "birthDt": userDTO.birthDt,
+            "userAvgBudget": userDTO.userAvgBudget,
+            "loginType": userDTO.loginType,
+            "eatPref": userDTO.eatPref,
+            "drinkPref": userDTO.drinkPref,
+            "playPref": userDTO.playPref,
+            "watchPref": userDTO.watchPref,
+            "walkPref": userDTO.walkPref,
+            "setting": userDTO.setting,
         ])
         print(parameter)
         

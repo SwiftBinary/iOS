@@ -15,7 +15,6 @@ import SwiftyJSON
 class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLocationManagerDelegate {
     
     @IBOutlet var lblCenterLocation: UILabel!
-    //    @IBOutlet var mapView: MKMapView!
     @IBOutlet var mapNaverView: NMFMapView!
     
     @IBOutlet var setLocation: UIButton!
@@ -29,7 +28,6 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
     var address:String = ""
     let marker = NMFMarker()
     var currentLatLng = NMGLatLng()
-//    var delegate : LocationDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +74,9 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
         setLocation.layer.backgroundColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
         setLocation.setTitleColor(.white, for: .normal)
         setLocation.setTitleColor(.lightGray, for: .highlighted)
+        
+        let viewHide = UserDefaults.standard.value(forKey: setMapGuideKey) as! Bool
+        guideView.isHidden = viewHide
     }
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool){
         currentLatLng = NMGLatLng(lat: mapView.cameraPosition.target.lat, lng: mapView.cameraPosition.target.lng)
@@ -192,15 +193,10 @@ class SetLocationViewController: UIViewController,NMFMapViewCameraDelegate,CLLoc
          */
     }
     
-    
     @IBAction func colseGuideView(_ sender: UIButton) {
-        if sender == colseGuideBtn {
-            self.guideView.isHidden = true
-        }
-    }
-    @IBAction func DisableGuideView(_ sender: UIButton) {
+        guideView.isHidden = true
         if sender == disableGuideBtn {
-            self.guideView.isHidden = true
+            UserDefaults.standard.set(true, forKey: setMapGuideKey)
         }
     }
     

@@ -19,9 +19,7 @@ class SearchLocationViewController: UIViewController, UIScrollViewDelegate, UIGe
     var checkPv = true // true didSelectRow 호출됨, false didSelectRow 호출 안 됨
     var pickerView = UIPickerView()
     var typeValue = String()
-    
-    let userData = getUserData()
-    
+
     let scrollMain = UIScrollView()
     let uvStoreList = UIView()
     let svStoreList = UIStackView()
@@ -36,6 +34,7 @@ class SearchLocationViewController: UIViewController, UIScrollViewDelegate, UIGe
     var searchData = JSON()
     //    let indicLoading = UIActivityIndicatorView(style: .whiteLarge)
     
+    let bottomView = UIView()
     let svEmptyGuide = UIStackView()
     var totalCnt = 0
     var currentCnt = 0
@@ -132,6 +131,8 @@ class SearchLocationViewController: UIViewController, UIScrollViewDelegate, UIGe
         svHorizontal.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9).isActive = true
         svHorizontal.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
         
+        bottomView.backgroundColor = .none
+        bottomView.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
     }
     
     // 위치 설정 이벤트
@@ -239,18 +240,17 @@ class SearchLocationViewController: UIViewController, UIScrollViewDelegate, UIGe
             let topView = UIView()
             topView.backgroundColor = .none
             topView.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
-            let bottomView = UIView()
+
+            if offset == 0 {
+                svMain.addArrangedSubview(topView)
+            }
             
-            bottomView.backgroundColor = .none
-            bottomView.heightAnchor.constraint(equalToConstant: 0.1).isActive = true
-            
-            svMain.addArrangedSubview(topView)
             for index in 0..<(dataNum/2) {
                 addLocationItem(data: searchData.arrayValue[index*2], data2: searchData.arrayValue[(index*2)+1],isLast:true)
             }
             (dataNum%2 == 1) ? addLocationItem(data: searchData.arrayValue.last!, data2: JSON(),isLast:false) : nil
-            svMain.addArrangedSubview(bottomView)
             
+            svMain.addArrangedSubview(bottomView)
         } else {
             lblLocationCount.text = "0"
             uvStoreList.isHidden = true
@@ -518,7 +518,7 @@ class SearchLocationViewController: UIViewController, UIScrollViewDelegate, UIGe
     }
     func getLocationInfo(_ locationSn : String) {
         let url = OperationIP + "/store/selectStoreInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         let parameter = JSON([
             "storeSn": locationSn,
         ])
@@ -544,7 +544,7 @@ class SearchLocationViewController: UIViewController, UIScrollViewDelegate, UIGe
         self.offset = offset
         
         let url = OperationIP + "/store/selectSearchStoreInfoList.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn]
         let parameter = JSON([
             "distanceLimit": distanceLimit,
             "latitude": locationDTO.latitude,

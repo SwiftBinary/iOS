@@ -29,7 +29,6 @@ class LocationInfoViewController: UIViewController,ImageSlideshowDelegate,Indica
     let sizeTitle:CGFloat = 20
     let sizeContent:CGFloat = 14
     let svMenuList = UIStackView()
-    let userData = getUserData() // Dictionary<String,Any>
     
     var naverMapView = NMFMapView()
     

@@ -11,7 +11,7 @@
         <!--로그인-->
         <scene sceneID="0Sl-Ft-pEQ">
             <objects>
-                <viewController id="bQ5-80-Ob3" customClass="LoginViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="bQ5-80-Ob3" customClass="LoginViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VK8-Fl-Esl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -196,6 +196,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="로그인" id="tcS-Bf-E26"/>
                     <connections>
+                        <outlet property="btnFind" destination="yZz-94-7dZ" id="u6v-7d-tGf"/>
                         <outlet property="btnJoin" destination="8VS-Di-wyi" id="Eq4-ha-BTq"/>
                         <outlet property="btnLogin" destination="Jue-Le-uZc" id="vag-FY-O8D"/>
                         <outlet property="btnLoginFacebook" destination="1qi-Xw-CXP" id="02q-B8-xTi"/>
@@ -213,7 +214,7 @@
         <!--Accept Content View Controller-->
         <scene sceneID="39C-1N-vmY">
             <objects>
-                <viewController storyboardIdentifier="acceptContentView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EJg-fo-eOp" customClass="AcceptContentViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="acceptContentView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EJg-fo-eOp" customClass="AcceptContentViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t6p-tH-5Ic">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -270,7 +271,7 @@
         <!--이용약관-->
         <scene sceneID="hqS-6K-oaw">
             <objects>
-                <viewController storyboardIdentifier="acceptView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jHK-cE-s2D" customClass="AcceptViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="acceptView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jHK-cE-s2D" customClass="AcceptViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lAn-cC-nNF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -566,7 +567,7 @@
         <!--회원가입-->
         <scene sceneID="b3Y-jt-TBL">
             <objects>
-                <viewController storyboardIdentifier="joinView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sHE-6M-hR5" customClass="JoinViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="joinView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sHE-6M-hR5" customClass="JoinViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aQl-7z-Clt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -857,7 +858,7 @@
         <!--아이디/비밀번호 찾기-->
         <scene sceneID="K7h-AO-geX">
             <objects>
-                <viewController id="xUy-4n-8Id" customClass="ShowInfoViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="xUy-4n-8Id" customClass="ShowInfoViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qav-fS-9w1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -910,7 +911,7 @@
         <!--아이디/비밀번호 찾기-->
         <scene sceneID="2ju-zY-J8J">
             <objects>
-                <viewController id="Omx-v2-zM8" customClass="FindBackViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Omx-v2-zM8" customClass="FindBackViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HHE-OH-Xec">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -956,7 +957,7 @@
         <!--아이디/비밀번호 찾기-->
         <scene sceneID="W8i-q9-Gwi">
             <objects>
-                <viewController id="tfd-IY-Gwq" customClass="FindViewController_temp" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="tfd-IY-Gwq" customClass="FindViewController_temp" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9Dt-G9-IDN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1099,7 +1100,7 @@
         <!--Find View Controller-->
         <scene sceneID="OKa-ZY-8La">
             <objects>
-                <viewController id="42t-ch-mOO" customClass="FindViewController" customModule="완벽한_하루" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="42t-ch-mOO" customClass="FindViewController" customModule="PerfectDay" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="57n-iC-Gs2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

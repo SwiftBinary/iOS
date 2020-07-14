@@ -20,8 +20,6 @@ class PlannerViewController: UIViewController, UITableViewDelegate {
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
     let itemNum = 4
     
-    let userData = getUserData()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         selectedLoc = []
@@ -215,7 +213,6 @@ class PlannerViewController: UIViewController, UITableViewDelegate {
         uvImage.translatesAutoresizingMaskIntoConstraints = false
         uvImage.addSubview(imgLand)
         
-        
         let lblTitle = UILabel()
         lblTitle.text = "가고싶은 장소"
         lblTitle.fontSize = 13
@@ -308,6 +305,7 @@ class PlannerViewController: UIViewController, UITableViewDelegate {
         }
         if selectedLoc.count < 2 {
             makeCourseBtn.backgroundColor = .lightGray
+            makeCourseBtn.isUserInteractionEnabled = false
             viewWillAppear(true)
         }
         setPlaceList()
@@ -331,6 +329,7 @@ class PlannerViewController: UIViewController, UITableViewDelegate {
             makeData(loadJSON("PlannerKey" + index))
             if selectedLoc.count > 1 {
                 makeCourseBtn.backgroundColor = themeColor
+                makeCourseBtn.isUserInteractionEnabled = true
                 viewWillAppear(true)
             }
             self.tableView.reloadData()

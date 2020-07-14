@@ -19,7 +19,6 @@ class LocationViewController: UIViewController {
     @IBOutlet var btnPlanner: UIButton!
     
     let uds = UserDefaults.standard
-    let userData = getUserData()
     let locationSn = locationData["storeSn"].stringValue
     
     var btnLike = UIBarButtonItem()
@@ -62,7 +61,7 @@ class LocationViewController: UIViewController {
     }
     func requestDid(_ btnDids: UIBarButtonItem){
         let url = OperationIP + "/pick/selectExistPickInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         let parameter = JSON([
             "storeSn": locationSn,
         ])
@@ -71,7 +70,7 @@ class LocationViewController: UIViewController {
 //            debugPrint(response)
             if response.value != nil {
                 let responseJSON = JSON(response.value!)
-                print(responseJSON)
+//                print(responseJSON)
                 if responseJSON["result"].stringValue == "0" {
                     self.isDisLocation = false
                 } else {
@@ -90,13 +89,13 @@ class LocationViewController: UIViewController {
     }
     func insertPickInfo() {
         let url = OperationIP + "/pick/insertPickInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         let parameter = JSON([
             "storeSn": locationSn,
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
+//            debugPrint(response)
             if response.value != nil {
                 let responseJSON = JSON(response.value!)
                 if responseJSON["result"].stringValue == "1" {
@@ -108,13 +107,13 @@ class LocationViewController: UIViewController {
     }
     func deletePickInfo() {
         let url = OperationIP + "/pick/deletePickInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         let parameter = JSON([
             "storeSn": locationSn,
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            debugPrint(response)
+//            debugPrint(response)
             if response.value != nil {
                 let responseJSON = JSON(response.value!)
                 if responseJSON["result"].stringValue == "1" {
@@ -179,7 +178,7 @@ class LocationViewController: UIViewController {
                 }
             }
             if flag {
-                print("1")
+//                print("1")
                 UserDefaults.standard.set(num+1, forKey: plannerNumKey)
                 UserDefaults.standard.set(str, forKey: "PlannerKey" + String(num))
                 storeSnList.append(locationData["storeSn"].string!)

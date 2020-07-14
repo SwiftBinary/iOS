@@ -27,7 +27,6 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
     var btnScrollUp = UIButton(type: .custom)
     
     var responseJSON:JSON = []
-    let userData = getUserData()
     var segueTitle: Int = 0
     
     override func viewDidLoad() {
@@ -61,7 +60,7 @@ class LocationReviewViewController: UIViewController,UIGestureRecognizerDelegate
     }
     func requestPost(){
         let url = OperationIP + "/review/selectStoreReviewInfoList.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn]
         let parameter = JSON([
             "storeSn": locationData["storeSn"].string!,
             "filterInfo": "all",

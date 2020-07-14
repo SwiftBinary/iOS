@@ -10,7 +10,7 @@ import Foundation
 import SwiftyJSON
 
 public class UserDTO {
-    private var jsonData:JSON
+    public var jsonData:JSON
     public var userSn:String
     public var birthDt:String
     public var userEmail:String
@@ -44,5 +44,38 @@ public class UserDTO {
         self.watchPref = jsonData["watchPref"].stringValue
         self.walkPref = jsonData["walkPref"].stringValue
         self.setting = jsonData["setting"].stringValue
+    }
+    
+    public func setPreferInfo(_ eatPref:String,_ drinkPref:String,_ playPref:String,_ watchPref:String,_ walkPref:String){
+        self.eatPref = eatPref
+        self.drinkPref = drinkPref
+        self.playPref = playPref
+        self.watchPref = watchPref
+        self.walkPref = walkPref
+        self.jsonData["eatPref"].stringValue = self.eatPref
+        self.jsonData["drinkPref"].stringValue = self.drinkPref
+        self.jsonData["playPref"].stringValue = self.playPref
+        self.jsonData["watchPref"].stringValue = self.watchPref
+        self.jsonData["walkPref"].stringValue = self.walkPref
+        UserDefaults.standard.set(self.jsonData.rawString(), forKey: userDataKey)
+    }
+    
+    public func printAll(){
+        print(self.jsonData)
+        print(self.userSn)
+        print(self.birthDt)
+        print(self.userEmail)
+        print(self.userType)
+        print(self.userRealName)
+        print(self.userName)
+        print(self.userGender)
+        print(self.userAvgBudget)
+        print(self.loginType)
+        print(self.eatPref)
+        print(self.drinkPref)
+        print(self.playPref)
+        print(self.watchPref)
+        print(self.walkPref)
+        print(self.setting)
     }
 }

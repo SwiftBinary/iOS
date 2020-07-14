@@ -26,8 +26,6 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     var postJSON = JSON()
     var isUpdate = false
     
-    let userData = getUserData()
-    
     @IBOutlet var btnScrollUp: UIButton!
     @IBOutlet var btnCreatePost: UIButton!
     
@@ -379,7 +377,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             if response.value != nil {
@@ -397,7 +395,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
             "boardSn": boardSn
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             if response.value != nil {
@@ -426,7 +424,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
-        if getString(userData["userSn"]) == sender.accessibilityValue! {
+        if userDTO.userSn == sender.accessibilityValue! {
             alertController.addAction(MyPostEditAction)
             alertController.addAction(MyPostDeleteAction)
         } else {
@@ -443,7 +441,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -477,7 +475,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
         
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
@@ -524,7 +522,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
             if response.value != nil {
@@ -603,7 +601,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
      */
     func requestPost(_ isUpdate: Bool){
         let url = OperationIP + "/board/selectBoardListInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         let parameter = JSON([
             "category": String(segueTitle+1),
             "filterInfo": "all",
@@ -635,7 +633,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
     //######################
     func requestReview(){
         let url = OperationIP + "/review/selectReviewListInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn]
         let parameter = JSON([
             "category": 7,
             "filterInfo": "all",
@@ -674,7 +672,7 @@ class PostListViewController: UIViewController,UIGestureRecognizerDelegate,UISea
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn]
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in

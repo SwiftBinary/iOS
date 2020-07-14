@@ -847,32 +847,25 @@
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bPk-0d-gPP">
                                 <rect key="frame" x="0.0" y="164" width="414" height="698"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MfR-Uu-GSF">
+                                <rect key="frame" x="20" y="184" width="374" height="250"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MfR-Uu-GSF">
-                                        <rect key="frame" x="20" y="20" width="374" height="250"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hQb-Kd-ODO">
-                                                <rect key="frame" x="20" y="20" width="334" height="210"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="210" id="EbB-HT-ETg"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hQb-Kd-ODO">
+                                        <rect key="frame" x="20" y="20" width="334" height="210"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="hQb-Kd-ODO" firstAttribute="width" secondItem="MfR-Uu-GSF" secondAttribute="width" constant="-40" id="9TA-3o-Jz4"/>
-                                            <constraint firstItem="hQb-Kd-ODO" firstAttribute="centerX" secondItem="MfR-Uu-GSF" secondAttribute="centerX" id="A1H-0T-MJ8"/>
-                                            <constraint firstItem="hQb-Kd-ODO" firstAttribute="top" secondItem="MfR-Uu-GSF" secondAttribute="top" constant="20" id="Kvv-hi-Fv3"/>
-                                            <constraint firstAttribute="bottom" secondItem="hQb-Kd-ODO" secondAttribute="bottom" constant="20" id="LEA-Me-F6N"/>
+                                            <constraint firstAttribute="height" constant="210" id="EbB-HT-ETg"/>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="MfR-Uu-GSF" firstAttribute="centerX" secondItem="bPk-0d-gPP" secondAttribute="centerX" id="EqJ-EY-HpD"/>
-                                    <constraint firstItem="MfR-Uu-GSF" firstAttribute="top" secondItem="bPk-0d-gPP" secondAttribute="top" constant="20" id="PAO-Gz-d2Q"/>
-                                    <constraint firstItem="MfR-Uu-GSF" firstAttribute="width" secondItem="bPk-0d-gPP" secondAttribute="width" constant="-40" id="wAk-dy-6gh"/>
+                                    <constraint firstItem="hQb-Kd-ODO" firstAttribute="width" secondItem="MfR-Uu-GSF" secondAttribute="width" constant="-40" id="9TA-3o-Jz4"/>
+                                    <constraint firstItem="hQb-Kd-ODO" firstAttribute="centerX" secondItem="MfR-Uu-GSF" secondAttribute="centerX" id="A1H-0T-MJ8"/>
+                                    <constraint firstItem="hQb-Kd-ODO" firstAttribute="top" secondItem="MfR-Uu-GSF" secondAttribute="top" constant="20" id="Kvv-hi-Fv3"/>
+                                    <constraint firstAttribute="bottom" secondItem="hQb-Kd-ODO" secondAttribute="bottom" constant="20" id="LEA-Me-F6N"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -884,6 +877,7 @@
                             <constraint firstItem="dEy-cN-RUP" firstAttribute="centerY" secondItem="Hcv-s0-bPU" secondAttribute="centerY" id="HGT-UR-5rA"/>
                             <constraint firstItem="dEy-cN-RUP" firstAttribute="height" secondItem="Hcv-s0-bPU" secondAttribute="height" id="LaB-8j-DxL"/>
                             <constraint firstItem="Qva-ty-VXe" firstAttribute="height" secondItem="Hcv-s0-bPU" secondAttribute="height" constant="-30" id="MgK-fq-6sk"/>
+                            <constraint firstItem="MfR-Uu-GSF" firstAttribute="top" secondItem="bPk-0d-gPP" secondAttribute="top" constant="20" id="Mva-XR-w2J"/>
                             <constraint firstItem="Hcv-s0-bPU" firstAttribute="width" secondItem="QeF-jn-VhB" secondAttribute="width" constant="-40" id="N1U-VZ-8eM"/>
                             <constraint firstItem="bPk-0d-gPP" firstAttribute="centerX" secondItem="qzh-rO-D1e" secondAttribute="centerX" id="N3A-o2-VsB"/>
                             <constraint firstItem="Hcv-s0-bPU" firstAttribute="centerX" secondItem="qzh-rO-D1e" secondAttribute="centerX" id="PbL-u6-hgl"/>
@@ -892,11 +886,13 @@
                             <constraint firstItem="Hcv-s0-bPU" firstAttribute="top" secondItem="qzh-rO-D1e" secondAttribute="top" id="ZVp-7y-OES"/>
                             <constraint firstItem="qzh-rO-D1e" firstAttribute="bottom" secondItem="tqq-4t-Wpb" secondAttribute="bottom" id="aIA-IF-2mI"/>
                             <constraint firstItem="tqq-4t-Wpb" firstAttribute="centerX" secondItem="qzh-rO-D1e" secondAttribute="centerX" id="ad7-Z3-7Eg"/>
+                            <constraint firstItem="MfR-Uu-GSF" firstAttribute="width" secondItem="QeF-jn-VhB" secondAttribute="width" constant="-40" id="bvw-MT-KJB"/>
                             <constraint firstItem="bPk-0d-gPP" firstAttribute="leading" secondItem="qzh-rO-D1e" secondAttribute="leading" id="f4p-BA-CPk"/>
                             <constraint firstItem="dEy-cN-RUP" firstAttribute="centerX" secondItem="Hcv-s0-bPU" secondAttribute="centerX" id="iNY-kb-7km"/>
                             <constraint firstItem="qzh-rO-D1e" firstAttribute="trailing" secondItem="uh3-IB-a7d" secondAttribute="trailing" constant="20" id="jEQ-jo-PGj"/>
                             <constraint firstItem="Qva-ty-VXe" firstAttribute="top" secondItem="Hcv-s0-bPU" secondAttribute="bottom" constant="15" id="jZF-Jw-W5O"/>
                             <constraint firstItem="tqq-4t-Wpb" firstAttribute="top" secondItem="Qva-ty-VXe" secondAttribute="bottom" constant="15" id="loX-Yq-Y23"/>
+                            <constraint firstItem="MfR-Uu-GSF" firstAttribute="centerX" secondItem="qzh-rO-D1e" secondAttribute="centerX" id="qb9-lq-i64"/>
                             <constraint firstItem="Qva-ty-VXe" firstAttribute="centerX" secondItem="qzh-rO-D1e" secondAttribute="centerX" id="v27-WQ-L9l"/>
                             <constraint firstItem="bPk-0d-gPP" firstAttribute="height" secondItem="tqq-4t-Wpb" secondAttribute="height" id="vmO-gx-ia8"/>
                             <constraint firstItem="qzh-rO-D1e" firstAttribute="bottom" secondItem="bPk-0d-gPP" secondAttribute="bottom" id="x1p-Wq-jDj"/>
@@ -1110,7 +1106,7 @@
                                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="DisableGuideView:" destination="KVn-OB-rWb" eventType="touchUpInside" id="Ckg-zM-dTo"/>
+                                            <action selector="colseGuideView:" destination="KVn-OB-rWb" eventType="touchUpInside" id="jCD-8U-N74"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMX-cu-rdA">

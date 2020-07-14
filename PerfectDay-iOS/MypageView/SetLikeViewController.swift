@@ -29,8 +29,6 @@ class SetLikeViewController: UIViewController {
     @IBOutlet var uvWatch: UIView!
     @IBOutlet var uvWalk: UIView!
     
-    let userData = getUserData()
-    
     //Eat
     var btnRice = MaterialVerticalButton()
     var btnMeat = MaterialVerticalButton()
@@ -89,7 +87,6 @@ class SetLikeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(userData)
         setUI()
         setUIView()
         
@@ -143,12 +140,11 @@ class SetLikeViewController: UIViewController {
     
     func setUI(){
         self.tabBarController?.tabBar.isHidden = true
-        print(userData)
-        prefValue[0] = getString(userData["eatPref"])
-        prefValue[1] = getString(userData["drinkPref"])
-        prefValue[2] = getString(userData["playPref"])
-        prefValue[3] = getString(userData["watchPref"])
-        prefValue[4] = getString(userData["walkPref"])
+        prefValue[0] = userDTO.eatPref //getString(userData["eatPref"])
+        prefValue[1] = userDTO.drinkPref //getString(userData["drinkPref"])
+        prefValue[2] = userDTO.playPref //getString(userData["playPref"])
+        prefValue[3] = userDTO.watchPref //getString(userData["watchPref"])
+        prefValue[4] = userDTO.walkPref //getString(userData["walkPref"])
         /*
          "eatPref": 1111110000,
          "drinkPref": 1111111000,
@@ -190,15 +186,14 @@ class SetLikeViewController: UIViewController {
     }
     @IBAction func gotoBack(_ sender: UIButton) {
         updateUserPrefInfo()
-        self.navigationController?.popViewController(animated: true)
+        
     }
     
     func updateUserPrefInfo(){
-        print(userData)
         let url = OperationIP + "/user/updateUserPrefInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn]
         let parameter = JSON([
-            "userAvgBudget": getString(userData["userAvgBudget"]),
+            "userAvgBudget": userDTO.userAvgBudget,
             "eatPref": prefValue[0],
             "drinkPref": prefValue[1],
             "playPref": prefValue[2],
@@ -209,20 +204,14 @@ class SetLikeViewController: UIViewController {
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             if response.value != nil {
                 let responseJSON = JSON(response.value!)
-                print(responseJSON)
+                if responseJSON["result"].stringValue == "1"{
+                    userDTO.setPreferInfo(self.prefValue[0],self.prefValue[1],self.prefValue[2],self.prefValue[3],self.prefValue[4])
+                    (self.navigationController?.viewControllers[0] as! MyPageViewController).setPreferUI()
+                    self.navigationController?.popViewController(animated: true)
+                }
             }
         }
-        
-        var prevUserDataJSON = JSON(UserDefaults.standard.value(forKey: userDataKey))
-        prevUserDataJSON["eatPref"].string = prefValue[0]
-        prevUserDataJSON["drinkPref"].string = prefValue[1]
-        prevUserDataJSON["playPref"].string = prefValue[2]
-        prevUserDataJSON["watchPref"].string = prefValue[3]
-        prevUserDataJSON["walkPref"].string = prefValue[4]
-        UserDefaults.standard.setValue(prevUserDataJSON.dictionaryObject, forKey: userDataKey)
-        UserDefaults.standard.set(prevUserDataJSON.stringValue, forKey: "userJSONData")
     }
-    
     
     // ###########################
     //         버튼 초기화

@@ -10,6 +10,7 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 import MaterialDesignWidgets
+import NMapsMap
 //import CoreLocation
 
 var locationString = ""
@@ -25,7 +26,6 @@ class HomeViewController: UIViewController {
     @IBOutlet var svThemeLocation: UIStackView!
     
     //    let listTag = ["홍대맛집","잠실야경","VR데이트","산책데이트", "수제햄버거","미친가격","너무맛있다","건대", "홍대", "강남", "이색", "고궁", "tv방영", "가성비", "고급진", "국밥", "방탈출", "야식", "비오는날", "100일데이트코스", "커플100%되는곳", "킬링타임코스", "호불호없는"]
-    let userData = getUserData()
     var listOneDayPickInfo = JSON()
     var listHotStoreInfo = JSON()
     
@@ -254,7 +254,7 @@ class HomeViewController: UIViewController {
     }
     func getHashTag(_ svTag: UIStackView){
         let url = OperationIP + "/tag/selectHashTagList.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         AF.request(url,method: .post,headers: httpHeaders).responseJSON { response in
             if response.value != nil {
                 self.setHashTag(svTag,JSON(response.value!).arrayValue)
@@ -325,35 +325,10 @@ class HomeViewController: UIViewController {
     @objc func getOneClickCourseRecommand(_ sender: UIButton){
         let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "oneClickCouseView")
         self.navigationController?.pushViewController(goToVC!, animated: true)
-        //        let url = OperationIP + "/oneClick/selectOneClickInfo.do"
-        //        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
-        //        AF.request(url,method: .post, headers: httpHeaders).responseJSON { response in
-        //            //            debugPrint(response)
-        //            if response.value != nil {
-        //                print("~~~~~~~~~~~~~~~~~~~~~~~원클릭코스")
-        //                print(JSON(response.value!))
-        //                print("~~~~~~~~~~~~~~~~~~~~~~~")
-        //                let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "oneClickCouseView")
-        //                self.navigationController?.pushViewController(goToVC!, animated: true)
-        //            }
-        //        }
     }
     @objc func getFindAroundLocation(_ sender: UIButton){
         let goToVC = self.storyboard?.instantiateViewController(withIdentifier: "searchSetLocationView")
         self.navigationController?.pushViewController(goToVC!, animated: true)
-//        let url = OperationIP + "/search/selectLocationInfo.do"
-//        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
-//        let parameter = JSON([
-//            "searchKeyword": "건대",
-//        ])
-//        let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-//        AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-//            if response.value != nil {
-//                print("~~~~~~~~~~~~~~~~~~~~~~~내주변장소")
-//                print(JSON(response.value!))
-//                print("~~~~~~~~~~~~~~~~~~~~~~~")
-//            }
-//        }
     }
     
     
@@ -364,91 +339,56 @@ class HomeViewController: UIViewController {
         listHotStoreInfo = JSON(UserDefaults.standard.value(forKey: hotStoreKey)!)
         scvHotPlace = self.makeScrollView(Theme: hotStoreKey)
         getOneDayPickInfo()
-        
-        //        let url = OperationIP + "/store/selectHotStoreInfoList.do"
-        //        AF.request(url,method: .post).responseJSON { response in
-        //            //            debugPrint(response)
-        //            if response.value != nil {
-        ////                self.listHotStoreInfo = JSON(response.value!)
-        ////                print(UserDefaults.standard.value(forKey: "hotStore")!)
-        //                self.listHotStoreInfo = JSON(UserDefaults.standard.value(forKey: "hotStore")!)
-        //                //                print("~~~~~~~~~~~~~~~~~~~~~~~핫플레이스")
-        //                //                print(self.listHotStoreInfo)
-        //                //                print("~~~~~~~~~~~~~~~~~~~~~~~")
-        //                self.scvHotPlace = self.makeScrollView(Theme: "HotPlace")
-        //                self.getOneDayPickInfo()
-        //            }
-        //        }
     }
     func getOneDayPickInfo(){
         listOneDayPickInfo = JSON(UserDefaults.standard.value(forKey: oneDayPickKey)!)
         scvOneDayPick = self.makeScrollView(Theme: oneDayPickKey)
         setThemeLocation()
         
-        //        let url = OperationIP + "/store/selectOneDayPickInfoList.do"
-        //        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
-        //        AF.request(url,method: .post,headers: httpHeaders).responseJSON { response in
-        //            //            debugPrint(response)
-        //            if response.value != nil {
-        //                self.listOneDayPickInfo = JSON(response.value!)
-        ////                self.listOneDayPickInfo = JSON(UserDefaults.standard.value(forKey: "oneDayPick")!)
-        //                //                print("~~~~~~~~~~~~~~~~~~~~~~~00세의 하루")
-        //                //                print(self.listOneDayPickInfo)
-        //                //                print("~~~~~~~~~~~~~~~~~~~~~~~")
-        //                self.scvOneDayPick = self.makeScrollView(Theme: "OneDayPick")
-        //                self.setThemeLocation()
-        //            }
-        //        }
     }
     
     func setThemeLocation(){
         setShadowCard(uvThemeLocation, bgColor: .white, crRadius: 15, shColor: .lightGray, shOffsetW: 0.0, shOffsetH: 2.0, shRadius: 2.0, sdOpacity: 0.9)
         uvThemeLocation.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
-        let lblHotPlace = UILabel()
-        lblHotPlace.font = UIFont.boldSystemFont(ofSize: 17)
-        lblHotPlace.textColor = .darkText
-        let attributedHotPlaceString: NSMutableAttributedString = NSMutableAttributedString(string: "금주의 핫 플레이스")
+        let lblHotPlace = UIButton(type: .custom)
+        lblHotPlace.isUserInteractionEnabled = false
+        lblHotPlace.setTitle("금주의 핫 플레이스 ", for: .normal)
+        lblHotPlace.setImage(UIImage(named: "HotPlace"), for: .normal)
+        lblHotPlace.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+        lblHotPlace.setTitleColor(.black, for: .normal)
+        let attributedHotPlaceString: NSMutableAttributedString = NSMutableAttributedString(string: "금주의 핫 플레이스 ")
         attributedHotPlaceString.setColor(color: #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1), forText: "핫 플레이스")
-        lblHotPlace.attributedText = attributedHotPlaceString
-        let imgHotPlace = UIButton(type: .custom)
-        imgHotPlace.isUserInteractionEnabled = false
-        imgHotPlace.setTitle(" ")
-        imgHotPlace.setImage(UIImage(named: "HotPlace"), for: .normal)
-        imgHotPlace.semanticContentAttribute = .forceRightToLeft
-        imgHotPlace.contentHorizontalAlignment = .left
-        //        UIImageView(image: UIImage(named: "HotPlace"))
-        //        imgHotPlace.heightAnchor.constraint(equalToConstant: 16).isActive = true
-        //        imgHotPlace.contentMode = .scaleAspectFit
+        lblHotPlace.titleLabel?.attributedText = attributedHotPlaceString
+        lblHotPlace.semanticContentAttribute = .forceRightToLeft
+        lblHotPlace.contentHorizontalAlignment = .left
         
-        let svHotPlaceTitle = UIStackView(arrangedSubviews: [lblHotPlace,imgHotPlace])
-        svHotPlaceTitle.axis = .horizontal
+//        let svHotPlaceTitle = UIStackView(arrangedSubviews: [lblHotPlace,imgHotPlace])
+////        svHotPlaceTitle.distribution = .fillProportionally
+//        svHotPlaceTitle.axis = .horizontal
         
-        //        getHotPlaceInfo()
-        
-        let svHotPlace = UIStackView(arrangedSubviews: [svHotPlaceTitle,scvHotPlace])
+        let svHotPlace = UIStackView(arrangedSubviews: [lblHotPlace,scvHotPlace])
         svHotPlace.axis = .vertical
         svHotPlace.spacing = 10
         
-        let lblOneDayPick = UILabel()
-        lblOneDayPick.font = UIFont.boldSystemFont(ofSize: 17)
-        lblOneDayPick.textColor = .darkText
-        let attributedOneDayPickString: NSMutableAttributedString = NSMutableAttributedString(string: "20세의 오늘")
+        
+        let lblOneDayPick = UIButton(type: .custom)
+        lblOneDayPick.isUserInteractionEnabled = false
+        lblOneDayPick.setTitle("20세의 오늘 ", for: .normal)
+        lblOneDayPick.setImage(UIImage(named: "Oneul"), for: .normal)
+        lblOneDayPick.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+        lblOneDayPick.setTitleColor(.black, for: .normal)
+        let attributedOneDayPickString: NSMutableAttributedString = NSMutableAttributedString(string: "20세의 오늘 ")
         attributedOneDayPickString.setColor(color: #colorLiteral(red: 0.9882352941, green: 0.368627451, blue: 0.5725490196, alpha: 1), forText: "오늘")
-        lblOneDayPick.attributedText = attributedOneDayPickString
-        let imgOneDayPick = UIButton(type: .custom)
-        imgOneDayPick.isUserInteractionEnabled = false
-        imgOneDayPick.setTitle(" ")
-        imgOneDayPick.setImage(UIImage(named: "Oneul"), for: .normal)
-        imgOneDayPick.semanticContentAttribute = .forceRightToLeft
-        imgOneDayPick.contentHorizontalAlignment = .left
+        lblOneDayPick.titleLabel?.attributedText = attributedOneDayPickString
+        lblOneDayPick.semanticContentAttribute = .forceRightToLeft
+        lblOneDayPick.contentHorizontalAlignment = .left
         
-        let svOneDayPickTitle = UIStackView(arrangedSubviews: [lblOneDayPick,imgOneDayPick])
-        svOneDayPickTitle.axis = .horizontal
+//        let svOneDayPickTitle = UIStackView(arrangedSubviews: [lblOneDayPick])
+//        svOneDayPickTitle.distribution = .fillProportionally
+//        svOneDayPickTitle.axis = .horizontal
         
-        //        getOneDayPickInfo()
-        
-        let svOneDayPick = UIStackView(arrangedSubviews: [svOneDayPickTitle,scvOneDayPick])
+        let svOneDayPick = UIStackView(arrangedSubviews: [lblOneDayPick,scvOneDayPick])
         svOneDayPick.axis = .vertical
         svOneDayPick.spacing = 10
         
@@ -601,7 +541,8 @@ class HomeViewController: UIViewController {
     }
     
     @objc func touchelp(_ sender: UIButton){
-        
+//        let bubbleView = SpeechBubble(baseView: sender, text: "Yay! Bark!", fontSize: 16.0)
+//        view.addSubview(bubbleView)
     }
     
     func addOneDayPickItem(_ stackView: UIStackView, _ item: JSON){
@@ -666,7 +607,7 @@ class HomeViewController: UIViewController {
     func getLocationInfo(_ locationSn : String) {
         //        let locationSn = UserDefaults.standard.string(forKey: locationSnKey)!
         let url = OperationIP + "/store/selectStoreInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         let parameter = JSON([
             "storeSn": locationSn,
         ])

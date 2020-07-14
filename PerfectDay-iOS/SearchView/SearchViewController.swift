@@ -20,7 +20,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     
     @IBOutlet var indicLoading: UIActivityIndicatorView!
     
-    let userData = getUserData()
     var resultSearchView: SearchResultViewController?
     
     // Post Filter Value
@@ -60,7 +59,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     }
     func getHashTag(_ svTag: UIStackView){
         let url = OperationIP + "/tag/selectHashTagList.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn
+            ,"deviceOS":"IOS"]
         AF.request(url,method: .post,headers: httpHeaders).responseJSON { response in
             if response.value != nil {
                 self.setHashTag(svTag,JSON(response.value!).arrayValue)
@@ -102,7 +102,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
         indicLoading.startAnimating()
         searchLocationView.lblGuide.isHidden = true
         searchLocationView.uvStoreList.isHidden = true
-        searchLocationView.searchStoreInfo(searchKeyWord: searchBar.text!, distanceLimit: distanceValue, priceLimit: priceValue, tmCostLimit: timeValue, sortedBy: selectedValue,offset:0)
+        searchLocationView.searchStoreInfo(searchKeyWord: searchBar.text!, distanceLimit: distanceValue, priceLimit: priceValue, tmCostLimit: timeValue, sortedBy: selectedValue, offset:0)
     }
     func searchPostInfo(_ searchBar: UISearchBar) {
         indicLoading.startAnimating()
@@ -114,7 +114,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 //        print(requeatURL)
         
         let url = OperationIP + requeatURL
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"])]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn]
         let parameter = JSON([
             "category":7,
             "searchKeyword":searchBar.text!,

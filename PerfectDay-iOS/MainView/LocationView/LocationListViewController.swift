@@ -39,7 +39,6 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet var lblGuide: UILabel!
     @IBOutlet var btnPlanner: UIButton!
     
-    let userData = getUserData()
     let testNum = 3
     let lightGray = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
@@ -99,6 +98,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     }
     @objc func hideFilter(_ sender :UITapGestureRecognizer){
         sender.view?.isHidden = true
+        uvFilterView.isHidden = true
     }
     
     //###########################
@@ -196,7 +196,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         if sender == tempBtn {
             sender.layer.borderWidth = uvFilterPopupBack.isHidden ? borderWidth : 0
             uvFilterPopupBack.isHidden = uvFilterPopupBack.isHidden ? false : true
-            
+            uvFilterView.isHidden = uvFilterPopupBack.isHidden
             //            if self.uvFilterPopupBack.isHidden == false {
             //                self.uvFilterPopupBack.isHidden = true
             //            } else {
@@ -204,6 +204,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
             //            }
         } else {
             self.uvFilterPopupBack.isHidden = false
+            self.uvFilterView.isHidden = uvFilterPopupBack.isHidden
             tempBtn?.layer.borderWidth = 0
             sender.layer.borderWidth = borderWidth
             
@@ -498,7 +499,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         }
         
         let url = OperationIP + "/store/selectStoreInfoList.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         var parameter = JSON([])
         if prefInt == 0 {
             parameter = JSON([
@@ -530,17 +531,21 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
         //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
-            //            debugPrint(response)
-            if response.value != nil {
-                let responseJSON = JSON(response.value!)
-                print("^^^")
-                //                                print(responseJSON)
-                self.currentCnt += responseJSON.arrayValue.count
-                //                self.setLocationList(responseJSON.arrayValue)
-                if responseJSON == [] {
-                    print("//작업")
-                } else {
-                    self.setLocationList(responseJSON.arrayValue)
+            print("##########")
+            debugPrint(response.response?.statusCode)
+            if response.response?.statusCode == 200{
+                if response.value != nil {
+                    let responseJSON = JSON(response.value!)
+                    //                print("^^^")
+                    //                print(responseJSON)
+                    //                    print(responseJSON)
+                    self.currentCnt += responseJSON.arrayValue.count
+                    //                self.setLocationList(responseJSON.arrayValue)
+                    if responseJSON == [] {
+                        print("//작업")
+                    } else {
+                        self.setLocationList(responseJSON.arrayValue)
+                    }
                 }
             }
         }
@@ -748,7 +753,7 @@ class LocationListViewController: UIViewController, UIScrollViewDelegate {
     }
     func getLocationInfo(_ locationSn : String) {
         let url = OperationIP + "/store/selectStoreInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         let parameter = JSON([
             "storeSn": locationSn,
         ])

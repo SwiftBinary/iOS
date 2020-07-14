@@ -35,7 +35,6 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
     
     var naviTitle: String = ""
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
-    let userData = getUserData()
     let imagePicker: UIImagePickerController! = UIImagePickerController()
     var selectedImage: UIImage!
     var isUpdatePost = false
@@ -233,7 +232,7 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         let postHashTag = (tfHashTag.text!.isEmpty) ? " " : tfHashTag.text!
         
         let url = OperationIP + "/board/updateBoardInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         let parameter = JSON([
             "boardSn": responseJSON["boardSn"].stringValue,
             "category": categorySn,
@@ -271,7 +270,7 @@ class WritePostViewController: UIViewController, UITextFieldDelegate, UIImagePic
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
         
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             debugPrint(response)

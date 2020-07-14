@@ -25,8 +25,6 @@ class DibsCourseViewController: UIViewController,UIGestureRecognizerDelegate, In
     let btnScrollUp = UIButton(type: .custom)
     let indicLoading = UIActivityIndicatorView(style: .whiteLarge)
     let svEmptyGuide = UIStackView()
-    
-    let userData = getUserData()
     var responseJSON:JSON = []
 //    var dibView: DibsNavigationViewController?
     
@@ -61,7 +59,7 @@ class DibsCourseViewController: UIViewController,UIGestureRecognizerDelegate, In
             "bReverse": true
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         
         //        print(convertedHeaderString)
         //        print(convertedParameterString)
@@ -391,7 +389,7 @@ class DibsCourseViewController: UIViewController,UIGestureRecognizerDelegate, In
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         
 //        print(convertedParameterString)
         

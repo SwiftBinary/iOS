@@ -21,7 +21,6 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     let btnStartCreateCourse = UIButton(type: .custom)
     let svMain = UIStackView()
     let svEmptyGuide = UIStackView()
-    let userData = getUserData()
     
     var createONOFF = false
     var itemInfo: IndicatorInfo = "View"
@@ -62,7 +61,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
             "bReverse": true
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -401,7 +400,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
         
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         
         print(convertedParameterString)
         
@@ -431,7 +430,7 @@ class DibsLocationViewController: UIViewController, IndicatorInfoProvider {
     func getLocationInfo(_ locationSn : String) {
         //        let locationSn = UserDefaults.standard.string(forKey: locationSnKey)!
         let url = OperationIP + "/store/selectStoreInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         let parameter = JSON([
             "storeSn": locationSn,
         ])

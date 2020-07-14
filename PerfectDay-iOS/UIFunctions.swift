@@ -75,15 +75,6 @@ public func setShadowCard(_ item: UIView, bgColor: UIColor, crRadius:CGFloat, sh
     item.layer.shadowOpacity = sdOpacity
 }
 
-public func getUserData() -> Dictionary<String,Any> {
-    let data = UserDefaults.standard.dictionary(forKey: userDataKey)
-    if data == nil {
-        return ["":""]
-    } else {
-        return data!
-    }
-}
-
 //public func getLocationData() -> JSON {
 //    let data = UserDefaults.standard.dictionary(forKey: locationDataKey)
 //    var dataJSON = JSON()

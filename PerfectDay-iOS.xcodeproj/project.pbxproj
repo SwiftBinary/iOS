@@ -38,6 +38,7 @@
 		C759B54F247F3F760080E150 /* LocationViewTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C759B54E247F3F760080E150 /* LocationViewTabController.swift */; };
 		C765C67C24B2222C00AAF289 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = C765C67B24B2222C00AAF289 /* LocationDTO.swift */; };
 		C76626C9241726BB002B3DD6 /* FilterPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */; };
+		C7698A5A24BCA68A00DB02D0 /* SpeechBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7698A5924BCA68A00DB02D0 /* SpeechBubble.swift */; };
 		C76A0FF12484E56E008AC74C /* Temp.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C76A0FF02484E56E008AC74C /* Temp.xcassets */; };
 		C76A0FF32484E5E4008AC74C /* CategoryCircleIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C76A0FF22484E5E4008AC74C /* CategoryCircleIcon.xcassets */; };
 		C76B37EC23EA6F2900B05A45 /* ShowInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76B37EB23EA6F2900B05A45 /* ShowInfoViewController.swift */; };
@@ -125,6 +126,7 @@
 		C759B54E247F3F760080E150 /* LocationViewTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewTabController.swift; sourceTree = "<group>"; };
 		C765C67B24B2222C00AAF289 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
 		C76626C8241726BB002B3DD6 /* FilterPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPostViewController.swift; sourceTree = "<group>"; };
+		C7698A5924BCA68A00DB02D0 /* SpeechBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechBubble.swift; sourceTree = "<group>"; };
 		C76A0FF02484E56E008AC74C /* Temp.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Temp.xcassets; sourceTree = "<group>"; };
 		C76A0FF22484E5E4008AC74C /* CategoryCircleIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CategoryCircleIcon.xcassets; sourceTree = "<group>"; };
 		C76B37EB23EA6F2900B05A45 /* ShowInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowInfoViewController.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				C74D96CB23E7B1E9000E26C3 /* AppDelegate.swift */,
 				C701C6C8243765A00079B395 /* UIFunctions.swift */,
 				C701C6CA2437884D0079B395 /* EnumValue.swift */,
+				C7698A5924BCA68A00DB02D0 /* SpeechBubble.swift */,
 				C74D96D123E7B1E9000E26C3 /* Main.storyboard */,
 				C74D96D423E7B1ED000E26C3 /* Assets.xcassets */,
 				C76A0FF22484E5E4008AC74C /* CategoryCircleIcon.xcassets */,
@@ -545,6 +548,7 @@
 				C76ED01E2403D227003E21F1 /* SetLikeViewController.swift in Sources */,
 				C7FF476224B695E400788244 /* LocationData.swift in Sources */,
 				C758EADB23F0FF4900033E29 /* BoardListViewController.swift in Sources */,
+				C7698A5A24BCA68A00DB02D0 /* SpeechBubble.swift in Sources */,
 				C71BAEA023F39D0400D82351 /* SearchPostViewController.swift in Sources */,
 				C71BAEA223F39DB700D82351 /* DibsCourseViewController.swift in Sources */,
 			);

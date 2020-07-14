@@ -32,7 +32,6 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
     let lblCountPost = UILabel()
     let svEmptyGuide = UIStackView()
     let segmentControl = MaterialSegmentedControl()
-    let userData = getUserData()
     var boardSn: String = ""
     let themeColor = #colorLiteral(red: 0.9882352941, green: 0.3647058824, blue: 0.5725490196, alpha: 1)
     var searchData = JSON()
@@ -385,7 +384,7 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
 //            debugPrint(response)
@@ -403,7 +402,7 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
             "boardSn": boardSn
         ])
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
 //            debugPrint(response)
@@ -431,7 +430,7 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
-        if getString(userData["userSn"]) == sender.accessibilityValue! {
+        if getString(userDTO.userSn) == sender.accessibilityValue! {
             alertController.addAction(MyPostEditAction)
             alertController.addAction(MyPostDeleteAction)
         } else {
@@ -448,7 +447,7 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: " ", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         //        print(convertedParameterString)
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
@@ -482,7 +481,7 @@ class SearchPostViewController: UIViewController,UIGestureRecognizerDelegate, In
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")//.replacingOccurrences(of: " ", with: "")
         
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)

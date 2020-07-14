@@ -20,33 +20,17 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
     var listOneDayPickInfo = ""
     var listHotStoreInfo = ""
     
-    var userData: Dictionary<String, Any> = Dictionary<String, Any>()
-    
     @IBOutlet var indicLoading: UIActivityIndicatorView!
     let locationManager = CLLocationManager()
     let permissionStatus = CLLocationManager.authorizationStatus().rawValue
-    //    let permissionStatus = CLLocationManager
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setData()
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(isNot(_:))))
-        //        let status = CLLocationManager.authorizationStatus()
-        //        if status == .notDetermined{
-        //            locationAuthorization()
-        //        }
     }
     override func viewWillAppear(_ animated: Bool) {
-//        switch CLLocationManager.authorizationStatus().rawValue {
-//        case 4:
-//            gotoNext()
-//        case 0:
-//            locationAuthorization()
-//        case 2:
-//            goSettingLocationPermission()
-//        default:
-//            break
-//        }
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         switch CLLocationManager.authorizationStatus().rawValue {
@@ -86,9 +70,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
             "X-NCP-APIGW-API-KEY":naverClientSecretKey,
         ]
         let requestURL = url + paramCoords + paramOrders + paramOutput
-        //        print(requestURL)
         AF.request(requestURL,method: .get, headers: httpHeaders).responseJSON { response in
-            //            debugPrint(response)
             if response.value != nil {
                 if !JSON(response.value!)["results"].arrayValue.isEmpty {
                     let region = JSON(response.value!)["results"].arrayValue[0]["region"]
@@ -105,8 +87,8 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func gotoNext() {
-        let getData = UserDefaults.standard.dictionary(forKey: userDataKey)
-        if getData == nil{
+        let getJSONData = UserDefaults.standard.value(forKey: userDataKey)
+        if getJSONData == nil{
             gotoLogin()
             UserDefaults.standard.set(0, forKey: plannerNumKey)
             let arrStoreSnList : Array<String> = []
@@ -114,6 +96,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
             let arrRecentlyStore : Array<String> = []
             UserDefaults.standard.set(arrRecentlyStore, forKey: recentlyStoreKey)
         } else {
+            userDTO = UserDTO(jsonData: JSON.init(parseJSON: (getJSONData as! String)))
             indicLoading.center = view.center
             indicLoading.startAnimating()
             gotoMain()
@@ -125,7 +108,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
         UserDefaults.standard.removeObject(forKey: locationDataKey)
         UserDefaults.standard.removeObject(forKey: hotStoreKey)
         UserDefaults.standard.removeObject(forKey: oneDayPickKey)
-        //        print(UserDefaults.standard.dictionaryRepresentation())
     }
     func gotoLogin(){
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
@@ -140,11 +122,8 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
     func getHotPlaceInfo(){
         let url = OperationIP + "/store/selectHotStoreInfoList.do"
         AF.request(url,method: .post).responseJSON { response in
-            //            debugPrint(response)
             if response.value != nil {
                 self.listHotStoreInfo = JSON(response.value!).rawString()!
-                //                print(self.listHotStoreInfo)
-                
                 UserDefaults.standard.set(response.value!, forKey: "hotStore")
                 self.getOneDayPickInfo()
             }
@@ -152,17 +131,11 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func getOneDayPickInfo(){
-        userData = getUserData()
         let url = OperationIP + "/store/selectOneDayPickInfoList.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         AF.request(url,method: .post,headers: httpHeaders).responseJSON { response in
-            //            debugPrint(response)
             if response.value != nil {
-                //                self.listOneDayPickInfo = JSON(response.value!).rawString()!
-                //                print(self.listOneDayPickInfo)
-                
                 UserDefaults.standard.set(response.value!, forKey: "oneDayPick")
-                
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let goToVC = storyboard.instantiateViewController(withIdentifier: "mainView")
                 goToVC.modalPresentationStyle = .fullScreen

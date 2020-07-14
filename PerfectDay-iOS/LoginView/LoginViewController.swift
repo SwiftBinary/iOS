@@ -27,40 +27,14 @@ class LoginViewController: UIViewController {
     
     @IBOutlet var svSNSLogin: UIStackView!
     
+    let uds = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
-    }
-    
-    @IBOutlet var lblDataString: UITextView!
-    let uds = UserDefaults.standard
-    @IBAction func saveData(_ sender: UIButton) {
-        //        UserDefaults.standard.set("Test String", forKey: "string")
-        //        uds.setValue("T_e_s_t S_t_r_i_n_g", forKey: "string2")
-        print(uds.dictionaryRepresentation())
-    }
-    @IBAction func printData(_ sender: Any) {
-        //        let data1 = UserDefaults.standard.string(forKey: "string")
-        let data2 = uds.dictionary(forKey: userDataKey)
-        print("#")
-        
-        if data2 == nil {
-            lblDataString.text = "nil"
-        } else {
-            //            print(data2!)
-            lblDataString.text = JSON(arrayLiteral: data2!).rawString()
-        }
-        print("#")
-        print(uds.dictionaryRepresentation())
-    }
-    @IBAction func removeData(_ sender: Any) {
-        uds.removeObject(forKey: userDataKey)
-        print("\n\n#\nRemove Data forKey: " + userDataKey)
-        
-        print(uds.dictionaryRepresentation())
     }
     
     func setUI(){
@@ -114,7 +88,7 @@ class LoginViewController: UIViewController {
                     let loginResult = Int(responseJSON["result"].stringValue)
                     switch loginResult {
                     case 1:
-                        self.loginSuccess(responseJSON,response.value!)
+                        self.loginSuccess(responseJSON,responseJSON.rawString()!)//response.value!)
                     case 2:
                         self.loginFail()
                     case -1:
@@ -133,18 +107,11 @@ class LoginViewController: UIViewController {
         }
         return true
     }
-    func loginSuccess(_ uData:JSON,_ string: Any){
-//        print(uData)
-        uds.setValue(uData.dictionaryObject, forKey: userDataKey)
-        uds.set(string, forKey: "userJSONData")
-//        print(JSON(UserDefaults.standard.value(forKey: "userJSONData")!))
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let goToVC = storyboard.instantiateViewController(withIdentifier: "LoadView")
-//        goToVC.modalPresentationStyle = .fullScreen
-//        self.present(goToVC, animated: true, completion: nil)
+    func loginSuccess(_ uData:JSON,_ string: String){
+        uds.set(string, forKey: userDataKey)
+        UserDefaults.standard.set(false, forKey: setMapGuideKey)
+        userDTO = UserDTO(jsonData: JSON.init(parseJSON: string))
         self.dismiss(animated: true, completion: nil)
-        // 로그인 시 적용
-        //        self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     func loginFail(){
         alertControllerDefault(title: "잘못된 입력", message: "가입되지 않은 아이디거나, 잘못된 비밀번호입니다. 다시 입력해주세요")
@@ -177,7 +144,7 @@ class LoginViewController: UIViewController {
                     let loginResult = Int(responseJSON["result"].stringValue)
                     switch loginResult {
                     case 1:
-                        self.loginSuccess(responseJSON,response.value!)
+                        self.loginSuccess(responseJSON,responseJSON.rawString()!)//response.value!)
                     case 2:
                         self.loginFail()
                     case -1:
@@ -215,10 +182,9 @@ class LoginViewController: UIViewController {
                     let responseJSON = JSON(response.value!)
                     // result값 - 1:성공, 2:실패
                     let loginResult = Int(responseJSON["result"].stringValue)
-                    //                           self.uds.setValue(responseJSON.dictionaryObject, forKey: userDataKey)
                     switch loginResult {
                     case 1:
-                        self.loginSuccess(responseJSON,response.value!)
+                        self.loginSuccess(responseJSON,responseJSON.rawString()!) // response.value!)
                     case 2:
                         self.loginFail()
                     case -1:

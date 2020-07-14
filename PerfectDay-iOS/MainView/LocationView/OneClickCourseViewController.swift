@@ -20,7 +20,6 @@ class OneClickCourseViewController: UIViewController {
     @IBOutlet var uvAlert: UIView!
     @IBOutlet var lblGPAReview: UILabel!
     
-    let userData = getUserData()
     let themeColor = #colorLiteral(red: 0.9545153975, green: 0.4153810143, blue: 0.6185087562, alpha: 1)
     var responseJSON: Array<JSON> = []
     var courseSn = ""
@@ -55,7 +54,7 @@ class OneClickCourseViewController: UIViewController {
     
     func getCourseInfo() {
         let url = OperationIP + "/oneClick/selectOneClickInfo.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         AF.request(url,method: .post, headers: httpHeaders).responseJSON { response in
             //            debugPrint(response)
             if response.value != nil {
@@ -297,7 +296,7 @@ class OneClickCourseViewController: UIViewController {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             debugPrint(response)
@@ -317,7 +316,7 @@ class OneClickCourseViewController: UIViewController {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in
             debugPrint(response)
@@ -344,7 +343,7 @@ class OneClickCourseViewController: UIViewController {
         ])
         
         let convertedParameterString = parameter.rawString()!.replacingOccurrences(of: "\n", with: "")
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         
         print(convertedParameterString)
         AF.request(url,method: .post, parameters: ["json":convertedParameterString], headers: httpHeaders).responseJSON { response in

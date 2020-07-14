@@ -19,7 +19,6 @@ class LandmarkViewController: UIViewController {
     @IBOutlet var indicLoading: UIActivityIndicatorView!
     
     var areaSdDetailCode = ""
-    let userData = getUserData()
     var listLandmarkData:Array<JSON> = []
     
     //        let svLandmark = UIStackView()
@@ -115,7 +114,7 @@ class LandmarkViewController: UIViewController {
     }
     func getHashTag(_ svTag: UIStackView){
         let url = OperationIP + "/tag/selectHashTagList.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         AF.request(url,method: .post,headers: httpHeaders).responseJSON { response in
             if response.value != nil {
                 self.setHashTag(svTag,JSON(response.value!).arrayValue)
@@ -141,7 +140,7 @@ class LandmarkViewController: UIViewController {
     
     func getLandmarkInfo(){
         let url = OperationIP + "/landmark/selectLandmarkInfoList.do"
-        let httpHeaders: HTTPHeaders = ["userSn":getString(userData["userSn"]),"deviceOS":"IOS"]
+        let httpHeaders: HTTPHeaders = ["userSn":userDTO.userSn,"deviceOS":"IOS"]
         let parameter = JSON([
             "areaSdCode" : SeoulSn,
             "areaDetailCode" : areaSdDetailCode,

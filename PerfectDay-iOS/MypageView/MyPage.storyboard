@@ -149,12 +149,39 @@
                                                             </button>
                                                         </subviews>
                                                     </stackView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="취향페이지 완성하면 추가하기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nwX-Kt-7Gy">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="선택된 취향이 없습니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nwX-Kt-7Gy">
                                                         <rect key="frame" x="0.0" y="30" width="373" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJf-Im-UTS" userLabel="HashTag Scroll">
+                                                        <rect key="frame" x="0.0" y="50.5" width="373" height="50"/>
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kuf-sa-mVc">
+                                                                <rect key="frame" x="0.0" y="0.0" width="4.5" height="50"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2o-ZG-YOa">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="4.5" height="50"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="ZhJ-yP-9yJ"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="kuf-sa-mVc" firstAttribute="centerY" secondItem="dJf-Im-UTS" secondAttribute="centerY" id="7jJ-pm-c1q"/>
+                                                            <constraint firstItem="kuf-sa-mVc" firstAttribute="top" secondItem="dJf-Im-UTS" secondAttribute="top" id="GQG-bK-Riw"/>
+                                                            <constraint firstItem="kuf-sa-mVc" firstAttribute="leading" secondItem="dJf-Im-UTS" secondAttribute="leading" id="P3H-jt-cec"/>
+                                                            <constraint firstAttribute="bottom" secondItem="kuf-sa-mVc" secondAttribute="bottom" id="Vag-gp-zF6"/>
+                                                            <constraint firstAttribute="trailing" secondItem="kuf-sa-mVc" secondAttribute="trailing" id="svo-nH-loI"/>
+                                                            <constraint firstItem="kuf-sa-mVc" firstAttribute="height" secondItem="dJf-Im-UTS" secondAttribute="height" id="yYL-Fu-VbZ"/>
+                                                        </constraints>
+                                                    </scrollView>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
@@ -174,16 +201,16 @@
                                                 <rect key="frame" x="20.5" y="15" width="373" height="130"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r97-99-f4p" userLabel="Title Stack">
-                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="80"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="30"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="최근 본 목록" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFQ-lS-0YQ">
-                                                                <rect key="frame" x="0.0" y="0.0" width="82.5" height="80"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="82.5" height="30"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7oy-4Q-cKz">
-                                                                <rect key="frame" x="82.5" y="0.0" width="290.5" height="80"/>
+                                                                <rect key="frame" x="82.5" y="0.0" width="290.5" height="30"/>
                                                                 <state key="normal" title="모두 지우기"/>
                                                                 <connections>
                                                                     <action selector="clearRecentlyStore:" destination="UJ7-Ni-dtX" eventType="touchUpInside" id="PR5-N3-7bF"/>
@@ -192,10 +219,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="최근 본 목록이 없습니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBZ-Dg-h8E">
-                                                        <rect key="frame" x="0.0" y="80" width="373" height="50"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="50" id="mzt-fq-kW8"/>
-                                                        </constraints>
+                                                        <rect key="frame" x="0.0" y="30" width="373" height="100"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -344,10 +368,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="lblPreferEmpty" destination="nwX-Kt-7Gy" id="anA-7J-V4E"/>
                         <outlet property="lblRecentlyStoreEmpty" destination="wBZ-Dg-h8E" id="Jev-xk-cP8"/>
                         <outlet property="lblUserEmail" destination="aHj-Cz-obk" id="kQb-dk-xLj"/>
                         <outlet property="lblUserNickName" destination="mC7-vL-TQt" id="Y9h-MY-Xsy"/>
+                        <outlet property="scvPrefer" destination="dJf-Im-UTS" id="yeL-fD-tsa"/>
                         <outlet property="scvRecentlyStore" destination="2Ca-9j-Y0e" id="HEO-me-MIy"/>
+                        <outlet property="svPrefer" destination="kuf-sa-mVc" id="M0Y-Nk-bbv"/>
                         <outlet property="svRecentlyStore" destination="uQb-c1-ghU" id="Siy-ER-AGy"/>
                         <outlet property="svServiceCenter" destination="nHG-ou-txG" id="26n-35-0oc"/>
                     </connections>

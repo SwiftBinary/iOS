@@ -35,6 +35,7 @@ class SettingViewController: UITableViewController {
         let alertController = UIAlertController(title: "정말 로그아웃 하시겠습니까?", message: "", preferredStyle: UIAlertController.Style.alert)
         let acceptAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.default , handler: { _ in
             UserDefaults.standard.removeObject(forKey: userDataKey)
+            UserDefaults.standard.removeObject(forKey: setMapGuideKey)
             UserDefaults.standard.set(0, forKey: plannerNumKey)
             let arr : Array<String> = []
             UserDefaults.standard.set(arr, forKey: "StoreSnList")
